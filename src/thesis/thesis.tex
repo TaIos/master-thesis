@@ -3,6 +3,10 @@
 \documentclass{article}
 \usepackage[english]{babel}
 
+\usepackage[style=iso-numeric]{biblatex}
+\addbibresource{bibliography.bib}
+
+
 % automaticke vkladani nezalomitelnych mezer za ceske jednopismene predlozky
 \usepackage{xevlna}
 
@@ -26,16 +30,18 @@
 
 
 \begin{document}
-\pagenumbering{gobble}
-\title{Draft of my Diploma Thesis}
-\author{Martin Šafránek \\  \href{mailto:saframa6@fit.cvut.cz}{saframa6@fit.cvut.cz}}
-\date{\today}
-\maketitle
-\tableofcontents
-\newpage
-\pagenumbering{arabic}
+    \pagenumbering{gobble}
+    \title{Draft of my Diploma Thesis}
+    \author{Martin Šafránek \\  \href{mailto:saframa6@fit.cvut.cz}{saframa6@fit.cvut.cz}}
+    \date{\today}
+    \maketitle
+    \tableofcontents
+    \newpage
+    \pagenumbering{arabic}
 
-\input{chapters/literature-overview}
+    \input{chapters/literature-overview}
+
+    \printbibliography
+    \appendix
 
 \end{document}
-testing
