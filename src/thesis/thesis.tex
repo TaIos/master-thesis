@@ -1,0 +1,41 @@
+% !TEX program = xelatex
+
+\documentclass{article}
+\usepackage[english]{babel}
+
+% automaticke vkladani nezalomitelnych mezer za ceske jednopismene predlozky
+\usepackage{xevlna}
+
+\renewcommand{\figurename}{Listing}
+\usepackage{mathtools}   % loads »amsmath«
+\usepackage{amssymb} %additional math symbols
+
+\usepackage{graphics}
+\graphicspath{{../../res/img-thesis/}}
+
+\usepackage{csquotes} %  uvozovky -> \uv
+\usepackage{hyperref}
+
+% pro \textcolor{color}{text}
+\usepackage{xcolor}
+
+\usepackage{amsthm} % definice, vety
+\newtheorem{defn}{Definice}[section]
+
+\usepackage{subfig}
+
+
+\begin{document}
+\pagenumbering{gobble}
+\title{Draft of my Diploma Thesis}
+\author{Martin Šafránek \\  \href{mailto:saframa6@fit.cvut.cz}{saframa6@fit.cvut.cz}}
+\date{\today}
+\maketitle
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\input{chapters/literature-overview}
+
+\end{document}
+testing

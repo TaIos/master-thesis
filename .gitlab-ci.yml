@@ -1,0 +1,16 @@
+image: tianon/latex
+
+compileThesis:
+  script:
+    - cd src/thesis
+    - make
+    - make clean
+  only:
+    changes:
+      - src/thesis/**/*
+  artifacts:
+    paths:
+        - src/thesis/thesis.pdf
+    untracked: true
+    expire_in: 42 yrs
+
