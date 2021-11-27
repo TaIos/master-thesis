@@ -37,9 +37,9 @@ thesis.pdf: thesis.tex
 # keep pdf
 clean:
 	latexmk -c
-	rm rm -f *.{log,out,aux,fls,fdb_latexmk,blg,bbl,toc,run.xml} *~
+	rm -f *.{log,out,aux,fls,fdb_latexmk,blg,bbl,toc,run.xml} *~
 
 # remove also pdf
 clean-hard:
 	latexmk -C
-	rm rm -f *.{log,out,aux,fls,fdb_latexmk,blg,bbl,toc,run.xml} *~
+	rm -f *.{log,out,aux,fls,fdb_latexmk,blg,bbl,toc,run.xml} *~
