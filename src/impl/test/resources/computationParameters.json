@@ -1,0 +1,22 @@
+{
+  "instanceParams": {
+    "grid": {
+      "x": 1,
+      "y": 2,
+      "width": 3,
+      "height": 4
+    }
+  },
+  "gaParams": {
+    "mutationProb": 0.1,
+    "crossoverProb": 0.4,
+    "maxNumberOfIter": 300,
+    "populationSize": 100,
+    "geneticAlgorithm": "simpleGa",
+    "mate": "repeatFirstParent",
+    "mutate": "flipOneOrientationAtRandom",
+    "select": "best",
+    "metric": "euclidean",
+    "objective": "useMetricOnly"
+  }
+}
