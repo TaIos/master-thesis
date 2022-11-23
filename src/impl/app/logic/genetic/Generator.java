@@ -14,8 +14,8 @@ import static utils.JavaUtils.shuffle;
 public class Generator {
   private final Random rnd;
 
-  public Generator() {
-    rnd = new Random(System.currentTimeMillis());
+  public Generator(Random random) {
+    rnd = random;
   }
 
   public Individual randomAutoIdent(int facilityCount) {

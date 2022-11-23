@@ -8,11 +8,13 @@ import factory.GeneticAlgorithmFactory;
 import factory.InstanceParameterFactory;
 import factory.MetricFactory;
 import factory.ObjectiveFactory;
-import factory.PlacingProvider;
 import factory.RectangleFactory;
 import factory.operators.MatingOperatorFactory;
 import factory.operators.MutateOperatorFactory;
 import factory.operators.SelectOperatorFactory;
+import factory.provider.GeneratorProvider;
+import factory.provider.PlacingProvider;
+import factory.provider.RandomProvider;
 import logic.genetic.Placing;
 import logic.genetic.algorithm.BaseGeneticAlgorithm;
 import logic.genetic.algorithm.GeneticAlgorithm;
@@ -29,6 +31,7 @@ import utils.ResourceFileLoaderUtil;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -41,16 +44,19 @@ public class GeneticAlgorithmFactoryTest implements ResourceFileLoaderUtil {
 
   public GeneticAlgorithmFactoryTest() {
     dtoValidator = new DtoValidator();
+    RandomProvider randomProvider = new RandomProvider(new Random(42));
     geneticAlgorithmFactory =
         new GeneticAlgorithmFactory(
             new GAParametersFactory(
                 new MatingOperatorFactory(),
-                new MutateOperatorFactory(),
+                new MutateOperatorFactory(randomProvider),
                 new SelectOperatorFactory()),
             new EvaluatorFactory(
                 new ObjectiveFactory(new MetricFactory()),
-                new PlacingProvider(new Placing(new RectangleService(new RectangleFactory()))),
-                new InstanceParameterFactory(new RectangleFactory())));
+                new PlacingProvider(new RectangleService(new RectangleFactory())),
+                new InstanceParameterFactory(new RectangleFactory())),
+            new GeneratorProvider(randomProvider),
+            randomProvider);
   }
 
   private CreateComputationDto loadAndValidateCreateComputationDtoFromJsonFile() throws Exception {

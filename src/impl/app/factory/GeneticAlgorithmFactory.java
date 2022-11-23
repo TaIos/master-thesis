@@ -2,6 +2,8 @@ package factory;
 
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
+import factory.provider.GeneratorProvider;
+import factory.provider.RandomProvider;
 import logic.genetic.Evaluator;
 import logic.genetic.HallOfFame;
 import logic.genetic.algorithm.GeneticAlgorithm;
@@ -17,12 +19,19 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
 
   private final GAParametersFactory gaParametersFactory;
   private final EvaluatorFactory evaluatorFactory;
+  private final GeneratorProvider generatorProvider;
+  private final RandomProvider randomProvider;
 
   @Inject
   public GeneticAlgorithmFactory(
-      GAParametersFactory gaParametersFactory, EvaluatorFactory evaluatorFactory) {
+      GAParametersFactory gaParametersFactory,
+      EvaluatorFactory evaluatorFactory,
+      GeneratorProvider generatorProvider,
+      RandomProvider randomProvider) {
     this.gaParametersFactory = gaParametersFactory;
     this.evaluatorFactory = evaluatorFactory;
+    this.generatorProvider = generatorProvider;
+    this.randomProvider = randomProvider;
   }
 
   @Override
@@ -40,7 +49,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
       throws EntityNotFoundException, ImplementationNotFoundException {
     switch (findOrThrow(name)) {
       case SIMPLE_GA:
-        return new SimpleGA(params, evaluator, hof);
+        return new SimpleGA(params, evaluator, hof, generatorProvider.get(), randomProvider.get());
       default:
         throw new ImplementationNotFoundException(GeneticAlgorithm.class, name);
     }

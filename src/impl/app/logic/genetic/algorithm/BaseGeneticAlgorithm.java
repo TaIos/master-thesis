@@ -15,12 +15,19 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
   protected final Evaluator evaluator;
   protected final HallOfFame hof;
 
-  protected final Generator generator = new Generator();
-  protected final Random rnd = new Random(System.currentTimeMillis());
+  protected final Generator generator;
+  protected final Random rnd;
 
-  public BaseGeneticAlgorithm(GAParameters params, Evaluator evaluator, HallOfFame hof) {
+  public BaseGeneticAlgorithm(
+      GAParameters params,
+      Evaluator evaluator,
+      HallOfFame hof,
+      Generator generator,
+      Random random) {
     this.params = params;
     this.evaluator = evaluator;
     this.hof = hof;
+    this.generator = generator;
+    this.rnd = random;
   }
 }

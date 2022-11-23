@@ -2,6 +2,7 @@ package factory;
 
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
+import factory.provider.PlacingProvider;
 import logic.genetic.Evaluator;
 import models.dto.CreateComputationDto;
 

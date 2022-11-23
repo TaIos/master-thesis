@@ -6,20 +6,16 @@ import models.entity.Orientation;
 import models.entity.Rectangle;
 import services.RectangleService;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Singleton
 public class Placing {
 
   private final RectangleService rectangleService;
 
-  @Inject
   public Placing(RectangleService rectangleService) {
     this.rectangleService = rectangleService;
   }

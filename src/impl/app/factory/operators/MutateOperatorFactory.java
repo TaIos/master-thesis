@@ -3,15 +3,24 @@ package factory.operators;
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import factory.Factory;
+import factory.provider.RandomProvider;
 import logic.genetic.operators.mutate.FlipOneOrientationAtRandomMutateOperator;
 import logic.genetic.operators.mutate.MutateOperator;
 import logic.metric.Metric;
 import models.dto.GAParametersDto;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
 public class MutateOperatorFactory implements Factory<String, MutateOperator> {
+
+  private final RandomProvider randomProvider;
+
+  @Inject
+  public MutateOperatorFactory(RandomProvider randomProvider) {
+    this.randomProvider = randomProvider;
+  }
 
   public MutateOperator create(GAParametersDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException {
@@ -24,7 +33,7 @@ public class MutateOperatorFactory implements Factory<String, MutateOperator> {
 
     switch (findOrThrow(name)) {
       case FLIP_ONE_ORIENTATION_AT_RANDOM:
-        return new FlipOneOrientationAtRandomMutateOperator();
+        return new FlipOneOrientationAtRandomMutateOperator(randomProvider.get());
       default:
         throw new ImplementationNotFoundException(Metric.class, name);
     }

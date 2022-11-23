@@ -7,8 +7,8 @@ import java.util.Random;
 public class FlipOneOrientationAtRandomMutateOperator implements MutateOperator {
   private final Random rnd;
 
-  public FlipOneOrientationAtRandomMutateOperator() {
-    rnd = new Random(System.currentTimeMillis());
+  public FlipOneOrientationAtRandomMutateOperator(Random random) {
+    rnd = random;
   }
 
   @Override

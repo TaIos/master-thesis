@@ -1,6 +1,7 @@
 package logic.genetic.algorithm;
 
 import logic.genetic.Evaluator;
+import logic.genetic.Generator;
 import logic.genetic.HallOfFame;
 import models.entity.GAParameters;
 import models.entity.GAResult;
@@ -9,11 +10,17 @@ import models.entity.Individual;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class SimpleGA extends BaseGeneticAlgorithm {
 
-  public SimpleGA(GAParameters params, Evaluator evaluator, HallOfFame hof) {
-    super(params, evaluator, hof);
+  public SimpleGA(
+      GAParameters params,
+      Evaluator evaluator,
+      HallOfFame hof,
+      Generator generator,
+      Random random) {
+    super(params, evaluator, hof, generator, random);
   }
 
   @Override
