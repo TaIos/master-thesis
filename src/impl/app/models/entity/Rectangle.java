@@ -20,4 +20,9 @@ public class Rectangle {
     if (center == null) center = new Point((x + width) / 2d, (y + height) / 2d);
     return center;
   }
+
+  @Override
+  public String toString() {
+    return String.format("%s,%s,%s,%s", x, y, width, height);
+  }
 }

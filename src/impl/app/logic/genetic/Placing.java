@@ -37,7 +37,7 @@ public class Placing {
 
     int k = slicingOrder.get(0);
     List<Facility> lf = facilitySequence.subList(0, k);
-    List<Facility> rf = facilitySequence.subList(k, 0);
+    List<Facility> rf = facilitySequence.subList(k, facilitySequence.size());
     List<Rectangle> sp = createSplit(orientations.get(0), grid);
     placeIfSingle(lf, rf, sp);
 
@@ -71,38 +71,38 @@ public class Placing {
   }
 
   private List<Integer> createNextSlicingOrderUpTo(List<Integer> slicingOrder, int k) {
-    return createNextSlicingOrder(slicingOrder, val -> val < k);
+    return createNextSlicingOrder(slicingOrder, val -> val < k, 0);
   }
 
   private List<Integer> createNextSlicingOrderAfter(List<Integer> slicingOrder, int k) {
-    return createNextSlicingOrder(slicingOrder, val -> val > k);
+    return createNextSlicingOrder(slicingOrder, val -> val > k, k);
   }
 
   private List<Integer> createNextSlicingOrder(
-      List<Integer> slicingOrder, Predicate<Integer> pred) {
-    return slicingOrder.stream().filter(pred).collect(Collectors.toList());
+      List<Integer> slicingOrder, Predicate<Integer> pred, int offset) {
+    return slicingOrder.stream().filter(pred).map(val -> val - offset).collect(Collectors.toList());
   }
 
   private List<Orientation> createNextOrientationUpTo(
       List<Integer> slicingOrder, List<Orientation> orientations, int k) {
-    return createNextOrientation(slicingOrder, orientations, (value) -> value < k);
+    return createNextOrientation(slicingOrder, orientations, val -> val < k);
   }
 
   private List<Orientation> createNextOrientationAfter(
       List<Integer> slicingOrder, List<Orientation> orientations, int k) {
-    return createNextOrientation(slicingOrder, orientations, (value) -> value > k);
+    return createNextOrientation(slicingOrder, orientations, val -> val > k);
   }
 
   private List<Orientation> createNextOrientation(
       List<Integer> slicingOrder, List<Orientation> orientations, Predicate<Integer> pred) {
     Iterator<Integer> slicingOrderIt = slicingOrder.iterator();
-    Iterator<Orientation> orientationsIterator = orientations.iterator();
-    List<Orientation> orientationsNext = new ArrayList<>();
+    Iterator<Orientation> orientationIt = orientations.iterator();
+    List<Orientation> result = new ArrayList<>();
 
-    while (slicingOrderIt.hasNext() && orientationsIterator.hasNext()) {
-      Orientation orientation = orientationsIterator.next();
-      if (pred.test(slicingOrderIt.next())) orientationsNext.add(orientation);
+    while (slicingOrderIt.hasNext() && orientationIt.hasNext()) {
+      Orientation orientation = orientationIt.next();
+      if (pred.test(slicingOrderIt.next())) result.add(orientation);
     }
-    return orientationsNext;
+    return result;
   }
 }

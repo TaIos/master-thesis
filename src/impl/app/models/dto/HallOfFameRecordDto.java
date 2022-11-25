@@ -7,7 +7,10 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class GAResultDto implements Dto {
+public class HallOfFameRecordDto implements Dto {
+  private Integer iteration;
+  private Double objectiveMin;
+  private Double objectiveMax;
+  private Double objectiveAvg;
   private IndividualDto bestIndividual;
-  private HallOfFameDto hallOfFame;
 }

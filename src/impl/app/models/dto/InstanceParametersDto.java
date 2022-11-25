@@ -13,4 +13,5 @@ import net.sf.oval.constraint.NotNull;
 @NoArgsConstructor
 public class InstanceParametersDto implements Dto {
   @NotNull @AssertValid private RectangleDto grid;
+  @NotNull @AssertValid private Integer facilityCount;
 }

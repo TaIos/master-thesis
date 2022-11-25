@@ -9,4 +9,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class InstanceParameters {
   private Rectangle grid;
+  private Integer facilityCount;
 }

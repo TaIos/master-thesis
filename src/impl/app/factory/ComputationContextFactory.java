@@ -4,6 +4,7 @@ import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import models.dto.CreateComputationDto;
 import models.entity.ComputationContext;
+import org.slf4j.Logger;
 import services.ResultWriterService;
 
 import javax.inject.Inject;
@@ -34,13 +35,14 @@ public class ComputationContextFactory
   public ComputationContext create(CreateComputationDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException {
     String name = computationNameFactory.create(dto);
+    Logger logger = loggerFactory.create(name);
     return ComputationContext.builder()
         .id(name)
         .createComputationDto(dto)
-        .geneticAlgorithm(geneticAlgorithmFactory.create(dto))
+        .geneticAlgorithm(geneticAlgorithmFactory.create(dto, logger))
         .computationResult(null)
         .resultDir(resultWriter.createDirForComputationOutput(name))
-        .logger(loggerFactory.create(name))
+        .logger(logger)
         .build();
   }
 }

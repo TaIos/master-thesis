@@ -8,16 +8,16 @@ import java.util.stream.Collectors;
 
 public class DtoConstraintViolationException extends BaseException {
 
-  public <T extends Dto> DtoConstraintViolationException(
-      List<ConstraintViolation> violations, Class<T> validatedClass) {
+  public <T extends Dto> DtoConstraintViolationException(List<ConstraintViolation> violations) {
     super(
         String.format(
-            "Violations: %s. Validated class: %s",
+            "Violations: %s",
             String.join(
                 ", ",
                 prefixWithOrdinalNumber(
-                    violations.stream().map(Object::toString).collect(Collectors.toList()))),
-            validatedClass.getName()));
+                    violations.stream()
+                        .map(ConstraintViolation::getMessage)
+                        .collect(Collectors.toList())))));
   }
 
   private static List<String> prefixWithOrdinalNumber(List<String> list) {

@@ -11,4 +11,5 @@ libraryDependencies ++= Seq(
   guice,
   "org.projectlombok" % "lombok" % "1.18.24",
   "net.sf.oval" % "oval" % "3.2.1",
+  "org.apache.commons" % "commons-text" % "1.10.0"
 )

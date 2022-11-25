@@ -2,9 +2,11 @@ package unit.factory.genetic_algorithm;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import factory.CustomLoggerFactory;
 import factory.EvaluatorFactory;
 import factory.GAParametersFactory;
 import factory.GeneticAlgorithmFactory;
+import factory.HallOfFameFactory;
 import factory.InstanceParameterFactory;
 import factory.MetricFactory;
 import factory.ObjectiveFactory;
@@ -15,18 +17,19 @@ import factory.operators.SelectOperatorFactory;
 import factory.provider.GeneratorProvider;
 import factory.provider.PlacingProvider;
 import factory.provider.RandomProvider;
-import logic.genetic.Placing;
 import logic.genetic.algorithm.BaseGeneticAlgorithm;
 import logic.genetic.algorithm.GeneticAlgorithm;
 import logic.objective.Objective;
 import models.dto.CreateComputationDto;
 import models.dto.validation.DtoValidator;
 import models.entity.GAParameters;
+import models.entity.InstanceParameters;
 import models.entity.Point;
 import models.entity.Rectangle;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import services.RectangleService;
+import utils.RandomStringGenerator;
 import utils.ResourceFileLoaderUtil;
 
 import java.io.InputStream;
@@ -45,18 +48,23 @@ public class GeneticAlgorithmFactoryTest implements ResourceFileLoaderUtil {
   public GeneticAlgorithmFactoryTest() {
     dtoValidator = new DtoValidator();
     RandomProvider randomProvider = new RandomProvider(new Random(42));
+    RectangleFactory rectangleFactory = new RectangleFactory();
     geneticAlgorithmFactory =
         new GeneticAlgorithmFactory(
             new GAParametersFactory(
                 new MatingOperatorFactory(),
                 new MutateOperatorFactory(randomProvider),
                 new SelectOperatorFactory()),
+            new InstanceParameterFactory(rectangleFactory),
             new EvaluatorFactory(
                 new ObjectiveFactory(new MetricFactory()),
-                new PlacingProvider(new RectangleService(new RectangleFactory())),
-                new InstanceParameterFactory(new RectangleFactory())),
+                new PlacingProvider(new RectangleService(rectangleFactory)),
+                new InstanceParameterFactory(rectangleFactory)),
+            new HallOfFameFactory(),
             new GeneratorProvider(randomProvider),
-            randomProvider);
+            randomProvider,
+            new CustomLoggerFactory(),
+            new RandomStringGenerator());
   }
 
   private CreateComputationDto loadAndValidateCreateComputationDtoFromJsonFile() throws Exception {
@@ -88,7 +96,7 @@ public class GeneticAlgorithmFactoryTest implements ResourceFileLoaderUtil {
     assertEquals(2, c.getX(), DELTA);
     assertEquals(3, c.getY(), DELTA);
 
-    GAParameters g = ga.getParams();
+    GAParameters g = ga.getGaParams();
     assertEquals(0.1, g.getMutationProb(), DELTA);
     assertEquals(0.4, g.getCrossoverProb(), DELTA);
     assertEquals(300, g.getMaxNumberOfIter().intValue());
@@ -96,6 +104,9 @@ public class GeneticAlgorithmFactoryTest implements ResourceFileLoaderUtil {
     assertEquals("repeatFirstParent", g.getMatingOperator().getType().getLabel());
     assertEquals("flipOneOrientationAtRandom", g.getMutateOperator().getType().getLabel());
     assertEquals("best", g.getSelectOperator().getType().getLabel());
+
+    InstanceParameters p = ga.getInstanceParams();
+    assertEquals(7, p.getFacilityCount().intValue());
 
     Objective o = ga.getEvaluator().getObjective();
     assertEquals("useMetricOnly", o.getType().getLabel());

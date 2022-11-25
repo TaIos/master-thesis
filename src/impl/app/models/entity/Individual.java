@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class Individual implements Comparable<Individual>, Cloneable {
 
   public static final double OBJECTIVE_VALUE_MAX = Double.MAX_VALUE;
+  public static final double OBJECTIVE_VALUE_MIN = 0;
 
   private List<Facility> facilitySequence;
   private List<Integer> slicingOrder;
@@ -43,6 +44,7 @@ public class Individual implements Comparable<Individual>, Cloneable {
       clone.facilitySequence = facilitySequenceClone;
       clone.slicingOrder = new ArrayList<>(slicingOrder);
       clone.orientations = new ArrayList<>(orientations);
+      clone.objectiveValue = objectiveValue;
       return clone;
     } catch (CloneNotSupportedException e) {
       throw new AssertionError();

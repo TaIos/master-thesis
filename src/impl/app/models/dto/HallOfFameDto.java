@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
-public class GAResultDto implements Dto {
-  private IndividualDto bestIndividual;
-  private HallOfFameDto hallOfFame;
+public class HallOfFameDto implements Dto {
+  List<HallOfFameRecordDto> records;
 }

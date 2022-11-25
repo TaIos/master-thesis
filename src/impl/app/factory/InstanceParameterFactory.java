@@ -23,7 +23,10 @@ public class InstanceParameterFactory
   @Override
   public InstanceParameters create(InstanceParametersDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException {
-    return InstanceParameters.builder().grid(rectangleFactory.create(dto)).build();
+    return InstanceParameters.builder()
+        .grid(rectangleFactory.create(dto))
+        .facilityCount(dto.getFacilityCount())
+        .build();
   }
 
   public InstanceParameters create(CreateComputationDto dto)
