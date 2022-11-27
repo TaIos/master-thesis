@@ -2,6 +2,7 @@ package controllers;
 
 import exceptions.BaseException;
 import models.dto.CreateComputationDto;
+import models.dto.CreateComputationFromDatasetDto;
 import models.dto.validation.DtoValidator;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -26,4 +27,10 @@ public class ComputationController extends Controller {
     CreateComputationDto dto = validator.deserializeAndValidate(req, CreateComputationDto.class);
     return ok(toJson(computationService.compute(dto)));
   }
+
+  public Result computeForDataset(Http.Request req) throws BaseException {
+    CreateComputationFromDatasetDto dto = validator.deserializeAndValidate(req, CreateComputationFromDatasetDto.class);
+    return ok(toJson(computationService.compute(dto)));
+  }
+
 }

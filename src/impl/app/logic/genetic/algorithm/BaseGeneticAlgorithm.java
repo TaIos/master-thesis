@@ -8,6 +8,7 @@ import models.entity.GAParameters;
 import models.entity.Individual;
 import models.entity.InstanceParameters;
 import models.entity.Population;
+import models.entity.RandomIndividualGenerationRequest;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
 
   protected void crossover(Population pop, List<Individual> popNext, int k) {
     List<Individual> machoList = pop.getIndividualList().subList(0, (int) (0.1 * pop.size()));
+    if (machoList.isEmpty()) return;
     for (int i = 0; i < k; i++) {
       Individual macho = machoList.get(rnd.nextInt(machoList.size()));
       Individual randomIndividual = pop.getIndividualList().get(rnd.nextInt(pop.size()));
@@ -68,9 +70,10 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
   }
 
   protected Population generateInitialPopulation() {
+    var req = new RandomIndividualGenerationRequest(instanceParams.getFacilities());
     List<Individual> pop = new ArrayList<>(gaParams.getPopulationSize());
     for (int i = 0; i < gaParams.getPopulationSize(); i++) {
-      pop.add(generator.randomAutoIdent(instanceParams.getFacilityCount()));
+      pop.add(generator.random(req));
     }
     return new Population(pop, evaluator);
   }

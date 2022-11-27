@@ -21,8 +21,8 @@ public final class JavaUtils {
     return list;
   }
 
-  public static Stream<Integer> range(int endExclusive) {
-    return IntStream.range(1, endExclusive).boxed();
+  public static Stream<Integer> range(int startInclusive, int endExclusive) {
+    return IntStream.range(startInclusive, endExclusive).boxed();
   }
 
   public static <T extends EnumTypeInterface> Optional<T> getForLabel(T[] values, String label) {

@@ -13,43 +13,43 @@
     },
     "dimension":[
       {
-        "dep":1,
+        "facility":1,
         "area":238
       },
       {
-        "dep":2,
+        "facility":2,
         "area":112
       },
       {
-        "dep":3,
+        "facility":3,
         "area":160
       },
       {
-        "dep":4,
+        "facility":4,
         "area":80
       },
       {
-        "dep":5,
+        "facility":5,
         "area":120
       },
       {
-        "dep":6,
+        "facility":6,
         "area":80
       },
       {
-        "dep":7,
+        "facility":7,
         "area":60
       },
       {
-        "dep":8,
+        "facility":8,
         "area":85
       },
       {
-        "dep":9,
+        "facility":9,
         "area":221
       },
       {
-        "dep":10,
+        "facility":10,
         "area":119
       }
     ],

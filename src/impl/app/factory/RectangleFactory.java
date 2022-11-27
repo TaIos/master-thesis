@@ -15,7 +15,7 @@ public class RectangleFactory implements Factory<RectangleDto, Rectangle> {
   }
 
   public Rectangle create(InstanceParametersDto dto) {
-    return create(dto.getGrid());
+    return create(0, 0, dto.getLayout().getWidth(), dto.getLayout().getHeight());
   }
 
   public Rectangle create(int x, int y, int width, int height) {

@@ -20,7 +20,7 @@ public class Evaluator {
   }
 
   public void eval(Individual ind) {
-    placing.setFacilityGrid(ind, params.getGrid());
+    placing.setFacilityGrid(ind, params.getLayout());
     Double objectiveVal = objective.eval(ind.getFacilitySequence());
     ind.setObjectiveValue(objectiveVal);
   }

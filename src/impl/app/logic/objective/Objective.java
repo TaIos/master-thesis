@@ -27,7 +27,8 @@ public interface Objective {
   Metric getMetric();
 
   enum Type implements EnumTypeInterface {
-    USE_METRIC_ONLY("useMetricOnly");
+    USE_METRIC_ONLY("useMetricOnly"),
+    METRIC_TIMES_FREQUENCY("metricTimesFrequency");
 
     final String label;
 

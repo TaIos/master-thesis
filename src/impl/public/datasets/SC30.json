@@ -13,123 +13,123 @@
     },
     "dimension":[
       {
-        "dep":1,
+        "facility":1,
         "area":3
       },
       {
-        "dep":2,
+        "facility":2,
         "area":4
       },
       {
-        "dep":3,
+        "facility":3,
         "area":4
       },
       {
-        "dep":4,
+        "facility":4,
         "area":16
       },
       {
-        "dep":5,
+        "facility":5,
         "area":4
       },
       {
-        "dep":6,
+        "facility":6,
         "area":5
       },
       {
-        "dep":7,
+        "facility":7,
         "area":2
       },
       {
-        "dep":8,
+        "facility":8,
         "area":3
       },
       {
-        "dep":9,
+        "facility":9,
         "area":5
       },
       {
-        "dep":10,
+        "facility":10,
         "area":6
       },
       {
-        "dep":11,
+        "facility":11,
         "area":2
       },
       {
-        "dep":12,
+        "facility":12,
         "area":24
       },
       {
-        "dep":13,
+        "facility":13,
         "area":5
       },
       {
-        "dep":14,
+        "facility":14,
         "area":3
       },
       {
-        "dep":15,
+        "facility":15,
         "area":11
       },
       {
-        "dep":16,
+        "facility":16,
         "area":6
       },
       {
-        "dep":17,
+        "facility":17,
         "area":2
       },
       {
-        "dep":18,
+        "facility":18,
         "area":8
       },
       {
-        "dep":19,
+        "facility":19,
         "area":4
       },
       {
-        "dep":20,
+        "facility":20,
         "area":5
       },
       {
-        "dep":21,
+        "facility":21,
         "area":4
       },
       {
-        "dep":22,
+        "facility":22,
         "area":3
       },
       {
-        "dep":23,
+        "facility":23,
         "area":1
       },
       {
-        "dep":24,
+        "facility":24,
         "area":3
       },
       {
-        "dep":25,
+        "facility":25,
         "area":1
       },
       {
-        "dep":26,
+        "facility":26,
         "area":4
       },
       {
-        "dep":27,
+        "facility":27,
         "area":6
       },
       {
-        "dep":28,
+        "facility":28,
         "area":1
       },
       {
-        "dep":29,
+        "facility":29,
         "area":14
       },
       {
-        "dep":30,
+        "facility":30,
         "area":4
       }
     ],

@@ -1,5 +1,7 @@
 package services;
 
+import exceptions.DtoConstraintViolationException;
+import exceptions.DtoConstraintViolationExceptionWrapper;
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import factory.ComputationContextFactory;
@@ -7,6 +9,7 @@ import factory.ComputationResultPromiseFactory;
 import factory.GATimeMeasureWrapperFactory;
 import models.dto.ComputationResultPromiseDto;
 import models.dto.CreateComputationDto;
+import models.dto.CreateComputationFromDatasetDto;
 import models.entity.ComputationContext;
 
 import javax.inject.Inject;
@@ -29,6 +32,12 @@ public class ComputationService {
     this.computationContextFactory = computationContextFactory;
     this.computationResultPromiseFactory = computationResultPromiseFactory;
     this.resultWriterService = resultWriterService;
+  }
+
+  public ComputationResultPromiseDto compute(CreateComputationFromDatasetDto dto)
+      throws DtoConstraintViolationException, EntityNotFoundException,
+          ImplementationNotFoundException, DtoConstraintViolationExceptionWrapper {
+    return compute(computationContextFactory.create(dto));
   }
 
   public ComputationResultPromiseDto compute(CreateComputationDto dto)

@@ -37,11 +37,8 @@ public class Individual implements Comparable<Individual>, Cloneable {
   public Individual clone() {
     try {
       Individual clone = (Individual) super.clone();
-      List<Facility> facilitySequenceClone = new ArrayList<>();
-      for (Facility f : facilitySequence) {
-        facilitySequenceClone.add(new Facility(f.getIdent(), f.getPlacement()));
-      }
-      clone.facilitySequence = facilitySequenceClone;
+      clone.facilitySequence =
+          facilitySequence.stream().map(Facility::clone).collect(Collectors.toList());
       clone.slicingOrder = new ArrayList<>(slicingOrder);
       clone.orientations = new ArrayList<>(orientations);
       clone.objectiveValue = objectiveValue;

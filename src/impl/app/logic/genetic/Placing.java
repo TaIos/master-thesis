@@ -33,13 +33,15 @@ public class Placing {
       List<Integer> slicingOrder,
       List<Orientation> orientations,
       Rectangle grid) {
-    if (slicingOrder.isEmpty()) return;
+    if (facilitySequence.size() == 1) {
+      facilitySequence.get(0).setPlacement(grid);
+      return;
+    }
 
     int k = slicingOrder.get(0);
     List<Facility> lf = facilitySequence.subList(0, k);
     List<Facility> rf = facilitySequence.subList(k, facilitySequence.size());
     List<Rectangle> sp = createSplit(orientations.get(0), grid);
-    placeIfSingle(lf, rf, sp);
 
     setRecursively(
         lf,
@@ -57,17 +59,6 @@ public class Placing {
     return orientation.getType().equals(Orientation.Type.HORIZONTAL)
         ? rectangleService.splitHorizontally(grid)
         : rectangleService.splitVertically(grid);
-  }
-
-  private void placeIfSingle(List<Facility> left, List<Facility> right, List<Rectangle> split) {
-    placeIfSingle(left, split.get(0));
-    placeIfSingle(right, split.get(1));
-  }
-
-  private void placeIfSingle(List<Facility> facilities, Rectangle rectangle) {
-    if (facilities.size() == 1) {
-      facilities.get(0).setPlacement(rectangle);
-    }
   }
 
   private List<Integer> createNextSlicingOrderUpTo(List<Integer> slicingOrder, int k) {
