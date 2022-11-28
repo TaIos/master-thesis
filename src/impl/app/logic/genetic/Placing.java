@@ -20,28 +20,28 @@ public class Placing {
     this.rectangleService = rectangleService;
   }
 
-  public void setFacilityGrid(Individual individual, Rectangle grid) {
+  public void setFacilityLayout(Individual individual, Rectangle layout) {
     setRecursively(
         individual.getFacilitySequence(),
         individual.getSlicingOrder(),
         individual.getOrientations(),
-        grid);
+        layout);
   }
 
   private void setRecursively(
       List<Facility> facilitySequence,
       List<Integer> slicingOrder,
       List<Orientation> orientations,
-      Rectangle grid) {
+      Rectangle layout) {
     if (facilitySequence.size() == 1) {
-      facilitySequence.get(0).setPlacement(grid);
+      facilitySequence.get(0).setPlacement(layout);
       return;
     }
 
     int k = slicingOrder.get(0);
     List<Facility> lf = facilitySequence.subList(0, k);
     List<Facility> rf = facilitySequence.subList(k, facilitySequence.size());
-    List<Rectangle> sp = createSplit(orientations.get(0), grid);
+    List<Rectangle> sp = createSplit(orientations.get(0), layout, lf, rf);
 
     setRecursively(
         lf,
@@ -55,10 +55,14 @@ public class Placing {
         sp.get(1));
   }
 
-  private List<Rectangle> createSplit(Orientation orientation, Rectangle grid) {
+  private List<Rectangle> createSplit(
+      Orientation orientation, Rectangle layout, List<Facility> lf, List<Facility> rf) {
+    double lfArea = lf.stream().mapToDouble(Facility::getArea).sum();
+    double rfArea = rf.stream().mapToDouble(Facility::getArea).sum();
+    double ratio = lfArea / (lfArea + rfArea);
     return orientation.getType().equals(Orientation.Type.HORIZONTAL)
-        ? rectangleService.splitHorizontally(grid)
-        : rectangleService.splitVertically(grid);
+        ? rectangleService.splitHorizontally(layout, ratio)
+        : rectangleService.splitVertically(layout, ratio);
   }
 
   private List<Integer> createNextSlicingOrderUpTo(List<Integer> slicingOrder, int k) {

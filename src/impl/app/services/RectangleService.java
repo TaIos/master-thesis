@@ -18,15 +18,23 @@ public class RectangleService {
   }
 
   public List<Rectangle> splitHorizontally(Rectangle r) {
-    int h1 = (int) Math.ceil(r.getHeight() / 2f);
-    int h2 = r.getHeight() - h1;
-    return List.of(
-        rectangleFactory.create(r.getX(), r.getY() + h1, r.getWidth(), h2),
-        rectangleFactory.create(r.getX(), r.getY(), r.getWidth(), h1));
+    return splitHorizontally(r, 0.5);
   }
 
   public List<Rectangle> splitVertically(Rectangle r) {
-    int w1 = (int) Math.ceil(r.getWidth() / 2f);
+    return splitVertically(r, 0.5);
+  }
+
+  public List<Rectangle> splitHorizontally(Rectangle r, double ratio) {
+    int h1 = (int) Math.ceil(r.getHeight() * ratio);
+    int h2 = r.getHeight() - h1;
+    return List.of(
+        rectangleFactory.create(r.getX(), r.getY(), r.getWidth(), h1),
+        rectangleFactory.create(r.getX(), r.getY() + h1, r.getWidth(), h2));
+  }
+
+  public List<Rectangle> splitVertically(Rectangle r, double ratio) {
+    int w1 = (int) Math.ceil(r.getWidth() * ratio);
     int w2 = r.getWidth() - w1;
     return List.of(
         rectangleFactory.create(r.getX(), r.getY(), w1, r.getHeight()),
