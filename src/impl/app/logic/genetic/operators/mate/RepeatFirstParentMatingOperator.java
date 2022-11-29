@@ -2,11 +2,13 @@ package logic.genetic.operators.mate;
 
 import models.entity.Individual;
 
+import java.util.List;
+
 public class RepeatFirstParentMatingOperator implements MatingOperator {
 
   @Override
-  public Individual mate(Individual p1, Individual p2) {
-    return p1.clone();
+  public List<Individual> mate(Individual p1, Individual p2) {
+    return List.of(p1.clone(), p1.clone());
   }
 
   @Override

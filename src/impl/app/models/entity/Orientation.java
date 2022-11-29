@@ -7,6 +7,7 @@ import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
 import java.util.Optional;
+import java.util.Random;
 
 import static models.entity.Orientation.Type.HORIZONTAL;
 import static models.entity.Orientation.Type.VERTICAL;
@@ -35,6 +36,10 @@ public class Orientation {
 
     public static Optional<Type> getForLabel(String label) {
       return JavaUtils.getForLabel(values(), label);
+    }
+
+    public static Type getRandom(Random rnd) {
+      return Type.values()[rnd.nextInt(Type.values().length)];
     }
 
     @Override

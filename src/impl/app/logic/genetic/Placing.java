@@ -15,15 +15,17 @@ import java.util.stream.Collectors;
 public class Placing {
 
   private final RectangleService rectangleService;
+  private final RandomKeyDecoder decoder;
 
-  public Placing(RectangleService rectangleService) {
+  public Placing(RectangleService rectangleService, RandomKeyDecoder decoder) {
     this.rectangleService = rectangleService;
+    this.decoder = decoder;
   }
 
   public void setFacilityLayout(Individual individual, Rectangle layout) {
     setRecursively(
-        individual.getFacilitySequence(),
-        individual.getSlicingOrder(),
+        decoder.decodeFacilitySequence(individual),
+        decoder.decodeSlicingOrder(individual),
         individual.getOrientations(),
         layout);
   }

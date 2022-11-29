@@ -12,7 +12,8 @@ public interface MutateOperator {
   Type getType();
 
   enum Type implements EnumTypeInterface {
-    FLIP_ONE_ORIENTATION_AT_RANDOM("flipOneOrientationAtRandom");
+    FLIP_ONE_ORIENTATION_AT_RANDOM("flipOneOrientationAtRandom"),
+    FLIP_ONES_SLICING_ORDER_AT_RANDOM("flipOneSlicingOrderAtRandom");
 
     public final String label;
 

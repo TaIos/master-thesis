@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -43,5 +44,12 @@ public final class JavaUtils {
 
     String stringInterval = "%02d days, %02d hours, %02d minutes, %02d.%03d seconds";
     return String.format(stringInterval, dd, hh, mm, ss, intMillis);
+  }
+
+  public static <T> List<T> concatWithPreserveOrder(List<T> first, List<T> second) {
+    List<T> result = new ArrayList<>(first.size() + second.size());
+    result.addAll(first);
+    result.addAll(second);
+    return result;
   }
 }

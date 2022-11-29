@@ -1,27 +1,39 @@
 package factory;
 
+import factory.provider.RandomKeyDecoderProvider;
+import logic.genetic.RandomKeyDecoder;
 import models.dto.IndividualDto;
 import models.entity.BestIndividual;
 import models.entity.Facility;
 import models.entity.Individual;
 import models.entity.Orientation;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Singleton
 public class IndividualDtoFactory implements Factory<Individual, IndividualDto> {
 
+  private final RandomKeyDecoder decoder;
+
+  @Inject
+  public IndividualDtoFactory(RandomKeyDecoderProvider decoderProvider) {
+    this.decoder = decoderProvider.get();
+  }
+
   @Override
-  public IndividualDto create(Individual individual) {
+  public IndividualDto create(Individual ind) {
     return IndividualDto.builder()
-        .facilitySequence(createFacilitySequence(individual.getFacilitySequence()))
-        .slicingOrder(new ArrayList<>(individual.getSlicingOrder()))
-        .orientations(createOrientations(individual.getOrientations()))
-        .objectiveValue(individual.getObjectiveValue())
-        .facilityPlacement(createFacilityPlacement(individual.getFacilitySequence()))
+        .facilitySequence(createFacilitySequence(ind.getFacilitySequence()))
+        .facilitySequenceDecoded(createFacilitySequence(decoder.decodeFacilitySequence(ind)))
+        .facilitySequenceRandomKey(ind.getFacilitySequenceRandomKey())
+        .slicingOrderDecoded(decoder.decodeSlicingOrder(ind))
+        .slicingOrderRandomKey(ind.getSlicingOrderRandomKey())
+        .orientations(createOrientations(ind.getOrientations()))
+        .objectiveValue(ind.getObjectiveValue())
+        .facilityPlacement(createFacilityPlacement(ind.getFacilitySequence()))
         .build();
   }
 

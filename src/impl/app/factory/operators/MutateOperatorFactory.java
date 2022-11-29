@@ -5,6 +5,7 @@ import exceptions.ImplementationNotFoundException;
 import factory.Factory;
 import factory.provider.RandomProvider;
 import logic.genetic.operators.mutate.FlipOneOrientationAtRandomMutateOperator;
+import logic.genetic.operators.mutate.FlipOneSlicingOrderAtRandom;
 import logic.genetic.operators.mutate.MutateOperator;
 import logic.metric.Metric;
 import models.dto.GAParametersDto;
@@ -34,6 +35,8 @@ public class MutateOperatorFactory implements Factory<String, MutateOperator> {
     switch (findOrThrow(name)) {
       case FLIP_ONE_ORIENTATION_AT_RANDOM:
         return new FlipOneOrientationAtRandomMutateOperator(randomProvider.get());
+      case FLIP_ONES_SLICING_ORDER_AT_RANDOM:
+        return new FlipOneSlicingOrderAtRandom(randomProvider.get());
       default:
         throw new ImplementationNotFoundException(Metric.class, name);
     }

@@ -4,16 +4,18 @@ import models.entity.Individual;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MatingOperator {
 
-  Individual mate(Individual p1, Individual p2);
+  List<Individual> mate(Individual p1, Individual p2);
 
   Type getType();
 
   enum Type implements EnumTypeInterface {
-    REPEAT_FIRST_PARENT("repeatFirstParent");
+    REPEAT_FIRST_PARENT("repeatFirstParent"),
+    ONE_POINT_FULL_CROSSOVER("onePointFullCrossover");
 
     public final String label;
 

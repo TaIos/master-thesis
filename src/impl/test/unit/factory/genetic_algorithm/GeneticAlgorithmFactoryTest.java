@@ -18,6 +18,7 @@ import factory.operators.MutateOperatorFactory;
 import factory.operators.SelectOperatorFactory;
 import factory.provider.GeneratorProvider;
 import factory.provider.PlacingProvider;
+import factory.provider.RandomKeyDecoderProvider;
 import factory.provider.RandomProvider;
 import logic.genetic.algorithm.BaseGeneticAlgorithm;
 import logic.genetic.algorithm.GeneticAlgorithm;
@@ -57,13 +58,14 @@ public class GeneticAlgorithmFactoryTest implements ResourceFileLoaderUtil {
     geneticAlgorithmFactory =
         new GeneticAlgorithmFactory(
             new GAParametersFactory(
-                new MatingOperatorFactory(),
+                new MatingOperatorFactory(randomProvider),
                 new MutateOperatorFactory(randomProvider),
                 new SelectOperatorFactory()),
             new InstanceParameterFactory(rectangleFactory, flowFactory, facilityFactory),
             new EvaluatorFactory(
                 new ObjectiveFactory(new MetricFactory(), flowFactory),
-                new PlacingProvider(new RectangleService(rectangleFactory)),
+                new PlacingProvider(
+                    new RectangleService(rectangleFactory), new RandomKeyDecoderProvider()),
                 new InstanceParameterFactory(rectangleFactory, flowFactory, facilityFactory)),
             new HallOfFameFactory(),
             new GeneratorProvider(randomProvider),
