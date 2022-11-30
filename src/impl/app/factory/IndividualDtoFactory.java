@@ -38,8 +38,12 @@ public class IndividualDtoFactory implements Factory<Individual, IndividualDto> 
   }
 
   public IndividualDto create(BestIndividual bestIndividual) {
-    IndividualDto dto = create(bestIndividual.getBestIndividual());
-    dto.setIteration(bestIndividual.getIteration());
+    return create(bestIndividual.getBestIndividual(), bestIndividual.getIteration());
+  }
+
+  public IndividualDto create(Individual ind, int iteration) {
+    IndividualDto dto = create(ind);
+    dto.setIteration(iteration);
     return dto;
   }
 
