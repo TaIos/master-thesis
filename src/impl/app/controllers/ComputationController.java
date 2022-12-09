@@ -14,23 +14,24 @@ import javax.inject.Inject;
 import static play.libs.Json.toJson;
 
 public class ComputationController extends Controller {
-  private final DtoValidator validator;
-  private final ComputationService computationService;
+    private final DtoValidator validator;
+    private final ComputationService computationService;
 
-  @Inject
-  public ComputationController(DtoValidator validator, ComputationService computationService) {
-    this.validator = validator;
-    this.computationService = computationService;
-  }
+    @Inject
+    public ComputationController(DtoValidator validator, ComputationService computationService) {
+        this.validator = validator;
+        this.computationService = computationService;
+    }
 
-  public Result compute(Http.Request req) throws BaseException {
-    CreateComputationDto dto = validator.deserializeAndValidate(req, CreateComputationDto.class);
-    return ok(toJson(computationService.compute(dto)));
-  }
+    public Result compute(Http.Request req) throws BaseException {
+        CreateComputationDto dto = validator.deserializeAndValidate(req, CreateComputationDto.class);
+        return ok(toJson(computationService.compute(dto)));
+    }
 
-  public Result computeForDataset(Http.Request req) throws BaseException {
-    CreateComputationFromDatasetDto dto = validator.deserializeAndValidate(req, CreateComputationFromDatasetDto.class);
-    return ok(toJson(computationService.compute(dto)));
-  }
+    public Result computeForDataset(Http.Request req) throws BaseException {
+        CreateComputationFromDatasetDto dto = validator.deserializeAndValidate(req, CreateComputationFromDatasetDto.class);
+        return ok(toJson(computationService.compute(dto)));
+    }
+
 
 }
