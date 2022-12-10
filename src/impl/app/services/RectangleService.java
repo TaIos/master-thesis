@@ -1,11 +1,10 @@
 package services;
 
 import factory.RectangleFactory;
-import models.entity.Rectangle;
-
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.List;
+import models.entity.Rectangle;
 
 @Singleton
 public class RectangleService {

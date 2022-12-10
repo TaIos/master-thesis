@@ -1,15 +1,14 @@
 package factory;
 
+import static utils.JavaUtils.formatAsHumanReadableDuration;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import javax.inject.Singleton;
 import logic.genetic.algorithm.GeneticAlgorithm;
 import models.entity.ComputationContext;
 import models.entity.ComputationResult;
 import models.entity.GATimeMeasureWrapper;
-
-import javax.inject.Singleton;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
-
-import static utils.JavaUtils.formatAsHumanReadableDuration;
 
 @Singleton
 public class GATimeMeasureWrapperFactory

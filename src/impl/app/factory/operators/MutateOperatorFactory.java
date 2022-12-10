@@ -4,14 +4,13 @@ import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import factory.Factory;
 import factory.provider.RandomProvider;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import logic.genetic.operators.mutate.FlipOneOrientationAtRandomMutateOperator;
 import logic.genetic.operators.mutate.FlipOneSlicingOrderAtRandom;
 import logic.genetic.operators.mutate.MutateOperator;
 import logic.metric.Metric;
 import models.dto.GAParametersDto;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class MutateOperatorFactory implements Factory<String, MutateOperator> {

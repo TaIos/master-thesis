@@ -31,12 +31,24 @@ public class GAParametersDto implements Dto {
   @Min(2)
   private Integer populationSize;
 
-  @NotNull @NotBlank private String geneticAlgorithm;
+  @NotNull
+  @NotBlank
+  private String geneticAlgorithm;
 
-  @NotNull @NotBlank private String mate;
-  @NotNull @NotBlank private String mutate;
-  @NotNull @NotBlank private String select;
+  @NotNull
+  @NotBlank
+  private String mate;
+  @NotNull
+  @NotBlank
+  private String mutate;
+  @NotNull
+  @NotBlank
+  private String select;
 
-  @NotNull @NotBlank private String metric;
-  @NotNull @NotBlank private String objective;
+  @NotNull
+  @NotBlank
+  private String metric;
+  @NotNull
+  @NotBlank
+  private String objective;
 }

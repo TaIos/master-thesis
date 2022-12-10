@@ -1,14 +1,14 @@
 package logic.genetic.operators.select;
 
+import java.util.List;
+import java.util.Optional;
 import models.entity.Individual;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
-import java.util.List;
-import java.util.Optional;
-
 public interface SelectOperator {
-  public List<Individual> select(List<Individual> individuals, Integer k);
+
+  List<Individual> select(List<Individual> individuals, Integer k);
 
   Type getType();
 

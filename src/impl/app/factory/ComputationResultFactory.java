@@ -1,9 +1,8 @@
 package factory;
 
+import javax.inject.Inject;
 import models.dto.ComputationResultDto;
 import models.entity.ComputationContext;
-
-import javax.inject.Inject;
 
 public class ComputationResultFactory implements Factory<ComputationContext, ComputationResultDto> {
 

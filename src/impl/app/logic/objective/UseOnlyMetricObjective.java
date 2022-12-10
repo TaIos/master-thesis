@@ -1,7 +1,7 @@
 package logic.objective;
 
 import logic.metric.Metric;
-import models.entity.Facility;
+import models.entity.Painting;
 
 public class UseOnlyMetricObjective extends BaseObjective {
 
@@ -10,8 +10,8 @@ public class UseOnlyMetricObjective extends BaseObjective {
   }
 
   @Override
-  public Double eval(Facility f1, Facility f2) {
-    return metric.eval(f1, f2);
+  public Double eval(Painting p1, Painting p2) {
+    return metric.eval(p1, p2);
   }
 
   @Override

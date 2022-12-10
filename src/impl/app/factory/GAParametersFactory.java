@@ -5,12 +5,11 @@ import exceptions.ImplementationNotFoundException;
 import factory.operators.MatingOperatorFactory;
 import factory.operators.MutateOperatorFactory;
 import factory.operators.SelectOperatorFactory;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import models.dto.CreateComputationDto;
 import models.dto.GAParametersDto;
 import models.entity.GAParameters;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class GAParametersFactory implements Factory<GAParametersDto, GAParameters> {

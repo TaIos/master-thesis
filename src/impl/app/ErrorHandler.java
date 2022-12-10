@@ -1,16 +1,15 @@
 import exceptions.BaseException;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import play.Environment;
 import play.api.OptionalSourceMapper;
 import play.http.JsonHttpErrorHandler;
 import play.mvc.Http.RequestHeader;
 import play.mvc.Result;
 import play.mvc.Results;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 
 @Singleton
 public class ErrorHandler extends JsonHttpErrorHandler {

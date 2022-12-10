@@ -1,10 +1,9 @@
 package exceptions;
 
-import models.dto.Dto;
-import net.sf.oval.ConstraintViolation;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import models.dto.Dto;
+import net.sf.oval.ConstraintViolation;
 
 public class DtoConstraintViolationException extends BaseException {
 

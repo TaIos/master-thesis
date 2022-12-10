@@ -1,11 +1,10 @@
 package factory.provider;
 
-import logic.genetic.Placing;
-import services.RectangleService;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
+import logic.genetic.Placing;
+import services.RectangleService;
 
 @Singleton
 public class PlacingProvider implements Provider<Placing> {

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ComputationResultPromiseDto implements Dto {
+
   private String id;
   private String outputDirectory;
 }

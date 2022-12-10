@@ -9,6 +9,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class GAResult {
+
   private BestIndividual bestIndividual;
   private HallOfFame hallOfFame;
 }

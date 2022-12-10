@@ -2,28 +2,28 @@ package models.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import utils.serialization.DoubleListSerializer;
 import utils.serialization.DoubleSerializer;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 public class IndividualDto implements Dto {
+
   private Integer iteration;
 
   @JsonSerialize(using = DoubleSerializer.class)
   private Double objectiveValue;
 
-  private List<String> facilitySequence;
-  private List<String> facilitySequenceDecoded;
+  private List<String> paintingSeq;
+  private List<String> paintingSeqDecoded;
 
   @JsonSerialize(using = DoubleListSerializer.class)
-  private List<Double> facilitySequenceRandomKey;
+  private List<Double> paintingSeqRandomKey;
 
   private List<Integer> slicingOrderDecoded;
 
@@ -32,6 +32,6 @@ public class IndividualDto implements Dto {
 
   private List<String> orientations;
 
-  @JsonProperty("facilityPlacement_XYWH")
-  private List<String> facilityPlacement;
+  @JsonProperty("paintingPlacement_XYWH")
+  private List<String> paintingPlacement;
 }

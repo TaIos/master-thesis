@@ -1,15 +1,14 @@
 package logic.genetic.operators.mate;
 
-import models.entity.Facility;
-import models.entity.Individual;
-import models.entity.Orientation;
+import static logic.genetic.operators.mate.MatingOperator.Type.ONE_POINT_FULL_CROSSOVER;
+import static utils.JavaUtils.concatWithPreserveOrder;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import static logic.genetic.operators.mate.MatingOperator.Type.ONE_POINT_FULL_CROSSOVER;
-import static utils.JavaUtils.concatWithPreserveOrder;
+import models.entity.Individual;
+import models.entity.Orientation;
+import models.entity.Painting;
 
 public class OnePointFullCrossover implements MatingOperator {
 
@@ -22,9 +21,9 @@ public class OnePointFullCrossover implements MatingOperator {
   @Override
   public List<Individual> mate(Individual p1, Individual p2) {
     int k = rnd.nextInt(p1.getSlicingOrderRandomKey().size());
-    List<Double> f1 = p1.getFacilitySequenceRandomKey().subList(0, k);
+    List<Double> f1 = p1.getPaintingSeqRandomKey().subList(0, k);
     List<Double> f2 =
-        p2.getFacilitySequenceRandomKey().subList(k, p2.getFacilitySequenceRandomKey().size());
+        p2.getPaintingSeqRandomKey().subList(k, p2.getPaintingSeqRandomKey().size());
     List<Double> slice1 = p1.getSlicingOrderRandomKey().subList(0, k);
     List<Double> slice2 =
         p2.getSlicingOrderRandomKey().subList(k, p2.getSlicingOrderRandomKey().size());
@@ -45,11 +44,11 @@ public class OnePointFullCrossover implements MatingOperator {
       List<Orientation> orient2,
       Individual copyTemplate) {
     return Individual.builder()
-        .facilitySequence(
-            copyTemplate.getFacilitySequence().stream()
-                .map(Facility::clone)
+        .paintingSeq(
+            copyTemplate.getPaintingSeq().stream()
+                .map(Painting::clone)
                 .collect(Collectors.toList()))
-        .facilitySequenceRandomKey(concatWithPreserveOrder(f1, f2))
+        .paintingSeqRandomKey(concatWithPreserveOrder(f1, f2))
         .slicingOrderRandomKey(concatWithPreserveOrder(slice1, slice2))
         .orientations(concatWithPreserveOrder(orient1, orient2))
         .build();

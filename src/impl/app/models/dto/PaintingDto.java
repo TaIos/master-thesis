@@ -5,17 +5,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.sf.oval.constraint.Min;
-import net.sf.oval.constraint.NotEmpty;
+import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNull;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FacilityDimensionDto implements Dto {
-  @NotNull @NotEmpty private String facility;
+public class PaintingDto {
 
   @NotNull
-  @Min(1)
-  private Double area;
+  @NotBlank
+  private String ident;
+
+  @NotNull
+  @Min(0)
+  private Integer width;
+
+  @NotNull
+  @Min(0)
+  private Integer height;
 }

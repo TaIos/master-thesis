@@ -1,11 +1,10 @@
 package logic.genetic.algorithm;
 
+import java.util.Optional;
+import java.util.concurrent.Callable;
 import models.entity.GAResult;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
-
-import java.util.Optional;
-import java.util.concurrent.Callable;
 
 public interface GeneticAlgorithm extends Callable<GAResult> {
 

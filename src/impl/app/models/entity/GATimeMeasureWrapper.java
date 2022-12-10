@@ -1,8 +1,7 @@
 package models.entity;
 
-import logic.genetic.algorithm.GeneticAlgorithm;
-
 import java.util.concurrent.Callable;
+import logic.genetic.algorithm.GeneticAlgorithm;
 
 public class GATimeMeasureWrapper implements Callable<ComputationResult> {
 

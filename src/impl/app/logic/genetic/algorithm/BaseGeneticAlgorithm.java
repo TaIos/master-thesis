@@ -1,5 +1,8 @@
 package logic.genetic.algorithm;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import logic.genetic.Evaluator;
 import logic.genetic.Generator;
 import logic.genetic.HallOfFame;
@@ -10,10 +13,6 @@ import models.entity.InstanceParameters;
 import models.entity.Population;
 import models.entity.RandomIndividualGenerationRequest;
 import org.slf4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 @Getter
 public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
@@ -56,12 +55,16 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
 
   protected void crossover(Population pop, List<Individual> popNext, int k) {
     List<Individual> machoList = pop.getIndividualList().subList(0, (int) (0.1 * pop.size()));
-    if (machoList.isEmpty()) return;
+      if (machoList.isEmpty()) {
+          return;
+      }
     for (int i = 0; i < k; i += 2) {
       Individual macho = machoList.get(rnd.nextInt(machoList.size()));
       Individual rndInd = pop.getIndividualList().get(rnd.nextInt(pop.size()));
       for (var off : gaParams.getMatingOperator().mate(macho, rndInd)) {
-        if (popNext.size() >= k) break;
+          if (popNext.size() >= k) {
+              break;
+          }
         popNext.add(off);
       }
     }
@@ -73,7 +76,7 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
   }
 
   protected Population generateInitialPopulation() {
-    var req = new RandomIndividualGenerationRequest(instanceParams.getFacilities());
+    var req = new RandomIndividualGenerationRequest(instanceParams.getPaintings());
     List<Individual> pop = new ArrayList<>(gaParams.getPopulationSize());
     for (int i = 0; i < gaParams.getPopulationSize(); i++) {
       pop.add(generator.random(req));

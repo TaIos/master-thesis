@@ -1,9 +1,8 @@
 package factory.provider;
 
-import logic.genetic.RandomKeyDecoder;
-
 import javax.inject.Provider;
 import javax.inject.Singleton;
+import logic.genetic.RandomKeyDecoder;
 
 @Singleton
 public class RandomKeyDecoderProvider implements Provider<RandomKeyDecoder> {

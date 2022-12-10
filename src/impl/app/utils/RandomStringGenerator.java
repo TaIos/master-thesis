@@ -1,7 +1,7 @@
 package utils;
 
-import javax.inject.Singleton;
 import java.util.UUID;
+import javax.inject.Singleton;
 
 @Singleton
 public class RandomStringGenerator {

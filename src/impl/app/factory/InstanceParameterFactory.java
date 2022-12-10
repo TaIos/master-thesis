@@ -1,43 +1,36 @@
 package factory;
 
 import exceptions.EntityNotFoundException;
+import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
-import models.dto.CreateComputationDto;
-import models.dto.InstanceParametersDto;
-import models.entity.InstanceParameters;
-
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import models.dto.InstanceParametersDto;
+import models.entity.InstanceParameters;
 
 @Singleton
 public class InstanceParameterFactory
     implements Factory<InstanceParametersDto, InstanceParameters> {
 
-  private final RectangleFactory rectangleFactory;
-  private final FlowFactory flowFactory;
-  private final FacilityFactory facilityFactory;
+  private final PaintingFactory paintingFactory;
+  private final LayoutFactory layoutFactory;
 
   @Inject
-  public InstanceParameterFactory(RectangleFactory rectangleFactory, FlowFactory flowFactory, FacilityFactory facilityFactory) {
-    this.rectangleFactory = rectangleFactory;
-    this.flowFactory = flowFactory;
-    this.facilityFactory = facilityFactory;
+  public InstanceParameterFactory(PaintingFactory paintingFactory, LayoutFactory layoutFactory) {
+    this.paintingFactory = paintingFactory;
+    this.layoutFactory = layoutFactory;
   }
+
 
   @Override
   public InstanceParameters create(InstanceParametersDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
     return InstanceParameters.builder()
-        .layout(rectangleFactory.create(dto))
-        .facilityCount(dto.getFacilityCount())
-        .emptySpace(dto.getEmptySpace())
-        .facilities(facilityFactory.create(dto))
-        .flow(flowFactory.create(dto))
+        .layout(layoutFactory.create(dto.getLayout()))
+        .paintingCount(dto.getPaintingCount())
+        .paintings(
+            dto.getPaintings().stream().map(paintingFactory::create).collect(Collectors.toList()))
         .build();
-  }
-
-  public InstanceParameters create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException {
-    return create(dto.getInstanceParams());
   }
 }

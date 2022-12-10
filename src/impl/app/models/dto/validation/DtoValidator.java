@@ -2,6 +2,9 @@ package models.dto.validation;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import exceptions.DtoConstraintViolationException;
+import java.util.List;
+import java.util.Map;
+import javax.inject.Singleton;
 import models.dto.Dto;
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
@@ -15,15 +18,11 @@ import net.sf.oval.localization.value.ToStringMessageValueFormatter;
 import play.libs.Json;
 import play.mvc.Http;
 
-import javax.inject.Singleton;
-import java.util.List;
-import java.util.Map;
-
 @Singleton
 public class DtoValidator extends Validator {
 
-  private static OValContextRenderer contextRenderer = DefaultOValContextRenderer.INSTANCE;
-  private static MessageValueFormatter messageValueFormatter = ToStringMessageValueFormatter.INSTANCE;
+  private static final OValContextRenderer contextRenderer = DefaultOValContextRenderer.INSTANCE;
+  private static final MessageValueFormatter messageValueFormatter = ToStringMessageValueFormatter.INSTANCE;
 
   @Override
   protected String renderMessage(
@@ -35,14 +34,16 @@ public class DtoValidator extends Validator {
     String message = MessageRenderer.renderMessage(messageKey, messageValues);
 
     // if there are no place holders in the message simply return it
-    if (message.indexOf('{') == -1)
+    if (message.indexOf('{') == -1) {
       return message;
+    }
 
     String renderedCtx = contextRenderer.render(contextPath);
     String editedCtx = org.apache.commons.lang3.StringUtils.substringAfterLast(renderedCtx, ".");
 
     message = StringUtils.replaceAll(message, "{context}", editedCtx);
-    message = StringUtils.replaceAll(message, "{invalidValue}", messageValueFormatter.format(invalidValue));
+    message = StringUtils.replaceAll(message, "{invalidValue}",
+        messageValueFormatter.format(invalidValue));
 
     return message;
   }

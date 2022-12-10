@@ -1,5 +1,8 @@
 package logic.genetic.algorithm;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import logic.genetic.Evaluator;
 import logic.genetic.Generator;
 import logic.genetic.HallOfFame;
@@ -10,10 +13,6 @@ import models.entity.Individual;
 import models.entity.InstanceParameters;
 import models.entity.Population;
 import org.slf4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class SimpleGA extends BaseGeneticAlgorithm {
 

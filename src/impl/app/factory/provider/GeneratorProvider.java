@@ -1,13 +1,13 @@
 package factory.provider;
 
-import logic.genetic.Generator;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
+import logic.genetic.Generator;
 
 @Singleton
 public class GeneratorProvider implements Provider<Generator> {
+
   private final Generator generator;
 
   @Inject

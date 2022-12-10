@@ -1,9 +1,12 @@
 package factory;
 
 import exceptions.EntityNotFoundException;
+import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
 import factory.provider.GeneratorProvider;
 import factory.provider.RandomProvider;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import logic.genetic.Evaluator;
 import logic.genetic.HallOfFame;
 import logic.genetic.algorithm.GeneticAlgorithm;
@@ -13,9 +16,6 @@ import models.entity.GAParameters;
 import models.entity.InstanceParameters;
 import org.slf4j.Logger;
 import utils.RandomStringGenerator;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, GeneticAlgorithm> {
@@ -51,17 +51,17 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
 
   @Override
   public GeneticAlgorithm create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
     return create(
         dto, loggerFactory.create("implicit_ga_logger_" + randomStringGenerator.generate()));
   }
 
   public GeneticAlgorithm create(CreateComputationDto dto, Logger logger)
-      throws EntityNotFoundException, ImplementationNotFoundException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
     return create(
         dto.getGaParams().getGeneticAlgorithm(),
         gaParametersFactory.create(dto),
-        instanceParameterFactory.create(dto),
+        instanceParameterFactory.create(dto.getInstanceParams()),
         evaluatorFactory.create(dto),
         hallOfFameFactory.create(dto),
         logger);
@@ -75,19 +75,17 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
       HallOfFame hof,
       Logger logger)
       throws EntityNotFoundException, ImplementationNotFoundException {
-    switch (findOrThrow(name)) {
-      case SIMPLE_GA:
-        return new SimpleGA(
-            gaParams,
-            instanceParams,
-            evaluator,
-            hof,
-            generatorProvider.get(),
-            randomProvider.get(),
-            logger);
-      default:
-        throw new ImplementationNotFoundException(GeneticAlgorithm.class, name);
+    if (findOrThrow(name) == GeneticAlgorithm.Type.SIMPLE_GA) {
+      return new SimpleGA(
+          gaParams,
+          instanceParams,
+          evaluator,
+          hof,
+          generatorProvider.get(),
+          randomProvider.get(),
+          logger);
     }
+    throw new ImplementationNotFoundException(GeneticAlgorithm.class, name);
   }
 
   private GeneticAlgorithm.Type findOrThrow(String name) throws EntityNotFoundException {

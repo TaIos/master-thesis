@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNegative;
 import net.sf.oval.constraint.NotNull;
 
@@ -12,6 +13,16 @@ import net.sf.oval.constraint.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LayoutDto implements Dto {
-  @NotNull @NotNegative private Integer width;
-  @NotNull @NotNegative private Integer height;
+
+  @NotNull
+  @NotNegative
+  private Integer width;
+
+  @NotNull
+  @NotNegative
+  private Integer height;
+
+  @NotNull
+  @NotBlank
+  private String evalFunc;
 }

@@ -12,8 +12,15 @@ import net.sf.oval.constraint.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RectangleDto implements Dto {
-  @NotNull private Integer x;
-  @NotNull private Integer y;
-  @NotNull @NotNegative private Integer width;
-  @NotNull @NotNegative private Integer height;
+
+  @NotNull
+  private Integer x;
+  @NotNull
+  private Integer y;
+  @NotNull
+  @NotNegative
+  private Integer width;
+  @NotNull
+  @NotNegative
+  private Integer height;
 }

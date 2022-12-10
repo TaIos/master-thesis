@@ -1,15 +1,14 @@
 package factory;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import logic.genetic.HallOfFame;
 import logic.genetic.HallOfFame.HallOfFameRecord;
 import models.dto.HallOfFameDto;
 import models.dto.HallOfFameRecordDto;
 import models.entity.GAResult;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Singleton
 public class HallOfFameDtoFactory implements Factory<HallOfFame, HallOfFameDto> {

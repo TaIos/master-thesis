@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExceptionalComputationResultDto implements Dto {
+
   private String exception;
   private GAParametersDto gaParameters;
   private InstanceParametersDto instanceParameters;

@@ -1,11 +1,10 @@
 package logic.genetic.operators.mate;
 
+import java.util.List;
+import java.util.Optional;
 import models.entity.Individual;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface MatingOperator {
 

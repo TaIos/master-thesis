@@ -10,6 +10,7 @@ import utils.serialization.DoubleSerializer;
 @Builder
 @AllArgsConstructor
 public class HallOfFameRecordDto implements Dto {
+
   private Integer iteration;
 
   @JsonSerialize(using = DoubleSerializer.class)

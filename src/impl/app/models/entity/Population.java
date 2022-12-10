@@ -1,13 +1,13 @@
 package models.entity;
 
+import java.util.Collections;
+import java.util.List;
 import logic.genetic.Evaluator;
 import lombok.Getter;
 
-import java.util.Collections;
-import java.util.List;
-
 @Getter
 public class Population {
+
   private final List<Individual> individualList;
 
   public Population(List<Individual> individualList, Evaluator evaluator) {

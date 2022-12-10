@@ -1,10 +1,9 @@
 package factory;
 
+import javax.inject.Inject;
 import models.dto.GAResultDto;
 import models.entity.ComputationContext;
 import models.entity.GAResult;
-
-import javax.inject.Inject;
 
 public class GaResultFactory implements Factory<GAResult, GAResultDto> {
 

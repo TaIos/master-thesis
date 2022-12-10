@@ -1,16 +1,15 @@
 package logic.genetic;
 
-import models.entity.Facility;
-import models.entity.Individual;
-import models.entity.Orientation;
-import models.entity.Rectangle;
-import services.RectangleService;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import models.entity.Individual;
+import models.entity.Orientation;
+import models.entity.Painting;
+import models.entity.Rectangle;
+import services.RectangleService;
 
 public class Placing {
 
@@ -22,46 +21,46 @@ public class Placing {
     this.decoder = decoder;
   }
 
-  public void setFacilityLayout(Individual individual, Rectangle layout) {
+  public void setPaintingLayout(Individual individual, Rectangle layoutBoundingRectangle) {
     setRecursively(
-        decoder.decodeFacilitySequence(individual),
+        decoder.decodePaintingSequence(individual),
         decoder.decodeSlicingOrder(individual),
         individual.getOrientations(),
-        layout);
+        layoutBoundingRectangle);
   }
 
   private void setRecursively(
-      List<Facility> facilitySequence,
+      List<Painting> paintingSeq,
       List<Integer> slicingOrder,
       List<Orientation> orientations,
-      Rectangle layout) {
-    if (facilitySequence.size() == 1) {
-      facilitySequence.get(0).setPlacement(layout);
+      Rectangle rec) {
+    if (paintingSeq.size() == 1) {
+      paintingSeq.get(0).setPlacement(rec);
       return;
     }
 
     int k = slicingOrder.get(0);
-    List<Facility> lf = facilitySequence.subList(0, k);
-    List<Facility> rf = facilitySequence.subList(k, facilitySequence.size());
-    List<Rectangle> sp = createSplit(orientations.get(0), layout, lf, rf);
+    List<Painting> left = paintingSeq.subList(0, k);
+    List<Painting> right = paintingSeq.subList(k, paintingSeq.size());
+    List<Rectangle> sp = createSplit(orientations.get(0), rec, left, right);
 
     setRecursively(
-        lf,
+        left,
         createNextSlicingOrderUpTo(slicingOrder, k),
         createNextOrientationUpTo(slicingOrder, orientations, k),
         sp.get(0));
     setRecursively(
-        rf,
+        right,
         createNextSlicingOrderAfter(slicingOrder, k),
         createNextOrientationAfter(slicingOrder, orientations, k),
         sp.get(1));
   }
 
   private List<Rectangle> createSplit(
-      Orientation orientation, Rectangle layout, List<Facility> lf, List<Facility> rf) {
-    double lfArea = lf.stream().mapToDouble(Facility::getArea).sum();
-    double rfArea = rf.stream().mapToDouble(Facility::getArea).sum();
-    double ratio = lfArea / (lfArea + rfArea);
+      Orientation orientation, Rectangle layout, List<Painting> left, List<Painting> right) {
+    double leftArea = left.stream().mapToDouble(Painting::getArea).sum();
+    double rightArea = right.stream().mapToDouble(Painting::getArea).sum();
+    double ratio = leftArea / (leftArea + rightArea);
     return orientation.getType().equals(Orientation.Type.HORIZONTAL)
         ? rectangleService.splitHorizontally(layout, ratio)
         : rectangleService.splitVertically(layout, ratio);
@@ -98,7 +97,9 @@ public class Placing {
 
     while (slicingOrderIt.hasNext() && orientationIt.hasNext()) {
       Orientation orientation = orientationIt.next();
-      if (pred.test(slicingOrderIt.next())) result.add(orientation);
+      if (pred.test(slicingOrderIt.next())) {
+        result.add(orientation);
+      }
     }
     return result;
   }

@@ -1,5 +1,7 @@
 package services;
 
+import static play.libs.Json.toJson;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -7,17 +9,14 @@ import com.typesafe.config.Config;
 import factory.ComputationResultFactory;
 import factory.CustomLoggerFactory;
 import factory.ExceptionalComputationResultFactory;
-import models.entity.ComputationContext;
-import org.slf4j.Logger;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
-
-import static play.libs.Json.toJson;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import models.entity.ComputationContext;
+import org.slf4j.Logger;
 
 @Singleton
 public class ResultWriterService {
@@ -51,7 +50,9 @@ public class ResultWriterService {
   }
 
   public void writeComputationResult(ComputationContext context) {
-    if (!context.getResultDir().exists()) createDirectory(context.getResultDir().getAbsolutePath());
+    if (!context.getResultDir().exists()) {
+      createDirectory(context.getResultDir().getAbsolutePath());
+    }
     writeJsonToFile(
         getComputationalResultFileNamePathAbs(context) + ".json",
         toJson(computationResultFactory.create(context)),
@@ -78,7 +79,7 @@ public class ResultWriterService {
     Optional<String[]> fileNameArrOp =
         Optional.ofNullable(outDir.list((dir, fileName) -> fileName.matches("^[0-9]+_.+")));
     int currentMaxPrefix =
-        Arrays.stream(fileNameArrOp.orElse(new String[] {}))
+        Arrays.stream(fileNameArrOp.orElse(new String[]{}))
             .mapToInt(fileName -> Integer.parseInt(fileName.substring(0, fileName.indexOf("_"))))
             .max()
             .orElse(0);

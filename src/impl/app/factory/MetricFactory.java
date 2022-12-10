@@ -2,11 +2,10 @@ package factory;
 
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
+import javax.inject.Singleton;
 import logic.metric.DummyMetric;
 import logic.metric.EuclideanMetric;
 import logic.metric.Metric;
-
-import javax.inject.Singleton;
 
 @Singleton
 public class MetricFactory implements Factory<String, Metric> {

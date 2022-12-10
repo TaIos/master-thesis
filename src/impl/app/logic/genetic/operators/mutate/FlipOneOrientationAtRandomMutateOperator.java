@@ -1,10 +1,10 @@
 package logic.genetic.operators.mutate;
 
+import java.util.Random;
 import models.entity.Individual;
 
-import java.util.Random;
-
 public class FlipOneOrientationAtRandomMutateOperator implements MutateOperator {
+
   private final Random rnd;
 
   public FlipOneOrientationAtRandomMutateOperator(Random random) {

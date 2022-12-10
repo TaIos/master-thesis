@@ -1,0 +1,119 @@
+{
+  "name": "vC10",
+  "source": "https://doi.org/10.1016/0377-2217(92)90041-7",
+  "data": {
+    "facilityCount": 10,
+    "emptySpace": 0,
+    "layout": {
+      "width": 51,
+      "height": 25
+    },
+    "shapeRequirements": {
+      "alphaMax": 4
+    },
+    "dimension": [
+      {
+        "facility": 1,
+        "area": 238
+      },
+      {
+        "facility": 2,
+        "area": 112
+      },
+      {
+        "facility": 3,
+        "area": 160
+      },
+      {
+        "facility": 4,
+        "area": 80
+      },
+      {
+        "facility": 5,
+        "area": 120
+      },
+      {
+        "facility": 6,
+        "area": 80
+      },
+      {
+        "facility": 7,
+        "area": 60
+      },
+      {
+        "facility": 8,
+        "area": 85
+      },
+      {
+        "facility": 9,
+        "area": 221
+      },
+      {
+        "facility": 10,
+        "area": 119
+      }
+    ],
+    "flow": [
+      {
+        "from": 1,
+        "to": 6,
+        "flow": 218.0
+      },
+      {
+        "from": 2,
+        "to": 6,
+        "flow": 148.0
+      },
+      {
+        "from": 2,
+        "to": 9,
+        "flow": 296.0
+      },
+      {
+        "from": 3,
+        "to": 4,
+        "flow": 28.0
+      },
+      {
+        "from": 3,
+        "to": 5,
+        "flow": 70.0
+      },
+      {
+        "from": 4,
+        "to": 6,
+        "flow": 28.0
+      },
+      {
+        "from": 4,
+        "to": 7,
+        "flow": 70.0
+      },
+      {
+        "from": 4,
+        "to": 8,
+        "flow": 140.0
+      },
+      {
+        "from": 5,
+        "to": 8,
+        "flow": 210.0
+      },
+      {
+        "from": 7,
+        "to": 10,
+        "flow": 28.0
+      },
+      {
+        "from": 8,
+        "to": 10,
+        "flow": 888.0
+      },
+      {
+        "from": 9,
+        "to": 10,
+        "flow": 59.2
+      }
+    ]
+  }
+}

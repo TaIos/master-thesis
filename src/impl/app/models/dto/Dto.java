@@ -1,3 +1,5 @@
 package models.dto;
 
-public interface Dto {}
+public interface Dto {
+
+}

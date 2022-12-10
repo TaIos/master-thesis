@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class GAResultDto implements Dto {
+
   private IndividualDto bestIndividual;
   private HallOfFameDto hallOfFame;
 }

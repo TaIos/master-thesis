@@ -1,20 +1,19 @@
 package logic.genetic;
 
-import akka.japi.Pair;
-import models.entity.Facility;
-import models.entity.Individual;
+import static utils.JavaUtils.range;
 
+import akka.japi.Pair;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static utils.JavaUtils.range;
+import models.entity.Individual;
+import models.entity.Painting;
 
 public class RandomKeyDecoder {
 
-  public List<Facility> decodeFacilitySequence(Individual ind) {
-    return decode(ind.getFacilitySequence(), ind.getFacilitySequenceRandomKey());
+  public List<Painting> decodePaintingSequence(Individual ind) {
+    return decode(ind.getPaintingSeq(), ind.getPaintingSeqRandomKey());
   }
 
   public List<Integer> decodeSlicingOrder(Individual ind) {

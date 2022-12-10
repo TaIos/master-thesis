@@ -14,7 +14,12 @@ import net.sf.oval.constraint.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DatasetDto implements Dto {
+
   @NotNull @NotEmpty String name;
+
   @NotNull @AssertURL String source;
-  @NotNull @AssertValid private InstanceParametersDto data;
+
+  @NotNull
+  @AssertValid
+  private InstanceParametersDto data;
 }

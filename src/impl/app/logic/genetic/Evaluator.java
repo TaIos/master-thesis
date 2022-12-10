@@ -9,6 +9,7 @@ import models.entity.InstanceParameters;
 @Getter
 @Builder
 public class Evaluator {
+
   private final Placing placing;
   private final Objective objective;
   private final InstanceParameters params;
@@ -20,8 +21,8 @@ public class Evaluator {
   }
 
   public void eval(Individual ind) {
-    placing.setFacilityLayout(ind, params.getLayout());
-    Double objectiveVal = objective.eval(ind.getFacilitySequence());
+    placing.setPaintingLayout(ind, params.getLayout().getBoundingRectangle());
+    Double objectiveVal = objective.eval(ind.getPaintingSeq());
     ind.setObjectiveValue(objectiveVal);
   }
 }

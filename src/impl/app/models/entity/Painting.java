@@ -3,25 +3,24 @@ package models.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Facility implements Cloneable {
+public class Painting implements Cloneable {
 
   private String ident;
-  private Double area;
   private Rectangle placement;
 
+  private Integer width;
+  private Integer height;
+  private Integer area;
+
   @Override
-  public Facility clone() {
+  public Painting clone() {
     try {
-      Facility clone = (Facility) super.clone();
-      clone.ident = ident;
-      clone.area = area;
-      if (placement != null) clone.placement = placement.clone();
+      Painting clone = (Painting) super.clone();
+      // TODO: copy mutable state here, so the clone can't change the internals of the original
       return clone;
     } catch (CloneNotSupportedException e) {
       throw new AssertionError();

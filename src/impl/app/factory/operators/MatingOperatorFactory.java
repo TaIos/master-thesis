@@ -4,14 +4,13 @@ import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import factory.Factory;
 import factory.provider.RandomProvider;
-import logic.genetic.operators.mate.OnePointFullCrossover;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import logic.genetic.operators.mate.MatingOperator;
+import logic.genetic.operators.mate.OnePointFullCrossover;
 import logic.genetic.operators.mate.RepeatFirstParentMatingOperator;
 import logic.metric.Metric;
 import models.dto.GAParametersDto;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class MatingOperatorFactory implements Factory<String, MatingOperator> {

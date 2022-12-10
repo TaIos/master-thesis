@@ -8,7 +8,7 @@ public abstract class BaseException extends Exception {
 
   private final String message;
 
-  BaseException(String message) {
+  public BaseException(String message) {
     super(message);
     this.message = message;
   }
@@ -16,6 +16,7 @@ public abstract class BaseException extends Exception {
   public int getHttpStatus() {
     return Http.Status.BAD_REQUEST;
   }
+
   public JsonNode toJson() {
     return Json.newObject().putObject("error").put("message", message);
   }

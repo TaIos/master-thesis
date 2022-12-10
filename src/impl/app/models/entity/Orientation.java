@@ -1,16 +1,15 @@
 package models.entity;
 
+import static models.entity.Orientation.Type.HORIZONTAL;
+import static models.entity.Orientation.Type.VERTICAL;
+
+import java.util.Optional;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
-
-import java.util.Optional;
-import java.util.Random;
-
-import static models.entity.Orientation.Type.HORIZONTAL;
-import static models.entity.Orientation.Type.VERTICAL;
 
 @Data
 @Builder
@@ -20,7 +19,9 @@ public class Orientation {
   private Type type;
 
   public void flip() {
-    if (type.equals(HORIZONTAL)) type = VERTICAL;
+    if (type.equals(HORIZONTAL)) {
+      type = VERTICAL;
+    }
     type = HORIZONTAL;
   }
 

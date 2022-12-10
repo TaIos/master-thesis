@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class ComputationResult {
+
   private GAResult gaResult;
   private Long durationMillis;
 }

@@ -1,12 +1,12 @@
 package logic.metric;
 
-import models.entity.Facility;
+import models.entity.Painting;
 
 public class DummyMetric implements Metric {
 
   @Override
-  public Double eval(Facility f1, Facility f2) {
-    return (double) (Integer.parseInt(f1.getIdent()) * Integer.parseInt(f2.getIdent()));
+  public Double eval(Painting p1, Painting p2) {
+    return (double) (Integer.parseInt(p1.getIdent()) * Integer.parseInt(p2.getIdent()));
   }
 
   @Override

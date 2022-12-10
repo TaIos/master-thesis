@@ -1,8 +1,7 @@
 package logic.genetic.operators.mate;
 
-import models.entity.Individual;
-
 import java.util.List;
+import models.entity.Individual;
 
 public class RepeatFirstParentMatingOperator implements MatingOperator {
 

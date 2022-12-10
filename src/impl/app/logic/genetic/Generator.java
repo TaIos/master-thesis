@@ -1,17 +1,17 @@
 package logic.genetic;
 
-import models.entity.Facility;
-import models.entity.Individual;
-import models.entity.Orientation;
-import models.entity.RandomIndividualGenerationRequest;
+import static utils.JavaUtils.range;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import static utils.JavaUtils.range;
+import models.entity.Individual;
+import models.entity.Orientation;
+import models.entity.Painting;
+import models.entity.RandomIndividualGenerationRequest;
 
 public class Generator {
+
   private final Random rnd;
 
   public Generator(Random random) {
@@ -19,13 +19,13 @@ public class Generator {
   }
 
   public Individual random(RandomIndividualGenerationRequest req) {
-    int fSize = req.getFacilitySequence().size();
+    int pSize = req.getPaintingSeq().size();
     return Individual.builder()
-        .facilitySequence(
-            req.getFacilitySequence().stream().map(Facility::clone).collect(Collectors.toList()))
-        .facilitySequenceRandomKey(generateRandomKeys(fSize))
-        .slicingOrderRandomKey(generateRandomKeys(fSize - 1))
-        .orientations(generateRandomOrientations(fSize - 1))
+        .paintingSeq(
+            req.getPaintingSeq().stream().map(Painting::clone).collect(Collectors.toList()))
+        .paintingSeqRandomKey(generateRandomKeys(pSize))
+        .slicingOrderRandomKey(generateRandomKeys(pSize - 1))
+        .orientations(generateRandomOrientations(pSize - 1))
         .build();
   }
 

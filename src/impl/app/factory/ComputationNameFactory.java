@@ -1,12 +1,11 @@
 package factory;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import models.dto.CreateComputationDto;
 import models.dto.CreateComputationFromDatasetDto;
 import models.dto.DatasetDto;
 import utils.RandomStringGenerator;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class ComputationNameFactory implements Factory<CreateComputationDto, String> {

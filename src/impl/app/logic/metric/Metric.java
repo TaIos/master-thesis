@@ -1,13 +1,13 @@
 package logic.metric;
 
-import models.entity.Facility;
+import java.util.Optional;
+import models.entity.Painting;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
-import java.util.Optional;
-
 public interface Metric {
-  Double eval(Facility f1, Facility f2);
+
+  Double eval(Painting p1, Painting p2);
 
   Type getType();
 

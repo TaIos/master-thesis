@@ -1,6 +1,7 @@
 package exceptions;
 
 public class EntityNotFoundException extends BaseException {
+
   public EntityNotFoundException(Class<?> clazz, String name) {
     super(
         String.format(

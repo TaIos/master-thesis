@@ -17,7 +17,9 @@ public class Rectangle implements Cloneable {
 
   // lazy evaluation
   public Point getCenter() {
-    if (center == null) center = new Point((x + width) / 2d, (y + height) / 2d);
+    if (center == null) {
+      center = new Point((x + width) / 2d, (y + height) / 2d);
+    }
     return center;
   }
 
@@ -34,7 +36,9 @@ public class Rectangle implements Cloneable {
       clone.y = y;
       clone.width = width;
       clone.height = height;
-      if (center != null) clone.center = center.clone();
+      if (center != null) {
+        clone.center = center.clone();
+      }
       return clone;
     } catch (CloneNotSupportedException e) {
       throw new AssertionError();

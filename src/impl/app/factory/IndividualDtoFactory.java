@@ -1,17 +1,16 @@
 package factory;
 
 import factory.provider.RandomKeyDecoderProvider;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import logic.genetic.RandomKeyDecoder;
 import models.dto.IndividualDto;
 import models.entity.BestIndividual;
-import models.entity.Facility;
 import models.entity.Individual;
 import models.entity.Orientation;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.List;
-import java.util.stream.Collectors;
+import models.entity.Painting;
 
 @Singleton
 public class IndividualDtoFactory implements Factory<Individual, IndividualDto> {
@@ -26,14 +25,14 @@ public class IndividualDtoFactory implements Factory<Individual, IndividualDto> 
   @Override
   public IndividualDto create(Individual ind) {
     return IndividualDto.builder()
-        .facilitySequence(createFacilitySequence(ind.getFacilitySequence()))
-        .facilitySequenceDecoded(createFacilitySequence(decoder.decodeFacilitySequence(ind)))
-        .facilitySequenceRandomKey(ind.getFacilitySequenceRandomKey())
+        .paintingSeq(createPaintingSequence(ind.getPaintingSeq()))
+        .paintingSeqDecoded(createPaintingSequence(decoder.decodePaintingSequence(ind)))
+        .paintingSeqRandomKey(ind.getPaintingSeqRandomKey())
         .slicingOrderDecoded(decoder.decodeSlicingOrder(ind))
         .slicingOrderRandomKey(ind.getSlicingOrderRandomKey())
         .orientations(createOrientations(ind.getOrientations()))
         .objectiveValue(ind.getObjectiveValue())
-        .facilityPlacement(createFacilityPlacement(ind.getFacilitySequence()))
+        .paintingPlacement(createPaintingPlacement(ind.getPaintingSeq()))
         .build();
   }
 
@@ -47,8 +46,8 @@ public class IndividualDtoFactory implements Factory<Individual, IndividualDto> 
     return dto;
   }
 
-  private List<String> createFacilitySequence(List<Facility> facilitySequence) {
-    return facilitySequence.stream().map(Facility::getIdent).collect(Collectors.toList());
+  private List<String> createPaintingSequence(List<Painting> paintingSequence) {
+    return paintingSequence.stream().map(Painting::getIdent).collect(Collectors.toList());
   }
 
   private List<String> createOrientations(List<Orientation> orientations) {
@@ -58,9 +57,9 @@ public class IndividualDtoFactory implements Factory<Individual, IndividualDto> 
         .collect(Collectors.toList());
   }
 
-  private List<String> createFacilityPlacement(List<Facility> facilitySequence) {
-    return facilitySequence.stream()
-        .map(Facility::getPlacement)
+  private List<String> createPaintingPlacement(List<Painting> paintingSequence) {
+    return paintingSequence.stream()
+        .map(Painting::getPlacement)
         .map(Object::toString)
         .collect(Collectors.toList());
   }

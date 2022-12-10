@@ -1,10 +1,9 @@
 package logic.genetic.operators.mutate;
 
-import models.entity.Individual;
+import static logic.genetic.operators.mutate.MutateOperator.Type.FLIP_ONES_SLICING_ORDER_AT_RANDOM;
 
 import java.util.Random;
-
-import static logic.genetic.operators.mutate.MutateOperator.Type.FLIP_ONES_SLICING_ORDER_AT_RANDOM;
+import models.entity.Individual;
 
 public class FlipOneSlicingOrderAtRandom implements MutateOperator {
 

@@ -1,5 +1,6 @@
 package models.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +10,6 @@ import net.sf.oval.constraint.Min;
 import net.sf.oval.constraint.MinSize;
 import net.sf.oval.constraint.NotNull;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,19 +17,12 @@ import java.util.List;
 public class InstanceParametersDto implements Dto {
 
   @NotNull
-  @Min(2)
-  private Integer facilityCount;
-
-  @NotNull
-  @Min(0)
-  private Integer emptySpace;
-
-  @NotNull @AssertValid private LayoutDto layout;
-
-  @NotNull
-  @MinSize(2)
   @AssertValid
-  List<FacilityDimensionDto> dimension;
+  private LayoutDto layout;
 
-  @NotNull @AssertValid List<FacilityFlowDto> flow;
+  @NotNull
+  @Min(1)
+  private Integer paintingCount;
+
+  @NotNull @AssertValid @MinSize(1) List<PaintingDto> paintings;
 }

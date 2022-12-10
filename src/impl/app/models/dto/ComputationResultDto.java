@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ComputationResultDto implements Dto {
+
   private Long durationMillis;
   private GAResultDto gaResult;
   private GAParametersDto gaParameters;

@@ -1,22 +1,21 @@
 package logic.objective;
 
+import java.util.List;
+import java.util.Optional;
 import logic.metric.Metric;
-import models.entity.Facility;
+import models.entity.Painting;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
-import java.util.List;
-import java.util.Optional;
-
 public interface Objective {
 
-  Double eval(Facility f1, Facility f2);
+  Double eval(Painting p1, Painting p2);
 
-  default Double eval(List<Facility> facilitySequence) {
+  default Double eval(List<Painting> paintingSeq) {
     double value = 0d;
-    for (int i = 0; i < facilitySequence.size(); i++) {
-      for (int j = i + 1; j < facilitySequence.size(); j++) {
-        value += eval(facilitySequence.get(i), facilitySequence.get(j));
+    for (int i = 0; i < paintingSeq.size(); i++) {
+      for (int j = i + 1; j < paintingSeq.size(); j++) {
+        value += eval(paintingSeq.get(i), paintingSeq.get(j));
       }
     }
     return value;
@@ -27,8 +26,7 @@ public interface Objective {
   Metric getMetric();
 
   enum Type implements EnumTypeInterface {
-    USE_METRIC_ONLY("useMetricOnly"),
-    METRIC_TIMES_FREQUENCY("metricTimesFrequency");
+    USE_METRIC_ONLY("useMetricOnly");
 
     final String label;
 

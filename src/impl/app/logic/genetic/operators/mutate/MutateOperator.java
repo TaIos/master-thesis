@@ -1,12 +1,12 @@
 package logic.genetic.operators.mutate;
 
+import java.util.Optional;
 import models.entity.Individual;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
-import java.util.Optional;
-
 public interface MutateOperator {
+
   void mutate(Individual ind);
 
   Type getType();

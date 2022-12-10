@@ -13,6 +13,10 @@ import net.sf.oval.constraint.NotNull;
 @NoArgsConstructor
 public class CreateComputationDto implements Dto {
 
-  @NotNull @AssertValid private InstanceParametersDto instanceParams;
-  @NotNull @AssertValid private GAParametersDto gaParams;
+  @NotNull
+  @AssertValid
+  private InstanceParametersDto instanceParams;
+  @NotNull
+  @AssertValid
+  private GAParametersDto gaParams;
 }

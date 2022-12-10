@@ -1,14 +1,14 @@
 package factory.provider;
 
 import com.typesafe.config.Config;
-
+import java.util.Random;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
-import java.util.Random;
 
 @Singleton
 public class RandomProvider implements Provider<Random> {
+
   private final Random random;
 
   @Inject

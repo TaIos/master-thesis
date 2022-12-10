@@ -3,16 +3,16 @@ package factory;
 import exceptions.DtoConstraintViolationException;
 import exceptions.DtoConstraintViolationExceptionWrapper;
 import exceptions.EntityNotFoundException;
+import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import models.dto.CreateComputationDto;
 import models.dto.CreateComputationFromDatasetDto;
 import models.dto.DatasetDto;
 import models.entity.ComputationContext;
 import org.slf4j.Logger;
 import services.ResultWriterService;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Singleton
 public class ComputationContextFactory
@@ -40,12 +40,12 @@ public class ComputationContextFactory
 
   @Override
   public ComputationContext create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
     return create(dto, computationNameFactory.create(dto));
   }
 
   public ComputationContext create(CreateComputationDto dto, String computationIdent)
-      throws EntityNotFoundException, ImplementationNotFoundException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
     Logger logger = loggerFactory.create(computationIdent);
     return ComputationContext.builder()
         .id(computationIdent)
@@ -59,7 +59,7 @@ public class ComputationContextFactory
 
   public ComputationContext create(CreateComputationFromDatasetDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException,
-          DtoConstraintViolationException, DtoConstraintViolationExceptionWrapper {
+      DtoConstraintViolationException, DtoConstraintViolationExceptionWrapper, FunctionNotValidException {
     DatasetDto datasetDto = datasetFactory.create(dto);
     return create(
         CreateComputationDto.builder()
