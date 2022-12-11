@@ -19,7 +19,7 @@ public class ExceptionalComputationResultFactory
     return ExceptionalComputationResultDto.builder()
         .exception(e)
         .gaParameters(context.getCreateComputationDto().getGaParams())
-        .instanceParameters(context.getCreateComputationDto().getInstanceParams())
+        .instanceParameters(context.getCreateComputationDto().getInstanceParameters())
         .build();
   }
 }

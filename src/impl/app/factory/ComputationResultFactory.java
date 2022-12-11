@@ -19,7 +19,7 @@ public class ComputationResultFactory implements Factory<ComputationContext, Com
         .durationMillis(context.getComputationResult().getDurationMillis())
         .gaResult(gaResultFactory.create(context))
         .gaParameters(context.getCreateComputationDto().getGaParams())
-        .instanceParameters(context.getCreateComputationDto().getInstanceParams())
+        .instanceParameters(context.getCreateComputationDto().getInstanceParameters())
         .build();
   }
 }

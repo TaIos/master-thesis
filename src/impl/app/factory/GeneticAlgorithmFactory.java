@@ -61,7 +61,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
     return create(
         dto.getGaParams().getGeneticAlgorithm(),
         gaParametersFactory.create(dto),
-        instanceParameterFactory.create(dto.getInstanceParams()),
+        instanceParameterFactory.create(dto.getInstanceParameters()),
         evaluatorFactory.create(dto),
         hallOfFameFactory.create(dto),
         logger);

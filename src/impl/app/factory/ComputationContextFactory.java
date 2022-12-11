@@ -63,7 +63,7 @@ public class ComputationContextFactory
     DatasetDto datasetDto = datasetFactory.create(dto);
     return create(
         CreateComputationDto.builder()
-            .instanceParams(datasetDto.getData())
+            .instanceParameters(datasetDto.getData())
             .gaParams(dto.getGaParams())
             .build(),
         computationNameFactory.create(dto, datasetDto));

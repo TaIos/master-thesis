@@ -32,7 +32,7 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
     return Evaluator.builder()
         .placing(placingProvider.get())
         .objective(objectiveFactory.create(dto))
-        .params(instanceParameterFactory.create(dto.getInstanceParams()))
+        .params(instanceParameterFactory.create(dto.getInstanceParameters()))
         .build();
   }
 }
