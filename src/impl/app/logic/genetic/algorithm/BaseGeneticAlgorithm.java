@@ -55,16 +55,16 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
 
   protected void crossover(Population pop, List<Individual> popNext, int k) {
     List<Individual> machoList = pop.getIndividualList().subList(0, (int) (0.1 * pop.size()));
-      if (machoList.isEmpty()) {
-          return;
-      }
+    if (machoList.isEmpty()) {
+      return;
+    }
     for (int i = 0; i < k; i += 2) {
       Individual macho = machoList.get(rnd.nextInt(machoList.size()));
       Individual rndInd = pop.getIndividualList().get(rnd.nextInt(pop.size()));
       for (var off : gaParams.getMatingOperator().mate(macho, rndInd)) {
-          if (popNext.size() >= k) {
-              break;
-          }
+        if (popNext.size() >= k) {
+          break;
+        }
         popNext.add(off);
       }
     }
@@ -76,7 +76,8 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
   }
 
   protected Population generateInitialPopulation() {
-    var req = new RandomIndividualGenerationRequest(instanceParams.getPaintings());
+    var req = new RandomIndividualGenerationRequest(gaParams.getMaximumWildCardCount(),
+        instanceParams.getPaintings());
     List<Individual> pop = new ArrayList<>(gaParams.getPopulationSize());
     for (int i = 0; i < gaParams.getPopulationSize(); i++) {
       pop.add(generator.random(req));

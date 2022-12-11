@@ -31,6 +31,7 @@ public class IndividualDtoFactory implements Factory<Individual, IndividualDto> 
         .slicingOrderDecoded(decoder.decodeSlicingOrder(ind))
         .slicingOrderRandomKey(ind.getSlicingOrderRandomKey())
         .orientations(createOrientations(ind.getOrientations()))
+        .orientationsResolved(createOrientations(ind.getOrientationsResolved()))
         .objectiveValue(ind.getObjectiveValue())
         .paintingPlacement(createPaintingPlacement(ind.getPaintingSeq()))
         .build();

@@ -1,8 +1,6 @@
 package models.entity;
 
-import static models.entity.Orientation.Type.HORIZONTAL;
-import static models.entity.Orientation.Type.VERTICAL;
-
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import lombok.AllArgsConstructor;
@@ -18,18 +16,14 @@ public class Orientation {
 
   private Type type;
 
-  public void flip() {
-    if (type.equals(HORIZONTAL)) {
-      type = VERTICAL;
-    }
-    type = HORIZONTAL;
-  }
-
   public enum Type implements EnumTypeInterface {
     HORIZONTAL("H"),
-    VERTICAL("V");
+    VERTICAL("V"),
+    WILD_CARD("*");
 
     public final String label;
+
+    public static final List<Type> WITHOUT_WILD_CARD = List.of(HORIZONTAL, VERTICAL);
 
     Type(String label) {
       this.label = label;
@@ -41,6 +35,10 @@ public class Orientation {
 
     public static Type getRandom(Random rnd) {
       return Type.values()[rnd.nextInt(Type.values().length)];
+    }
+
+    public static Type getRandomWithoutWildCard(Random rnd) {
+      return WITHOUT_WILD_CARD.get(rnd.nextInt(WITHOUT_WILD_CARD.size()));
     }
 
     @Override

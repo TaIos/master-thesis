@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import net.sf.oval.constraint.Max;
 import net.sf.oval.constraint.Min;
 import net.sf.oval.constraint.NotBlank;
+import net.sf.oval.constraint.NotNegative;
 import net.sf.oval.constraint.NotNull;
 
 @Data
@@ -25,11 +26,17 @@ public class GAParametersDto implements Dto {
   @NotNull
   private Double crossoverProb;
 
+  @NotNull
   @Min(1)
   private Integer maxNumberOfIter;
 
+  @NotNull
   @Min(2)
   private Integer populationSize;
+
+  @NotNull
+  @NotNegative
+  private Integer maximumWildCardCount;
 
   @NotNull
   @NotBlank
@@ -38,9 +45,11 @@ public class GAParametersDto implements Dto {
   @NotNull
   @NotBlank
   private String mate;
+
   @NotNull
   @NotBlank
   private String mutate;
+
   @NotNull
   @NotBlank
   private String select;
@@ -48,6 +57,7 @@ public class GAParametersDto implements Dto {
   @NotNull
   @NotBlank
   private String metric;
+
   @NotNull
   @NotBlank
   private String objective;

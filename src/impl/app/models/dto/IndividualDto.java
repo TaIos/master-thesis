@@ -32,6 +32,8 @@ public class IndividualDto implements Dto {
 
   private List<String> orientations;
 
+  private List<String> orientationsResolved;
+
   @JsonProperty("paintingPlacement_XYWH")
   private List<String> paintingPlacement;
 }

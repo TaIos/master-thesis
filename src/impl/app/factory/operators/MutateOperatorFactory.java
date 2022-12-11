@@ -6,7 +6,6 @@ import factory.Factory;
 import factory.provider.RandomProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import logic.genetic.operators.mutate.FlipOneOrientationAtRandomMutateOperator;
 import logic.genetic.operators.mutate.FlipOneSlicingOrderAtRandom;
 import logic.genetic.operators.mutate.MutateOperator;
 import logic.metric.Metric;
@@ -32,8 +31,6 @@ public class MutateOperatorFactory implements Factory<String, MutateOperator> {
       throws EntityNotFoundException, ImplementationNotFoundException {
 
     switch (findOrThrow(name)) {
-      case FLIP_ONE_ORIENTATION_AT_RANDOM:
-        return new FlipOneOrientationAtRandomMutateOperator(randomProvider.get());
       case FLIP_ONES_SLICING_ORDER_AT_RANDOM:
         return new FlipOneSlicingOrderAtRandom(randomProvider.get());
       default:

@@ -21,6 +21,7 @@ public class Individual implements Comparable<Individual>, Cloneable {
   private List<Double> paintingSeqRandomKey;
   private List<Double> slicingOrderRandomKey;
   private List<Orientation> orientations;
+  private List<Orientation> orientationsResolved;
   @Builder.Default
   private Double objectiveValue = OBJECTIVE_VALUE_MAX;
 
