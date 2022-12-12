@@ -9,8 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Point implements Cloneable {
 
-  private Double x;
-  private Double y;
+  private Integer x;
+  private Integer y;
 
   @Override
   public Point clone() {

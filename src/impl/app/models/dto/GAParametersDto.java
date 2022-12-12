@@ -56,9 +56,5 @@ public class GAParametersDto implements Dto {
 
   @NotNull
   @NotBlank
-  private String metric;
-
-  @NotNull
-  @NotBlank
   private String objective;
 }

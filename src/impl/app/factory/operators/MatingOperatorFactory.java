@@ -9,7 +9,6 @@ import javax.inject.Singleton;
 import logic.genetic.operators.mate.MatingOperator;
 import logic.genetic.operators.mate.OnePointFullCrossover;
 import logic.genetic.operators.mate.RepeatFirstParentMatingOperator;
-import logic.metric.Metric;
 import models.dto.GAParametersDto;
 
 @Singleton
@@ -37,12 +36,12 @@ public class MatingOperatorFactory implements Factory<String, MatingOperator> {
       case ONE_POINT_FULL_CROSSOVER:
         return new OnePointFullCrossover(randomProvider.get());
       default:
-        throw new ImplementationNotFoundException(Metric.class, name);
+        throw new ImplementationNotFoundException(MatingOperator.class, name);
     }
   }
 
   private MatingOperator.Type findOrThrow(String name) throws EntityNotFoundException {
     return MatingOperator.Type.getForLabel(name)
-        .orElseThrow(() -> new EntityNotFoundException(Metric.class, name));
+        .orElseThrow(() -> new EntityNotFoundException(MatingOperator.class, name));
   }
 }

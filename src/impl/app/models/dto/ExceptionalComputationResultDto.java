@@ -1,17 +1,19 @@
 package models.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExceptionalComputationResultDto implements Dto {
+@EqualsAndHashCode(callSuper = true)
+@JsonPropertyOrder({"exception"})
+public class ExceptionalComputationResultDto extends ComputationResultDto {
 
   private String exception;
-  private GAParametersDto gaParameters;
-  private InstanceParametersDto instanceParameters;
 }

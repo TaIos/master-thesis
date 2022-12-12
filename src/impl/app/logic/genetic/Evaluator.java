@@ -36,12 +36,12 @@ public class Evaluator {
 
     for (var orientationResolved : orientationResolver.resolve(orientationsUnresolved)) {
       ind.setOrientations(orientationResolved);
-      placing.setPaintingLayout(ind, params.getLayout().getBoundingRectangle());
+      placing.computePaintingAllocatedSpace(ind, params.getLayout().getBoundingRectangle());
       double objectiveVal = objective.eval(ind.getPaintingSeq());
       if (objectiveVal < bestObjectiveVal) {
         bestObjectiveVal = objectiveVal;
         bestOrientationResolved = orientationResolved;
-        bestPlacement = ind.getPaintingSeq().stream().map(Painting::getPlacement)
+        bestPlacement = ind.getPaintingSeq().stream().map(Painting::getAllocatedSpace)
             .map(Rectangle::clone).collect(
                 Collectors.toList());
       }
@@ -51,7 +51,8 @@ public class Evaluator {
     ind.setOrientationsResolved(bestOrientationResolved);
     ind.setObjectiveValue(bestObjectiveVal);
     for (int i = 0; i < ind.getPaintingSeq().size(); i++) {
-      ind.getPaintingSeq().get(i).setPlacement(bestPlacement.get(i));
+      ind.getPaintingSeq().get(i).setAllocatedSpace(bestPlacement.get(i));
     }
+    objective.eval(ind.getPaintingSeq()); // TODO remove this hack, it sets placement
   }
 }

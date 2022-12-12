@@ -2,33 +2,30 @@ package factory;
 
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
-import javax.inject.Inject;
 import javax.inject.Singleton;
-import logic.metric.Metric;
 import logic.objective.Objective;
-import logic.objective.UseOnlyMetricObjective;
+import logic.objective.SimpleObjective;
 import models.dto.CreateComputationDto;
 
 @Singleton
-public class ObjectiveFactory implements Factory<CreateComputationDto, Objective> {
+public class ObjectiveFactory implements Factory<String, Objective> {
 
-  private final MetricFactory metricFactory;
-
-  @Inject
-  public ObjectiveFactory(MetricFactory metricFactory) {
-    this.metricFactory = metricFactory;
-  }
 
   @Override
+  public Objective create(String name)
+      throws ImplementationNotFoundException, EntityNotFoundException {
+    switch (findOrThrow(name)) {
+      case SIMPLE:
+        return new SimpleObjective();
+      default:
+        throw new ImplementationNotFoundException(Objective.class,
+            name);
+    }
+  }
+
   public Objective create(CreateComputationDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException {
-    Objective.Type objectiveType = findOrThrow(dto.getGaParams().getObjective());
-    Metric metric = metricFactory.create(dto.getGaParams().getMetric());
-
-    if (objectiveType == Objective.Type.USE_METRIC_ONLY) {
-      return new UseOnlyMetricObjective(metric);
-    }
-    throw new ImplementationNotFoundException(Objective.class, dto.getGaParams().getObjective());
+    return create(dto.getGaParams().getObjective());
   }
 
   private Objective.Type findOrThrow(String name) throws EntityNotFoundException {

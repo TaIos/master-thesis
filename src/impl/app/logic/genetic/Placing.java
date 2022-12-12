@@ -21,21 +21,22 @@ public class Placing {
     this.decoder = decoder;
   }
 
-  public void setPaintingLayout(Individual individual, Rectangle layoutBoundingRectangle) {
-    setRecursively(
+  public void computePaintingAllocatedSpace(Individual individual,
+      Rectangle layoutBoundingRectangle) {
+    computeRecursively(
         decoder.decodePaintingSequence(individual),
         decoder.decodeSlicingOrder(individual),
         individual.getOrientations(),
         layoutBoundingRectangle);
   }
 
-  private void setRecursively(
+  private void computeRecursively(
       List<Painting> paintingSeq,
       List<Integer> slicingOrder,
       List<Orientation> orientations,
       Rectangle rec) {
     if (paintingSeq.size() == 1) {
-      paintingSeq.get(0).setPlacement(rec);
+      paintingSeq.get(0).setAllocatedSpace(rec);
       return;
     }
 
@@ -44,12 +45,12 @@ public class Placing {
     List<Painting> right = paintingSeq.subList(k, paintingSeq.size());
     List<Rectangle> sp = createSplit(orientations.get(0), rec, left, right);
 
-    setRecursively(
+    computeRecursively(
         left,
         createNextSlicingOrderUpTo(slicingOrder, k),
         createNextOrientationUpTo(slicingOrder, orientations, k),
         sp.get(0));
-    setRecursively(
+    computeRecursively(
         right,
         createNextSlicingOrderAfter(slicingOrder, k),
         createNextOrientationAfter(slicingOrder, orientations, k),

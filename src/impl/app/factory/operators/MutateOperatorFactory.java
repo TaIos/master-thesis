@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.operators.mutate.FlipOneSlicingOrderAtRandom;
 import logic.genetic.operators.mutate.MutateOperator;
-import logic.metric.Metric;
 import models.dto.GAParametersDto;
 
 @Singleton
@@ -34,12 +33,12 @@ public class MutateOperatorFactory implements Factory<String, MutateOperator> {
       case FLIP_ONES_SLICING_ORDER_AT_RANDOM:
         return new FlipOneSlicingOrderAtRandom(randomProvider.get());
       default:
-        throw new ImplementationNotFoundException(Metric.class, name);
+        throw new ImplementationNotFoundException(MutateOperator.class, name);
     }
   }
 
   private MutateOperator.Type findOrThrow(String name) throws EntityNotFoundException {
     return MutateOperator.Type.getForLabel(name)
-        .orElseThrow(() -> new EntityNotFoundException(Metric.class, name));
+        .orElseThrow(() -> new EntityNotFoundException(MutateOperator.class, name));
   }
 }

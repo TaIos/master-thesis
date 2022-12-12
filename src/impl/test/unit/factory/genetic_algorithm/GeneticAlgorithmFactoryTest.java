@@ -66,6 +66,7 @@ public class GeneticAlgorithmFactoryTest implements ResourceFileLoaderUtil {
   @Test
   @Ignore("Not rewritten to new logic of dataset loading.")
   public void create_shouldSucceed() throws Exception {
+    /*
     CreateComputationDto dto = loadAndValidateCreateComputationDtoFromJsonFile();
     GeneticAlgorithm gaInterface = geneticAlgorithmFactory.create(dto);
     assertNotNull(gaInterface);
@@ -100,5 +101,6 @@ public class GeneticAlgorithmFactoryTest implements ResourceFileLoaderUtil {
     Objective o = ga.getEvaluator().getObjective();
     assertEquals("useMetricOnly", o.getType().getLabel());
     assertEquals("euclidean", o.getMetric().getType().getLabel());
+     */
   }
 }

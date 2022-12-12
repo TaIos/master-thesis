@@ -13,15 +13,6 @@ public class Rectangle implements Cloneable {
   private Integer y;
   private Integer width;
   private Integer height;
-  private Point center;
-
-  // lazy evaluation
-  public Point getCenter() {
-    if (center == null) {
-      center = new Point((x + width) / 2d, (y + height) / 2d);
-    }
-    return center;
-  }
 
   @Override
   public String toString() {
@@ -36,9 +27,6 @@ public class Rectangle implements Cloneable {
       clone.y = y;
       clone.width = width;
       clone.height = height;
-      if (center != null) {
-        clone.center = center.clone();
-      }
       return clone;
     } catch (CloneNotSupportedException e) {
       throw new AssertionError();

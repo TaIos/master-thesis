@@ -6,7 +6,6 @@ import factory.Factory;
 import javax.inject.Singleton;
 import logic.genetic.operators.select.SelectBestOperator;
 import logic.genetic.operators.select.SelectOperator;
-import logic.metric.Metric;
 import models.dto.GAParametersDto;
 
 @Singleton
@@ -19,7 +18,7 @@ public class SelectOperatorFactory implements Factory<String, SelectOperator> {
     if (findOrThrow(name) == SelectOperator.Type.BEST) {
       return new SelectBestOperator();
     }
-    throw new ImplementationNotFoundException(Metric.class, name);
+    throw new ImplementationNotFoundException(SelectOperator.class, name);
   }
 
   public SelectOperator create(GAParametersDto dto)
@@ -29,6 +28,6 @@ public class SelectOperatorFactory implements Factory<String, SelectOperator> {
 
   private SelectOperator.Type findOrThrow(String name) throws EntityNotFoundException {
     return SelectOperator.Type.getForLabel(name)
-        .orElseThrow(() -> new EntityNotFoundException(Metric.class, name));
+        .orElseThrow(() -> new EntityNotFoundException(SelectOperator.class, name));
   }
 }

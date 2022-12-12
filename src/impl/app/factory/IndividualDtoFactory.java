@@ -11,15 +11,19 @@ import models.entity.BestIndividual;
 import models.entity.Individual;
 import models.entity.Orientation;
 import models.entity.Painting;
+import models.entity.Rectangle;
 
 @Singleton
 public class IndividualDtoFactory implements Factory<Individual, IndividualDto> {
 
   private final RandomKeyDecoder decoder;
+  private final RectangleFactory rectangleFactory;
 
   @Inject
-  public IndividualDtoFactory(RandomKeyDecoderProvider decoderProvider) {
+  public IndividualDtoFactory(RandomKeyDecoderProvider decoderProvider,
+      RectangleFactory rectangleFactory) {
     this.decoder = decoderProvider.get();
+    this.rectangleFactory = rectangleFactory;
   }
 
   @Override
@@ -33,6 +37,7 @@ public class IndividualDtoFactory implements Factory<Individual, IndividualDto> 
         .orientations(createOrientations(ind.getOrientations()))
         .orientationsResolved(createOrientations(ind.getOrientationsResolved()))
         .objectiveValue(ind.getObjectiveValue())
+        .paintingAllocatedSpace(createPaintingAllocatedSpace(ind.getPaintingSeq()))
         .paintingPlacement(createPaintingPlacement(ind.getPaintingSeq()))
         .build();
   }
@@ -58,10 +63,21 @@ public class IndividualDtoFactory implements Factory<Individual, IndividualDto> 
         .collect(Collectors.toList());
   }
 
-  private List<String> createPaintingPlacement(List<Painting> paintingSequence) {
+  private List<String> createPaintingAllocatedSpace(List<Painting> paintingSequence) {
     return paintingSequence.stream()
-        .map(Painting::getPlacement)
-        .map(Object::toString)
+        .map(Painting::getAllocatedSpace)
+        .map(Rectangle::toString)
         .collect(Collectors.toList());
   }
+
+  private List<String> createPaintingPlacement(List<Painting> paintingSeq) {
+    return paintingSeq.stream()
+        .map(p -> rectangleFactory.create(
+            p.getPlacement().getX(),
+            p.getPlacement().getY(),
+            p.getWidth(),
+            p.getHeight())
+        ).map(Rectangle::toString).collect(Collectors.toList());
+  }
+
 }
