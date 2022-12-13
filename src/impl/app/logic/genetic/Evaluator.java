@@ -9,6 +9,7 @@ import models.entity.Individual;
 import models.entity.InstanceParameters;
 import models.entity.Orientation;
 import models.entity.Painting;
+import models.entity.Point;
 import models.entity.Rectangle;
 
 @Getter
@@ -29,30 +30,52 @@ public class Evaluator {
   }
 
   public void eval(Individual ind) {
-    double bestObjectiveVal = Individual.OBJECTIVE_VALUE_MAX;
-    List<Orientation> bestOrientationResolved = null;
-    List<Rectangle> bestPlacement = null;
-    var orientationsUnresolved = ind.getOrientations();
+    EvaluationParameters bestParams = EvaluationParameters.withMaxObjectiveValue();
 
-    for (var orientationResolved : orientationResolver.resolve(orientationsUnresolved)) {
-      ind.setOrientations(orientationResolved);
-      placing.computePaintingAllocatedSpace(ind, params.getLayout().getBoundingRectangle());
+    for (var resolved : orientationResolver.resolve(ind.getOrientations())) {
+      placing.computeAndSetPaintingAllocatedSpace(ind, resolved,
+          params.getLayout().getBoundingRectangle());
       double objectiveVal = objective.eval(ind.getPaintingSeq());
-      if (objectiveVal < bestObjectiveVal) {
-        bestObjectiveVal = objectiveVal;
-        bestOrientationResolved = orientationResolved;
-        bestPlacement = ind.getPaintingSeq().stream().map(Painting::getAllocatedSpace)
+      bestParams.updateIfBetter(objectiveVal, resolved, ind.getPaintingSeq());
+    }
+
+    bestParams.setIndividualParameters(ind);
+  }
+
+  private static class EvaluationParameters {
+
+    private double objectiveVal;
+    private List<Orientation> orientationsResolved;
+    private List<Rectangle> allocatedSpace;
+    private List<Point> placements;
+
+    public static EvaluationParameters withMaxObjectiveValue() {
+      EvaluationParameters params = new EvaluationParameters();
+      params.objectiveVal = Individual.OBJECTIVE_VALUE_MAX;
+      return params;
+    }
+
+    public void updateIfBetter(Double objectiveVal, List<Orientation> orientationsResolved,
+        List<Painting> paintingSeqToClone) {
+      if (objectiveVal < this.objectiveVal) {
+        this.objectiveVal = objectiveVal;
+        this.orientationsResolved = orientationsResolved;
+        this.allocatedSpace = paintingSeqToClone.stream().map(Painting::getAllocatedSpace)
             .map(Rectangle::clone).collect(
                 Collectors.toList());
+        this.placements = paintingSeqToClone.stream().map(Painting::getPlacement)
+            .map(Point::clone).collect(Collectors.toList());
       }
     }
 
-    ind.setOrientations(orientationsUnresolved);
-    ind.setOrientationsResolved(bestOrientationResolved);
-    ind.setObjectiveValue(bestObjectiveVal);
-    for (int i = 0; i < ind.getPaintingSeq().size(); i++) {
-      ind.getPaintingSeq().get(i).setAllocatedSpace(bestPlacement.get(i));
+    public void setIndividualParameters(Individual ind) {
+      ind.setOrientationsResolved(orientationsResolved);
+      ind.setObjectiveValue(objectiveVal);
+      for (int i = 0; i < ind.getPaintingSeq().size(); i++) {
+        ind.getPaintingSeq().get(i).setAllocatedSpace(allocatedSpace.get(i));
+        ind.getPaintingSeq().get(i).setPlacement(placements.get(i));
+      }
     }
-    objective.eval(ind.getPaintingSeq()); // TODO remove this hack, it sets placement
   }
+
 }

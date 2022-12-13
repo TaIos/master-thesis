@@ -21,36 +21,37 @@ public class Placing {
     this.decoder = decoder;
   }
 
-  public void computePaintingAllocatedSpace(Individual individual,
+
+  public void computeAndSetPaintingAllocatedSpace(Individual individual, List<Orientation> orientations,
       Rectangle layoutBoundingRectangle) {
-    computeRecursively(
+    computeAndSetRecursively(
         decoder.decodePaintingSequence(individual),
         decoder.decodeSlicingOrder(individual),
-        individual.getOrientations(),
+        orientations,
         layoutBoundingRectangle);
   }
 
-  private void computeRecursively(
-      List<Painting> paintingSeq,
+  private void computeAndSetRecursively(
+      List<Painting> paintings,
       List<Integer> slicingOrder,
       List<Orientation> orientations,
       Rectangle rec) {
-    if (paintingSeq.size() == 1) {
-      paintingSeq.get(0).setAllocatedSpace(rec);
+    if (paintings.size() == 1) {
+      paintings.get(0).setAllocatedSpace(rec);
       return;
     }
 
     int k = slicingOrder.get(0);
-    List<Painting> left = paintingSeq.subList(0, k);
-    List<Painting> right = paintingSeq.subList(k, paintingSeq.size());
+    List<Painting> left = paintings.subList(0, k);
+    List<Painting> right = paintings.subList(k, paintings.size());
     List<Rectangle> sp = createSplit(orientations.get(0), rec, left, right);
 
-    computeRecursively(
+    computeAndSetRecursively(
         left,
         createNextSlicingOrderUpTo(slicingOrder, k),
         createNextOrientationUpTo(slicingOrder, orientations, k),
         sp.get(0));
-    computeRecursively(
+    computeAndSetRecursively(
         right,
         createNextSlicingOrderAfter(slicingOrder, k),
         createNextOrientationAfter(slicingOrder, orientations, k),
