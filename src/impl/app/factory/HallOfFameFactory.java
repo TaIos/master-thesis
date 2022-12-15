@@ -9,6 +9,6 @@ public class HallOfFameFactory implements Factory<CreateComputationDto, HallOfFa
 
   @Override
   public HallOfFame create(CreateComputationDto dto) {
-    return new HallOfFame(dto.getGaParams().getMaxNumberOfIter());
+    return new HallOfFame(dto.getGaParameters().getMaxNumberOfIter());
   }
 }

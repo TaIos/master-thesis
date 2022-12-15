@@ -3,6 +3,7 @@ package factory;
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
+import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.GeneratorProvider;
 import factory.provider.RandomProvider;
 import javax.inject.Inject;
@@ -51,15 +52,15 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
 
   @Override
   public GeneticAlgorithm create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
     return create(
         dto, loggerFactory.create("implicit_ga_logger_" + randomStringGenerator.generate()));
   }
 
   public GeneticAlgorithm create(CreateComputationDto dto, Logger logger)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
     return create(
-        dto.getGaParams().getGeneticAlgorithm(),
+        dto.getGaParameters().getGeneticAlgorithm(),
         gaParametersFactory.create(dto),
         instanceParameterFactory.create(dto.getInstanceParameters()),
         evaluatorFactory.create(dto),

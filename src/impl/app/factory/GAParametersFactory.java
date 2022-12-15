@@ -45,6 +45,6 @@ public class GAParametersFactory implements Factory<GAParametersDto, GAParameter
 
   public GAParameters create(CreateComputationDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException {
-    return create(dto.getGaParams());
+    return create(dto.getGaParameters());
   }
 }

@@ -5,6 +5,7 @@ import exceptions.DtoConstraintViolationExceptionWrapper;
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
+import exceptions.InvalidFieldValueInJsonException;
 import factory.ComputationContextFactory;
 import factory.ComputationResultPromiseFactory;
 import factory.GATimeMeasureWrapperFactory;
@@ -36,12 +37,12 @@ public class ComputationService {
 
   public ComputationResultPromiseDto compute(CreateComputationFromDatasetDto dto)
       throws DtoConstraintViolationException, EntityNotFoundException,
-      ImplementationNotFoundException, DtoConstraintViolationExceptionWrapper, FunctionNotValidException {
+      ImplementationNotFoundException, DtoConstraintViolationExceptionWrapper, FunctionNotValidException, InvalidFieldValueInJsonException {
     return compute(computationContextFactory.create(dto));
   }
 
   public ComputationResultPromiseDto compute(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
     return compute(computationContextFactory.create(dto));
   }
 

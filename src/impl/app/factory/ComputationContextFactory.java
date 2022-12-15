@@ -5,6 +5,7 @@ import exceptions.DtoConstraintViolationExceptionWrapper;
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
+import exceptions.InvalidFieldValueInJsonException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import models.dto.CreateComputationDto;
@@ -40,12 +41,12 @@ public class ComputationContextFactory
 
   @Override
   public ComputationContext create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
     return create(dto, computationNameFactory.create(dto));
   }
 
   public ComputationContext create(CreateComputationDto dto, String computationIdent)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
     Logger logger = loggerFactory.create(computationIdent);
     return ComputationContext.builder()
         .id(computationIdent)
@@ -59,12 +60,12 @@ public class ComputationContextFactory
 
   public ComputationContext create(CreateComputationFromDatasetDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException,
-      DtoConstraintViolationException, DtoConstraintViolationExceptionWrapper, FunctionNotValidException {
+      DtoConstraintViolationException, DtoConstraintViolationExceptionWrapper, FunctionNotValidException, InvalidFieldValueInJsonException {
     DatasetDto datasetDto = datasetFactory.create(dto);
     return create(
         CreateComputationDto.builder()
             .instanceParameters(datasetDto.getData())
-            .gaParams(dto.getGaParams())
+            .gaParameters(dto.getGaParams())
             .build(),
         computationNameFactory.create(dto, datasetDto));
   }

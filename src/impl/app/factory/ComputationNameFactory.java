@@ -19,7 +19,7 @@ public class ComputationNameFactory implements Factory<CreateComputationDto, Str
 
   @Override
   public String create(CreateComputationDto dto) {
-    return create(dto.getGaParams().getGeneticAlgorithm());
+    return create(dto.getGaParameters().getGeneticAlgorithm());
   }
 
   public String create(CreateComputationFromDatasetDto dto, DatasetDto datasetDto) {

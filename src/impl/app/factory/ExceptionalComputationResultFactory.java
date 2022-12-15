@@ -31,7 +31,7 @@ public class ExceptionalComputationResultFactory
     return ExceptionalComputationResultDto.builder()
         .applicationVersion(applicationVersion)
         .exception(e)
-        .gaParameters(context.getCreateComputationDto().getGaParams())
+        .gaParameters(context.getCreateComputationDto().getGaParameters())
         .instanceParameters(context.getCreateComputationDto().getInstanceParameters())
         .build();
   }

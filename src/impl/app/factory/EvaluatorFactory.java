@@ -3,6 +3,7 @@ package factory;
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
+import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.OrientationResolverProvider;
 import factory.provider.PaintingSpaceAllocatorProvider;
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
 
   @Override
   public Evaluator create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
     return Evaluator.builder()
         .placing(paintingSpaceAllocatorProvider.get())
         .objective(objectiveFactory.create(dto))

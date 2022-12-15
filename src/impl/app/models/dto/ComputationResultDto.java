@@ -17,4 +17,5 @@ public class ComputationResultDto implements Dto {
   private GAResultDto gaResult;
   private GAParametersDto gaParameters;
   private InstanceParametersDto instanceParameters;
+  private ObjectiveParametersDto objectiveParameters;
 }

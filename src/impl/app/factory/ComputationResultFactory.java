@@ -20,13 +20,14 @@ public class ComputationResultFactory implements Factory<ComputationContext, Com
   }
 
   @Override
-  public ComputationResultDto create(ComputationContext context) {
+  public ComputationResultDto create(ComputationContext ctx) {
     return ComputationResultDto.builder()
         .applicationVersion(applicationVersion)
-        .durationMillis(context.getComputationResult().getDurationMillis())
-        .gaResult(gaResultFactory.create(context))
-        .gaParameters(context.getCreateComputationDto().getGaParams())
-        .instanceParameters(context.getCreateComputationDto().getInstanceParameters())
+        .durationMillis(ctx.getComputationResult().getDurationMillis())
+        .gaResult(gaResultFactory.create(ctx))
+        .gaParameters(ctx.getCreateComputationDto().getGaParameters())
+        .instanceParameters(ctx.getCreateComputationDto().getInstanceParameters())
+        .objectiveParameters(ctx.getCreateComputationDto().getObjectiveParameters())
         .build();
   }
 }

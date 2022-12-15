@@ -19,5 +19,9 @@ public class CreateComputationDto implements Dto {
 
   @NotNull
   @AssertValid
-  private GAParametersDto gaParams;
+  private GAParametersDto gaParameters;
+
+  @NotNull
+  @AssertValid
+  private ObjectiveParametersDto objectiveParameters;
 }
