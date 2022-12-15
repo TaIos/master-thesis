@@ -8,11 +8,7 @@ import utils.JavaUtils;
 
 public interface Objective {
 
-  double eval(Painting painting);
-
-  default double eval(List<Painting> paintingList) {
-    return paintingList.parallelStream().mapToDouble(this::eval).sum();
-  }
+  double eval(List<Painting> paintingList);
 
 
   Type getType();

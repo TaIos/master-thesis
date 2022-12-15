@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import models.dto.LayoutDto;
 import models.entity.Layout;
-import org.mariuszgromada.math.mxparser.Function;
 
 @Singleton
 public class LayoutFactory implements Factory<LayoutDto, Layout> {
@@ -22,7 +21,6 @@ public class LayoutFactory implements Factory<LayoutDto, Layout> {
 
   @Override
   public Layout create(LayoutDto dto) throws FunctionNotValidException {
-    Function func = mxparserFunctionFactory.create(dto.getEvalFunc());
     return Layout.builder()
         .boundingRectangle(rectangleFactory.create(0, 0, dto.getWidth(), dto.getHeight()))
         .evalFunc(mxparserFunctionFactory.create(dto.getEvalFunc()))

@@ -4,7 +4,7 @@ import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
 import factory.provider.OrientationResolverProvider;
-import factory.provider.PlacingProvider;
+import factory.provider.PaintingSpaceAllocatorProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.Evaluator;
@@ -14,7 +14,7 @@ import models.dto.CreateComputationDto;
 public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator> {
 
   private final ObjectiveFactory objectiveFactory;
-  private final PlacingProvider placingProvider;
+  private final PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider;
   private final InstanceParameterFactory instanceParameterFactory;
   private final OrientationResolverProvider orientationResolverProvider;
 
@@ -22,11 +22,11 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
   @Inject
   public EvaluatorFactory(
       ObjectiveFactory objectiveFactory,
-      PlacingProvider placingProvider,
+      PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider,
       InstanceParameterFactory instanceParameterFactory,
       OrientationResolverProvider orientationResolverProvider) {
     this.objectiveFactory = objectiveFactory;
-    this.placingProvider = placingProvider;
+    this.paintingSpaceAllocatorProvider = paintingSpaceAllocatorProvider;
     this.instanceParameterFactory = instanceParameterFactory;
     this.orientationResolverProvider = orientationResolverProvider;
   }
@@ -35,7 +35,7 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
   public Evaluator create(CreateComputationDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
     return Evaluator.builder()
-        .placing(placingProvider.get())
+        .placing(paintingSpaceAllocatorProvider.get())
         .objective(objectiveFactory.create(dto))
         .params(instanceParameterFactory.create(dto.getInstanceParameters()))
         .orientationResolver(orientationResolverProvider.get())

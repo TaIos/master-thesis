@@ -52,4 +52,8 @@ public final class JavaUtils {
     result.addAll(second);
     return result;
   }
+
+  public static int toInteger(Boolean bool) {
+    return bool ? 1 : 0;
+  }
 }

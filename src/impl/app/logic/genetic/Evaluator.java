@@ -3,6 +3,7 @@ package logic.genetic;
 import java.util.List;
 import java.util.stream.Collectors;
 import logic.objective.Objective;
+import logic.placing.PaintingSpaceAllocator;
 import lombok.Builder;
 import lombok.Getter;
 import models.entity.Individual;
@@ -16,12 +17,12 @@ import models.entity.Rectangle;
 @Builder
 public class Evaluator {
 
-  private final Placing placing;
+  private final PaintingSpaceAllocator placing;
   private final Objective objective;
   private final InstanceParameters params;
   private final OrientationResolver orientationResolver;
 
-  public Evaluator(Placing placing, Objective objective, InstanceParameters params,
+  public Evaluator(PaintingSpaceAllocator placing, Objective objective, InstanceParameters params,
       OrientationResolver orientationResolver) {
     this.placing = placing;
     this.objective = objective;
@@ -61,8 +62,7 @@ public class Evaluator {
         this.objectiveVal = objectiveVal;
         this.orientationsResolved = orientationsResolved;
         this.allocatedSpace = paintingSeqToClone.stream().map(Painting::getAllocatedSpace)
-            .map(Rectangle::clone).collect(
-                Collectors.toList());
+            .map(Rectangle::clone).collect(Collectors.toList());
         this.placements = paintingSeqToClone.stream().map(Painting::getPlacement)
             .map(Point::clone).collect(Collectors.toList());
       }

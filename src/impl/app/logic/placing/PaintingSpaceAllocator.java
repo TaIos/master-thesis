@@ -1,22 +1,23 @@
-package logic.genetic;
+package logic.placing;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import logic.genetic.RandomKeyDecoder;
 import models.entity.Individual;
 import models.entity.Orientation;
 import models.entity.Painting;
 import models.entity.Rectangle;
 import services.RectangleService;
 
-public class Placing {
+public class PaintingSpaceAllocator {
 
   private final RectangleService rectangleService;
   private final RandomKeyDecoder decoder;
 
-  public Placing(RectangleService rectangleService, RandomKeyDecoder decoder) {
+  public PaintingSpaceAllocator(RectangleService rectangleService, RandomKeyDecoder decoder) {
     this.rectangleService = rectangleService;
     this.decoder = decoder;
   }
