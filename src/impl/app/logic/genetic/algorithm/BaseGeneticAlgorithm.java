@@ -1,5 +1,7 @@
 package logic.genetic.algorithm;
 
+import static utils.DelayedFormatter.format;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -83,5 +85,14 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
       pop.add(generator.random(req));
     }
     return new Population(pop, evaluator);
+  }
+
+  protected void printIterationStats(int iteration, Population pop) {
+    logger.info("iteration={}/{}, min={}, max={}, avg={}",
+        iteration,
+        gaParams.getMaxNumberOfIter(),
+        format("%.02f", pop.getObjectiveMin()),
+        format("%.02f", pop.getObjectiveMax()),
+        format("%.02f", pop.getObjectiveAvg()));
   }
 }

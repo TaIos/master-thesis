@@ -42,7 +42,6 @@ public class SimpleObjective implements Objective {
         + evalGlobal(paintingList);
   }
 
-  // TODO outsource constant to input params
   private double evalGlobal(List<Painting> paintingList) {
     return params.getOverlappingPenalizationConstant() * overlappingPaintings.eval(paintingList);
   }

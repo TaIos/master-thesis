@@ -32,6 +32,8 @@ public class SimpleGA extends BaseGeneticAlgorithm {
     Population pop = generateInitialPopulation();
     BestIndividual bestInd = new BestIndividual(pop, 0);
     hof.log(pop, 0);
+    printIterationStats(0, pop);
+
 
     for (int iter = 1, popSize = gaParams.getPopulationSize();
         iter <= gaParams.getMaxNumberOfIter();
@@ -43,6 +45,7 @@ public class SimpleGA extends BaseGeneticAlgorithm {
 
       pop = new Population(popNext, evaluator);
       bestInd.update(pop, iter);
+      printIterationStats(iter, pop);
       hof.log(pop, iter);
     }
     return GAResult.builder().bestIndividual(bestInd).hallOfFame(hof).build();
