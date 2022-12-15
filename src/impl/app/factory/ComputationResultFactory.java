@@ -1,6 +1,7 @@
 package factory;
 
 import factory.provider.ApplicationVersionProvider;
+import java.time.ZonedDateTime;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import models.dto.ComputationResultDto;
@@ -23,6 +24,7 @@ public class ComputationResultFactory implements Factory<ComputationContext, Com
   public ComputationResultDto create(ComputationContext ctx) {
     return ComputationResultDto.builder()
         .applicationVersion(applicationVersion)
+        .createdAt(ZonedDateTime.now())
         .durationMillis(ctx.getComputationResult().getDurationMillis())
         .gaResult(gaResultFactory.create(ctx))
         .gaParameters(ctx.getCreateComputationDto().getGaParameters())
