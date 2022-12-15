@@ -15,7 +15,12 @@ import net.sf.oval.constraint.NotNull;
 public class CreateComputationFromDatasetDto implements Dto {
 
   @NotNull @NotEmpty String datasetName;
+
   @NotNull
   @AssertValid
-  private GAParametersDto gaParams;
+  private GAParametersDto gaParameters;
+
+  @NotNull
+  @AssertValid
+  private ObjectiveParametersDto objectiveParameters;
 }

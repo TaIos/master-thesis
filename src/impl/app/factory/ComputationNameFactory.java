@@ -24,7 +24,7 @@ public class ComputationNameFactory implements Factory<CreateComputationDto, Str
 
   public String create(CreateComputationFromDatasetDto dto, DatasetDto datasetDto) {
     return create(
-        String.format("%s_%s", dto.getGaParams().getGeneticAlgorithm(), datasetDto.getName()));
+        String.format("%s_%s", dto.getGaParameters().getGeneticAlgorithm(), datasetDto.getName()));
   }
 
   private String create(String prefix) {
