@@ -1,5 +1,6 @@
 package logic.genetic;
 
+import factory.copy_factory.IndividualCopyFactory;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
@@ -11,9 +12,11 @@ import models.entity.Population;
 public class HallOfFame {
 
   private final List<HallOfFameRecord> records;
+  private final IndividualCopyFactory individualCopyFactory;
 
-  public HallOfFame(int initialCapacity) {
+  public HallOfFame(int initialCapacity, IndividualCopyFactory individualCopyFactory) {
     records = new ArrayList<>(initialCapacity);
+    this.individualCopyFactory = individualCopyFactory;
   }
 
   public void log(Population pop, int iteration) {
@@ -23,7 +26,7 @@ public class HallOfFame {
             .objectiveMin(pop.getObjectiveMin())
             .objectiveMax(pop.getObjectiveMax())
             .objectiveAvg(pop.getObjectiveAvg())
-            .bestIndividual(pop.getBestIndividual().clone())
+            .bestIndividual(individualCopyFactory.createCopy(pop.getBestIndividual()))
             .build());
   }
 

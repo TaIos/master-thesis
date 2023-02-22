@@ -8,6 +8,8 @@ import utils.JavaUtils;
 
 public interface Objective {
 
+  double OBJECTIVE_VALUE_MAX = Double.MAX_VALUE;
+
   double eval(List<Painting> paintingList);
 
 

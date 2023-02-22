@@ -6,6 +6,8 @@ import exceptions.ImplementationNotFoundException;
 import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.OrientationResolverProvider;
 import factory.provider.PaintingSpaceAllocatorProvider;
+import factory.provider.PointCopyFactoryProvider;
+import factory.provider.RectangleCopyFactoryProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.Evaluator;
@@ -15,21 +17,26 @@ import models.dto.CreateComputationDto;
 public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator> {
 
   private final ObjectiveFactory objectiveFactory;
-  private final PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider;
   private final InstanceParameterFactory instanceParameterFactory;
-  private final OrientationResolverProvider orientationResolverProvider;
 
+  private final PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider;
+  private final OrientationResolverProvider orientationResolverProvider;
+  private final RectangleCopyFactoryProvider rectangleCopyFactoryProvider;
+  private final PointCopyFactoryProvider pointCopyFactoryProvider;
 
   @Inject
-  public EvaluatorFactory(
-      ObjectiveFactory objectiveFactory,
-      PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider,
+  public EvaluatorFactory(ObjectiveFactory objectiveFactory,
       InstanceParameterFactory instanceParameterFactory,
-      OrientationResolverProvider orientationResolverProvider) {
+      PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider,
+      OrientationResolverProvider orientationResolverProvider,
+      RectangleCopyFactoryProvider rectangleCopyFactoryProvider,
+      PointCopyFactoryProvider pointCopyFactoryProvider) {
     this.objectiveFactory = objectiveFactory;
-    this.paintingSpaceAllocatorProvider = paintingSpaceAllocatorProvider;
     this.instanceParameterFactory = instanceParameterFactory;
+    this.paintingSpaceAllocatorProvider = paintingSpaceAllocatorProvider;
     this.orientationResolverProvider = orientationResolverProvider;
+    this.rectangleCopyFactoryProvider = rectangleCopyFactoryProvider;
+    this.pointCopyFactoryProvider = pointCopyFactoryProvider;
   }
 
   @Override
@@ -40,6 +47,8 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
         .objective(objectiveFactory.create(dto))
         .params(instanceParameterFactory.create(dto.getInstanceParameters()))
         .orientationResolver(orientationResolverProvider.get())
+        .rectangleCopyFactory(rectangleCopyFactoryProvider.get())
+        .pointCopyFactory(pointCopyFactoryProvider.get())
         .build();
   }
 }

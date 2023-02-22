@@ -3,45 +3,53 @@ package factory.operators;
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import factory.Factory;
-import factory.provider.RandomProvider;
+import factory.NormalizedProbabilityVectorSumCrossoverParametersFactory;
+import factory.provider.IndividualCopyFactoryProvider;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.operators.mate.MatingOperator;
-import logic.genetic.operators.mate.OnePointFullCrossover;
+import logic.genetic.operators.mate.MatingOperator.Type;
+import logic.genetic.operators.mate.NormalizedProbabilityVectorSumCrossover;
 import logic.genetic.operators.mate.RepeatFirstParentMatingOperator;
 import models.dto.GAParametersDto;
 
 @Singleton
-public class MatingOperatorFactory implements Factory<String, MatingOperator> {
+public class MatingOperatorFactory implements Factory<GAParametersDto, MatingOperator> {
 
-  private final RandomProvider randomProvider;
+  private final NormalizedProbabilityVectorSumCrossoverParametersFactory normalizedProbabilityVectorSumCrossoverParametersFactory;
+  private final IndividualCopyFactoryProvider individualCopyFactoryProvider;
 
   @Inject
-  public MatingOperatorFactory(RandomProvider randomProvider) {
-    this.randomProvider = randomProvider;
-  }
-
-  public MatingOperator create(GAParametersDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException {
-    return create(dto.getMate());
+  public MatingOperatorFactory(
+      NormalizedProbabilityVectorSumCrossoverParametersFactory normalizedProbabilityVectorSumCrossoverParametersFactory,
+      IndividualCopyFactoryProvider individualCopyFactoryProvider) {
+    this.normalizedProbabilityVectorSumCrossoverParametersFactory = normalizedProbabilityVectorSumCrossoverParametersFactory;
+    this.individualCopyFactoryProvider = individualCopyFactoryProvider;
   }
 
   @Override
-  public MatingOperator create(String name)
+  public MatingOperator create(GAParametersDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException {
-
-    switch (findOrThrow(name)) {
+    switch (findOrThrow(dto.getMate())) {
       case REPEAT_FIRST_PARENT:
-        return new RepeatFirstParentMatingOperator();
-      case ONE_POINT_FULL_CROSSOVER:
-        return new OnePointFullCrossover(randomProvider.get());
+        return new RepeatFirstParentMatingOperator(individualCopyFactoryProvider.get());
+      case NORMALIZED_PROBABILITY_VECTOR_SUM_CROSSOVER:
+        return new NormalizedProbabilityVectorSumCrossover(
+            normalizedProbabilityVectorSumCrossoverParametersFactory.create(dto),
+            individualCopyFactoryProvider.get());
       default:
-        throw new ImplementationNotFoundException(MatingOperator.class, name);
+        throw new ImplementationNotFoundException(MatingOperator.class, dto.getMate());
     }
   }
 
   private MatingOperator.Type findOrThrow(String name) throws EntityNotFoundException {
+    String availableValues = Arrays.stream(MatingOperator.Type.values()).map(Type::getLabel)
+        .collect(
+            Collectors.joining(","));
     return MatingOperator.Type.getForLabel(name)
-        .orElseThrow(() -> new EntityNotFoundException(MatingOperator.class, name));
+        .orElseThrow(() -> new EntityNotFoundException(MatingOperator.class, name,
+            "Available values: " + availableValues));
   }
 }

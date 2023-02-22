@@ -7,8 +7,12 @@ import net.sf.oval.ConstraintViolation;
 
 public class DtoConstraintViolationException extends BaseException {
 
+  public DtoConstraintViolationException(String message) {
+    super(message);
+  }
+
   public <T extends Dto> DtoConstraintViolationException(List<ConstraintViolation> violations) {
-    super(
+    this(
         String.format(
             "Violations: %s",
             String.join(

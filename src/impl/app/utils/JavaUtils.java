@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -55,5 +56,52 @@ public final class JavaUtils {
 
   public static int toInteger(Boolean bool) {
     return bool ? 1 : 0;
+  }
+
+  /**
+   * @param lst list containing exactly 3 elements
+   * @return index of the greatest value
+   */
+  public static int getMax3Index(List<Double> lst) {
+    int indexOfMax = 0;
+    if (lst.get(1) > lst.get(0)) {
+      indexOfMax = 1;
+    }
+    if (lst.get(2) > lst.get(indexOfMax)) {
+      indexOfMax = 2;
+    }
+    return indexOfMax;
+  }
+
+  public static class Vector {
+
+    public static List<Double> sumVector(List<Double> first, List<Double> second) {
+      List<Double> res = new ArrayList<>(first.size());
+      for (int i = 0; i < first.size(); i++) {
+        res.add(first.get(i) + second.get(i));
+      }
+      return res;
+    }
+
+    public static List<Double> normalizeToProbabilityVector(List<Double> lst) {
+      double sum = lst.stream().mapToDouble(Double::doubleValue).sum();
+      return lst.stream().map(val -> val / sum).collect(Collectors.toList());
+    }
+
+    public static List<Double> multVector(List<Double> vec, List<Double> weights) {
+      List<Double> res = new ArrayList<>(vec.size());
+      for (int i = 0; i < vec.size(); i++) {
+        res.add(vec.get(i) * weights.get(i));
+      }
+      return res;
+    }
+
+    public static List<Double> generateRandomProbabilityVector(int size, Random rnd) {
+      List<Double> res = new ArrayList<>(size);
+      for (int i = 0; i < size; i++) {
+        res.add(rnd.nextDouble());
+      }
+      return normalizeToProbabilityVector(res);
+    }
   }
 }

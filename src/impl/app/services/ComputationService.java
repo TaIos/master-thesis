@@ -1,11 +1,6 @@
 package services;
 
-import exceptions.DtoConstraintViolationException;
-import exceptions.DtoConstraintViolationExceptionWrapper;
-import exceptions.EntityNotFoundException;
-import exceptions.FunctionNotValidException;
-import exceptions.ImplementationNotFoundException;
-import exceptions.InvalidFieldValueInJsonException;
+import exceptions.BaseException;
 import factory.ComputationContextFactory;
 import factory.ComputationResultPromiseFactory;
 import factory.GATimeMeasureWrapperFactory;
@@ -23,6 +18,7 @@ public class ComputationService {
 
   private final ResultWriterService resultWriterService;
 
+
   @Inject
   public ComputationService(
       GATimeMeasureWrapperFactory gaTimeMeasureWrapperFactory,
@@ -36,13 +32,11 @@ public class ComputationService {
   }
 
   public ComputationResultPromiseDto compute(CreateComputationFromDatasetDto dto)
-      throws DtoConstraintViolationException, EntityNotFoundException,
-      ImplementationNotFoundException, DtoConstraintViolationExceptionWrapper, FunctionNotValidException, InvalidFieldValueInJsonException {
+      throws BaseException {
     return compute(computationContextFactory.create(dto));
   }
 
-  public ComputationResultPromiseDto compute(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
+  public ComputationResultPromiseDto compute(CreateComputationDto dto) throws BaseException {
     return compute(computationContextFactory.create(dto));
   }
 

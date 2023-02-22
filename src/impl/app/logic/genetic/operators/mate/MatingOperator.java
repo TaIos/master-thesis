@@ -14,7 +14,7 @@ public interface MatingOperator {
 
   enum Type implements EnumTypeInterface {
     REPEAT_FIRST_PARENT("repeatFirstParent"),
-    ONE_POINT_FULL_CROSSOVER("onePointFullCrossover");
+    NORMALIZED_PROBABILITY_VECTOR_SUM_CROSSOVER("normalizedProbabilityVectorSum");
 
     public final String label;
 

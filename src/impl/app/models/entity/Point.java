@@ -7,20 +7,8 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class Point implements Cloneable {
+public class Point {
 
   private Integer x;
   private Integer y;
-
-  @Override
-  public Point clone() {
-    try {
-      Point clone = (Point) super.clone();
-      clone.x = x;
-      clone.y = y;
-      return clone;
-    } catch (CloneNotSupportedException e) {
-      throw new AssertionError();
-    }
-  }
 }

@@ -25,9 +25,10 @@ public class FunctionThreadSafeWrapperFactory implements
       throws FunctionNotValidException {
     int capacity = (int) (1.2 * calculateMinimalFunctionCount(dto));
     List<Function> functions = new ArrayList<>(capacity);
+    Function functionToCopy = mxparserFunctionFactory.create(
+        dto.getInstanceParameters().getLayout().getEvalFunc());
     for (int i = 0; i < capacity; i++) {
-      functions.add(mxparserFunctionFactory.create(
-          dto.getInstanceParameters().getLayout().getEvalFunc()));
+      functions.add(functionToCopy.cloneForThreadSafe());
     }
     return new FunctionThreadSafeWrapper(functions);
   }

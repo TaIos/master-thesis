@@ -4,6 +4,7 @@ import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
 import exceptions.InvalidFieldValueInJsonException;
+import factory.provider.BestIndividualFactoryProvider;
 import factory.provider.GeneratorProvider;
 import factory.provider.RandomProvider;
 import javax.inject.Inject;
@@ -25,30 +26,30 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
   private final InstanceParameterFactory instanceParameterFactory;
   private final EvaluatorFactory evaluatorFactory;
   private final HallOfFameFactory hallOfFameFactory;
-  private final GeneratorProvider generatorProvider;
-  private final RandomProvider randomProvider;
   private final CustomLoggerFactory loggerFactory;
   private final RandomStringGenerator randomStringGenerator;
 
+  private final GeneratorProvider generatorProvider;
+  private final RandomProvider randomProvider;
+  private final BestIndividualFactoryProvider bestIndividualFactoryProvider;
+
   @Inject
-  public GeneticAlgorithmFactory(
-      GAParametersFactory gaParametersFactory,
-      InstanceParameterFactory instanceParameterFactory,
-      EvaluatorFactory evaluatorFactory,
-      HallOfFameFactory hallOfFameFactory,
-      GeneratorProvider generatorProvider,
-      RandomProvider randomProvider,
-      CustomLoggerFactory loggerFactory,
-      RandomStringGenerator randomStringGenerator) {
+  public GeneticAlgorithmFactory(GAParametersFactory gaParametersFactory,
+      InstanceParameterFactory instanceParameterFactory, EvaluatorFactory evaluatorFactory,
+      HallOfFameFactory hallOfFameFactory, CustomLoggerFactory loggerFactory,
+      RandomStringGenerator randomStringGenerator, GeneratorProvider generatorProvider,
+      RandomProvider randomProvider, BestIndividualFactoryProvider bestIndividualFactoryProvider) {
     this.gaParametersFactory = gaParametersFactory;
     this.instanceParameterFactory = instanceParameterFactory;
     this.evaluatorFactory = evaluatorFactory;
     this.hallOfFameFactory = hallOfFameFactory;
-    this.generatorProvider = generatorProvider;
-    this.randomProvider = randomProvider;
     this.loggerFactory = loggerFactory;
     this.randomStringGenerator = randomStringGenerator;
+    this.generatorProvider = generatorProvider;
+    this.randomProvider = randomProvider;
+    this.bestIndividualFactoryProvider = bestIndividualFactoryProvider;
   }
+
 
   @Override
   public GeneticAlgorithm create(CreateComputationDto dto)
@@ -84,7 +85,8 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
           hof,
           generatorProvider.get(),
           randomProvider.get(),
-          logger);
+          logger,
+          bestIndividualFactoryProvider.get());
     }
     throw new ImplementationNotFoundException(GeneticAlgorithm.class, name);
   }

@@ -1,10 +1,10 @@
 package factory;
 
 import exceptions.FunctionNotValidException;
-import factory.validators.MxparserFunctionValidator;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.mariuszgromada.math.mxparser.Function;
+import validators.MxparserFunctionValidator;
 
 @Singleton
 public class MxparserFunctionFactory implements Factory<String, Function> {

@@ -1,5 +1,9 @@
 package logic.genetic;
 
+import static logic.objective.Objective.OBJECTIVE_VALUE_MAX;
+
+import factory.copy_factory.PointCopyFactory;
+import factory.copy_factory.RectangleCopyFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 import logic.objective.Objective;
@@ -22,16 +26,25 @@ public class Evaluator {
   private final InstanceParameters params;
   private final OrientationResolver orientationResolver;
 
-  public Evaluator(PaintingSpaceAllocator placing, Objective objective, InstanceParameters params,
-      OrientationResolver orientationResolver) {
+  private final RectangleCopyFactory rectangleCopyFactory;
+  private final PointCopyFactory pointCopyFactory;
+
+  public Evaluator(PaintingSpaceAllocator placing,
+      Objective objective,
+      InstanceParameters params,
+      OrientationResolver orientationResolver,
+      RectangleCopyFactory rectangleCopyFactory,
+      PointCopyFactory pointCopyFactory) {
     this.placing = placing;
     this.objective = objective;
     this.params = params;
     this.orientationResolver = orientationResolver;
+    this.rectangleCopyFactory = rectangleCopyFactory;
+    this.pointCopyFactory = pointCopyFactory;
   }
 
   public void eval(Individual ind) {
-    EvaluationParameters bestParams = EvaluationParameters.withMaxObjectiveValue();
+    EvaluationParameters bestParams = new EvaluationParameters().withMaxObjectiveValue();
 
     for (var resolved : orientationResolver.resolve(ind.getOrientations())) {
       placing.computeAndSetPaintingAllocatedSpace(ind, resolved,
@@ -43,28 +56,27 @@ public class Evaluator {
     bestParams.setIndividualParameters(ind);
   }
 
-  private static class EvaluationParameters {
+  private class EvaluationParameters {
 
     private double objectiveVal;
     private List<Orientation> orientationsResolved;
     private List<Rectangle> allocatedSpace;
     private List<Point> placements;
 
-    public static EvaluationParameters withMaxObjectiveValue() {
-      EvaluationParameters params = new EvaluationParameters();
-      params.objectiveVal = Individual.OBJECTIVE_VALUE_MAX;
-      return params;
+    public EvaluationParameters withMaxObjectiveValue() {
+      objectiveVal = OBJECTIVE_VALUE_MAX;
+      return this;
     }
 
     public void updateIfBetter(Double objectiveVal, List<Orientation> orientationsResolved,
-        List<Painting> paintingSeqToClone) {
+        List<Painting> paintingSeqToCopy) {
       if (objectiveVal < this.objectiveVal) {
         this.objectiveVal = objectiveVal;
         this.orientationsResolved = orientationsResolved;
-        this.allocatedSpace = paintingSeqToClone.stream().map(Painting::getAllocatedSpace)
-            .map(Rectangle::clone).collect(Collectors.toList());
-        this.placements = paintingSeqToClone.stream().map(Painting::getPlacement)
-            .map(Point::clone).collect(Collectors.toList());
+        this.allocatedSpace = paintingSeqToCopy.stream().map(Painting::getAllocatedSpace)
+            .map(rectangleCopyFactory::createCopy).collect(Collectors.toList());
+        this.placements = paintingSeqToCopy.stream().map(Painting::getPlacement)
+            .map(pointCopyFactory::createCopy).collect(Collectors.toList());
       }
     }
 

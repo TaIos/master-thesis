@@ -1,6 +1,5 @@
 package logic.objective.parts.local;
 
-import logic.objective.parts.local.LocalObjectivePart;
 import models.entity.Painting;
 
 public class IsOutsideOfAllocatedArea implements LocalObjectivePart<Boolean> {

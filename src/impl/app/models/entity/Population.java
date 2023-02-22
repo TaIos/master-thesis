@@ -1,5 +1,7 @@
 package models.entity;
 
+import static logic.objective.Objective.OBJECTIVE_VALUE_MAX;
+
 import java.util.Collections;
 import java.util.List;
 import logic.genetic.Evaluator;
@@ -32,7 +34,7 @@ public class Population {
     return individualList.stream()
         .mapToDouble(Individual::getObjectiveValue)
         .average()
-        .orElse(Individual.OBJECTIVE_VALUE_MAX);
+        .orElse(OBJECTIVE_VALUE_MAX);
   }
 
   public int size() {

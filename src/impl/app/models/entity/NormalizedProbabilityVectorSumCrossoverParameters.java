@@ -1,5 +1,6 @@
 package models.entity;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,9 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class BestIndividual {
+public class NormalizedProbabilityVectorSumCrossoverParameters {
 
-  private int iteration;
-  private Individual individual;
-
+  private List<Double> weights;
 }

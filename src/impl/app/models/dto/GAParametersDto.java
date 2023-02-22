@@ -1,14 +1,17 @@
 package models.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.sf.oval.constraint.Max;
 import net.sf.oval.constraint.Min;
+import net.sf.oval.constraint.MinSize;
 import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNegative;
 import net.sf.oval.constraint.NotNull;
+import utils.annotations.SizeEqualToOrientationTypeCount;
 
 @Data
 @Builder
@@ -53,4 +56,9 @@ public class GAParametersDto implements Dto {
   @NotNull
   @NotBlank
   private String select;
+
+  @NotNull
+  @MinSize(1)
+  @SizeEqualToOrientationTypeCount
+  private List<Double> orientationWeights;
 }

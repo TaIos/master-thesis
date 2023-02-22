@@ -1,4 +1,4 @@
-package factory.validators;
+package validators;
 
 import exceptions.FunctionNotValidException;
 import javax.inject.Singleton;

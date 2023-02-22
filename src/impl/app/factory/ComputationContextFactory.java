@@ -1,7 +1,6 @@
 package factory;
 
-import exceptions.DtoConstraintViolationException;
-import exceptions.DtoConstraintViolationExceptionWrapper;
+import exceptions.BaseException;
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
@@ -19,24 +18,24 @@ import services.ResultWriterService;
 public class ComputationContextFactory
     implements Factory<CreateComputationDto, ComputationContext> {
 
+  private final ResultWriterService resultWriter;
+
   private final GeneticAlgorithmFactory geneticAlgorithmFactory;
   private final ComputationNameFactory computationNameFactory;
   private final DatasetFactory datasetFactory;
   private final CustomLoggerFactory loggerFactory;
-  private final ResultWriterService resultWriter;
+
 
   @Inject
-  public ComputationContextFactory(
+  public ComputationContextFactory(ResultWriterService resultWriter,
       GeneticAlgorithmFactory geneticAlgorithmFactory,
-      ComputationNameFactory computationNameFactory,
-      DatasetFactory datasetFactory,
-      CustomLoggerFactory loggerFactory,
-      ResultWriterService resultWriter) {
+      ComputationNameFactory computationNameFactory, DatasetFactory datasetFactory,
+      CustomLoggerFactory loggerFactory) {
+    this.resultWriter = resultWriter;
     this.geneticAlgorithmFactory = geneticAlgorithmFactory;
     this.computationNameFactory = computationNameFactory;
     this.datasetFactory = datasetFactory;
     this.loggerFactory = loggerFactory;
-    this.resultWriter = resultWriter;
   }
 
   @Override
@@ -58,9 +57,7 @@ public class ComputationContextFactory
         .build();
   }
 
-  public ComputationContext create(CreateComputationFromDatasetDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException,
-      DtoConstraintViolationException, DtoConstraintViolationExceptionWrapper, FunctionNotValidException, InvalidFieldValueInJsonException {
+  public ComputationContext create(CreateComputationFromDatasetDto dto) throws BaseException {
     DatasetDto datasetDto = datasetFactory.create(dto);
     return create(
         CreateComputationDto.builder()
