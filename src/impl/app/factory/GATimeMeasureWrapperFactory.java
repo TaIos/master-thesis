@@ -1,5 +1,6 @@
 package factory;
 
+import static utils.DelayedFormatter.format;
 import static utils.JavaUtils.formatAsHumanReadableDuration;
 
 import java.util.concurrent.CompletableFuture;
@@ -30,8 +31,11 @@ public class GATimeMeasureWrapperFactory
           context
               .getLogger()
               .info(
-                  "Computation done in {}",
-                  formatAsHumanReadableDuration(result.getDurationMillis(), TimeUnit.MILLISECONDS));
+                  "Computation finished in {}, best={} at iteration {}",
+                  formatAsHumanReadableDuration(result.getDurationMillis(), TimeUnit.MILLISECONDS),
+                  format("%.02f", context.getComputationResult().getGaResult().getBestIndividual()
+                      .getIndividual().getObjectiveValue()),
+                  context.getComputationResult().getGaResult().getBestIndividual().getIteration());
           return context;
         });
   }
