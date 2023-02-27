@@ -1,4 +1,4 @@
-image: tianon/latex
+image: texlive/texlive
 
 compileThesis:
   script:
@@ -10,7 +10,6 @@ compileThesis:
       - src/thesis/**/*
   artifacts:
     paths:
-        - src/thesis/thesis.pdf
+        - src/thesis/ctufit-thesis-en.pdf
     untracked: true
     expire_in: 42 yrs
-

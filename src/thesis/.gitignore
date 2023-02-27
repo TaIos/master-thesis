@@ -365,3 +365,23 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 *.pdf
+
+# FITthesis-LaTeX, may contain values already appearing above 
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lol
+*.lot
+_minted-ctufit-thesis/
+*.out
+*.pdf
+*.ps
+*.run.xml
+*.synctex.gz
+*.toc

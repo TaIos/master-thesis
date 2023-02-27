@@ -31,15 +31,17 @@ all: thesis.pdf
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 
-thesis.pdf: thesis.tex
-	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make thesis.tex
+thesis.pdf:
+	#latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make thesis.tex
+	latexmk -pdfxe ctufit-thesis-en.tex
+
+rm-clean:
+	rm -f *.log *.out *.aux *.fls *.fdb_latexmk *.blg *.bbl *.toc *.run.xml *.lol *~
 
 # keep pdf
-clean:
+clean: rm-clean
 	latexmk -c
-	rm -f *.log *.out *.aux *.fls *.fdb_latexmk *.blg *.bbl *.toc *.run.xml *~
 
-# remove also pdf
-clean-hard:
+# remove also pdf (capital C)
+clean-hard: rm-clean
 	latexmk -C
-	rm -f *.log *.out *.aux *.fls *.fdb_latexmk *.blg *.bbl *.toc *.run.xml *~
