@@ -32,11 +32,12 @@ all: thesis.pdf
 # missing file reference and interactively asking you for an alternative.
 
 thesis.pdf:
-	#latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make thesis.tex
+	#latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make thesis-old.tex
 	latexmk -pdfxe ctufit-thesis-en.tex
 
 rm-clean:
 	rm -f *.log *.out *.aux *.fls *.fdb_latexmk *.blg *.bbl *.toc *.run.xml *.lol *~
+	rm -f text/*.aux
 
 # keep pdf
 clean: rm-clean
