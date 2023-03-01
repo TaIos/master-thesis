@@ -12,7 +12,9 @@ public interface MutateOperator {
   Type getType();
 
   enum Type implements EnumTypeInterface {
-    FLIP_ONES_SLICING_ORDER_AT_RANDOM("flipOneSlicingOrderAtRandom");
+    FLIP_SLICING_ORDER("flipSlicingOrder"),
+    FLIP_PAINTING_SEQUENCE("flipPaintingSequence"),
+    FLIP_ORIENTATION("flipOrientation");
 
     public final String label;
 

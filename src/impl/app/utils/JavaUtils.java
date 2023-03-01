@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -84,8 +83,14 @@ public final class JavaUtils {
     }
 
     public static List<Double> normalizeToProbabilityVector(List<Double> lst) {
+      List<Double> copy = new ArrayList<>(lst);
+      normalizeToProbabilityVectorInplace(lst);
+      return copy;
+    }
+
+    public static void normalizeToProbabilityVectorInplace(List<Double> lst) {
       double sum = lst.stream().mapToDouble(Double::doubleValue).sum();
-      return lst.stream().map(val -> val / sum).collect(Collectors.toList());
+      lst.replaceAll(elem -> elem / sum);
     }
 
     public static List<Double> multVector(List<Double> vec, List<Double> weights) {
