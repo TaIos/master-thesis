@@ -1,23 +1,14 @@
 package unit.factory.genetic_algorithm;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import factory.GeneticAlgorithmFactory;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import logic.genetic.algorithm.BaseGeneticAlgorithm;
-import logic.genetic.algorithm.GeneticAlgorithm;
-import logic.objective.Objective;
 import models.dto.CreateComputationDto;
 import models.dto.validation.DtoValidator;
-import models.entity.GAParameters;
-import models.entity.InstanceParameters;
-import models.entity.Point;
-import models.entity.Rectangle;
 import org.apache.commons.io.IOUtils;
 import org.junit.Ignore;
 import org.junit.Test;

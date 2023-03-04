@@ -1,7 +1,7 @@
 package utils.checks;
 
 import java.util.List;
-import models.entity.Orientation.Type;
+import models.entity.Orientation.OrientationType;
 import net.sf.oval.ValidationCycle;
 import net.sf.oval.configuration.annotation.AbstractAnnotationCheck;
 import net.sf.oval.exception.OValException;
@@ -29,6 +29,6 @@ public class SizeEqualToOrientationTypeCountCheck extends
       return true;
     }
     List<Double> weights = (List<Double>) valueToValidate;
-    return weights.size() == Type.values().length;
+    return weights.size() == OrientationType.values().length;
   }
 }

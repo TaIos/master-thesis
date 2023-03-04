@@ -1,59 +1,56 @@
 package logic.genetic;
 
-import static utils.JavaUtils.Vector.generateRandomProbabilityVector;
+import static utils.JavaUtils.Vector.normalizeToProbabilityVector;
 import static utils.JavaUtils.range;
 
-import factory.copy_factory.PaintingCopyFactory;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import models.entity.Individual;
-import models.entity.Orientation;
-import models.entity.Orientation.Type;
+import models.entity.Orientation.OrientationType;
 import models.entity.OrientationProbability;
 import models.entity.Painting;
-import models.entity.RandomIndividualGenerationRequest;
 
 public class Generator {
 
   private final Random rnd;
-  private final PaintingCopyFactory paintingCopyFactory;
 
-  public Generator(Random random, PaintingCopyFactory paintingCopyFactory) {
+  public Generator(Random random) {
     rnd = random;
-    this.paintingCopyFactory = paintingCopyFactory;
   }
 
-  public Individual random(RandomIndividualGenerationRequest req) {
-    int pSize = req.getPaintingSeq().size();
-    Individual ind = Individual.builder()
-        .paintingSeq(copyPaintingSequence(req))
-        .paintingSeqRandomKey(generateRandomProbabilityVector(pSize, rnd))
-        .slicingOrderRandomKey(generateRandomProbabilityVector(pSize - 1, rnd))
+  public List<Individual> generateRandomIndividualList(List<Painting> paintings, int size) {
+    List<Individual> res = new ArrayList<>(size);
+    for (int i = 0; i < size; i++) {
+      res.add(generateRandomIndividual(paintings));
+    }
+    return res;
+  }
+
+  public Individual generateRandomIndividual(List<Painting> paintings) {
+    return Individual.builder()
+        .paintingSeq(paintings)
+        .paintingSeqRandomKey(generateRandomProbabilityVector(paintings.size()))
+        .slicingOrderRandomKey(generateRandomProbabilityVector(paintings.size() - 1))
+        .orientationProb(generateRandomOrientationProbability(paintings.size() - 1))
         .build();
-    generateAndSetOrientations(ind, pSize - 1);
-    return ind;
   }
 
-  private void generateAndSetOrientations(Individual ind, int size) {
-    List<OrientationProbability> probs = generateRandomOrientationProbability(size);
-    ind.setOrientationProb(probs);
-    ind.setOrientations(probs.stream()
-        .map(OrientationProbability::getMostProbable)
-        .map(Orientation::new)
-        .collect(Collectors.toList()));
+  private List<Double> generateRandomProbabilityVector(int size) {
+    List<Double> res = new ArrayList<>(size);
+    for (int i = 0; i < size; i++) {
+      res.add(rnd.nextDouble());
+    }
+    return normalizeToProbabilityVector(res);
   }
 
   private List<OrientationProbability> generateRandomOrientationProbability(int size) {
     return range(0, size).map(
             dummy -> new OrientationProbability(
-                generateRandomProbabilityVector(Type.values().length, rnd)))
+                generateRandomProbabilityVector(OrientationType.values().length)))
         .collect(Collectors.toList());
   }
 
 
-  private List<Painting> copyPaintingSequence(RandomIndividualGenerationRequest req) {
-    return req.getPaintingSeq().stream().map(paintingCopyFactory::createCopy)
-        .collect(Collectors.toList());
-  }
 }

@@ -1,45 +1,48 @@
 package logic.placing;
 
+import static utils.JavaUtils.concatWithPreservedOrder;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import logic.genetic.RandomKeyDecoder;
-import models.entity.Individual;
-import models.entity.Orientation;
 import models.entity.Painting;
 import models.entity.Rectangle;
+import models.entity.ResolvedIndividual;
+import models.entity.ResolvedOrientation;
+import models.entity.ResolvedOrientation.ResolvedOrientationType;
+import models.entity.SlicingLayout;
 import services.RectangleService;
 
 public class PaintingSpaceAllocator {
 
   private final RectangleService rectangleService;
-  private final RandomKeyDecoder decoder;
 
-  public PaintingSpaceAllocator(RectangleService rectangleService, RandomKeyDecoder decoder) {
+  public PaintingSpaceAllocator(RectangleService rectangleService) {
     this.rectangleService = rectangleService;
-    this.decoder = decoder;
   }
 
 
-  public void computeAndSetPaintingAllocatedSpace(Individual individual, List<Orientation> orientations,
-      Rectangle layoutBoundingRectangle) {
-    computeAndSetRecursively(
-        decoder.decodePaintingSequence(individual),
-        decoder.decodeSlicingOrder(individual),
-        orientations,
-        layoutBoundingRectangle);
+  public SlicingLayout createSlicingLayout(ResolvedIndividual resInd, Rectangle boundingRectangle) {
+    return SlicingLayout.builder()
+        .paintings(resInd.getPaintingSeqResolved())
+        .allocatedSpace(
+            computeRecursively(
+                resInd.getPaintingSeqResolved(),
+                resInd.getSlicingOrderResolved(),
+                resInd.getOrientationResolved(),
+                boundingRectangle))
+        .build();
   }
 
-  private void computeAndSetRecursively(
+  private List<Rectangle> computeRecursively(
       List<Painting> paintings,
       List<Integer> slicingOrder,
-      List<Orientation> orientations,
+      List<ResolvedOrientation> orientations,
       Rectangle rec) {
     if (paintings.size() == 1) {
-      paintings.get(0).setAllocatedSpace(rec);
-      return;
+      return List.of(rec);
     }
 
     int k = slicingOrder.get(0);
@@ -47,24 +50,26 @@ public class PaintingSpaceAllocator {
     List<Painting> right = paintings.subList(k, paintings.size());
     List<Rectangle> sp = createSplit(orientations.get(0), rec, left, right);
 
-    computeAndSetRecursively(
-        left,
-        createNextSlicingOrderUpTo(slicingOrder, k),
-        createNextOrientationUpTo(slicingOrder, orientations, k),
-        sp.get(0));
-    computeAndSetRecursively(
-        right,
-        createNextSlicingOrderAfter(slicingOrder, k),
-        createNextOrientationAfter(slicingOrder, orientations, k),
-        sp.get(1));
+    return concatWithPreservedOrder(
+        computeRecursively(
+            left,
+            createNextSlicingOrderUpTo(slicingOrder, k),
+            createNextOrientationUpTo(slicingOrder, orientations, k),
+            sp.get(0)),
+        computeRecursively(
+            right,
+            createNextSlicingOrderAfter(slicingOrder, k),
+            createNextOrientationAfter(slicingOrder, orientations, k),
+            sp.get(1)));
   }
 
   private List<Rectangle> createSplit(
-      Orientation orientation, Rectangle layout, List<Painting> left, List<Painting> right) {
+      ResolvedOrientation orientation, Rectangle layout, List<Painting> left,
+      List<Painting> right) {
     double leftArea = left.stream().mapToDouble(Painting::getArea).sum();
     double rightArea = right.stream().mapToDouble(Painting::getArea).sum();
     double ratio = leftArea / (leftArea + rightArea);
-    return orientation.getType().equals(Orientation.Type.HORIZONTAL)
+    return orientation.getType().equals(ResolvedOrientationType.HORIZONTAL)
         ? rectangleService.splitHorizontally(layout, ratio)
         : rectangleService.splitVertically(layout, ratio);
   }
@@ -82,24 +87,24 @@ public class PaintingSpaceAllocator {
     return slicingOrder.stream().filter(pred).map(val -> val - offset).collect(Collectors.toList());
   }
 
-  private List<Orientation> createNextOrientationUpTo(
-      List<Integer> slicingOrder, List<Orientation> orientations, int k) {
+  private List<ResolvedOrientation> createNextOrientationUpTo(
+      List<Integer> slicingOrder, List<ResolvedOrientation> orientations, int k) {
     return createNextOrientation(slicingOrder, orientations, val -> val < k);
   }
 
-  private List<Orientation> createNextOrientationAfter(
-      List<Integer> slicingOrder, List<Orientation> orientations, int k) {
+  private List<ResolvedOrientation> createNextOrientationAfter(
+      List<Integer> slicingOrder, List<ResolvedOrientation> orientations, int k) {
     return createNextOrientation(slicingOrder, orientations, val -> val > k);
   }
 
-  private List<Orientation> createNextOrientation(
-      List<Integer> slicingOrder, List<Orientation> orientations, Predicate<Integer> pred) {
+  private List<ResolvedOrientation> createNextOrientation(
+      List<Integer> slicingOrder, List<ResolvedOrientation> orientations, Predicate<Integer> pred) {
     Iterator<Integer> slicingOrderIt = slicingOrder.iterator();
-    Iterator<Orientation> orientationIt = orientations.iterator();
-    List<Orientation> result = new ArrayList<>();
+    Iterator<ResolvedOrientation> orientationIt = orientations.iterator();
+    List<ResolvedOrientation> result = new ArrayList<>();
 
     while (slicingOrderIt.hasNext() && orientationIt.hasNext()) {
-      Orientation orientation = orientationIt.next();
+      ResolvedOrientation orientation = orientationIt.next();
       if (pred.test(slicingOrderIt.next())) {
         result.add(orientation);
       }

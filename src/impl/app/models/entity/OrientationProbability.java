@@ -1,33 +1,32 @@
 package models.entity;
 
+import static models.entity.Orientation.OrientationType;
+import static models.entity.Orientation.OrientationType.HORIZONTAL;
+import static models.entity.Orientation.OrientationType.VERTICAL;
+import static models.entity.Orientation.OrientationType.WILD_CARD;
 import static utils.JavaUtils.getMax3Index;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import models.entity.Orientation.Type;
+import lombok.Getter;
 
-@Data
-@Builder
+@Getter
 @AllArgsConstructor
 public class OrientationProbability {
 
   private List<Double> probabilityVector;
 
-  public Orientation.Type getMostProbable() {
+  public OrientationType getMostProbable() {
     switch (getMax3Index(probabilityVector)) {
       case 0:
-        return Type.HORIZONTAL;
+        return HORIZONTAL;
       case 1:
-        return Type.VERTICAL;
+        return VERTICAL;
       case 2:
-        return Type.WILD_CARD;
+        return WILD_CARD;
       default:
         throw new IllegalArgumentException("Unexpected index. It should be one of 0,1 or 3");
 
     }
   }
-
-
 }

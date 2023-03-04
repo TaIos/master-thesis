@@ -37,8 +37,7 @@ public class MatingOperatorFactory implements Factory<GAParametersDto, MatingOpe
         return new RepeatFirstParentMatingOperator(individualCopyFactoryProvider.get());
       case NORMALIZED_PROBABILITY_VECTOR_SUM_CROSSOVER:
         return new NormalizedProbabilityVectorSumCrossover(
-            normalizedProbabilityVectorSumCrossoverParametersFactory.create(dto),
-            individualCopyFactoryProvider.get());
+            normalizedProbabilityVectorSumCrossoverParametersFactory.create(dto));
       default:
         throw new ImplementationNotFoundException(MatingOperator.class, dto.getMate());
     }

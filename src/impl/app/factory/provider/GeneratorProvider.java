@@ -11,9 +11,8 @@ public class GeneratorProvider implements Provider<Generator> {
   private final Generator generator;
 
   @Inject
-  public GeneratorProvider(RandomProvider randomProvider,
-      PaintingCopyFactoryProvider paintingCopyFactoryProvider) {
-    this.generator = new Generator(randomProvider.get(), paintingCopyFactoryProvider.get());
+  public GeneratorProvider(RandomProvider randomProvider) {
+    this.generator = new Generator(randomProvider.get());
   }
 
   @Override

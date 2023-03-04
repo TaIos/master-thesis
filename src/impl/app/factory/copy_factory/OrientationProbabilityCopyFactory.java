@@ -9,8 +9,6 @@ public class OrientationProbabilityCopyFactory implements CopyFactory<Orientatio
 
   @Override
   public OrientationProbability createCopy(OrientationProbability prob) {
-    return OrientationProbability.builder()
-        .probabilityVector(new ArrayList<>(prob.getProbabilityVector()))
-        .build();
+    return new OrientationProbability(new ArrayList<>(prob.getProbabilityVector()));
   }
 }

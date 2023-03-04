@@ -16,13 +16,11 @@ import net.sf.oval.constraint.NotNull;
 @NoArgsConstructor
 public class InstanceParametersDto implements Dto {
 
+  @NotNull @AssertValid @MinSize(1) List<PaintingDto> paintings;
   @NotNull
   @AssertValid
   private LayoutDto layout;
-
   @NotNull
   @Min(1)
   private Integer paintingCount;
-
-  @NotNull @AssertValid @MinSize(1) List<PaintingDto> paintings;
 }

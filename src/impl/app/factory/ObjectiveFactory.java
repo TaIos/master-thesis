@@ -6,17 +6,16 @@ import exceptions.ImplementationNotFoundException;
 import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.CalculateOverlappingPaintingsPartProvider;
 import factory.provider.IsOutsideOfAllocatedAreaObjectivePartProvider;
-import factory.provider.PaintingLocalPlacerProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.objective.Objective;
+import logic.objective.Objective.ObjectiveType;
 import logic.objective.SimpleObjective;
 import models.dto.CreateComputationDto;
 
 @Singleton
 public class ObjectiveFactory implements Factory<CreateComputationDto, Objective> {
 
-  private final PaintingLocalPlacerProvider paintingLocalPlacerProvider;
   private final FunctionThreadSafeWrapperFactory functionThreadSafeWrapperFactory;
   private final SimpleObjectiveParametersFactory simpleObjectiveParametersFactory;
 
@@ -26,12 +25,10 @@ public class ObjectiveFactory implements Factory<CreateComputationDto, Objective
 
   @Inject
   public ObjectiveFactory(
-      PaintingLocalPlacerProvider paintingLocalPlacerProvider,
       FunctionThreadSafeWrapperFactory functionThreadSafeWrapperFactory,
       SimpleObjectiveParametersFactory simpleObjectiveParametersFactory,
       IsOutsideOfAllocatedAreaObjectivePartProvider isOutsideOfAllocatedAreaObjectivePartProvider,
       CalculateOverlappingPaintingsPartProvider calculateOverlappingPaintingsPartProvider) {
-    this.paintingLocalPlacerProvider = paintingLocalPlacerProvider;
     this.functionThreadSafeWrapperFactory = functionThreadSafeWrapperFactory;
     this.simpleObjectiveParametersFactory = simpleObjectiveParametersFactory;
     this.isOutsideOfAllocatedAreaObjectivePartProvider = isOutsideOfAllocatedAreaObjectivePartProvider;
@@ -53,16 +50,15 @@ public class ObjectiveFactory implements Factory<CreateComputationDto, Objective
   private SimpleObjective createSimpleObjective(CreateComputationDto dto)
       throws FunctionNotValidException, InvalidFieldValueInJsonException {
     return new SimpleObjective(
-            functionThreadSafeWrapperFactory.create(dto),
-            paintingLocalPlacerProvider.get(),
         simpleObjectiveParametersFactory.create(dto.getObjectiveParameters()),
+        functionThreadSafeWrapperFactory.create(dto),
         isOutsideOfAllocatedAreaObjectivePartProvider.get(),
         calculateOverlappingPaintingsPartProvider.get());
 
   }
 
-  private Objective.Type findOrThrow(String name) throws EntityNotFoundException {
-    return Objective.Type.getForLabel(name)
+  private ObjectiveType findOrThrow(String name) throws EntityNotFoundException {
+    return ObjectiveType.getForLabel(name)
         .orElseThrow(() -> new EntityNotFoundException(Objective.class, name));
   }
 }

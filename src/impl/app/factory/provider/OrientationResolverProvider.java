@@ -2,7 +2,7 @@ package factory.provider;
 
 import javax.inject.Provider;
 import javax.inject.Singleton;
-import logic.genetic.OrientationResolver;
+import logic.genetic.resolvers.OrientationResolver;
 
 @Singleton
 public class OrientationResolverProvider implements

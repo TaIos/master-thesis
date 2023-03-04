@@ -33,9 +33,10 @@ public class GATimeMeasureWrapperFactory
               .info(
                   "Computation finished in {}, best={} at iteration {}",
                   formatAsHumanReadableDuration(result.getDurationMillis(), TimeUnit.MILLISECONDS),
-                  format("%.02f", context.getComputationResult().getGaResult().getBestIndividual()
-                      .getIndividual().getObjectiveValue()),
-                  context.getComputationResult().getGaResult().getBestIndividual().getIteration());
+                  format("%.02f", context.getComputationResult().getGaResult().getHallOfFame()
+                      .getBestRecord().getBestIndividual().getLayout().getObjectiveValue()),
+                  context.getComputationResult().getGaResult().getHallOfFame().getBestRecord()
+                      .getIteration());
           return context;
         });
   }

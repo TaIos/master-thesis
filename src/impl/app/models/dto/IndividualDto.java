@@ -21,22 +21,22 @@ public class IndividualDto implements Dto {
 
   private List<String> paintingSeq;
   private List<String> paintingSeqDecoded;
-
   @JsonSerialize(using = DoubleListSerializer.class)
   private List<Double> paintingSeqRandomKey;
 
   private List<Integer> slicingOrderDecoded;
-
   @JsonSerialize(using = DoubleListSerializer.class)
   private List<Double> slicingOrderRandomKey;
 
   private List<String> orientations;
-
-  private List<String> orientationsResolved;
+  // TODO format
+  private List<List<Double>> orientationProbabilities;
 
   @JsonProperty("paintingAllocatedSpace_XYWH")
   private List<String> paintingAllocatedSpace;
 
   @JsonProperty("paintingPlacement_XYWH")
   private List<String> paintingPlacement;
+
+
 }

@@ -1,43 +1,51 @@
 package models.entity;
 
-import static logic.objective.Objective.OBJECTIVE_VALUE_MAX;
 
-import java.util.Collections;
+import static logic.objective.ObjectiveValueComparator.OBJECTIVE_VALUE_MAX;
+
 import java.util.List;
+import java.util.stream.Collectors;
 import logic.genetic.Evaluator;
 import lombok.Getter;
 
 @Getter
 public class Population {
 
-  private final List<Individual> individualList;
+  private final List<EvaluatedIndividual> evaluatedIndividuals;
 
   public Population(List<Individual> individualList, Evaluator evaluator) {
-    individualList.parallelStream().forEach(evaluator::eval);
-    Collections.sort(individualList);
-    this.individualList = Collections.unmodifiableList(individualList);
+    evaluatedIndividuals = individualList.parallelStream()
+        .map(ind -> EvaluatedIndividual.builder()
+            .individual(ind)
+            .layout(evaluator.eval(ind))
+            .build()
+        ).sorted((o1, o2) -> evaluator.getObjectiveValueComparator()
+            .compare(o1.getLayout(), o2.getLayout()))
+        .collect(Collectors.toUnmodifiableList());
   }
 
-  public Individual getBestIndividual() {
-    return individualList.get(0);
+  public EvaluatedIndividual getBestIndividual() {
+    return evaluatedIndividuals.get(0);
   }
 
   public double getObjectiveMin() {
-    return individualList.get(0).getObjectiveValue();
+    return evaluatedIndividuals.get(0).getLayout().getObjectiveValue();
   }
 
   public double getObjectiveMax() {
-    return individualList.get(individualList.size() - 1).getObjectiveValue();
+    return evaluatedIndividuals.get(evaluatedIndividuals.size() - 1).getLayout()
+        .getObjectiveValue();
   }
 
   public double getObjectiveAvg() {
-    return individualList.stream()
-        .mapToDouble(Individual::getObjectiveValue)
+    return evaluatedIndividuals.stream()
+        .map(EvaluatedIndividual::getLayout)
+        .mapToDouble(EvaluatedSlicingLayout::getObjectiveValue)
         .average()
         .orElse(OBJECTIVE_VALUE_MAX);
   }
 
   public int size() {
-    return individualList.size();
+    return evaluatedIndividuals.size();
   }
 }

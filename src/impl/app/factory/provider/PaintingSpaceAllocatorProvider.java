@@ -12,9 +12,8 @@ public class PaintingSpaceAllocatorProvider implements Provider<PaintingSpaceAll
   private final PaintingSpaceAllocator paintingSpaceAllocator;
 
   @Inject
-  public PaintingSpaceAllocatorProvider(
-      RectangleService rectangleService, RandomKeyDecoderProvider decoderProvider) {
-    this.paintingSpaceAllocator = new PaintingSpaceAllocator(rectangleService, decoderProvider.get());
+  public PaintingSpaceAllocatorProvider(RectangleService rectangleService) {
+    this.paintingSpaceAllocator = new PaintingSpaceAllocator(rectangleService);
   }
 
   @Override

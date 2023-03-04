@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.HallOfFame;
-import logic.genetic.HallOfFame.HallOfFameRecord;
 import models.dto.HallOfFameDto;
 import models.dto.HallOfFameRecordDto;
 import models.entity.GAResult;
+import models.entity.HallOfFameRecord;
 
 @Singleton
 public class HallOfFameDtoFactory implements Factory<HallOfFame, HallOfFameDto> {

@@ -8,22 +8,21 @@ import utils.JavaUtils;
 
 @Getter
 @AllArgsConstructor
-public class Orientation {
+public class ResolvedOrientation {
 
-  private OrientationType type;
+  private ResolvedOrientationType type;
 
-  public enum OrientationType implements EnumTypeInterface {
+  public enum ResolvedOrientationType implements EnumTypeInterface {
     HORIZONTAL("H"),
-    VERTICAL("V"),
-    WILD_CARD("*");
+    VERTICAL("V");
 
     public final String label;
 
-    OrientationType(String label) {
+    ResolvedOrientationType(String label) {
       this.label = label;
     }
 
-    public static Optional<OrientationType> getForLabel(String label) {
+    public static Optional<ResolvedOrientationType> getForLabel(String label) {
       return JavaUtils.getForLabel(values(), label);
     }
 

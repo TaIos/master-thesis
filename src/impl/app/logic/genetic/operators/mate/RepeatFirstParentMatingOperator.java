@@ -1,7 +1,6 @@
 package logic.genetic.operators.mate;
 
 import factory.copy_factory.IndividualCopyFactory;
-import java.util.List;
 import models.entity.Individual;
 
 public class RepeatFirstParentMatingOperator implements MatingOperator {
@@ -13,8 +12,8 @@ public class RepeatFirstParentMatingOperator implements MatingOperator {
   }
 
   @Override
-  public List<Individual> mate(Individual p1, Individual p2) {
-    return List.of(individualCopyFactory.createCopy(p1));
+  public Individual mate(Individual p1, Individual p2) {
+    return individualCopyFactory.createCopy(p1);
   }
 
   @Override

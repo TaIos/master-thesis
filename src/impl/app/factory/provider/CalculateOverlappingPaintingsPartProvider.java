@@ -2,20 +2,20 @@ package factory.provider;
 
 import javax.inject.Provider;
 import javax.inject.Singleton;
-import logic.objective.parts.global.CalculateOverlappingPaintings;
+import logic.objective.parts.OverlappingRectanglesCount;
 
 @Singleton
 public class CalculateOverlappingPaintingsPartProvider implements
-    Provider<CalculateOverlappingPaintings> {
+    Provider<OverlappingRectanglesCount> {
 
-  private final CalculateOverlappingPaintings calculateOverlappingPaintings;
+  private final OverlappingRectanglesCount calculateOverlappingPaintings;
 
   public CalculateOverlappingPaintingsPartProvider() {
-    calculateOverlappingPaintings = new CalculateOverlappingPaintings();
+    calculateOverlappingPaintings = new OverlappingRectanglesCount();
   }
 
   @Override
-  public CalculateOverlappingPaintings get() {
+  public OverlappingRectanglesCount get() {
     return calculateOverlappingPaintings;
   }
 }

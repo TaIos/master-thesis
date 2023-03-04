@@ -2,7 +2,7 @@ package factory.provider;
 
 import javax.inject.Provider;
 import javax.inject.Singleton;
-import logic.objective.parts.local.IsOutsideOfAllocatedArea;
+import logic.objective.parts.IsOutsideOfAllocatedArea;
 
 @Singleton
 public class IsOutsideOfAllocatedAreaObjectivePartProvider implements

@@ -1,6 +1,5 @@
 package logic.genetic.operators.mate;
 
-import java.util.List;
 import java.util.Optional;
 import models.entity.Individual;
 import utils.EnumTypeInterface;
@@ -8,7 +7,7 @@ import utils.JavaUtils;
 
 public interface MatingOperator {
 
-  List<Individual> mate(Individual p1, Individual p2);
+  Individual mate(Individual p1, Individual p2);
 
   Type getType();
 

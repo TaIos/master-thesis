@@ -1,4 +1,4 @@
-package logic.genetic;
+package logic.genetic.resolvers;
 
 import static utils.JavaUtils.range;
 
@@ -7,19 +7,15 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import models.entity.Individual;
-import models.entity.Painting;
 
 public class RandomKeyDecoder {
 
-  public List<Painting> decodePaintingSequence(Individual ind) {
-    return decode(ind.getPaintingSeq(), ind.getPaintingSeqRandomKey());
-  }
 
-  public List<Integer> decodeSlicingOrder(Individual ind) {
+  public List<Integer> decode(List<Double> randomKeys) {
     return decode(
-        range(1, ind.getSlicingOrderRandomKey().size() + 1).collect(Collectors.toList()),
-        ind.getSlicingOrderRandomKey());
+        range(1, randomKeys.size() + 1).collect(Collectors.toList()),
+        randomKeys);
+
   }
 
   public <T> List<T> decode(List<T> values, List<Double> randomKeys) {

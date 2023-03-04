@@ -1,20 +1,17 @@
 package models.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
-@AllArgsConstructor
 public class Painting {
 
-  private String ident;
-  private Rectangle allocatedSpace;
-  private Point placement;
+  protected String ident;
+  protected Integer width;
+  protected Integer height;
 
-  private Integer width;
-  private Integer height;
-  private Integer area;
-
+  public double getArea() {
+    return width * height;
+  }
 }

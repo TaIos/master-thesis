@@ -4,7 +4,6 @@ import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
 import exceptions.InvalidFieldValueInJsonException;
-import factory.provider.BestIndividualFactoryProvider;
 import factory.provider.GeneratorProvider;
 import factory.provider.RandomProvider;
 import javax.inject.Inject;
@@ -31,14 +30,13 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
 
   private final GeneratorProvider generatorProvider;
   private final RandomProvider randomProvider;
-  private final BestIndividualFactoryProvider bestIndividualFactoryProvider;
 
   @Inject
   public GeneticAlgorithmFactory(GAParametersFactory gaParametersFactory,
       InstanceParameterFactory instanceParameterFactory, EvaluatorFactory evaluatorFactory,
       HallOfFameFactory hallOfFameFactory, CustomLoggerFactory loggerFactory,
       RandomStringGenerator randomStringGenerator, GeneratorProvider generatorProvider,
-      RandomProvider randomProvider, BestIndividualFactoryProvider bestIndividualFactoryProvider) {
+      RandomProvider randomProvider) {
     this.gaParametersFactory = gaParametersFactory;
     this.instanceParameterFactory = instanceParameterFactory;
     this.evaluatorFactory = evaluatorFactory;
@@ -47,7 +45,6 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
     this.randomStringGenerator = randomStringGenerator;
     this.generatorProvider = generatorProvider;
     this.randomProvider = randomProvider;
-    this.bestIndividualFactoryProvider = bestIndividualFactoryProvider;
   }
 
 
@@ -85,8 +82,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
           hof,
           generatorProvider.get(),
           randomProvider.get(),
-          logger,
-          bestIndividualFactoryProvider.get());
+          logger);
     }
     throw new ImplementationNotFoundException(GeneticAlgorithm.class, name);
   }

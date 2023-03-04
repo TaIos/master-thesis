@@ -3,12 +3,13 @@ package logic.genetic.operators.select;
 import java.util.List;
 import java.util.Optional;
 import models.entity.Individual;
+import models.entity.Population;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
 public interface SelectOperator {
 
-  List<Individual> select(List<Individual> individuals, Integer k);
+  List<Individual> select(Population population, int size);
 
   Type getType();
 

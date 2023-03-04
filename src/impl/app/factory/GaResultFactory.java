@@ -20,7 +20,8 @@ public class GaResultFactory implements Factory<GAResult, GAResultDto> {
   @Override
   public GAResultDto create(GAResult gaResult) {
     return GAResultDto.builder()
-        .bestIndividual(individualDtoFactory.create(gaResult.getBestIndividual()))
+        .bestIndividual(individualDtoFactory.create(
+            gaResult.getHallOfFame().getBestRecord().getBestIndividual()))
         .hallOfFame(hallOfFameDtoFactory.create(gaResult))
         .build();
   }

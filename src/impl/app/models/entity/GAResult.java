@@ -3,13 +3,12 @@ package models.entity;
 import logic.genetic.HallOfFame;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
 public class GAResult {
 
-  private BestIndividual bestIndividual;
   private HallOfFame hallOfFame;
 }

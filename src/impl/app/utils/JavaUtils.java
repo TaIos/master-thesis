@@ -46,7 +46,7 @@ public final class JavaUtils {
     return String.format(stringInterval, dd, hh, mm, ss, intMillis);
   }
 
-  public static <T> List<T> concatWithPreserveOrder(List<T> first, List<T> second) {
+  public static <T> List<T> concatWithPreservedOrder(List<T> first, List<T> second) {
     List<T> result = new ArrayList<>(first.size() + second.size());
     result.addAll(first);
     result.addAll(second);
@@ -99,14 +99,6 @@ public final class JavaUtils {
         res.add(vec.get(i) * weights.get(i));
       }
       return res;
-    }
-
-    public static List<Double> generateRandomProbabilityVector(int size, Random rnd) {
-      List<Double> res = new ArrayList<>(size);
-      for (int i = 0; i < size; i++) {
-        res.add(rnd.nextDouble());
-      }
-      return normalizeToProbabilityVector(res);
     }
   }
 }

@@ -1,31 +1,30 @@
 package logic.objective;
 
-import java.util.List;
 import java.util.Optional;
-import models.entity.Painting;
+import models.entity.EvaluatedSlicingLayout;
+import models.entity.PlacedSlicingLayout;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
 public interface Objective {
 
-  double OBJECTIVE_VALUE_MAX = Double.MAX_VALUE;
 
-  double eval(List<Painting> paintingList);
-
-
-  Type getType();
+  EvaluatedSlicingLayout eval(PlacedSlicingLayout placedSlicingLayout);
 
 
-  enum Type implements EnumTypeInterface {
+  ObjectiveType getType();
+
+
+  enum ObjectiveType implements EnumTypeInterface {
     SIMPLE("simple");
 
     final String label;
 
-    Type(String label) {
+    ObjectiveType(String label) {
       this.label = label;
     }
 
-    public static Optional<Type> getForLabel(String label) {
+    public static Optional<ObjectiveType> getForLabel(String label) {
       return JavaUtils.getForLabel(values(), label);
     }
 

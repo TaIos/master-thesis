@@ -4,10 +4,10 @@ import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
 import exceptions.InvalidFieldValueInJsonException;
-import factory.provider.OrientationResolverProvider;
+import factory.provider.IndividualResolverProvider;
+import factory.provider.ObjectiveValueComparatorProvider;
 import factory.provider.PaintingSpaceAllocatorProvider;
-import factory.provider.PointCopyFactoryProvider;
-import factory.provider.RectangleCopyFactoryProvider;
+import factory.provider.PlacingHeuristicsProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.Evaluator;
@@ -20,35 +20,35 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
   private final InstanceParameterFactory instanceParameterFactory;
 
   private final PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider;
-  private final OrientationResolverProvider orientationResolverProvider;
-  private final RectangleCopyFactoryProvider rectangleCopyFactoryProvider;
-  private final PointCopyFactoryProvider pointCopyFactoryProvider;
+  private final IndividualResolverProvider individualResolverProvider;
+  private final PlacingHeuristicsProvider placingHeuristicsProvider;
+  private final ObjectiveValueComparatorProvider objectiveValueComparatorProvider;
 
   @Inject
   public EvaluatorFactory(ObjectiveFactory objectiveFactory,
       InstanceParameterFactory instanceParameterFactory,
       PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider,
-      OrientationResolverProvider orientationResolverProvider,
-      RectangleCopyFactoryProvider rectangleCopyFactoryProvider,
-      PointCopyFactoryProvider pointCopyFactoryProvider) {
+      IndividualResolverProvider individualResolverProvider,
+      PlacingHeuristicsProvider placingHeuristicsProvider,
+      ObjectiveValueComparatorProvider objectiveValueComparatorProvider) {
     this.objectiveFactory = objectiveFactory;
     this.instanceParameterFactory = instanceParameterFactory;
     this.paintingSpaceAllocatorProvider = paintingSpaceAllocatorProvider;
-    this.orientationResolverProvider = orientationResolverProvider;
-    this.rectangleCopyFactoryProvider = rectangleCopyFactoryProvider;
-    this.pointCopyFactoryProvider = pointCopyFactoryProvider;
+    this.individualResolverProvider = individualResolverProvider;
+    this.placingHeuristicsProvider = placingHeuristicsProvider;
+    this.objectiveValueComparatorProvider = objectiveValueComparatorProvider;
   }
 
   @Override
   public Evaluator create(CreateComputationDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
     return Evaluator.builder()
-        .placing(paintingSpaceAllocatorProvider.get())
+        .individualResolver(individualResolverProvider.get())
+        .paintingSpaceAllocator(paintingSpaceAllocatorProvider.get())
+        .placingHeuristics(placingHeuristicsProvider.get())
         .objective(objectiveFactory.create(dto))
+        .objectiveValueComparator(objectiveValueComparatorProvider.get())
         .params(instanceParameterFactory.create(dto.getInstanceParameters()))
-        .orientationResolver(orientationResolverProvider.get())
-        .rectangleCopyFactory(rectangleCopyFactoryProvider.get())
-        .pointCopyFactory(pointCopyFactoryProvider.get())
         .build();
   }
 }

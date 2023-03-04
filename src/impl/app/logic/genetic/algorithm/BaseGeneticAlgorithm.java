@@ -1,7 +1,5 @@
 package logic.genetic.algorithm;
 
-import static utils.DelayedFormatter.format;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,7 +11,6 @@ import models.entity.GAParameters;
 import models.entity.Individual;
 import models.entity.InstanceParameters;
 import models.entity.Population;
-import models.entity.RandomIndividualGenerationRequest;
 import org.slf4j.Logger;
 
 @Getter
@@ -55,44 +52,23 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
             });
   }
 
-  protected void crossover(Population pop, List<Individual> popNext, int k) {
-    List<Individual> machoList = pop.getIndividualList().subList(0, (int) (0.1 * pop.size()));
-    if (machoList.isEmpty()) {
-      return;
+  protected List<Individual> crossover(Population pop, int size) {
+    List<Individual> res = new ArrayList<>(size);
+    for (int i = 0; i < size; i++) {
+      Individual p1 = pop.getEvaluatedIndividuals().get(i % pop.size()).getIndividual();
+      Individual p2 = pop.getEvaluatedIndividuals().get(i + 1 % pop.size()).getIndividual();
+      res.add(gaParams.getMatingOperator().mate(p1, p2));
     }
-    for (int i = 0; i < k; i += 2) {
-      Individual macho = machoList.get(rnd.nextInt(machoList.size()));
-      Individual rndInd = pop.getIndividualList().get(rnd.nextInt(pop.size()));
-      for (var off : gaParams.getMatingOperator().mate(macho, rndInd)) {
-        if (popNext.size() >= k) {
-          break;
-        }
-        popNext.add(off);
-      }
-    }
+    return res;
   }
 
-  protected int select(Population pop, List<Individual> popNext, int k) {
-    popNext.addAll(gaParams.getSelectOperator().select(pop.getIndividualList(), k));
-    return k;
+  protected List<Individual> select(Population pop, int size) {
+    return gaParams.getSelectOperator().select(pop, size);
   }
 
   protected Population generateInitialPopulation() {
-    var req = new RandomIndividualGenerationRequest(gaParams.getMaximumWildCardCount(),
-        instanceParams.getPaintings());
-    List<Individual> pop = new ArrayList<>(gaParams.getPopulationSize());
-    for (int i = 0; i < gaParams.getPopulationSize(); i++) {
-      pop.add(generator.random(req));
-    }
-    return new Population(pop, evaluator);
+    return new Population(generator.generateRandomIndividualList(instanceParams.getPaintings(),
+        gaParams.getPopulationSize()), evaluator);
   }
 
-  protected void printIterationStats(int iteration, Population pop) {
-    logger.info("iteration={}/{}, min={}, max={}, avg={}",
-        iteration,
-        gaParams.getMaxNumberOfIter(),
-        format("%.02f", pop.getObjectiveMin()),
-        format("%.02f", pop.getObjectiveMax()),
-        format("%.02f", pop.getObjectiveAvg()));
-  }
 }

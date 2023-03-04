@@ -13,7 +13,6 @@ public class PaintingFactory implements Factory<PaintingDto, Painting> {
         .ident(dto.getIdent())
         .width(dto.getWidth())
         .height(dto.getHeight())
-        .area(dto.getWidth() * dto.getHeight())
         .build();
   }
 }
