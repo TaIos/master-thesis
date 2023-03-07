@@ -84,7 +84,7 @@ public final class JavaUtils {
 
     public static List<Double> normalizeToProbabilityVector(List<Double> lst) {
       List<Double> copy = new ArrayList<>(lst);
-      normalizeToProbabilityVectorInplace(lst);
+      normalizeToProbabilityVectorInplace(copy);
       return copy;
     }
 
