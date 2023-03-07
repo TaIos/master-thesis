@@ -10,5 +10,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class GAResult {
 
+  public GAResult(HallOfFame hof) {
+    hallOfFame = hof;
+    layout = hof.getBestRecord().getBestIndividual().getLayout();
+  }
+
   private HallOfFame hallOfFame;
+  private EvaluatedSlicingLayout layout;
 }

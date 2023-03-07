@@ -6,6 +6,7 @@ import static utils.JavaUtils.formatAsHumanReadableDuration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
+import logic.genetic.HallOfFame;
 import logic.genetic.algorithm.GeneticAlgorithm;
 import models.entity.ComputationContext;
 import models.entity.ComputationResult;
@@ -28,15 +29,18 @@ public class GATimeMeasureWrapperFactory
           context.getLogger().info("Starting computation");
           ComputationResult result = wrapper.call();
           context.setComputationResult(result);
+          HallOfFame hof = context.getComputationResult().getGaResult().getHallOfFame();
+          double bestVal = hof.isEmpty() ? context.getComputationResult().getGaResult().getLayout()
+              .getObjectiveValue()
+              : hof.getBestRecord().getBestIndividual().getLayout().getObjectiveValue();
+          int bestIter = hof.isEmpty() ? -1 : hof.getBestRecord().getIteration();
           context
               .getLogger()
               .info(
                   "Computation finished in {}, best={} at iteration {}",
                   formatAsHumanReadableDuration(result.getDurationMillis(), TimeUnit.MILLISECONDS),
-                  format("%.02f", context.getComputationResult().getGaResult().getHallOfFame()
-                      .getBestRecord().getBestIndividual().getLayout().getObjectiveValue()),
-                  context.getComputationResult().getGaResult().getHallOfFame().getBestRecord()
-                      .getIteration());
+                  format("%.02f", bestVal),
+                  bestIter);
           return context;
         });
   }

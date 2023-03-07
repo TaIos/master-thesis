@@ -17,8 +17,7 @@ public interface Evaluator {
   Type getType();
 
   enum Type implements EnumTypeInterface {
-    GENETIC("ga"),
-    BRUTE("brute");
+    GENETIC("ga");
 
     public final String label;
 

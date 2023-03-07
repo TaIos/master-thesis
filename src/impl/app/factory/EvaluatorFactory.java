@@ -1,6 +1,6 @@
 package factory;
 
-import static logic.genetic.evaluator.Evaluator.*;
+import static logic.genetic.evaluator.Evaluator.Type;
 
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
@@ -12,7 +12,6 @@ import factory.provider.PaintingSpaceAllocatorProvider;
 import factory.provider.PlacingHeuristicsProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import logic.genetic.evaluator.BruteForceEvaluator;
 import logic.genetic.evaluator.Evaluator;
 import logic.genetic.evaluator.GaEvaluator;
 import models.dto.CreateComputationDto;
@@ -52,11 +51,6 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
         return new GaEvaluator(individualResolverProvider.get(),
             paintingSpaceAllocatorProvider.get(),
             placingHeuristicsProvider.get(),
-            objectiveFactory.create(dto),
-            objectiveValueComparatorProvider.get(),
-            instanceParameterFactory.create(dto.getInstanceParameters()));
-      case BRUTE:
-        return new BruteForceEvaluator(
             objectiveFactory.create(dto),
             objectiveValueComparatorProvider.get(),
             instanceParameterFactory.create(dto.getInstanceParameters()));

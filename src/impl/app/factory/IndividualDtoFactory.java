@@ -8,6 +8,9 @@ import javax.inject.Singleton;
 import logic.genetic.resolvers.RandomKeyDecoder;
 import models.dto.IndividualDto;
 import models.entity.EvaluatedIndividual;
+import models.entity.EvaluatedSlicingLayout;
+import models.entity.GAResult;
+import models.entity.HallOfFameRecord;
 import models.entity.Orientation.OrientationType;
 import models.entity.OrientationProbability;
 import models.entity.Painting;
@@ -15,7 +18,7 @@ import models.entity.PaintingPlacement;
 import models.entity.Rectangle;
 
 @Singleton
-public class IndividualDtoFactory implements Factory<EvaluatedIndividual, IndividualDto> {
+public class IndividualDtoFactory implements Factory<GAResult, IndividualDto> {
 
   private final RandomKeyDecoder decoder;
 
@@ -25,6 +28,30 @@ public class IndividualDtoFactory implements Factory<EvaluatedIndividual, Indivi
   }
 
   @Override
+  public IndividualDto create(GAResult gaResult) {
+    if (gaResult.getHallOfFame().isEmpty()) {
+      return create(gaResult.getLayout());
+    } else {
+      HallOfFameRecord best = gaResult.getHallOfFame().getBestRecord();
+      return create(best.getBestIndividual(), best.getIteration());
+    }
+  }
+
+  public IndividualDto create(EvaluatedIndividual ind, int iteration) {
+    IndividualDto dto = create(ind);
+    dto.setIteration(iteration);
+    return dto;
+  }
+
+  public IndividualDto create(EvaluatedSlicingLayout layout) {
+    return IndividualDto.builder()
+        .paintingAllocatedSpace(createPaintingAllocatedSpace(layout.getPlacements()))
+        .paintingPlacement(createPaintingPlacement(layout.getPlacements()))
+        .objectiveValue(layout.getObjectiveValue())
+        .build();
+  }
+
+
   public IndividualDto create(EvaluatedIndividual ind) {
     return IndividualDto.builder()
         .objectiveValue(ind.getLayout().getObjectiveValue())
@@ -43,11 +70,6 @@ public class IndividualDtoFactory implements Factory<EvaluatedIndividual, Indivi
         .build();
   }
 
-  public IndividualDto create(EvaluatedIndividual ind, int iteration) {
-    IndividualDto dto = create(ind);
-    dto.setIteration(iteration);
-    return dto;
-  }
 
   private List<String> createPaintingSequence(List<Painting> paintingSequence) {
     return paintingSequence.stream().map(Painting::getIdent).collect(Collectors.toList());

@@ -21,8 +21,8 @@ public class HallOfFameDtoFactory implements Factory<HallOfFame, HallOfFameDto> 
   }
 
   @Override
-  public HallOfFameDto create(HallOfFame hallOfFame) {
-    return HallOfFameDto.builder().records(create(hallOfFame.getRecords())).build();
+  public HallOfFameDto create(HallOfFame hof) {
+    return HallOfFameDto.builder().records(create(hof.getRecords())).build();
   }
 
   public HallOfFameDto create(GAResult gaResult) {

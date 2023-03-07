@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 public class HallOfFame {
 
   private final List<HallOfFameRecord> records;
+
   private final IndividualCopyFactory individualCopyFactory;
   private final ObjectiveValueComparator objectiveValueComparator;
 
@@ -66,5 +67,8 @@ public class HallOfFame {
     return this;
   }
 
+  public boolean isEmpty() {
+    return records.isEmpty();
+  }
 
 }

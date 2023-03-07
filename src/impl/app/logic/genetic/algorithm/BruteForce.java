@@ -1,13 +1,18 @@
 package logic.genetic.algorithm;
 
+import static logic.genetic.algorithm.GeneticAlgorithm.Type.BRUTE;
+
+import java.util.List;
 import java.util.Random;
 import logic.genetic.Generator;
 import logic.genetic.HallOfFame;
 import logic.genetic.evaluator.Evaluator;
+import models.entity.EvaluatedSlicingLayout;
 import models.entity.GAParameters;
 import models.entity.GAResult;
 import models.entity.InstanceParameters;
-import models.entity.Population;
+import models.entity.PaintingPlacement;
+import models.entity.Rectangle;
 import org.slf4j.Logger;
 
 public class BruteForce extends BaseGeneticAlgorithm {
@@ -26,17 +31,23 @@ public class BruteForce extends BaseGeneticAlgorithm {
 
   @Override
   public GAResult call() {
-    return new GAResult(hof.log(generateInitialPopulation(), 0).withPrintLast(logger, gaParams));
-  }
-
-  @Override
-  protected Population generateInitialPopulation() {
-    return new Population(generator.generateRandomIndividualList(instanceParams.getPaintings(),
-        1), evaluator);
+    EvaluatedSlicingLayout dummy = EvaluatedSlicingLayout.builder()
+        .placements(List.of(
+            PaintingPlacement.builder()
+                .allocatedSpace(Rectangle.builder().x(1).y(1).width(1).height(1).build())
+                .placement(Rectangle.builder().x(1).y(1).width(1).height(1).build())
+                .build())
+        )
+        .objectiveValue(-1d)
+        .build();
+    return GAResult.builder()
+        .hallOfFame(hof)
+        .layout(dummy)
+        .build();
   }
 
   @Override
   public Type getType() {
-    return Type.SIMPLE_GA;
+    return BRUTE;
   }
 }
