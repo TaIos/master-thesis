@@ -11,9 +11,10 @@ public class DoubleListSerializer extends JsonSerializer<List<Double>> {
   @Override
   public void serialize(List<Double> value, JsonGenerator gen, SerializerProvider serializers)
       throws IOException {
-    gen.writeArray(
-        value.stream().map(DoubleSerializer.formatter::format).toArray(String[]::new),
-        0,
-        value.size());
+    gen.writeStartArray();
+    for (double d : value) {
+      gen.writeNumber(DoubleSerializer.formatter.format(d));
+    }
+    gen.writeEndArray();
   }
 }

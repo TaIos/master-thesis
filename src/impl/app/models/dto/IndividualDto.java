@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import utils.serialization.DoubleDoubleListSerializer;
 import utils.serialization.DoubleListSerializer;
 import utils.serialization.DoubleSerializer;
 
@@ -29,7 +30,7 @@ public class IndividualDto implements Dto {
   private List<Double> slicingOrderRandomKey;
 
   private List<String> orientations;
-  // TODO format
+  @JsonSerialize(using = DoubleDoubleListSerializer.class)
   private List<List<Double>> orientationProbabilities;
 
   @JsonProperty("paintingAllocatedSpace_XYWH")

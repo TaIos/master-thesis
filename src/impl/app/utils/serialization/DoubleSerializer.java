@@ -13,6 +13,6 @@ public class DoubleSerializer extends JsonSerializer<Double> {
   @Override
   public void serialize(Double value, JsonGenerator gen, SerializerProvider serializers)
       throws IOException {
-    gen.writeString(formatter.format(value));
+    gen.writeNumber(formatter.format(value));
   }
 }
