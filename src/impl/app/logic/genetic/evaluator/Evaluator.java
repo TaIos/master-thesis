@@ -1,20 +1,23 @@
-package logic.genetic.algorithm;
+package logic.genetic.evaluator;
 
 import java.util.Optional;
-import java.util.concurrent.Callable;
-import models.entity.GAResult;
+import logic.objective.ObjectiveValueComparator;
+import models.entity.EvaluatedSlicingLayout;
+import models.entity.Individual;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
-public interface GeneticAlgorithm extends Callable<GAResult> {
+public interface Evaluator {
 
-  @Override
-  GAResult call();
+
+  EvaluatedSlicingLayout eval(Individual ind);
+
+  ObjectiveValueComparator getObjectiveValueComparator();
 
   Type getType();
 
   enum Type implements EnumTypeInterface {
-    SIMPLE_GA("simpleGa"),
+    GENETIC("ga"),
     BRUTE("brute");
 
     public final String label;
@@ -32,4 +35,5 @@ public interface GeneticAlgorithm extends Callable<GAResult> {
       return label;
     }
   }
+
 }

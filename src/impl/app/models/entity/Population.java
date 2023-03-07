@@ -5,7 +5,7 @@ import static logic.objective.ObjectiveValueComparator.OBJECTIVE_VALUE_MAX;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import logic.genetic.Evaluator;
+import logic.genetic.evaluator.Evaluator;
 import lombok.Getter;
 
 @Getter

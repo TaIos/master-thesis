@@ -34,7 +34,7 @@ public class FunctionThreadSafeWrapperFactory implements
   }
 
   private int calculateMinimalFunctionCount(CreateComputationDto dto) {
-    return dto.getGaParameters().getPopulationSize() * dto.getInstanceParameters().getPaintings()
-        .size() * 2 ^ dto.getGaParameters().getMaximumWildCardCount();
+    return dto.getGaParameters().getPopulationSize() *
+        2 ^ (dto.getInstanceParameters().getPaintings().size() - 1);
   }
 }

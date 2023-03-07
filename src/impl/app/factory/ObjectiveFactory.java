@@ -59,6 +59,7 @@ public class ObjectiveFactory implements Factory<CreateComputationDto, Objective
 
   private ObjectiveType findOrThrow(String name) throws EntityNotFoundException {
     return ObjectiveType.getForLabel(name)
-        .orElseThrow(() -> new EntityNotFoundException(Objective.class, name));
+        .orElseThrow(
+            () -> new EntityNotFoundException(Objective.class, name, ObjectiveType.values()));
   }
 }

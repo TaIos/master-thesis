@@ -1,5 +1,7 @@
 package factory;
 
+import static logic.genetic.evaluator.Evaluator.*;
+
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
@@ -10,7 +12,9 @@ import factory.provider.PaintingSpaceAllocatorProvider;
 import factory.provider.PlacingHeuristicsProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import logic.genetic.Evaluator;
+import logic.genetic.evaluator.BruteForceEvaluator;
+import logic.genetic.evaluator.Evaluator;
+import logic.genetic.evaluator.GaEvaluator;
 import models.dto.CreateComputationDto;
 
 @Singleton
@@ -42,13 +46,27 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
   @Override
   public Evaluator create(CreateComputationDto dto)
       throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
-    return Evaluator.builder()
-        .individualResolver(individualResolverProvider.get())
-        .paintingSpaceAllocator(paintingSpaceAllocatorProvider.get())
-        .placingHeuristics(placingHeuristicsProvider.get())
-        .objective(objectiveFactory.create(dto))
-        .objectiveValueComparator(objectiveValueComparatorProvider.get())
-        .params(instanceParameterFactory.create(dto.getInstanceParameters()))
-        .build();
+    String name = dto.getGaParameters().getEvaluator();
+    switch (findOrThrow(name)) {
+      case GENETIC:
+        return new GaEvaluator(individualResolverProvider.get(),
+            paintingSpaceAllocatorProvider.get(),
+            placingHeuristicsProvider.get(),
+            objectiveFactory.create(dto),
+            objectiveValueComparatorProvider.get(),
+            instanceParameterFactory.create(dto.getInstanceParameters()));
+      case BRUTE:
+        return new BruteForceEvaluator(
+            objectiveFactory.create(dto),
+            objectiveValueComparatorProvider.get(),
+            instanceParameterFactory.create(dto.getInstanceParameters()));
+      default:
+        throw new ImplementationNotFoundException(Evaluator.class, name);
+    }
+  }
+
+  private Type findOrThrow(String name) throws EntityNotFoundException {
+    return Type.getForLabel(name)
+        .orElseThrow(() -> new EntityNotFoundException(Evaluator.class, name, Type.values()));
   }
 }

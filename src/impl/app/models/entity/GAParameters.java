@@ -16,7 +16,6 @@ public class GAParameters {
   private Double crossoverProb;
   private Integer maxNumberOfIter;
   private Integer populationSize;
-  private Integer maximumWildCardCount;
 
   private MatingOperator matingOperator;
   private MutateOperator mutateOperator;

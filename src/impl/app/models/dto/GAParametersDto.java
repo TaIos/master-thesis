@@ -38,12 +38,12 @@ public class GAParametersDto implements Dto {
   private Integer populationSize;
 
   @NotNull
-  @NotNegative
-  private Integer maximumWildCardCount;
+  @NotBlank
+  private String geneticAlgorithm;
 
   @NotNull
   @NotBlank
-  private String geneticAlgorithm;
+  private String evaluator;
 
   @NotNull
   @NotBlank

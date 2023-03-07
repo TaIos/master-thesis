@@ -16,7 +16,7 @@ public class PlacingHeuristics {
         .build();
   }
 
-  // TODO create something smarter if there is more time
+  // TODO if time: create something smarter
   private List<PaintingPlacement> create(SlicingLayout slicingLayout) {
     int size = slicingLayout.getPaintings().size();
     List<PaintingPlacement> placements = new ArrayList<>(size);

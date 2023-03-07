@@ -14,7 +14,8 @@ public interface MutateOperator {
   enum Type implements EnumTypeInterface {
     FLIP_SLICING_ORDER("flipSlicingOrder"),
     FLIP_PAINTING_SEQUENCE("flipPaintingSequence"),
-    FLIP_ORIENTATION("flipOrientation");
+    FLIP_ORIENTATION("flipOrientation"),
+    FLIP_ONE_PART_AT_RANDOM("flipOnePartAtRandom");
 
     public final String label;
 

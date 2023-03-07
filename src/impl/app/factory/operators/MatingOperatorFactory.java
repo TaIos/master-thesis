@@ -5,8 +5,6 @@ import exceptions.ImplementationNotFoundException;
 import factory.Factory;
 import factory.NormalizedProbabilityVectorSumCrossoverParametersFactory;
 import factory.provider.IndividualCopyFactoryProvider;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.operators.mate.MatingOperator;
@@ -43,12 +41,8 @@ public class MatingOperatorFactory implements Factory<GAParametersDto, MatingOpe
     }
   }
 
-  private MatingOperator.Type findOrThrow(String name) throws EntityNotFoundException {
-    String availableValues = Arrays.stream(MatingOperator.Type.values()).map(Type::getLabel)
-        .collect(
-            Collectors.joining(","));
-    return MatingOperator.Type.getForLabel(name)
-        .orElseThrow(() -> new EntityNotFoundException(MatingOperator.class, name,
-            "Available values: " + availableValues));
+  private Type findOrThrow(String name) throws EntityNotFoundException {
+    return Type.getForLabel(name)
+        .orElseThrow(() -> new EntityNotFoundException(MatingOperator.class, name, Type.values()));
   }
 }

@@ -1,11 +1,14 @@
 package factory.operators;
 
+import static logic.genetic.operators.mutate.MutateOperator.Type;
+
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import factory.Factory;
 import factory.provider.RandomProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import logic.genetic.operators.mutate.FlipOnePartAtRandom;
 import logic.genetic.operators.mutate.FlipOrientationProbability;
 import logic.genetic.operators.mutate.FlipPaintingSequence;
 import logic.genetic.operators.mutate.FlipSlicingOrder;
@@ -38,13 +41,19 @@ public class MutateOperatorFactory implements Factory<String, MutateOperator> {
         return new FlipPaintingSequence(randomProvider.get());
       case FLIP_ORIENTATION:
         return new FlipOrientationProbability(randomProvider.get());
+      case FLIP_ONE_PART_AT_RANDOM:
+        return new FlipOnePartAtRandom(randomProvider.get(),
+            new FlipOrientationProbability(randomProvider.get()),
+            new FlipPaintingSequence(randomProvider.get()),
+            new FlipSlicingOrder(randomProvider.get())
+        );
       default:
         throw new ImplementationNotFoundException(MutateOperator.class, name);
     }
   }
 
-  private MutateOperator.Type findOrThrow(String name) throws EntityNotFoundException {
-    return MutateOperator.Type.getForLabel(name)
-        .orElseThrow(() -> new EntityNotFoundException(MutateOperator.class, name));
+  private Type findOrThrow(String name) throws EntityNotFoundException {
+    return Type.getForLabel(name)
+        .orElseThrow(() -> new EntityNotFoundException(MutateOperator.class, name, Type.values()));
   }
 }

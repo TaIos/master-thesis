@@ -35,7 +35,6 @@ public class GAParametersFactory implements Factory<GAParametersDto, GAParameter
         .mutationProb(dto.getMutationProb())
         .crossoverProb(dto.getCrossoverProb())
         .maxNumberOfIter(dto.getMaxNumberOfIter())
-        .maximumWildCardCount(dto.getMaximumWildCardCount())
         .matingOperator(matingOperatorFactory.create(dto))
         .mutateOperator(mutateOperatorFactory.create(dto))
         .selectOperator(selectOperatorFactory.create(dto))

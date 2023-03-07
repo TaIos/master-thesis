@@ -1,4 +1,6 @@
-package logic.genetic;
+package logic.genetic.evaluator;
+
+import static logic.genetic.evaluator.Evaluator.Type.GENETIC;
 
 import java.util.NoSuchElementException;
 import logic.genetic.algorithm.PlacingHeuristics;
@@ -6,15 +8,11 @@ import logic.genetic.resolvers.IndividualResolver;
 import logic.objective.Objective;
 import logic.objective.ObjectiveValueComparator;
 import logic.placing.PaintingSpaceAllocator;
-import lombok.Builder;
-import lombok.Getter;
 import models.entity.EvaluatedSlicingLayout;
 import models.entity.Individual;
 import models.entity.InstanceParameters;
 
-@Getter
-@Builder
-public class Evaluator {
+public class GaEvaluator implements Evaluator {
 
   private final IndividualResolver individualResolver;
   private final PaintingSpaceAllocator paintingSpaceAllocator;
@@ -25,7 +23,7 @@ public class Evaluator {
   private final InstanceParameters params;
 
 
-  public Evaluator(IndividualResolver individualResolver,
+  public GaEvaluator(IndividualResolver individualResolver,
       PaintingSpaceAllocator paintingSpaceAllocator,
       PlacingHeuristics placingHeuristics,
       Objective objective,
@@ -38,6 +36,7 @@ public class Evaluator {
     this.params = params;
   }
 
+  @Override
   public EvaluatedSlicingLayout eval(Individual ind) {
     return individualResolver.resolve(ind).stream()
         .map(resolvedIndividual -> paintingSpaceAllocator.createSlicingLayout(resolvedIndividual,
@@ -46,6 +45,16 @@ public class Evaluator {
         .map(objective::eval)
         .min(objectiveValueComparator)
         .orElseThrow(() -> new NoSuchElementException("There is no individual resolved"));
+  }
+
+  @Override
+  public ObjectiveValueComparator getObjectiveValueComparator() {
+    return objectiveValueComparator;
+  }
+
+  @Override
+  public Type getType() {
+    return GENETIC;
   }
 
 }

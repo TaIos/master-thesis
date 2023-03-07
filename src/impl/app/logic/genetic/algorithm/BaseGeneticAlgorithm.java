@@ -3,9 +3,9 @@ package logic.genetic.algorithm;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import logic.genetic.Evaluator;
 import logic.genetic.Generator;
 import logic.genetic.HallOfFame;
+import logic.genetic.evaluator.Evaluator;
 import lombok.Getter;
 import models.entity.GAParameters;
 import models.entity.Individual;
@@ -56,7 +56,7 @@ public abstract class BaseGeneticAlgorithm implements GeneticAlgorithm {
     List<Individual> res = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       Individual p1 = pop.getEvaluatedIndividuals().get(i % pop.size()).getIndividual();
-      Individual p2 = pop.getEvaluatedIndividuals().get(i + 1 % pop.size()).getIndividual();
+      Individual p2 = pop.getEvaluatedIndividuals().get((i + 1) % pop.size()).getIndividual();
       res.add(gaParams.getMatingOperator().mate(p1, p2));
     }
     return res;
