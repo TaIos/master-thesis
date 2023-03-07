@@ -7,6 +7,7 @@ import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
 import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.GeneratorProvider;
+import factory.provider.ObjectiveValueComparatorProvider;
 import factory.provider.RandomProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,6 +16,8 @@ import logic.genetic.algorithm.BruteForce;
 import logic.genetic.algorithm.GeneticAlgorithm;
 import logic.genetic.algorithm.SimpleGA;
 import logic.genetic.evaluator.Evaluator;
+import logic.objective.Objective;
+import logic.objective.ObjectiveValueComparator;
 import models.dto.CreateComputationDto;
 import models.entity.GAParameters;
 import models.entity.InstanceParameters;
@@ -29,25 +32,31 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
   private final EvaluatorFactory evaluatorFactory;
   private final HallOfFameFactory hallOfFameFactory;
   private final CustomLoggerFactory loggerFactory;
+  private final ObjectiveFactory objectiveFactory;
   private final RandomStringGenerator randomStringGenerator;
 
   private final GeneratorProvider generatorProvider;
   private final RandomProvider randomProvider;
+  private final ObjectiveValueComparatorProvider objectiveValueComparatorProvider;
 
   @Inject
   public GeneticAlgorithmFactory(GAParametersFactory gaParametersFactory,
       InstanceParameterFactory instanceParameterFactory, EvaluatorFactory evaluatorFactory,
       HallOfFameFactory hallOfFameFactory, CustomLoggerFactory loggerFactory,
-      RandomStringGenerator randomStringGenerator, GeneratorProvider generatorProvider,
-      RandomProvider randomProvider) {
+      ObjectiveFactory objectiveFactory, RandomStringGenerator randomStringGenerator,
+      GeneratorProvider generatorProvider,
+      RandomProvider randomProvider,
+      ObjectiveValueComparatorProvider objectiveValueComparatorProvider) {
     this.gaParametersFactory = gaParametersFactory;
     this.instanceParameterFactory = instanceParameterFactory;
     this.evaluatorFactory = evaluatorFactory;
     this.hallOfFameFactory = hallOfFameFactory;
     this.loggerFactory = loggerFactory;
+    this.objectiveFactory = objectiveFactory;
     this.randomStringGenerator = randomStringGenerator;
     this.generatorProvider = generatorProvider;
     this.randomProvider = randomProvider;
+    this.objectiveValueComparatorProvider = objectiveValueComparatorProvider;
   }
 
 
@@ -66,11 +75,13 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
         instanceParameterFactory.create(dto.getInstanceParameters()),
         evaluatorFactory.create(dto),
         hallOfFameFactory.create(dto),
+        objectiveFactory.create(dto),
         logger);
   }
 
-  public GeneticAlgorithm create(String name, GAParameters gaParams,
-      InstanceParameters instanceParams, Evaluator evaluator, HallOfFame hof, Logger logger)
+  private GeneticAlgorithm create(String name, GAParameters gaParams,
+      InstanceParameters instanceParams, Evaluator evaluator, HallOfFame hof, Objective objective,
+      Logger logger)
       throws EntityNotFoundException, ImplementationNotFoundException {
     switch (findOrThrow(name)) {
       case SIMPLE_GA:
@@ -78,7 +89,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
             randomProvider.get(), logger);
       case BRUTE:
         return new BruteForce(gaParams, instanceParams, evaluator, hof, generatorProvider.get(),
-            randomProvider.get(), logger);
+            randomProvider.get(), logger, objective, objectiveValueComparatorProvider.get());
       default:
         throw new ImplementationNotFoundException(GeneticAlgorithm.class, name);
     }

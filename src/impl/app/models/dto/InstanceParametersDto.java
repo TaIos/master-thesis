@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.sf.oval.constraint.AssertValid;
-import net.sf.oval.constraint.Min;
 import net.sf.oval.constraint.MinSize;
 import net.sf.oval.constraint.NotNull;
 
@@ -17,10 +16,8 @@ import net.sf.oval.constraint.NotNull;
 public class InstanceParametersDto implements Dto {
 
   @NotNull @AssertValid @MinSize(1) List<PaintingDto> paintings;
+
   @NotNull
   @AssertValid
   private LayoutDto layout;
-  @NotNull
-  @Min(1)
-  private Integer paintingCount;
 }

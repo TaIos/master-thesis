@@ -1,5 +1,6 @@
 package utils;
 
+import com.google.common.collect.Collections2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,6 +53,14 @@ public final class JavaUtils {
     result.addAll(second);
     return result;
   }
+
+  public static <T> List<List<T>> permutations(List<T> lst) {
+    System.out.println("SIZE=" + lst.size());
+    List<List<T>> res = new ArrayList<>(Collections2.permutations(lst));
+    System.out.println("OK");
+    return res;
+  }
+
 
   public static int toInteger(Boolean bool) {
     return bool ? 1 : 0;

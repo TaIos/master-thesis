@@ -11,6 +11,5 @@ import lombok.Data;
 public class InstanceParameters {
 
   private Layout layout;
-  private Integer paintingCount;
   private List<Painting> paintings;
 }

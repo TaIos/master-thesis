@@ -28,7 +28,6 @@ public class InstanceParameterFactory
       throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException {
     return InstanceParameters.builder()
         .layout(layoutFactory.create(dto.getLayout()))
-        .paintingCount(dto.getPaintingCount())
         .paintings(
             dto.getPaintings().stream().map(paintingFactory::create).collect(Collectors.toList()))
         .build();
