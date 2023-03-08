@@ -12,12 +12,11 @@ import factory.provider.RandomProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.HallOfFame;
-import logic.genetic.algorithm.BruteForce;
+import logic.genetic.algorithm.ProbabilisticBruteForce;
 import logic.genetic.algorithm.GeneticAlgorithm;
 import logic.genetic.algorithm.SimpleGA;
 import logic.genetic.evaluator.Evaluator;
 import logic.objective.Objective;
-import logic.objective.ObjectiveValueComparator;
 import models.dto.CreateComputationDto;
 import models.entity.GAParameters;
 import models.entity.InstanceParameters;
@@ -87,8 +86,8 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
       case SIMPLE_GA:
         return new SimpleGA(gaParams, instanceParams, evaluator, hof, generatorProvider.get(),
             randomProvider.get(), logger);
-      case BRUTE:
-        return new BruteForce(gaParams, instanceParams, evaluator, hof, generatorProvider.get(),
+      case PROBABILISTIC_BRUTE:
+        return new ProbabilisticBruteForce(gaParams, instanceParams, evaluator, hof, generatorProvider.get(),
             randomProvider.get(), logger, objective, objectiveValueComparatorProvider.get());
       default:
         throw new ImplementationNotFoundException(GeneticAlgorithm.class, name);

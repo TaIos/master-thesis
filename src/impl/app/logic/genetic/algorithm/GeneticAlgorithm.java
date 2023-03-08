@@ -15,7 +15,7 @@ public interface GeneticAlgorithm extends Callable<GAResult> {
 
   enum Type implements EnumTypeInterface {
     SIMPLE_GA("simpleGa"),
-    BRUTE("brute");
+    PROBABILISTIC_BRUTE("probBrute");
 
     public final String label;
 
