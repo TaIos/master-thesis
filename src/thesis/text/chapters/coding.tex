@@ -1,42 +1,16 @@
 \chapter{Coding}\label{ch:coding}
 
-
-\section{Individual representation}\label{subsec:individual-representation}
-
 \begin{figure}[htp]
-
-    \begin{tabular}{lccccccc}
-        Painting sequence random key & 0.1 &                     & 0.2 &                     & 0.3 &                     & 0.4 \\
-        Slicing order random key     &     & 0.6                 &     & 0.1                 &     & 0.3                 &     \\
-        Orientation probabilities    &     & {[}0.3, 0.2, 0.5{]} &     & {[}0.1, 0.2, 0.7{]} &     & {[}0.7, 0.2, 0.1{]} &
-    \end{tabular}
-    \caption{Example of an individual representation.}
-    \label{tab:ind-rep-example}
-
-    \bigskip
-
-    \begin{tabular}{lccccccc}
-        Painting sequence random key & $0.1_1$ &                                      & $0.2_2$ &                                      & $0.3_3$ &                                      & $0.4_4$ \\
-        Slicing order random key     &         & $0.1_2$                              &         & $0.3_3$                              &         & $0.6_1$                              &         \\
-        Orientation probabilities    &         & [$0.3_H$, $0.2_V$, $\mathbf{0.5_*]}$ &         & [$0.1_H$, $0.2_V$, $\mathbf{0.7_*}$] &         & [$\mathbf{0.7_H}$, $0.2_V$, $0.1_*$] &
-    \end{tabular}
-    \caption{An individual with sorted random keys. A lower index at the random key indicates the ordinal position before sorting – the painting sequence was already sorted, but the slicing order was not. Bold orientation probabilities are the most probable, with a lower index indicating the orientation associated with the probability.}
-    \label{tab:ind-rep-sorted}
-
-    \bigskip
-
-    \begin{tabular}{lccccccc}
-        Painting sequence & 1 &   & 2 &   & 3 &   & 4 \\
-        Slicing order     &   & 2 &   & 3 &   & 1 &   \\
-        Orientations      &   & H &   & H &   & * &
-    \end{tabular}
-    \caption{A decoded individual – this representation is used to create the slicing tree. This representation was created from the previous one by taking lower indexes of sorted random keys and most probable orientation.}
-    \label{tab:ind-decoded}
-
+    \includegraphics[width=1.1\textwidth, left]{individual_decoding}
+    \caption{
+        Individual decoding example. Both the painting sequence random key and slicing order random key
+        are decoded using the same procedure. The decoded individual can be used to construct a slicing layout.
+    }
+    \label{fig:individual-decoding}
 \end{figure}
 
 \begin{figure}[htp]
-    \includegraphics[scale=1.7]{pupulation_schema}\label{fig:population-schema}
+    \includegraphics[width=1.1\textwidth, left]{pupulation_schema}\label{fig:population-schema}
     \caption{Initial population generation strategy and transition from generation $k$ to $k+1$.}
 \end{figure}
 
