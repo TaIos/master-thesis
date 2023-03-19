@@ -36,7 +36,7 @@
 \end{figure}
 
 \begin{figure}[htp]
-    \includegraphics[scale=1.7]{pupulation_schema.drawio}\label{fig:population-schema}
+    \includegraphics[scale=1.7]{pupulation_schema}\label{fig:population-schema}
     \caption{Initial population generation strategy and transition from generation $k$ to $k+1$.}
 \end{figure}
 
@@ -75,5 +75,20 @@ Mutation for the orientation probabilities is the same but with the first additi
 step of randomly choosing which of the probability vectors will undergo the aforementioned process.
 
 \subsection{Crossover}\label{subsec:crossover}
+
+\begin{figure}[htp]
+    \includegraphics[width=1.1\textwidth, left]{crossover_random_keys}\caption{
+        Crossover example for painting sequence and slicing order random keys.
+        The procedure is the same for both – sum parent vectors and then normalize to stochastic vector.
+    }
+    \label{fig:crossover-random-keys}
+\end{figure}
+
+\begin{figure}[htp]
+    \includegraphics[width=1.1\textwidth, left]{crossover_orientation_probabilities}\caption{
+        Crossover example for orientation probabilities. The procedure is first to sum parent matrices,
+        then weight each row with orientation weights and normalize each row to a stochastic vector.}
+    \label{fit:crossover-orientation-probabilities}
+\end{figure}
 
 

@@ -388,3 +388,5 @@ _minted-ctufit-thesis/
 
 old/
 !figures/*
+figures/*.bkp
+
