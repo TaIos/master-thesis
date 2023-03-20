@@ -387,6 +387,6 @@ _minted-ctufit-thesis/
 *.toc
 
 old/
-!figures/*
-figures/*.bkp
-
+figures/*
+!figures/*.drawio
+!figures/*.pdf

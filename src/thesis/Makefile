@@ -38,6 +38,8 @@ thesis.pdf:
 rm-clean:
 	rm -f *.log *.out *.aux *.fls *.fdb_latexmk *.blg *.bbl *.toc *.run.xml *.lol *~
 	rm -f text/*.aux
+	rm -f figures/.*.bkp
+	rm -f figures/.*.dtmp
 
 # keep pdf
 clean: rm-clean
