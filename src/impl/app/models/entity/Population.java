@@ -13,6 +13,10 @@ public class Population {
 
   private final List<EvaluatedIndividual> evaluatedIndividuals;
 
+  private final List<EvaluatedIndividual> elite;
+  private final List<EvaluatedIndividual> average;
+  private final List<EvaluatedIndividual> worst;
+
   public Population(List<Individual> individualList, Evaluator evaluator) {
     evaluatedIndividuals = individualList.parallelStream()
         .map(ind -> EvaluatedIndividual.builder()
@@ -22,6 +26,18 @@ public class Population {
         ).sorted((o1, o2) -> evaluator.getObjectiveValueComparator()
             .compare(o1.getLayout(), o2.getLayout()))
         .collect(Collectors.toUnmodifiableList());
+
+    // TODO propagate percentages
+    elite = evaluatedIndividuals.subList(
+        0,
+        (int) (1 + evaluatedIndividuals.size() * 0.2));
+    average = evaluatedIndividuals.subList(
+        elite.size(),
+        Math.min((int) (1 + elite.size() + evaluatedIndividuals.size() * 0.6),
+            evaluatedIndividuals.size()));
+    worst = evaluatedIndividuals.subList(
+        Math.min(elite.size() + average.size(), evaluatedIndividuals.size()) - 1,
+        evaluatedIndividuals.size());
   }
 
   public EvaluatedIndividual getBestIndividual() {
