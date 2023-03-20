@@ -29,12 +29,8 @@ public class IndividualDtoFactory implements Factory<GAResult, IndividualDto> {
 
   @Override
   public IndividualDto create(GAResult gaResult) {
-    if (gaResult.getHallOfFame().isEmpty()) {
-      return create(gaResult.getLayout());
-    } else {
-      HallOfFameRecord best = gaResult.getHallOfFame().getBestRecord();
-      return create(best.getBestIndividual(), best.getIteration());
-    }
+    HallOfFameRecord bestRecord = gaResult.getHallOfFame().getBestRecord();
+    return create(bestRecord.getBestIndividual(), bestRecord.getIteration());
   }
 
   public IndividualDto create(EvaluatedIndividual ind, int iteration) {

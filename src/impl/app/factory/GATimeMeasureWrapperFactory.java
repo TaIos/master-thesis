@@ -30,10 +30,8 @@ public class GATimeMeasureWrapperFactory
           ComputationResult result = wrapper.call();
           context.setComputationResult(result);
           HallOfFame hof = context.getComputationResult().getGaResult().getHallOfFame();
-          double bestVal = hof.isEmpty() ? context.getComputationResult().getGaResult().getLayout()
-              .getObjectiveValue()
-              : hof.getBestRecord().getBestIndividual().getLayout().getObjectiveValue();
-          int bestIter = hof.isEmpty() ? -1 : hof.getBestRecord().getIteration();
+          double bestVal = hof.getBestRecord().getBestIndividual().getLayout().getObjectiveValue();
+          int bestIter = hof.getBestRecord().getIteration();
           context
               .getLogger()
               .info(

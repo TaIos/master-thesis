@@ -13,7 +13,10 @@ public class RandomProvider implements Provider<Random> {
 
   @Inject
   public RandomProvider(Config config) {
-    this(new Random(config.getLong("randomSeed")));
+    this(new Random(
+        config.getBoolean("useSeed")
+            ? config.getLong("randomSeed")
+            : System.currentTimeMillis()));
   }
 
   public RandomProvider(Random random) {

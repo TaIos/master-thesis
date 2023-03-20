@@ -14,9 +14,9 @@ import models.entity.HallOfFameRecord;
 import models.entity.Population;
 import org.slf4j.Logger;
 
-@Getter
 public class HallOfFame {
 
+  @Getter
   private final List<HallOfFameRecord> records;
 
   private final IndividualCopyFactory individualCopyFactory;
@@ -56,19 +56,15 @@ public class HallOfFame {
 
   }
 
-  public HallOfFame withPrintLast(Logger logger, GAParameters gaParams) {
+  public void withPrintLast(Logger logger, GAParameters gaParams) {
     HallOfFameRecord last = records.get(records.size() - 1);
-    logger.info("iteration={}/{}, min={}, max={}, avg={}",
+    logger.info("iteration={}/{}{}, min={}, max={}, avg={}",
         last.getIteration(),
         gaParams.getMaxNumberOfIter(),
+        last.getIteration() == 0 ? "(initial population)" : "",
         format("%.02f", last.getObjectiveMin()),
         format("%.02f", last.getObjectiveMax()),
         format("%.02f", last.getObjectiveAvg()));
-    return this;
-  }
-
-  public boolean isEmpty() {
-    return records.isEmpty();
   }
 
 }

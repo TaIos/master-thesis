@@ -51,6 +51,36 @@ public class SimpleGA extends BaseGeneticAlgorithm {
     return new GAResult(hof);
   }
 
+
+  private void mutate(List<Individual> pop) {
+    pop.parallelStream()
+        .forEach(
+            ind -> {
+              if (gaParams.getMutationProb() > rnd.nextDouble()) {
+                gaParams.getMutateOperator().mutate(ind);
+              }
+            });
+  }
+
+  private List<Individual> crossover(Population pop, int size) {
+    List<Individual> res = new ArrayList<>(size);
+    for (int i = 0; i < size; i++) {
+      Individual p1 = pop.getEvaluatedIndividuals().get(i % pop.size()).getIndividual();
+      Individual p2 = pop.getEvaluatedIndividuals().get((i + 1) % pop.size()).getIndividual();
+      res.add(gaParams.getMatingOperator().mate(p1, p2));
+    }
+    return res;
+  }
+
+  private List<Individual> select(Population pop, int size) {
+    return gaParams.getSelectOperator().select(pop, size);
+  }
+
+  private Population generateInitialPopulation() {
+    return new Population(generator.generateRandomIndividualList(instanceParams.getPaintings(),
+        gaParams.getPopulationSize()), evaluator);
+  }
+
   @Override
   public Type getType() {
     return Type.SIMPLE_GA;
