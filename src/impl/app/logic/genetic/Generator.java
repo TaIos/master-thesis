@@ -20,13 +20,10 @@ public class Generator {
     rnd = random;
   }
 
-  // TODO parallel
   public List<Individual> generateRandomIndividualList(List<Painting> paintings, int size) {
-    List<Individual> res = new ArrayList<>(size);
-    for (int i = 0; i < size; i++) {
-      res.add(generateRandomIndividual(paintings));
-    }
-    return res;
+    return range(0, size)
+        .parallel()
+        .map(dummy -> generateRandomIndividual(paintings)).collect(Collectors.toList());
   }
 
   public Individual generateRandomIndividual(List<Painting> paintings) {
