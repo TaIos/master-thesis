@@ -37,8 +37,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
   public GeneticAlgorithmFactory(GAParametersFactory gaParametersFactory,
       InstanceParameterFactory instanceParameterFactory, EvaluatorFactory evaluatorFactory,
       HallOfFameFactory hallOfFameFactory, CustomLoggerFactory loggerFactory,
-      RandomStringGenerator randomStringGenerator,
-      GeneratorProvider generatorProvider,
+      RandomStringGenerator randomStringGenerator, GeneratorProvider generatorProvider,
       RandomProvider randomProvider, IndividualCopyFactoryProvider individualCopyFactoryProvider) {
     this.gaParametersFactory = gaParametersFactory;
     this.instanceParameterFactory = instanceParameterFactory;
@@ -65,7 +64,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
     switch (findOrThrow(name)) {
       case SIMPLE_GA:
         return new SimpleGA(
-            gaParametersFactory.create(dto),
+            gaParametersFactory.create(dto.getGaParameters()),
             instanceParameterFactory.create(dto.getInstanceParameters()),
             evaluatorFactory.create(dto), hallOfFameFactory.create(dto),
             generatorProvider.get(),
@@ -74,7 +73,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
             individualCopyFactoryProvider.get());
       case PROBABILISTIC_BRUTE:
         return new ProbabilisticBruteForce(
-            gaParametersFactory.create(dto),
+            gaParametersFactory.create(dto.getGaParameters()),
             instanceParameterFactory.create(dto.getInstanceParameters()),
             evaluatorFactory.create(dto), hallOfFameFactory.create(dto),
             generatorProvider.get(),

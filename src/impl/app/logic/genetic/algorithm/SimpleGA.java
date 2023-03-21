@@ -1,5 +1,7 @@
 package logic.genetic.algorithm;
 
+import static utils.JavaUtils.shuffle;
+
 import factory.copy_factory.IndividualCopyFactory;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +17,7 @@ import models.entity.GAResult;
 import models.entity.Individual;
 import models.entity.InstanceParameters;
 import models.entity.Population;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 
 public class SimpleGA extends BaseGeneticAlgorithm {
@@ -41,61 +44,46 @@ public class SimpleGA extends BaseGeneticAlgorithm {
     hof.log(pop, 0).withPrintLast(logger, gaParams);
 
     for (int iter = 1; iter <= gaParams.getMaxNumberOfIter(); iter++) {
-
       List<Individual> popNext = Stream.of(
-              pop.getElite(), // TODO might create copy
+              pop.getElite(),
               crossover(pop),
               mutate(pop),
               tournament(pop),
-              random()
-          ).parallel()
+              random())
           .flatMap(Collection::stream)
           .collect(Collectors.toList());
 
-      pop = new Population(popNext, evaluator, gaParams);
+      pop = new Population(popNext, evaluator, gaParams.getCounts());
       hof.log(pop, iter).withPrintLast(logger, gaParams);
     }
-
     return new GAResult(hof);
   }
 
-  // TODO parallel
   private List<Individual> crossover(Population pop) {
-    List<Individual> children = new ArrayList<>(gaParams.getCounts().getChildren());
+    List<Pair<Individual, Individual>> parents = new ArrayList<>(
+        gaParams.getCounts().getChildren());
     for (int i = 0; i < gaParams.getCounts().getChildren(); i++) {
       Individual p1 = pop.getElite().get(rnd.nextInt(pop.getElite().size()));
       Individual p2 = pop.getAverage().get(rnd.nextInt(pop.getElite().size()));
-      children.add(gaParams.getMatingOperator().mate(p1, p2));
+      parents.add(Pair.of(p1, p2));
     }
-    return children;
+    return parents.parallelStream()
+        .map(pair -> gaParams.getMatingOperator().mate(pair.getLeft(), pair.getRight()))
+        .collect(Collectors.toList());
   }
 
-  // TODO parallel
   private List<Individual> mutate(Population pop) {
-    List<Individual> mutants = new ArrayList<>(gaParams.getCounts().getMutant());
-    for (int i = 0; i < gaParams.getCounts().getMutant(); i++) {
-      int idx = rnd.nextInt(pop.getElite().size() + pop.getAverage().size());
-      final Individual toMutate;
-      if (idx < pop.getElite().size()) {
-        toMutate = pop.getElite().get(idx);
-      } else {
-        toMutate = pop.getAverage().get(idx);
-      }
-      Individual toMutateCopy = individualCopyFactory.createCopy(toMutate);
-      gaParams.getMutateOperator().mutate(toMutateCopy);
-      mutants.add(toMutateCopy);
-    }
-    return mutants;
+    return shuffle(Stream.concat(pop.getElite().stream(), pop.getAverage().stream())
+        .collect(Collectors.toList()), rnd)
+        .subList(0, gaParams.getCounts().getMutant())
+        .parallelStream()
+        .map(individualCopyFactory::createCopy)
+        .peek(indCopy -> gaParams.getMutateOperator().mutate(indCopy)).collect(Collectors.toList());
+
   }
 
-  // TODO impl
-  // TODO parallel
   private List<Individual> tournament(Population pop) {
-    List<Individual> winners = new ArrayList<>(gaParams.getCounts().getWinner());
-    for (int i = 0; i < gaParams.getCounts().getWinner(); i++) {
-      winners.add(pop.getWorst().get(rnd.nextInt(pop.getWorst().size())));
-    }
-    return winners;
+    return gaParams.getSelectOperator().select(pop.getWorst(), pop.getWorst().size(), evaluator);
   }
 
   private List<Individual> random() {
@@ -105,7 +93,7 @@ public class SimpleGA extends BaseGeneticAlgorithm {
 
   private Population generateInitialPopulation() {
     return new Population(generator.generateRandomIndividualList(instanceParams.getPaintings(),
-        gaParams.getPopulationSize()), evaluator, gaParams);
+        gaParams.getPopulationSize()), evaluator, gaParams.getCounts());
   }
 
 

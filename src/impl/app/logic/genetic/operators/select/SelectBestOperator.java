@@ -1,18 +1,15 @@
 package logic.genetic.operators.select;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import models.entity.EvaluatedIndividual;
+import logic.genetic.evaluator.Evaluator;
 import models.entity.Individual;
-import models.entity.Population;
 
 public class SelectBestOperator implements SelectOperator {
 
   @Override
-  public List<Individual> select(Population population, int size) {
-    return population.getEvaluatedIndividuals()
-        .subList(0, Math.min(size, population.size()))
-        .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
+  public List<Individual> select(List<Individual> population, int size, Evaluator evaluator) {
+    assert (population.size() >= size);
+    return population.subList(0, size);
   }
 
   @Override

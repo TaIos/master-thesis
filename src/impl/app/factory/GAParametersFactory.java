@@ -2,13 +2,14 @@ package factory;
 
 import exceptions.DtoConstraintViolationException;
 import exceptions.EntityNotFoundException;
+import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
+import exceptions.InvalidFieldValueInJsonException;
 import factory.operators.MatingOperatorFactory;
 import factory.operators.MutateOperatorFactory;
 import factory.operators.SelectOperatorFactory;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import models.dto.CreateComputationDto;
 import models.dto.GAParametersDto;
 import models.entity.GAParameters;
 
@@ -37,7 +38,7 @@ public class GAParametersFactory implements Factory<GAParametersDto, GAParameter
 
   @Override
   public GAParameters create(GAParametersDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, DtoConstraintViolationException {
+      throws DtoConstraintViolationException, EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
     return GAParameters.builder()
         .maxNumberOfIter(dto.getMaxNumberOfIter())
         .populationSize(dto.getPopulationSize())
@@ -49,8 +50,4 @@ public class GAParametersFactory implements Factory<GAParametersDto, GAParameter
         .build();
   }
 
-  public GAParameters create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, DtoConstraintViolationException {
-    return create(dto.getGaParameters());
-  }
 }

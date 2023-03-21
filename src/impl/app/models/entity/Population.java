@@ -17,7 +17,8 @@ public class Population {
   private final List<Individual> average;
   private final List<Individual> worst;
 
-  public Population(List<Individual> individualList, Evaluator evaluator, GAParameters gaParams) {
+  public Population(List<Individual> individualList, Evaluator evaluator,
+      PopulationDivisionCounts counts) {
     evaluatedIndividuals = individualList.parallelStream()
         .map(ind -> EvaluatedIndividual.builder()
             .individual(ind)
@@ -29,16 +30,25 @@ public class Population {
 
     elite = evaluatedIndividuals.subList(
             0,
-            gaParams.getCounts().getElite())
+            counts.getElite())
         .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
     average = evaluatedIndividuals.subList(
             elite.size(),
-            elite.size() + gaParams.getCounts().getAverage())
+            elite.size() + counts.getAverage())
         .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
     worst = evaluatedIndividuals.subList(
             Math.min(elite.size() + average.size(), evaluatedIndividuals.size()) - 1,
             evaluatedIndividuals.size())
         .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
+  }
+
+  public Population(List<Individual> individualList, Evaluator evaluator) {
+    this(individualList,
+        evaluator,
+        PopulationDivisionCounts.builder()
+            .elite(1).average(1).worst(1).children(1).mutant(1).winner(1).random(1)
+            .build()
+    );
   }
 
   public EvaluatedIndividual getBestIndividual() {

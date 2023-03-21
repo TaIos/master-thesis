@@ -35,7 +35,7 @@ public class ProbabilisticBruteForce extends BaseGeneticAlgorithm {
 
   private Population generateRandomPopulation() {
     return new Population(generator.generateRandomIndividualList(instanceParams.getPaintings(),
-        gaParams.getPopulationSize()), evaluator, gaParams);
+        gaParams.getPopulationSize()), evaluator, gaParams.getCounts());
   }
 
   @Override
