@@ -61,19 +61,15 @@ public class SimpleObjective implements Objective {
   private double overlapping(PlacedSlicingLayout layout) {
     return overlappingRectanglesCount.calculate(
         layout.getPlacements().stream().map(PaintingPlacement::getPlacement)
-            .collect(Collectors.toList())
-    ) * params.getOverlappingPenalizationConstant();
+            .collect(Collectors.toList())) * params.getOverlappingPenalizationConstant();
   }
 
 
   private double outsideAllocatedArea(PlacedSlicingLayout layout) {
-    int cnt = 0;
-    for (int i = 0; i < layout.getPlacements().size(); i++) {
-      PaintingPlacement p = layout.getPlacements().get(i);
-      if (isOutsideOfAllocatedArea.calculate(p.getPlacement(), p.getAllocatedSpace())) {
-        cnt += 1;
-      }
-    }
-    return cnt * params.getOutsideOfAllocatedAreaPenalizationConstant();
+    return layout.getPlacements()
+        .parallelStream()
+        .map(p -> isOutsideOfAllocatedArea.calculate(p.getPlacement(), p.getAllocatedSpace()))
+        .filter(Boolean::booleanValue)
+        .count() * params.getOutsideOfAllocatedAreaPenalizationConstant();
   }
 }
