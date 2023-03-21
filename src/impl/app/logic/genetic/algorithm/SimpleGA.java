@@ -83,7 +83,8 @@ public class SimpleGA extends BaseGeneticAlgorithm {
   }
 
   private List<Individual> tournament(Population pop) {
-    return gaParams.getSelectOperator().select(pop.getWorst(), pop.getWorst().size(), evaluator);
+    return gaParams.getSelectOperator()
+        .select(pop.getWorst(), gaParams.getCounts().getWorst(), evaluator);
   }
 
   private List<Individual> random() {
