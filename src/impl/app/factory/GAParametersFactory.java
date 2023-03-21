@@ -1,5 +1,6 @@
 package factory;
 
+import exceptions.DtoConstraintViolationException;
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import factory.operators.MatingOperatorFactory;
@@ -17,33 +18,39 @@ public class GAParametersFactory implements Factory<GAParametersDto, GAParameter
   private final MatingOperatorFactory matingOperatorFactory;
   private final MutateOperatorFactory mutateOperatorFactory;
   private final SelectOperatorFactory selectOperatorFactory;
+  private final PopulationDivisionCountsFactory populationDivisionCountsFactory;
+  private final InitialPopulationDivisionCountsFactory initialPopulationDivisionCountsFactory;
 
   @Inject
   public GAParametersFactory(
       MatingOperatorFactory matingOperatorFactory,
       MutateOperatorFactory mutateOperatorFactory,
-      SelectOperatorFactory selectOperatorFactory) {
+      SelectOperatorFactory selectOperatorFactory,
+      PopulationDivisionCountsFactory populationDivisionCountsFactory,
+      InitialPopulationDivisionCountsFactory initialPopulationDivisionCountsFactory) {
     this.matingOperatorFactory = matingOperatorFactory;
     this.mutateOperatorFactory = mutateOperatorFactory;
     this.selectOperatorFactory = selectOperatorFactory;
+    this.populationDivisionCountsFactory = populationDivisionCountsFactory;
+    this.initialPopulationDivisionCountsFactory = initialPopulationDivisionCountsFactory;
   }
 
   @Override
   public GAParameters create(GAParametersDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException {
+      throws EntityNotFoundException, ImplementationNotFoundException, DtoConstraintViolationException {
     return GAParameters.builder()
-        .mutationProb(dto.getMutationProb())
-        .crossoverProb(dto.getCrossoverProb())
         .maxNumberOfIter(dto.getMaxNumberOfIter())
+        .populationSize(dto.getPopulationSize())
+        .counts(populationDivisionCountsFactory.create(dto))
+        .initialCounts(initialPopulationDivisionCountsFactory.create(dto))
         .matingOperator(matingOperatorFactory.create(dto))
         .mutateOperator(mutateOperatorFactory.create(dto))
         .selectOperator(selectOperatorFactory.create(dto))
-        .populationSize(dto.getPopulationSize())
         .build();
   }
 
   public GAParameters create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException {
+      throws EntityNotFoundException, ImplementationNotFoundException, DtoConstraintViolationException {
     return create(dto.getGaParameters());
   }
 }

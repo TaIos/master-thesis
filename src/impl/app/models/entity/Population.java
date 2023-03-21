@@ -13,11 +13,11 @@ public class Population {
 
   private final List<EvaluatedIndividual> evaluatedIndividuals;
 
-  private final List<EvaluatedIndividual> elite;
-  private final List<EvaluatedIndividual> average;
-  private final List<EvaluatedIndividual> worst;
+  private final List<Individual> elite;
+  private final List<Individual> average;
+  private final List<Individual> worst;
 
-  public Population(List<Individual> individualList, Evaluator evaluator) {
+  public Population(List<Individual> individualList, Evaluator evaluator, GAParameters gaParams) {
     evaluatedIndividuals = individualList.parallelStream()
         .map(ind -> EvaluatedIndividual.builder()
             .individual(ind)
@@ -27,17 +27,18 @@ public class Population {
             .compare(o1.getLayout(), o2.getLayout()))
         .collect(Collectors.toUnmodifiableList());
 
-    // TODO propagate percentages
     elite = evaluatedIndividuals.subList(
-        0,
-        (int) (1 + evaluatedIndividuals.size() * 0.2));
+            0,
+            gaParams.getCounts().getElite())
+        .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
     average = evaluatedIndividuals.subList(
-        elite.size(),
-        Math.min((int) (1 + elite.size() + evaluatedIndividuals.size() * 0.6),
-            evaluatedIndividuals.size()));
+            elite.size(),
+            elite.size() + gaParams.getCounts().getAverage())
+        .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
     worst = evaluatedIndividuals.subList(
-        Math.min(elite.size() + average.size(), evaluatedIndividuals.size()) - 1,
-        evaluatedIndividuals.size());
+            Math.min(elite.size() + average.size(), evaluatedIndividuals.size()) - 1,
+            evaluatedIndividuals.size())
+        .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
   }
 
   public EvaluatedIndividual getBestIndividual() {

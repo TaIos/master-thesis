@@ -2,11 +2,13 @@ package factory;
 
 import static logic.genetic.algorithm.GeneticAlgorithm.Type;
 
+import exceptions.DtoConstraintViolationException;
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
 import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.GeneratorProvider;
+import factory.provider.IndividualCopyFactoryProvider;
 import factory.provider.RandomProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -29,6 +31,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
 
   private final GeneratorProvider generatorProvider;
   private final RandomProvider randomProvider;
+  private final IndividualCopyFactoryProvider individualCopyFactoryProvider;
 
   @Inject
   public GeneticAlgorithmFactory(GAParametersFactory gaParametersFactory,
@@ -36,7 +39,7 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
       HallOfFameFactory hallOfFameFactory, CustomLoggerFactory loggerFactory,
       RandomStringGenerator randomStringGenerator,
       GeneratorProvider generatorProvider,
-      RandomProvider randomProvider) {
+      RandomProvider randomProvider, IndividualCopyFactoryProvider individualCopyFactoryProvider) {
     this.gaParametersFactory = gaParametersFactory;
     this.instanceParameterFactory = instanceParameterFactory;
     this.evaluatorFactory = evaluatorFactory;
@@ -45,18 +48,19 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
     this.randomStringGenerator = randomStringGenerator;
     this.generatorProvider = generatorProvider;
     this.randomProvider = randomProvider;
+    this.individualCopyFactoryProvider = individualCopyFactoryProvider;
   }
 
 
   @Override
   public GeneticAlgorithm create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException, DtoConstraintViolationException {
     return create(
         dto, loggerFactory.create("implicit_ga_logger_" + randomStringGenerator.generate()));
   }
 
   public GeneticAlgorithm create(CreateComputationDto dto, Logger logger)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException, DtoConstraintViolationException {
     String name = dto.getGaParameters().getGeneticAlgorithm();
     switch (findOrThrow(name)) {
       case SIMPLE_GA:
@@ -66,7 +70,8 @@ public class GeneticAlgorithmFactory implements Factory<CreateComputationDto, Ge
             evaluatorFactory.create(dto), hallOfFameFactory.create(dto),
             generatorProvider.get(),
             randomProvider.get(),
-            logger);
+            logger,
+            individualCopyFactoryProvider.get());
       case PROBABILISTIC_BRUTE:
         return new ProbabilisticBruteForce(
             gaParametersFactory.create(dto),

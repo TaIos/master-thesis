@@ -12,10 +12,11 @@ import lombok.Data;
 @AllArgsConstructor
 public class GAParameters {
 
-  private Double mutationProb;
-  private Double crossoverProb;
   private Integer maxNumberOfIter;
   private Integer populationSize;
+
+  private PopulationDivisionCounts counts;
+  private InitialPopulationDivisionCounts initialCounts;
 
   private MatingOperator matingOperator;
   private MutateOperator mutateOperator;

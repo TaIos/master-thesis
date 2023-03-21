@@ -1,6 +1,7 @@
 package factory;
 
 import exceptions.BaseException;
+import exceptions.DtoConstraintViolationException;
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
@@ -40,12 +41,12 @@ public class ComputationContextFactory
 
   @Override
   public ComputationContext create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException, DtoConstraintViolationException {
     return create(dto, computationNameFactory.create(dto));
   }
 
   public ComputationContext create(CreateComputationDto dto, String computationIdent)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException, DtoConstraintViolationException {
     Logger logger = loggerFactory.create(computationIdent);
     return ComputationContext.builder()
         .id(computationIdent)
