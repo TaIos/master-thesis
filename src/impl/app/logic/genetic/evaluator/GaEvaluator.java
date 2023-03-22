@@ -3,7 +3,7 @@ package logic.genetic.evaluator;
 import static logic.genetic.evaluator.Evaluator.Type.GENETIC;
 
 import java.util.NoSuchElementException;
-import logic.genetic.algorithm.PlacingHeuristics;
+import logic.genetic.placing.GreedyPlacingHeuristics;
 import logic.genetic.resolvers.IndividualResolver;
 import logic.objective.Objective;
 import logic.objective.ObjectiveValueComparator;
@@ -16,7 +16,7 @@ public class GaEvaluator implements Evaluator {
 
   private final IndividualResolver individualResolver;
   private final PaintingSpaceAllocator paintingSpaceAllocator;
-  private final PlacingHeuristics placingHeuristics;
+  private final GreedyPlacingHeuristics greedyPlacingHeuristics;
   private final Objective objective;
   private final ObjectiveValueComparator objectiveValueComparator;
 
@@ -25,12 +25,12 @@ public class GaEvaluator implements Evaluator {
 
   public GaEvaluator(IndividualResolver individualResolver,
       PaintingSpaceAllocator paintingSpaceAllocator,
-      PlacingHeuristics placingHeuristics,
+      GreedyPlacingHeuristics greedyPlacingHeuristics,
       Objective objective,
       ObjectiveValueComparator objectiveValueComparator, InstanceParameters params) {
     this.individualResolver = individualResolver;
     this.paintingSpaceAllocator = paintingSpaceAllocator;
-    this.placingHeuristics = placingHeuristics;
+    this.greedyPlacingHeuristics = greedyPlacingHeuristics;
     this.objective = objective;
     this.objectiveValueComparator = objectiveValueComparator;
     this.params = params;
@@ -41,7 +41,7 @@ public class GaEvaluator implements Evaluator {
     return individualResolver.resolve(ind).stream()
         .map(resolvedIndividual -> paintingSpaceAllocator.createSlicingLayout(resolvedIndividual,
             params.getLayout().getBoundingRectangle()))
-        .map(placingHeuristics::place)
+        .map(slicingLayout -> greedyPlacingHeuristics.place(slicingLayout, objective))
         .map(objective::eval)
         .min(objectiveValueComparator)
         .orElseThrow(() -> new NoSuchElementException("There is no individual resolved"));

@@ -2,6 +2,7 @@ package logic.objective;
 
 import java.util.Optional;
 import models.entity.EvaluatedSlicingLayout;
+import models.entity.PaintingPlacement;
 import models.entity.PlacedSlicingLayout;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
@@ -10,6 +11,8 @@ public interface Objective {
 
 
   EvaluatedSlicingLayout eval(PlacedSlicingLayout placedSlicingLayout);
+
+  double eval(PaintingPlacement paintingPlacement);
 
 
   ObjectiveType getType();

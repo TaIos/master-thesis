@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import org.apache.commons.lang3.tuple.Pair;
 
 public final class JavaUtils {
 
@@ -61,6 +62,14 @@ public final class JavaUtils {
     return res;
   }
 
+  public static <A, B> List<Pair<A, B>> createPairs(List<A> a, List<B> b) {
+    assert (a.size() == b.size());
+    List<Pair<A, B>> pairs = new ArrayList<>(a.size());
+    for (int i = 0; i < a.size(); i++) {
+      pairs.add(Pair.of(a.get(i), b.get(i)));
+    }
+    return pairs;
+  }
 
   public static int toInteger(Boolean bool) {
     return bool ? 1 : 0;

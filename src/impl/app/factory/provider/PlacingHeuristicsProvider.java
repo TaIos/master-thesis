@@ -2,19 +2,19 @@ package factory.provider;
 
 import javax.inject.Provider;
 import javax.inject.Singleton;
-import logic.genetic.algorithm.PlacingHeuristics;
+import logic.genetic.placing.GreedyPlacingHeuristics;
 
 @Singleton
-public class PlacingHeuristicsProvider implements Provider<PlacingHeuristics> {
+public class PlacingHeuristicsProvider implements Provider<GreedyPlacingHeuristics> {
 
-  private final PlacingHeuristics placingHeuristics;
+  private final GreedyPlacingHeuristics placingHeuristics;
 
   public PlacingHeuristicsProvider() {
-    this.placingHeuristics = new PlacingHeuristics();
+    this.placingHeuristics = new GreedyPlacingHeuristics();
   }
 
   @Override
-  public PlacingHeuristics get() {
+  public GreedyPlacingHeuristics get() {
     return placingHeuristics;
   }
 }

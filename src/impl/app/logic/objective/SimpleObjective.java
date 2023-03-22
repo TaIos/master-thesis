@@ -2,6 +2,7 @@ package logic.objective;
 
 import static logic.objective.Objective.ObjectiveType.SIMPLE;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import logic.objective.parts.IsOutsideOfAllocatedArea;
 import logic.objective.parts.OverlappingRectanglesCount;
@@ -34,42 +35,61 @@ public class SimpleObjective implements Objective {
   public EvaluatedSlicingLayout eval(PlacedSlicingLayout layout) {
     return EvaluatedSlicingLayout.builder()
         .placements(layout.getPlacements())
-        .objectiveValue(computeObjective(layout))
+        .objectiveValue(computeObjective(layout.getPlacements()))
         .build();
   }
 
   @Override
-  public ObjectiveType getType() {
-    return SIMPLE;
-  }
-
-  private double computeObjective(PlacedSlicingLayout layout) {
-    return functionSum(layout) + overlapping(layout) + outsideAllocatedArea(layout);
-  }
-
-  private double functionSum(PlacedSlicingLayout layout) {
-    return layout.getPlacements().parallelStream()
-        .map(PaintingPlacement::getPlacement)
-        .mapToDouble(rec -> {
-          try (FunctionBorrow fb = functionWrapper.getNext()) {
-            return fb.getFunction().calculate(rec.getX(), rec.getY());
-          }
-        }).sum();
+  public double eval(PaintingPlacement paintingPlacement) {
+    return functionValue(paintingPlacement) + outsideAllocatedArea(paintingPlacement);
   }
 
 
-  private double overlapping(PlacedSlicingLayout layout) {
+  private double computeObjective(List<PaintingPlacement> placements) {
+    return functionValueSum(placements)
+        + outsideAllocatedAreaSum(placements)
+        + overlapping(placements);
+  }
+
+  private double functionValueSum(List<PaintingPlacement> placements) {
+    return placements.parallelStream()
+        .map(this::functionValue)
+        .mapToDouble(Double::doubleValue)
+        .sum();
+  }
+
+  private double functionValue(PaintingPlacement placement) {
+    try (FunctionBorrow fb = functionWrapper.getNext()) {
+      return fb.getFunction().calculate(
+          placement.getPlacement().getX(),
+          placement.getPlacement().getY());
+    }
+  }
+
+
+  private double outsideAllocatedAreaSum(List<PaintingPlacement> placements) {
+    return placements.parallelStream()
+        .map(this::outsideAllocatedArea)
+        .mapToDouble(Double::doubleValue)
+        .sum();
+  }
+
+  private double outsideAllocatedArea(PaintingPlacement placement) {
+    return isOutsideOfAllocatedArea.calculate(placement)
+        ? params.getOutsideOfAllocatedAreaPenalizationConstant()
+        : 0;
+  }
+
+  private double overlapping(List<PaintingPlacement> placements) {
     return overlappingRectanglesCount.calculate(
-        layout.getPlacements().stream().map(PaintingPlacement::getPlacement)
+        placements.stream()
+            .map(PaintingPlacement::getPlacement)
             .collect(Collectors.toList())) * params.getOverlappingPenalizationConstant();
   }
 
 
-  private double outsideAllocatedArea(PlacedSlicingLayout layout) {
-    return layout.getPlacements()
-        .parallelStream()
-        .map(p -> isOutsideOfAllocatedArea.calculate(p.getPlacement(), p.getAllocatedSpace()))
-        .filter(Boolean::booleanValue)
-        .count() * params.getOutsideOfAllocatedAreaPenalizationConstant();
+  @Override
+  public ObjectiveType getType() {
+    return SIMPLE;
   }
 }

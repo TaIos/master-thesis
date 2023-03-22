@@ -1,13 +1,17 @@
 package logic.objective.parts;
 
+import models.entity.PaintingPlacement;
 import models.entity.Rectangle;
 
 public class IsOutsideOfAllocatedArea {
 
-  public boolean calculate(Rectangle rec, Rectangle allocatedArea) {
+  public boolean calculate(PaintingPlacement paintingPlacement) {
+    return calculate(paintingPlacement.getPlacement(), paintingPlacement.getAllocatedSpace());
+  }
+  private boolean calculate(Rectangle placement, Rectangle allocatedArea) {
     return calculate(
-        rec.getX(), rec.getY(),
-        rec.getWidth(), rec.getHeight(),
+        placement.getX(), placement.getY(),
+        placement.getWidth(), placement.getHeight(),
         allocatedArea.getX(), allocatedArea.getY(),
         allocatedArea.getWidth(), allocatedArea.getHeight()
     );
