@@ -2,12 +2,12 @@
 
 
 \begin{figure}[htp]
-    \includegraphics[width=1.0\textwidth, center]{chromosome}\label{fig:chromosome}
-    \caption{
+    \includegraphics[width=1.0\textwidth, center]{chromosome}\caption{
         Example of an individual representation – 3D chromosome composed of two random key vectors
         and one matrix, whose rows are also random keys.
         Each vector and matrix row form a probability distribution, i.e., they sum up to 1.
     }
+    \label{fig:chromosome}
 \end{figure}
 
 \begin{figure}[htp]
@@ -19,9 +19,26 @@
     \label{fig:individual-decoding}
 \end{figure}
 
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}[]
+            \centering
+            \includegraphics[width=1.5\textwidth]{slicing_tree_construction}
+            \caption{
+                Slicing tree and slicing layout construction from a decoded individual.
+                On the left is the process of constructing an unresolved slicing tree.
+                On the right are an unresolved slicing tree, and two resolved slicing trees that it represents together with corresponding slicing layouts.}
+            \label{fig:slicing-tree-construction}
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
 \begin{figure}[htp]
-    \includegraphics[width=1.1\textwidth, left]{pupulation_schema}\label{fig:population-schema}
-    \caption{Initial population generation strategy and transition from generation $k$ to $k+1$.}
+    \includegraphics[width=1.1\textwidth, left]{pupulation_schema}\caption{Initial population generation strategy and transition from generation $k$ to $k+1$.}
+    \label{fig:population-schema}
 \end{figure}
 
 
