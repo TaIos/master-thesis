@@ -1,7 +1,7 @@
 package logic.genetic.algorithm;
 
 import java.util.Random;
-import logic.genetic.Generator;
+import logic.genetic.generator.Generator;
 import logic.genetic.HallOfFame;
 import logic.genetic.evaluator.Evaluator;
 import lombok.Getter;

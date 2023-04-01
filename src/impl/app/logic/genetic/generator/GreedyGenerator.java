@@ -1,8 +1,9 @@
-package logic.genetic;
+package logic.genetic.generator;
 
 import java.util.ArrayList;
 import java.util.List;
 import logic.genetic.evaluator.Evaluator;
+import logic.genetic.generator.Generator;
 import models.entity.Individual;
 import models.entity.Painting;
 import models.entity.Population;

@@ -3,7 +3,7 @@ package factory.provider;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
-import logic.genetic.Generator;
+import logic.genetic.generator.Generator;
 
 @Singleton
 public class GeneratorProvider implements Provider<Generator> {

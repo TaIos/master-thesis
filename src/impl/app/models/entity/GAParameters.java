@@ -1,6 +1,6 @@
 package models.entity;
 
-import logic.genetic.operators.mate.MatingOperator;
+import logic.genetic.operators.mate.BiasedMatingOperator;
 import logic.genetic.operators.mutate.MutateOperator;
 import logic.genetic.operators.select.SelectOperator;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class GAParameters {
   private PopulationDivisionCounts counts;
   private InitialPopulationDivisionCounts initialCounts;
 
-  private MatingOperator matingOperator;
+  private BiasedMatingOperator matingOperator;
   private MutateOperator mutateOperator;
   private SelectOperator selectOperator;
 }

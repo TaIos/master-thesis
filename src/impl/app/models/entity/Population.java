@@ -13,6 +13,10 @@ public class Population {
 
   private final List<EvaluatedIndividual> evaluatedIndividuals;
 
+  private final List<EvaluatedIndividual> eliteEvaluated;
+  private final List<EvaluatedIndividual> averageEvaluated;
+  private final List<EvaluatedIndividual> worstEvaluated;
+
   private final List<Individual> elite;
   private final List<Individual> average;
   private final List<Individual> worst;
@@ -28,18 +32,22 @@ public class Population {
             .compare(o1.getLayout(), o2.getLayout()))
         .collect(Collectors.toUnmodifiableList());
 
-    elite = evaluatedIndividuals.subList(
-            0,
-            counts.getElite())
-        .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
-    average = evaluatedIndividuals.subList(
-            elite.size(),
-            elite.size() + counts.getAverage())
-        .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
-    worst = evaluatedIndividuals.subList(
-            Math.min(elite.size() + average.size(), evaluatedIndividuals.size()) - 1,
-            evaluatedIndividuals.size())
-        .stream().map(EvaluatedIndividual::getIndividual).collect(Collectors.toList());
+    eliteEvaluated = evaluatedIndividuals.subList(
+        0,
+        counts.getElite());
+    averageEvaluated = evaluatedIndividuals.subList(
+        eliteEvaluated.size(),
+        eliteEvaluated.size() + counts.getAverage());
+    worstEvaluated = evaluatedIndividuals.subList(
+        Math.min(eliteEvaluated.size() + averageEvaluated.size(), evaluatedIndividuals.size()) - 1,
+        evaluatedIndividuals.size());
+
+    elite = eliteEvaluated.stream().map(EvaluatedIndividual::getIndividual)
+        .collect(Collectors.toList());
+    average = averageEvaluated.stream().map(EvaluatedIndividual::getIndividual)
+        .collect(Collectors.toList());
+    worst = worstEvaluated.stream().map(EvaluatedIndividual::getIndividual)
+        .collect(Collectors.toList());
   }
 
   public Population(List<Individual> individualList, Evaluator evaluator) {

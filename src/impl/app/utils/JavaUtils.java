@@ -111,6 +111,15 @@ public final class JavaUtils {
       lst.replaceAll(elem -> elem / sum);
     }
 
+
+    public static List<Double> multVector(List<Double> vec, double weight) {
+      List<Double> res = new ArrayList<>(vec.size());
+      for (Double elem : vec) {
+        res.add(elem * weight);
+      }
+      return res;
+    }
+
     public static List<Double> multVector(List<Double> vec, List<Double> weights) {
       List<Double> res = new ArrayList<>(vec.size());
       for (int i = 0; i < vec.size(); i++) {

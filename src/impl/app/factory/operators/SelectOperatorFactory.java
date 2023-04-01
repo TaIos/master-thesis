@@ -11,7 +11,7 @@ import factory.Factory;
 import factory.provider.GeneratorProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import logic.genetic.GreedyGenerator;
+import logic.genetic.generator.GreedyGenerator;
 import logic.genetic.operators.select.SelectBestOperator;
 import logic.genetic.operators.select.SelectOperator;
 import logic.genetic.operators.select.TournamentSelectionOperator;

@@ -2,7 +2,7 @@ package logic.genetic.operators.select;
 
 import java.util.ArrayList;
 import java.util.List;
-import logic.genetic.GreedyGenerator;
+import logic.genetic.generator.GreedyGenerator;
 import logic.genetic.evaluator.Evaluator;
 import models.entity.EvaluatedIndividual;
 import models.entity.Individual;

@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import logic.genetic.Generator;
 import logic.genetic.HallOfFame;
 import logic.genetic.evaluator.Evaluator;
+import logic.genetic.generator.Generator;
+import models.entity.EvaluatedIndividual;
 import models.entity.GAParameters;
 import models.entity.GAResult;
 import models.entity.Individual;
@@ -48,7 +49,7 @@ public class SimpleGA extends BaseGeneticAlgorithm {
               pop.getElite(),
               crossover(pop),
               mutate(pop),
-              tournament(pop),
+              select(pop),
               random())
           .flatMap(Collection::stream)
           .collect(Collectors.toList());
@@ -60,15 +61,28 @@ public class SimpleGA extends BaseGeneticAlgorithm {
   }
 
   private List<Individual> crossover(Population pop) {
-    List<Pair<Individual, Individual>> parents = new ArrayList<>(
+    List<Pair<EvaluatedIndividual, EvaluatedIndividual>> parents = new ArrayList<>(
         gaParams.getCounts().getChildren());
     for (int i = 0; i < gaParams.getCounts().getChildren(); i++) {
-      Individual p1 = pop.getElite().get(rnd.nextInt(pop.getElite().size()));
-      Individual p2 = pop.getAverage().get(rnd.nextInt(pop.getElite().size()));
+      EvaluatedIndividual p1 = pop.getEliteEvaluated().get(rnd.nextInt(pop.getElite().size()));
+      EvaluatedIndividual p2 = pop.getAverageEvaluated().get(rnd.nextInt(pop.getElite().size()));
       parents.add(Pair.of(p1, p2));
     }
     return parents.parallelStream()
-        .map(pair -> gaParams.getMatingOperator().mate(pair.getLeft(), pair.getRight()))
+        .map(pair -> {
+          EvaluatedIndividual p1 = pair.getLeft();
+          EvaluatedIndividual p2 = pair.getRight();
+          double o1 = p1.getLayout().getObjectiveValue();
+          double o2 = p2.getLayout().getObjectiveValue();
+          double o12 = o1 + o2;
+
+          // TODO check or implement scaling using sigmoid
+          return gaParams.getMatingOperator().mate(
+              p1.getIndividual(),
+              p2.getIndividual(),
+              o2 / o12, // switched because objective value is better when it is lower
+              o1 / o12);
+        })
         .collect(Collectors.toList());
   }
 
@@ -82,7 +96,7 @@ public class SimpleGA extends BaseGeneticAlgorithm {
 
   }
 
-  private List<Individual> tournament(Population pop) {
+  private List<Individual> select(Population pop) {
     return gaParams.getSelectOperator()
         .select(pop.getWorst(), gaParams.getCounts().getWorst(), evaluator);
   }

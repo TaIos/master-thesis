@@ -3,7 +3,7 @@ package logic.genetic.algorithm;
 import static logic.genetic.algorithm.GeneticAlgorithm.Type.PROBABILISTIC_BRUTE;
 
 import java.util.Random;
-import logic.genetic.Generator;
+import logic.genetic.generator.Generator;
 import logic.genetic.HallOfFame;
 import logic.genetic.evaluator.Evaluator;
 import models.entity.GAParameters;

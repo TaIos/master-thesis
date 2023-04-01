@@ -1,4 +1,4 @@
-package logic.genetic;
+package logic.genetic.generator;
 
 import static utils.JavaUtils.Vector.normalizeToProbabilityVector;
 import static utils.JavaUtils.range;
