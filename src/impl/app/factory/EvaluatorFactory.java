@@ -10,7 +10,7 @@ import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.IndividualResolverProvider;
 import factory.provider.ObjectiveValueComparatorProvider;
 import factory.provider.PaintingSpaceAllocatorProvider;
-import factory.provider.PlacingHeuristicsProvider;
+import factory.provider.GreedyPlacingHeuristicsProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.evaluator.Evaluator;
@@ -25,7 +25,7 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
 
   private final PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider;
   private final IndividualResolverProvider individualResolverProvider;
-  private final PlacingHeuristicsProvider placingHeuristicsProvider;
+  private final PlacingHeuristicsFactory placingHeuristicsFactory;
   private final ObjectiveValueComparatorProvider objectiveValueComparatorProvider;
 
   @Inject
@@ -33,13 +33,12 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
       InstanceParameterFactory instanceParameterFactory,
       PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider,
       IndividualResolverProvider individualResolverProvider,
-      PlacingHeuristicsProvider placingHeuristicsProvider,
-      ObjectiveValueComparatorProvider objectiveValueComparatorProvider) {
+      PlacingHeuristicsFactory placingHeuristicsFactory, ObjectiveValueComparatorProvider objectiveValueComparatorProvider) {
     this.objectiveFactory = objectiveFactory;
     this.instanceParameterFactory = instanceParameterFactory;
     this.paintingSpaceAllocatorProvider = paintingSpaceAllocatorProvider;
     this.individualResolverProvider = individualResolverProvider;
-    this.placingHeuristicsProvider = placingHeuristicsProvider;
+    this.placingHeuristicsFactory = placingHeuristicsFactory;
     this.objectiveValueComparatorProvider = objectiveValueComparatorProvider;
   }
 
@@ -51,7 +50,7 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
       case GENETIC:
         return new GaEvaluator(individualResolverProvider.get(),
             paintingSpaceAllocatorProvider.get(),
-            placingHeuristicsProvider.get(),
+            placingHeuristicsFactory.create(dto),
             objectiveFactory.create(dto),
             objectiveValueComparatorProvider.get(),
             instanceParameterFactory.create(dto.getInstanceParameters()));

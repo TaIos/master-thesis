@@ -1,5 +1,7 @@
 package logic.genetic.placing;
 
+import static logic.genetic.placing.PlacingHeuristics.Type.BOTTOM_LEFT;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -34,5 +36,10 @@ public class BottomLeftPlacingHeuristics implements PlacingHeuristics {
               allocatedSpace));
     }
     return placements;
+  }
+
+  @Override
+  public Type getType() {
+    return BOTTOM_LEFT;
   }
 }

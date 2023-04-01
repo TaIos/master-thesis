@@ -1,5 +1,7 @@
 package logic.genetic.placing;
 
+import static logic.genetic.placing.PlacingHeuristics.Type.GREEDY;
+
 import java.util.ArrayList;
 import logic.objective.Objective;
 import logic.objective.ObjectiveValueComparator;
@@ -65,5 +67,10 @@ public class GreedyPlacingHeuristics implements PlacingHeuristics {
     placedSlicingLayout.getPlacements().add(bestPlacement);
   }
 
+
+  @Override
+  public Type getType() {
+    return GREEDY;
+  }
 
 }

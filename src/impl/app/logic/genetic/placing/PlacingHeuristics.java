@@ -1,5 +1,6 @@
 package logic.genetic.placing;
 
+import java.util.Optional;
 import logic.objective.Objective;
 import models.entity.Painting;
 import models.entity.PaintingPlacement;
@@ -7,6 +8,8 @@ import models.entity.PaintingsFlow;
 import models.entity.PlacedSlicingLayout;
 import models.entity.Rectangle;
 import models.entity.SlicingLayout;
+import utils.EnumTypeInterface;
+import utils.JavaUtils;
 
 public interface PlacingHeuristics {
 
@@ -24,5 +27,27 @@ public interface PlacingHeuristics {
             .height(painting.getHeight())
             .build())
         .build();
+  }
+
+  Type getType();
+
+  enum Type implements EnumTypeInterface {
+    BOTTOM_LEFT("bottomLeft"),
+    GREEDY("greedy");
+
+    public final String label;
+
+    Type(String label) {
+      this.label = label;
+    }
+
+    public static Optional<Type> getForLabel(String label) {
+      return JavaUtils.getForLabel(values(), label);
+    }
+
+    @Override
+    public String getLabel() {
+      return label;
+    }
   }
 }

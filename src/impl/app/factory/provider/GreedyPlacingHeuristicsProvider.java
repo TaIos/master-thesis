@@ -5,11 +5,11 @@ import javax.inject.Singleton;
 import logic.genetic.placing.GreedyPlacingHeuristics;
 
 @Singleton
-public class PlacingHeuristicsProvider implements Provider<GreedyPlacingHeuristics> {
+public class GreedyPlacingHeuristicsProvider implements Provider<GreedyPlacingHeuristics> {
 
   private final GreedyPlacingHeuristics placingHeuristics;
 
-  public PlacingHeuristicsProvider() {
+  public GreedyPlacingHeuristicsProvider() {
     this.placingHeuristics = new GreedyPlacingHeuristics();
   }
 

@@ -44,6 +44,10 @@ public class GAParametersDto implements Dto {
 
   @NotNull
   @NotBlank
+  private String placingHeuristics;
+
+  @NotNull
+  @NotBlank
   private String mate;
 
   @NotNull
