@@ -17,6 +17,13 @@ public class OverlappingRectanglesCount {
     return sum;
   }
 
+  public int calculateOne(Rectangle one, List<Rectangle> recs) {
+    return (int) recs.parallelStream()
+        .map(r -> doRectanglesOverlap(one, r))
+        .filter(Boolean::booleanValue)
+        .count();
+  }
+
   private boolean doRectanglesOverlap(Rectangle r1, Rectangle r2) {
     return r1.getX() < r2.getX() + r2.getWidth()
         && r2.getX() < r1.getX() + r1.getWidth()

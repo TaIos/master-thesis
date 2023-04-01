@@ -5,7 +5,9 @@ import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
 import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.CalculateOverlappingPaintingsPartProvider;
+import factory.provider.EuclideanMetricProvider;
 import factory.provider.IsOutsideOfAllocatedAreaObjectivePartProvider;
+import factory.provider.PaintingFlowSumProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.objective.Objective;
@@ -19,20 +21,25 @@ public class ObjectiveFactory implements Factory<CreateComputationDto, Objective
   private final FunctionThreadSafeWrapperFactory functionThreadSafeWrapperFactory;
   private final SimpleObjectiveParametersFactory simpleObjectiveParametersFactory;
 
-  // parts
   private final IsOutsideOfAllocatedAreaObjectivePartProvider isOutsideOfAllocatedAreaObjectivePartProvider;
   private final CalculateOverlappingPaintingsPartProvider calculateOverlappingPaintingsPartProvider;
+  private final PaintingFlowSumProvider paintingFlowSumProvider;
+  private final EuclideanMetricProvider euclideanMetricProvider;
 
   @Inject
   public ObjectiveFactory(
       FunctionThreadSafeWrapperFactory functionThreadSafeWrapperFactory,
       SimpleObjectiveParametersFactory simpleObjectiveParametersFactory,
       IsOutsideOfAllocatedAreaObjectivePartProvider isOutsideOfAllocatedAreaObjectivePartProvider,
-      CalculateOverlappingPaintingsPartProvider calculateOverlappingPaintingsPartProvider) {
+      CalculateOverlappingPaintingsPartProvider calculateOverlappingPaintingsPartProvider,
+      PaintingFlowSumProvider paintingFlowSumProvider,
+      EuclideanMetricProvider euclideanMetricProvider) {
     this.functionThreadSafeWrapperFactory = functionThreadSafeWrapperFactory;
     this.simpleObjectiveParametersFactory = simpleObjectiveParametersFactory;
     this.isOutsideOfAllocatedAreaObjectivePartProvider = isOutsideOfAllocatedAreaObjectivePartProvider;
     this.calculateOverlappingPaintingsPartProvider = calculateOverlappingPaintingsPartProvider;
+    this.paintingFlowSumProvider = paintingFlowSumProvider;
+    this.euclideanMetricProvider = euclideanMetricProvider;
   }
 
   @Override
@@ -52,8 +59,11 @@ public class ObjectiveFactory implements Factory<CreateComputationDto, Objective
     return new SimpleObjective(
         simpleObjectiveParametersFactory.create(dto.getObjectiveParameters()),
         functionThreadSafeWrapperFactory.create(dto),
+        euclideanMetricProvider.get(),
         isOutsideOfAllocatedAreaObjectivePartProvider.get(),
-        calculateOverlappingPaintingsPartProvider.get());
+        calculateOverlappingPaintingsPartProvider.get(),
+        paintingFlowSumProvider.get()
+    );
 
   }
 

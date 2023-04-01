@@ -2,6 +2,7 @@ package factory;
 
 import static logic.genetic.evaluator.Evaluator.Type;
 
+import exceptions.DtoConstraintViolationException;
 import exceptions.EntityNotFoundException;
 import exceptions.FunctionNotValidException;
 import exceptions.ImplementationNotFoundException;
@@ -44,7 +45,7 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
 
   @Override
   public Evaluator create(CreateComputationDto dto)
-      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException {
+      throws EntityNotFoundException, ImplementationNotFoundException, FunctionNotValidException, InvalidFieldValueInJsonException, DtoConstraintViolationException {
     String name = dto.getGaParameters().getEvaluator();
     switch (findOrThrow(name)) {
       case GENETIC:

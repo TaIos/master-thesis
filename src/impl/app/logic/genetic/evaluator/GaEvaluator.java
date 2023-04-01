@@ -41,8 +41,9 @@ public class GaEvaluator implements Evaluator {
     return individualResolver.resolve(ind).stream()
         .map(resolvedIndividual -> paintingSpaceAllocator.createSlicingLayout(resolvedIndividual,
             params.getLayout().getBoundingRectangle()))
-        .map(slicingLayout -> greedyPlacingHeuristics.place(slicingLayout, objective))
-        .map(objective::eval)
+        .map(slicingLayout -> greedyPlacingHeuristics.place(slicingLayout, objective,
+            params.getFlow()))
+        .map(placedSlicingLayout -> objective.eval(placedSlicingLayout, params.getFlow()))
         .min(objectiveValueComparator)
         .orElseThrow(() -> new NoSuchElementException("There is no individual resolved"));
   }

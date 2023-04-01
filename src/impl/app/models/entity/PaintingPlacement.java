@@ -7,6 +7,7 @@ import lombok.Getter;
 @Builder
 public class PaintingPlacement {
 
+  private Painting painting;
   private Rectangle allocatedSpace;
   private Rectangle placement;
 

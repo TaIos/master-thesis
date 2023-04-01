@@ -20,4 +20,9 @@ public class InstanceParametersDto implements Dto {
   @NotNull
   @AssertValid
   private LayoutDto layout;
+
+  @NotNull
+  @AssertValid
+  List<PaintingFlowDto> paintingsFlow;
+
 }

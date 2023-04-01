@@ -1,29 +1,23 @@
-package logic.objective;
+package logic.metric;
 
 import java.util.Optional;
-import models.entity.EvaluatedSlicingLayout;
-import models.entity.PaintingPlacement;
-import models.entity.PaintingsFlow;
-import models.entity.PlacedSlicingLayout;
+import models.entity.Point;
 import utils.EnumTypeInterface;
 import utils.JavaUtils;
 
-public interface Objective {
+public interface Metric {
+
+  double calculate(double x1, double y1, double x2, double y2);
 
 
-  EvaluatedSlicingLayout eval(PlacedSlicingLayout placedSlicingLayout, PaintingsFlow flow);
-
-  double peek(
-      PlacedSlicingLayout placedSlicingLayout,
-      PaintingPlacement paintingPlacement,
-      PaintingsFlow flow);
-
+  default double calculate(Point p1, Point p2) {
+    return calculate(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+  }
 
   ObjectiveType getType();
 
-
   enum ObjectiveType implements EnumTypeInterface {
-    SIMPLE("simple");
+    EUCLIDEAN("euclidean");
 
     final String label;
 
@@ -39,5 +33,7 @@ public interface Objective {
     public String getLabel() {
       return label;
     }
+
+
   }
 }

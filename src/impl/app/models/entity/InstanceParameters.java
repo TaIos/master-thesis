@@ -12,4 +12,5 @@ public class InstanceParameters {
 
   private Layout layout;
   private List<Painting> paintings;
+  private PaintingsFlow flow;
 }

@@ -7,11 +7,9 @@ import lombok.Getter;
 @Builder
 public class Painting {
 
-  protected String ident;
-  protected Integer width;
-  protected Integer height;
+  private final String ident;
+  private final Integer width;
+  private final Integer height;
+  private final Integer area;
 
-  public double getArea() {
-    return width * height;
-  }
 }
