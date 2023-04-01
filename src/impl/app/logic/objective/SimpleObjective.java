@@ -51,8 +51,8 @@ public class SimpleObjective implements Objective {
   @Override
   public double peek(PlacedSlicingLayout layout, PaintingPlacement placement, PaintingsFlow flow) {
     return functionValueSum(List.of(placement))
-        + outsideAllocatedAreaSum(List.of(placement))
-        + overlappingOne(layout, placement)
+//        + outsideAllocatedAreaSum(List.of(placement))
+//        + overlappingOne(layout, placement)
         + flowSumOne(layout, placement, flow);
   }
 
