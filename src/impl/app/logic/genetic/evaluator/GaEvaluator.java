@@ -20,30 +20,33 @@ public class GaEvaluator implements Evaluator {
   private final Objective objective;
   private final ObjectiveValueComparator objectiveValueComparator;
 
-  private final InstanceParameters params;
+  private final InstanceParameters instanceParams;
+  private final Integer maximumWildCardCount;
 
 
   public GaEvaluator(IndividualResolver individualResolver,
       PaintingSpaceAllocator paintingSpaceAllocator,
       PlacingHeuristics placingHeuristics,
       Objective objective,
-      ObjectiveValueComparator objectiveValueComparator, InstanceParameters params) {
+      ObjectiveValueComparator objectiveValueComparator, InstanceParameters instanceParams,
+      Integer maximumWildCardCount) {
     this.individualResolver = individualResolver;
     this.paintingSpaceAllocator = paintingSpaceAllocator;
     this.placingHeuristics = placingHeuristics;
     this.objective = objective;
     this.objectiveValueComparator = objectiveValueComparator;
-    this.params = params;
+    this.instanceParams = instanceParams;
+    this.maximumWildCardCount = maximumWildCardCount;
   }
 
   @Override
   public EvaluatedSlicingLayout eval(Individual ind) {
-    return individualResolver.resolve(ind).stream()
+    return individualResolver.resolve(ind, maximumWildCardCount).stream()
         .map(resolvedIndividual -> paintingSpaceAllocator.createSlicingLayout(resolvedIndividual,
-            params.getLayout().getBoundingRectangle()))
+            instanceParams.getLayout().getBoundingRectangle()))
         .map(slicingLayout -> placingHeuristics.place(slicingLayout, objective,
-            params.getFlow()))
-        .map(placedSlicingLayout -> objective.eval(placedSlicingLayout, params.getFlow()))
+            instanceParams.getFlow()))
+        .map(placedSlicingLayout -> objective.eval(placedSlicingLayout, instanceParams.getFlow()))
         .min(objectiveValueComparator)
         .orElseThrow(() -> new NoSuchElementException("There is no individual resolved"));
   }

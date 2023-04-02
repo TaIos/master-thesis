@@ -3,9 +3,9 @@
   "source": "https://projects.fit.cvut.cz/theses/4473",
   "data": {
     "layout": {
-      "width": 50,
-      "height": 25,
-      "evalFunc": "f(x,y) = if(y >= 10 & y <= 15, 0, 100)"
+      "width": 25,
+      "height": 20,
+      "evalFunc": "f(x,y) = x+y"
     },
     "paintings": [
       {
@@ -32,28 +32,83 @@
         "ident": "5",
         "width": 5,
         "height": 5
+      },
+      {
+        "ident": "6",
+        "width": 5,
+        "height": 5
+      },
+      {
+        "ident": "7",
+        "width": 5,
+        "height": 5
+      },
+      {
+        "ident": "8",
+        "width": 2,
+        "height": 2
+      },
+      {
+        "ident": "9",
+        "width": 5,
+        "height": 5
+      },
+      {
+        "ident": "10",
+        "width": 5,
+        "height": 5
+      },
+      {
+        "ident": "11",
+        "width": 5,
+        "height": 5
+      },
+      {
+        "ident": "12",
+        "width": 5,
+        "height": 5
+      },
+      {
+        "ident": "13",
+        "width": 2,
+        "height": 3
+      },
+      {
+        "ident": "14",
+        "width": 10,
+        "height": 5
+      },
+      {
+        "ident": "15",
+        "width": 3,
+        "height": 3
       }
     ],
     "paintingsFlow": [
       {
         "from": "1",
         "to": "2",
-        "flow": 100
+        "flow": 50
       },
       {
         "from": "2",
         "to": "3",
-        "flow": 100
+        "flow": 50
+      },
+      {
+        "from": "2",
+        "to": "1",
+        "flow": 50
       },
       {
         "from": "3",
         "to": "4",
-        "flow": 100
+        "flow": 50
       },
       {
         "from": "4",
         "to": "5",
-        "flow": 100
+        "flow": 50
       }
     ]
   }

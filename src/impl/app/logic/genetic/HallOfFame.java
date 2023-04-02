@@ -6,11 +6,13 @@ import factory.copy_factory.IndividualCopyFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import logic.genetic.resolvers.MaximumWildCardCountResolver;
 import logic.objective.ObjectiveValueComparator;
 import lombok.Getter;
 import models.entity.EvaluatedIndividual;
 import models.entity.GAParameters;
 import models.entity.HallOfFameRecord;
+import models.entity.Individual;
 import models.entity.Population;
 import org.slf4j.Logger;
 
@@ -21,15 +23,19 @@ public class HallOfFame {
 
   private final IndividualCopyFactory individualCopyFactory;
   private final ObjectiveValueComparator objectiveValueComparator;
+  private final MaximumWildCardCountResolver maximumWildCardCountResolver;
 
   public HallOfFame(int initialCapacity, IndividualCopyFactory individualCopyFactory,
-      ObjectiveValueComparator objectiveValueComparator) {
+      ObjectiveValueComparator objectiveValueComparator,
+      MaximumWildCardCountResolver maximumWildCardCountResolver) {
     records = new ArrayList<>(initialCapacity);
     this.individualCopyFactory = individualCopyFactory;
     this.objectiveValueComparator = objectiveValueComparator;
+    this.maximumWildCardCountResolver = maximumWildCardCountResolver;
   }
 
-  public HallOfFame log(Population pop, int iteration) {
+  public HallOfFame log(Population pop, int iteration, GAParameters gaParams) {
+    Individual bestIndividual = pop.getBestIndividual().getIndividual();
     records.add(
         HallOfFameRecord.builder()
             .iteration(iteration)
@@ -38,8 +44,10 @@ public class HallOfFame {
             .objectiveAvg(pop.getObjectiveAvg())
             .bestIndividual(
                 EvaluatedIndividual.builder()
-                    .individual(
-                        individualCopyFactory.createCopy(pop.getBestIndividual().getIndividual()))
+                    .individual(individualCopyFactory.createCopy(bestIndividual))
+                    .orientationsCapped(
+                        maximumWildCardCountResolver.resolve(bestIndividual,
+                            gaParams.getMaximumWildCardCount()))
                     .layout(pop.getBestIndividual().getLayout())
                     .build()
             )

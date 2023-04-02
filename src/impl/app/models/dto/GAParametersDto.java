@@ -27,6 +27,10 @@ public class GAParametersDto implements Dto {
   private Integer populationSize;
 
   @NotNull
+  @Min(0)
+  private Integer maximumWildCardCount;
+
+  @NotNull
   @AssertValid
   private PopulationDivisionCountsDto populationDivisionCounts;
 

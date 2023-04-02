@@ -14,6 +14,7 @@ public class GAParameters {
 
   private Integer maxNumberOfIter;
   private Integer populationSize;
+  private Integer maximumWildCardCount;
 
   private PopulationDivisionCounts counts;
   private InitialPopulationDivisionCounts initialCounts;

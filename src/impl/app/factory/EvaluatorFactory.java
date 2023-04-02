@@ -10,7 +10,6 @@ import exceptions.InvalidFieldValueInJsonException;
 import factory.provider.IndividualResolverProvider;
 import factory.provider.ObjectiveValueComparatorProvider;
 import factory.provider.PaintingSpaceAllocatorProvider;
-import factory.provider.GreedyPlacingHeuristicsProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import logic.genetic.evaluator.Evaluator;
@@ -33,7 +32,8 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
       InstanceParameterFactory instanceParameterFactory,
       PaintingSpaceAllocatorProvider paintingSpaceAllocatorProvider,
       IndividualResolverProvider individualResolverProvider,
-      PlacingHeuristicsFactory placingHeuristicsFactory, ObjectiveValueComparatorProvider objectiveValueComparatorProvider) {
+      PlacingHeuristicsFactory placingHeuristicsFactory,
+      ObjectiveValueComparatorProvider objectiveValueComparatorProvider) {
     this.objectiveFactory = objectiveFactory;
     this.instanceParameterFactory = instanceParameterFactory;
     this.paintingSpaceAllocatorProvider = paintingSpaceAllocatorProvider;
@@ -53,7 +53,8 @@ public class EvaluatorFactory implements Factory<CreateComputationDto, Evaluator
             placingHeuristicsFactory.create(dto),
             objectiveFactory.create(dto),
             objectiveValueComparatorProvider.get(),
-            instanceParameterFactory.create(dto.getInstanceParameters()));
+            instanceParameterFactory.create(dto.getInstanceParameters()),
+            dto.getGaParameters().getMaximumWildCardCount());
       default:
         throw new ImplementationNotFoundException(Evaluator.class, name);
     }

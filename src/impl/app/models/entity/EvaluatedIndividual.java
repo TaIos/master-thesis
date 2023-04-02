@@ -1,5 +1,6 @@
 package models.entity;
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,5 +9,6 @@ import lombok.Getter;
 public class EvaluatedIndividual {
 
   private Individual individual;
+  private List<Orientation> orientationsCapped;
   private EvaluatedSlicingLayout layout;
 }

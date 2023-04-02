@@ -4,23 +4,16 @@ import static models.entity.Orientation.OrientationType.WILD_CARD;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import models.entity.Orientation;
 import models.entity.Orientation.OrientationType;
-import models.entity.OrientationProbability;
 import models.entity.ResolvedOrientation;
 import models.entity.ResolvedOrientation.ResolvedOrientationType;
 
 public class OrientationResolver {
 
-
   public List<List<ResolvedOrientation>> resolveAllPossibleCombinationsFromProbs(
-      List<OrientationProbability> probs) {
-    return resolveRecursive(probs.stream()
-            .map(OrientationProbability::getMostProbable)
-            .map(Orientation::new)
-            .collect(Collectors.toList()),
-        new ArrayList<>(), 0);
+      List<Orientation> probs) {
+    return resolveRecursive(probs, new ArrayList<>(), 0);
   }
 
   private List<List<ResolvedOrientation>> resolveRecursive(

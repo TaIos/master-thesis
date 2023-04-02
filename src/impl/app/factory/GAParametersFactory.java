@@ -42,6 +42,7 @@ public class GAParametersFactory implements Factory<GAParametersDto, GAParameter
     return GAParameters.builder()
         .maxNumberOfIter(dto.getMaxNumberOfIter())
         .populationSize(dto.getPopulationSize())
+        .maximumWildCardCount(dto.getMaximumWildCardCount())
         .counts(populationDivisionCountsFactory.create(dto))
         .initialCounts(initialPopulationDivisionCountsFactory.create(dto))
         .matingOperator(matingOperatorFactory.create(dto))

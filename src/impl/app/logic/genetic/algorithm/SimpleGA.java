@@ -42,7 +42,7 @@ public class SimpleGA extends BaseGeneticAlgorithm {
   @Override
   public GAResult call() {
     Population pop = generateInitialPopulation();
-    hof.log(pop, 0).withPrintLast(logger, gaParams);
+    hof.log(pop, 0, gaParams).withPrintLast(logger, gaParams);
 
     for (int iter = 1; iter <= gaParams.getMaxNumberOfIter(); iter++) {
       List<Individual> popNext = Stream.of(
@@ -55,7 +55,7 @@ public class SimpleGA extends BaseGeneticAlgorithm {
           .collect(Collectors.toList());
 
       pop = new Population(popNext, evaluator, gaParams.getCounts());
-      hof.log(pop, iter).withPrintLast(logger, gaParams);
+      hof.log(pop, iter, gaParams).withPrintLast(logger, gaParams);
     }
     return new GAResult(hof);
   }

@@ -11,9 +11,13 @@ public class IndividualResolverProvider implements Provider<IndividualResolver> 
   private final IndividualResolver individualResolver;
 
   @Inject
-  public IndividualResolverProvider(OrientationResolverProvider orientationResolverProvider,
-      RandomKeyDecoderProvider randomKeyDecoderProvider) {
-    this.individualResolver = new IndividualResolver(orientationResolverProvider.get(),
+  public IndividualResolverProvider(
+      OrientationResolverProvider orientationResolverProvider,
+      RandomKeyDecoderProvider randomKeyDecoderProvider,
+      MaximumWildCardCountResolverProvider maximumWildCardCountResolverProvider) {
+    this.individualResolver = new IndividualResolver(
+        orientationResolverProvider.get(),
+        maximumWildCardCountResolverProvider.get(),
         randomKeyDecoderProvider.get());
   }
 

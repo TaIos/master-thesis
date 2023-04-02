@@ -30,6 +30,7 @@ public class IndividualDto implements Dto {
   private List<Double> slicingOrderRandomKey;
 
   private List<String> orientations;
+  private List<String> orientationsCapped;
   @JsonSerialize(using = DoubleDoubleListSerializer.class)
   private List<List<Double>> orientationProbabilities;
 

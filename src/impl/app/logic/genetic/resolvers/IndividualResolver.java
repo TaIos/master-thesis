@@ -8,17 +8,21 @@ import models.entity.ResolvedIndividual;
 public class IndividualResolver {
 
   private final OrientationResolver orientationResolver;
+  private final MaximumWildCardCountResolver maximumWildCardCountResolver;
   private final RandomKeyDecoder randomKeyDecoder;
 
   public IndividualResolver(OrientationResolver orientationResolver,
+      MaximumWildCardCountResolver maximumWildCardCountResolver,
       RandomKeyDecoder randomKeyDecoder) {
     this.orientationResolver = orientationResolver;
+    this.maximumWildCardCountResolver = maximumWildCardCountResolver;
     this.randomKeyDecoder = randomKeyDecoder;
   }
 
-  public List<ResolvedIndividual> resolve(Individual ind) {
-    return orientationResolver.resolveAllPossibleCombinationsFromProbs(ind.getOrientationProb())
-        .stream().map(orientationResolved -> ResolvedIndividual.builder()
+  public List<ResolvedIndividual> resolve(Individual ind, int maximumWildCardCount) {
+    return orientationResolver.resolveAllPossibleCombinationsFromProbs(
+            maximumWildCardCountResolver.resolve(ind, maximumWildCardCount)).stream()
+        .map(orientationResolved -> ResolvedIndividual.builder()
             .paintingSeqResolved(
                 randomKeyDecoder.decode(ind.getPaintingSeq(), ind.getPaintingSeqRandomKey()))
             .slicingOrderResolved(randomKeyDecoder.decode(ind.getSlicingOrderRandomKey()))

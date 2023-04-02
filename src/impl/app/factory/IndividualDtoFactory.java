@@ -11,6 +11,7 @@ import models.entity.EvaluatedIndividual;
 import models.entity.EvaluatedSlicingLayout;
 import models.entity.GAResult;
 import models.entity.HallOfFameRecord;
+import models.entity.Orientation;
 import models.entity.Orientation.OrientationType;
 import models.entity.OrientationProbability;
 import models.entity.Painting;
@@ -59,6 +60,7 @@ public class IndividualDtoFactory implements Factory<GAResult, IndividualDto> {
         .slicingOrderDecoded(decoder.decode(ind.getIndividual().getSlicingOrderRandomKey()))
         .slicingOrderRandomKey(ind.getIndividual().getSlicingOrderRandomKey())
         .orientations(createOrientations(ind.getIndividual().getOrientationProb()))
+        .orientationsCapped(createOrientationsCapped(ind.getOrientationsCapped()))
         .orientationProbabilities(createOrientationProbabilities(ind.getIndividual()
             .getOrientationProb()))
         .paintingAllocatedSpace(createPaintingAllocatedSpace(ind.getLayout().getPlacements()))
@@ -74,6 +76,13 @@ public class IndividualDtoFactory implements Factory<GAResult, IndividualDto> {
   private List<String> createOrientations(List<OrientationProbability> orientations) {
     return orientations.stream()
         .map(OrientationProbability::getMostProbable)
+        .map(OrientationType::getLabel)
+        .collect(Collectors.toList());
+  }
+
+  private List<String> createOrientationsCapped(List<Orientation> orientations) {
+    return orientations.stream()
+        .map(Orientation::getType)
         .map(OrientationType::getLabel)
         .collect(Collectors.toList());
   }

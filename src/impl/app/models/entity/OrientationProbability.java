@@ -4,6 +4,7 @@ import static models.entity.Orientation.OrientationType;
 import static models.entity.Orientation.OrientationType.HORIZONTAL;
 import static models.entity.Orientation.OrientationType.VERTICAL;
 import static models.entity.Orientation.OrientationType.WILD_CARD;
+import static utils.JavaUtils.getMax2Index;
 import static utils.JavaUtils.getMax3Index;
 
 import java.util.List;
@@ -26,7 +27,17 @@ public class OrientationProbability {
         return WILD_CARD;
       default:
         throw new IllegalArgumentException("Unexpected index. It should be one of 0,1 or 3");
+    }
+  }
 
+  public OrientationType getMostProbableWithoutWildcard() {
+    switch (getMax2Index(probabilityVector)) {
+      case 0:
+        return HORIZONTAL;
+      case 1:
+        return VERTICAL;
+      default:
+        throw new IllegalArgumentException("Unexpected index. It should be 0 or 1");
     }
   }
 }

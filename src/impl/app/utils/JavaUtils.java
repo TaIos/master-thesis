@@ -90,6 +90,14 @@ public final class JavaUtils {
     return indexOfMax;
   }
 
+  public static int getMax2Index(List<Double> lst) {
+    int indexOfMax = 0;
+    if (lst.get(1) > lst.get(0)) {
+      indexOfMax = 1;
+    }
+    return indexOfMax;
+  }
+
   public static class Vector {
 
     public static List<Double> sumVector(List<Double> first, List<Double> second) {

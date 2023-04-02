@@ -28,7 +28,7 @@ public class ProbabilisticBruteForce extends BaseGeneticAlgorithm {
   @Override
   public GAResult call() {
     for (int iter = 1; iter <= gaParams.getMaxNumberOfIter(); iter++) {
-      hof.log(generateRandomPopulation(), iter).withPrintLast(logger, gaParams);
+      hof.log(generateRandomPopulation(), iter, gaParams).withPrintLast(logger, gaParams);
     }
     return new GAResult(hof);
   }
