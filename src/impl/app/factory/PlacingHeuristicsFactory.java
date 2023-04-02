@@ -7,6 +7,7 @@ import static logic.genetic.placing.PlacingHeuristics.Type.values;
 import exceptions.EntityNotFoundException;
 import exceptions.ImplementationNotFoundException;
 import factory.provider.BottomLeftHeuristicsProvider;
+import factory.provider.CornerPlacingHeuristicsProvider;
 import factory.provider.GreedyPlacingHeuristicsProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -18,12 +19,15 @@ public class PlacingHeuristicsFactory implements Factory<String, PlacingHeuristi
 
   private final BottomLeftHeuristicsProvider bottomLeftHeuristicsProvider;
   private final GreedyPlacingHeuristicsProvider greedyPlacingHeuristicsProvider;
+  private final CornerPlacingHeuristicsProvider cornerPlacingHeuristicsProvider;
 
   @Inject
   public PlacingHeuristicsFactory(BottomLeftHeuristicsProvider bottomLeftHeuristicsProvider,
-      GreedyPlacingHeuristicsProvider greedyPlacingHeuristicsProvider) {
+      GreedyPlacingHeuristicsProvider greedyPlacingHeuristicsProvider,
+      CornerPlacingHeuristicsProvider cornerPlacingHeuristicsProvider) {
     this.bottomLeftHeuristicsProvider = bottomLeftHeuristicsProvider;
     this.greedyPlacingHeuristicsProvider = greedyPlacingHeuristicsProvider;
+    this.cornerPlacingHeuristicsProvider = cornerPlacingHeuristicsProvider;
   }
 
 
@@ -40,6 +44,8 @@ public class PlacingHeuristicsFactory implements Factory<String, PlacingHeuristi
         return bottomLeftHeuristicsProvider.get();
       case GREEDY:
         return greedyPlacingHeuristicsProvider.get();
+      case CORNER:
+        return cornerPlacingHeuristicsProvider.get();
       default:
         throw new ImplementationNotFoundException(PlacingHeuristics.class, name);
     }
