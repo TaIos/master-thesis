@@ -1,0 +1,102 @@
+{
+  "name": "london_gallery_wall",
+  "source": "https://www.nationalgallery.org.uk/visiting/virtual-tours/google-virtual-tour",
+  "data": {
+    "layout": {
+      "width": 180,
+      "height": 90,
+      "evalFunc": "f(x,y) = 0"
+    },
+    "paintings": [
+      {
+        "ident": "top-left",
+        "width": 22,
+        "height": 21
+      },
+      {
+        "ident": "bottom-left1",
+        "width": 20,
+        "height": 43
+      },
+      {
+        "ident": "bottom-left2",
+        "width": 20,
+        "height": 43
+      },
+      {
+        "ident": "middle",
+        "width": 73,
+        "height": 82
+      },
+      {
+        "ident": "top-right",
+        "width": 24,
+        "height": 16
+      },
+      {
+        "ident": "bottom-right1",
+        "width": 20,
+        "height": 43
+      },
+      {
+        "ident": "bottom-right2",
+        "width": 20,
+        "height": 43
+      }
+    ],
+    "paintingsFlow": [
+      {
+        "from": "top-left",
+        "to": "bottom-left1",
+        "flow": 10
+      },
+      {
+        "from": "top-left",
+        "to": "bottom-left2",
+        "flow": 10
+      },
+      {
+        "from": "top-left",
+        "to": "middle",
+        "flow": 5
+      },
+      {
+        "from": "bottom-left1",
+        "to": "bottom-left2",
+        "flow": 15
+      },
+      {
+        "from": "bottom-left2",
+        "to": "middle",
+        "flow": 3
+      },
+
+
+      {
+        "from": "top-right",
+        "to": "bottom-right1",
+        "flow": 10
+      },
+      {
+        "from": "top-right",
+        "to": "bottom-right2",
+        "flow": 10
+      },
+      {
+        "from": "top-right",
+        "to": "middle",
+        "flow": 5
+      },
+      {
+        "from": "bottom-right1",
+        "to": "bottom-right2",
+        "flow": 15
+      },
+      {
+        "from": "bottom-right1",
+        "to": "middle",
+        "flow": 3
+      }
+    ]
+  }
+}
