@@ -7,6 +7,9 @@ import exceptions.DtoConstraintViolationExceptionWrapper;
 import exceptions.EntityNotFoundException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Stream;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import models.dto.CreateComputationFromDatasetDto;
@@ -54,15 +57,14 @@ public class DatasetFactory implements Factory<String, DatasetDto> {
     return create(dto.getDatasetName());
   }
 
-  private File findOrThrow(String datasetName) throws EntityNotFoundException {
-    File[] files =
-        datasetDir.listFiles(
-            (dir, name) -> name.equals(datasetName) || name.equals(datasetName + ".json"));
-    assert files != null;
-    if (files.length != 1) {
-      throw new EntityNotFoundException(DatasetDto.class, datasetName);
+  private File findOrThrow(String datasetName) throws EntityNotFoundException, IOException {
+    try (Stream<Path> stream = Files.walk(datasetDir.toPath())) {
+      return stream.filter(p -> p.getFileName().toString().equals(datasetName)
+              || p.getFileName().toString().equals(datasetName + ".json"))
+          .findAny()
+          .orElseThrow(() -> new EntityNotFoundException(DatasetDto.class, datasetName))
+          .toFile();
     }
-    return files[0];
   }
 
   private File loadDatasetDirectory(String path) {
