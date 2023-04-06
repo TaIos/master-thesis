@@ -5,9 +5,10 @@ First, let us define what a painting placement instance is.
 
 \navesti{Painting placement isntance} is an ordered quadruple
 
-\[
+\begin{equation}
     I = (P, F, L, \pi)\,,
-\]
+    \label{eq:painting-placement-instance}
+\end{equation}
 
 where $P \subseteq (\nat^+, \nat^+)$ are painting dimensions (width$\times$height pairs),
 $F \subseteq \real^{|P|, |P|}$ is matrix defining flow between paintings,
@@ -33,9 +34,10 @@ The evaluation function is $f(x,y) = x+y$.
 Next, each painting placement instance can have multiple solutions.
 
 \navesti{Painting placement solution} is an ordered set of placement points
-\[
+\begin{equation}
     S \subseteq (\natpos \times \natpos)^N  \,,
-\]
+    \label{eq:painting-placement-solution}
+\end{equation}
 where $N$ is the size of the painting placement instance, i.e., the number of paintings.
 For example, one solution $S_1$ for the instance $I_1$ can be
 
@@ -61,18 +63,9 @@ Then, the painting placement problem is to find a minimum of a cost function $c:
 which can also be called an objective function, as
 
 
-%Let's define $\Omega$ as a set of all possible placement layouts for a given painting placement instance
-%and $\omega$ as all possible placement points for paintings in this instance.
-%Thus, if the instance size is $N$, i.e., there are $N$ paintings,
-%$\Omega = $
-%
-%For example, one placement layout from $\Omega$ can be seen on figure~\ref{TODO}
-%
-%and $\omega$ contains all positions where a painting can be placed.
-%Optimization problem can be thus defined using $c$ as
-
 \begin{equation}
     \argmin_{x \in S} c(x) = \sum\limits_{i=1}^N\sum\limits_{j=i+1}^N f_{i,j}d(i, j) + \sum\limits_{i=1}^N \pi(i) + \lambda m(x) + \gamma n(x) \,,
+    \label{eq:objective}
 \end{equation}
 
 where $f_{i,j}$ is flow between painting $i$ and $j$, $d(i,j)$ is their distance,
