@@ -123,6 +123,8 @@
 %% for aligning: \includegraphics[width=.6\textwidth,left]{example-image}
 
 \usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{amsfonts}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % VLASTNI MAKRA
@@ -130,6 +132,13 @@
 
 \def\todoc{\todo[color=yellow]{cite}}
 \def\todoi#1{\todo[inline, color=green]{#1}}
+\newcommand{\navesti}[1]{\noindent\textbf{\textit{{#1}}}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\real}{\mathbb{R}}
+\DeclareMathOperator*{\realpos}{\mathbb{R}^+}
+\DeclareMathOperator*{\nat}{\mathbb{N}}
+\DeclareMathOperator*{\natpos}{\mathbb{N}^+}
 
 \begin{document}
     \frontmatter\frontmatterinit % do not remove these two commands
@@ -237,7 +246,8 @@
         GA     & Genetic Algorithm                    \\
         QAP    & Quadratic Assignment Problem         \\
         RKGA   & Random Key Genetic Algorithm         \\
-        UA-FLP & Unequal Area Facility Layout Problem
+        UA-FLP & Unequal Area Facility Layout Problem \\
+        I/O & TODO \\
     \end{tabular}
 %%%%%%%%%%%%%%%%%%%
 % ABBREVIATIONS END
