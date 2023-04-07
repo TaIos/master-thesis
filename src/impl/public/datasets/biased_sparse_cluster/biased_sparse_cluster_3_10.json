@@ -3,159 +3,159 @@
     "source": "https://projects.fit.cvut.cz/theses/4473",
     "data": {
         "layout": {
-            "width": 52,
-            "height": 42,
-            "evalFunc": "f(x,y) = iff(x<17.33 & y<21.00, 100; x>=17.33 & x<=34.67 & y>=21.00, 100; x>34.67 & y<21.00, 100; 1, 0)"
+            "width": 55,
+            "height": 45,
+            "evalFunc": "f(x,y) = iff(x<18.33 & y<22.50, 100; x>=18.33 & x<=36.67 & y>=22.50, 100; x>36.67 & y<22.50, 100; 1, 0)"
         },
         "paintings": [
             {
                 "ident": "1",
-                "width": 5,
-                "height": 3
-            },
-            {
-                "ident": "2",
-                "width": 2,
-                "height": 5
-            },
-            {
-                "ident": "3",
-                "width": 4,
-                "height": 4
-            },
-            {
-                "ident": "4",
-                "width": 3,
+                "width": 7,
                 "height": 6
             },
             {
+                "ident": "2",
+                "width": 3,
+                "height": 3
+            },
+            {
+                "ident": "3",
+                "width": 7,
+                "height": 7
+            },
+            {
+                "ident": "4",
+                "width": 4,
+                "height": 10
+            },
+            {
                 "ident": "5",
-                "width": 8,
+                "width": 9,
                 "height": 10
             },
             {
                 "ident": "6",
-                "width": 9,
-                "height": 9
-            },
-            {
-                "ident": "7",
-                "width": 9,
-                "height": 5
-            },
-            {
-                "ident": "8",
-                "width": 4,
+                "width": 5,
                 "height": 2
             },
             {
-                "ident": "9",
-                "width": 8,
+                "ident": "7",
+                "width": 5,
                 "height": 3
             },
             {
-                "ident": "10",
+                "ident": "8",
                 "width": 6,
-                "height": 8
+                "height": 5
+            },
+            {
+                "ident": "9",
+                "width": 2,
+                "height": 2
+            },
+            {
+                "ident": "10",
+                "width": 4,
+                "height": 7
             },
             {
                 "ident": "11",
-                "width": 3,
-                "height": 7
+                "width": 5,
+                "height": 10
             },
             {
                 "ident": "12",
                 "width": 6,
-                "height": 3
+                "height": 7
             },
             {
                 "ident": "13",
-                "width": 8,
-                "height": 5
+                "width": 3,
+                "height": 6
             },
             {
                 "ident": "14",
                 "width": 4,
-                "height": 2
+                "height": 6
             },
             {
                 "ident": "15",
-                "width": 9,
-                "height": 9
+                "width": 6,
+                "height": 8
             },
             {
                 "ident": "16",
                 "width": 10,
-                "height": 7
+                "height": 9
             },
             {
                 "ident": "17",
-                "width": 7,
-                "height": 10
+                "width": 10,
+                "height": 9
             },
             {
                 "ident": "18",
                 "width": 3,
-                "height": 9
+                "height": 1
             },
             {
                 "ident": "19",
-                "width": 3,
+                "width": 6,
                 "height": 8
             },
             {
                 "ident": "20",
                 "width": 3,
-                "height": 6
+                "height": 8
             },
             {
                 "ident": "21",
-                "width": 10,
-                "height": 4
+                "width": 3,
+                "height": 8
             },
             {
                 "ident": "22",
-                "width": 4,
-                "height": 7
+                "width": 2,
+                "height": 3
             },
             {
                 "ident": "23",
-                "width": 8,
-                "height": 6
+                "width": 9,
+                "height": 9
             },
             {
                 "ident": "24",
-                "width": 2,
-                "height": 6
+                "width": 10,
+                "height": 8
             },
             {
                 "ident": "25",
-                "width": 5,
-                "height": 3
+                "width": 7,
+                "height": 7
             },
             {
                 "ident": "26",
                 "width": 7,
-                "height": 9
+                "height": 5
             },
             {
                 "ident": "27",
-                "width": 6,
-                "height": 10
+                "width": 7,
+                "height": 9
             },
             {
                 "ident": "28",
-                "width": 5,
-                "height": 6
+                "width": 10,
+                "height": 9
             },
             {
                 "ident": "29",
-                "width": 9,
-                "height": 3
+                "width": 5,
+                "height": 2
             },
             {
                 "ident": "30",
-                "width": 7,
+                "width": 6,
                 "height": 8
             }
         ],

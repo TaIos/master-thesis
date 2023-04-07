@@ -3,217 +3,217 @@
     "source": "https://projects.fit.cvut.cz/theses/4473",
     "data": {
         "layout": {
-            "width": 24,
-            "height": 19,
+            "width": 23,
+            "height": 18,
             "evalFunc": "f(x,y) = 0"
         },
         "paintings": [
             {
                 "ident": "1",
                 "width": 8,
-                "height": 5
+                "height": 4
             },
             {
                 "ident": "2",
-                "width": 3,
-                "height": 1
-            },
-            {
-                "ident": "3",
-                "width": 7,
-                "height": 10
-            },
-            {
-                "ident": "4",
-                "width": 8,
-                "height": 9
-            },
-            {
-                "ident": "5",
-                "width": 2,
-                "height": 6
-            },
-            {
-                "ident": "6",
                 "width": 5,
                 "height": 3
             },
             {
-                "ident": "7",
-                "width": 8,
-                "height": 3
-            },
-            {
-                "ident": "8",
-                "width": 8,
-                "height": 8
-            },
-            {
-                "ident": "9",
+                "ident": "3",
                 "width": 5,
                 "height": 5
             },
             {
-                "ident": "10",
-                "width": 3,
-                "height": 8
-            },
-            {
-                "ident": "11",
-                "width": 7,
-                "height": 8
-            },
-            {
-                "ident": "12",
-                "width": 3,
-                "height": 6
-            },
-            {
-                "ident": "13",
+                "ident": "4",
                 "width": 9,
                 "height": 4
             },
             {
-                "ident": "14",
-                "width": 2,
+                "ident": "5",
+                "width": 10,
+                "height": 8
+            },
+            {
+                "ident": "6",
+                "width": 3,
+                "height": 3
+            },
+            {
+                "ident": "7",
+                "width": 6,
                 "height": 5
+            },
+            {
+                "ident": "8",
+                "width": 8,
+                "height": 5
+            },
+            {
+                "ident": "9",
+                "width": 9,
+                "height": 5
+            },
+            {
+                "ident": "10",
+                "width": 6,
+                "height": 2
+            },
+            {
+                "ident": "11",
+                "width": 2,
+                "height": 6
+            },
+            {
+                "ident": "12",
+                "width": 6,
+                "height": 2
+            },
+            {
+                "ident": "13",
+                "width": 7,
+                "height": 9
+            },
+            {
+                "ident": "14",
+                "width": 3,
+                "height": 4
             }
         ],
         "paintingsFlow": [
             {
                 "from": "1",
                 "to": "2",
-                "flow": 0.613
+                "flow": 1.547
             },
             {
                 "from": "1",
                 "to": "3",
-                "flow": 0.081
+                "flow": 2.421
             },
             {
                 "from": "1",
                 "to": "4",
-                "flow": 3.765
+                "flow": 2.137
             },
             {
                 "from": "1",
                 "to": "5",
-                "flow": 1.242
+                "flow": 3.906
             },
             {
                 "from": "1",
                 "to": "6",
-                "flow": 0.742
+                "flow": 1.256
             },
             {
                 "from": "1",
                 "to": "7",
-                "flow": 0.029
+                "flow": 0.699
             },
             {
                 "from": "1",
                 "to": "8",
-                "flow": 3.714
+                "flow": 1.893
             },
             {
                 "from": "1",
                 "to": "9",
-                "flow": 1.709
+                "flow": 2.608
             },
             {
                 "from": "1",
                 "to": "10",
-                "flow": 0.64
+                "flow": 0.138
             },
             {
                 "from": "1",
                 "to": "11",
-                "flow": 1.822
+                "flow": 2.77
             },
             {
                 "from": "1",
                 "to": "12",
-                "flow": 0.201
+                "flow": 1.635
             },
             {
                 "from": "1",
                 "to": "13",
-                "flow": 2.628
+                "flow": 0.936
             },
             {
                 "from": "1",
                 "to": "14",
-                "flow": 1.949
+                "flow": 2.887
             },
             {
                 "from": "2",
                 "to": "3",
-                "flow": 2.175
+                "flow": 1.814
             },
             {
                 "from": "2",
                 "to": "4",
-                "flow": 1.986
+                "flow": 0.895
             },
             {
                 "from": "2",
                 "to": "5",
-                "flow": 0.299
+                "flow": 2.609
             },
             {
                 "from": "2",
                 "to": "6",
-                "flow": 1.595
+                "flow": 1.339
             },
             {
                 "from": "2",
                 "to": "7",
-                "flow": 1.968
+                "flow": 3.212
             },
             {
                 "from": "2",
                 "to": "8",
-                "flow": 0.388
+                "flow": 2.94
             },
             {
                 "from": "2",
                 "to": "9",
-                "flow": 3.436
+                "flow": 2.791
             },
             {
                 "from": "2",
                 "to": "10",
-                "flow": 1.007
+                "flow": 3.035
             },
             {
                 "from": "2",
                 "to": "11",
-                "flow": 2.732
+                "flow": 0.347
             },
             {
                 "from": "2",
                 "to": "12",
-                "flow": 0.195
+                "flow": 3.522
             },
             {
                 "from": "2",
                 "to": "13",
-                "flow": 3.386
+                "flow": 0.854
             },
             {
                 "from": "2",
                 "to": "14",
-                "flow": 2.744
+                "flow": 2.659
             },
             {
                 "from": "3",
                 "to": "4",
-                "flow": 1.076
+                "flow": 3.883
             },
             {
                 "from": "3",
                 "to": "5",
-                "flow": 3.917
+                "flow": 0.21
             },
             {
                 "from": "3",
@@ -223,317 +223,317 @@
             {
                 "from": "3",
                 "to": "7",
-                "flow": 2.226
+                "flow": 0.294
             },
             {
                 "from": "3",
                 "to": "8",
-                "flow": 1.154
+                "flow": 2.588
             },
             {
                 "from": "3",
                 "to": "9",
-                "flow": 2.972
+                "flow": 0.127
             },
             {
                 "from": "3",
                 "to": "10",
-                "flow": 2.73
+                "flow": 1.567
             },
             {
                 "from": "3",
                 "to": "11",
-                "flow": 0.872
+                "flow": 2.939
             },
             {
                 "from": "3",
                 "to": "12",
-                "flow": 3.84
+                "flow": 2.327
             },
             {
                 "from": "3",
                 "to": "13",
-                "flow": 1.101
+                "flow": 2.171
             },
             {
                 "from": "3",
                 "to": "14",
-                "flow": 0.534
+                "flow": 2.085
             },
             {
                 "from": "4",
                 "to": "5",
-                "flow": 1.908
+                "flow": 3.575
             },
             {
                 "from": "4",
                 "to": "6",
-                "flow": 2.621
+                "flow": 3.543
             },
             {
                 "from": "4",
                 "to": "7",
-                "flow": 1.536
+                "flow": 2.799
             },
             {
                 "from": "4",
                 "to": "8",
-                "flow": 2.818
+                "flow": 3.143
             },
             {
                 "from": "4",
                 "to": "9",
-                "flow": 0.958
+                "flow": 0.695
             },
             {
                 "from": "4",
                 "to": "10",
-                "flow": 0.089
+                "flow": 1.778
             },
             {
                 "from": "4",
                 "to": "11",
-                "flow": 0.059
+                "flow": 2.715
             },
             {
                 "from": "4",
                 "to": "12",
-                "flow": 3.085
+                "flow": 1.215
             },
             {
                 "from": "4",
                 "to": "13",
-                "flow": 0.617
+                "flow": 2.599
             },
             {
                 "from": "4",
                 "to": "14",
-                "flow": 0.169
+                "flow": 2.083
             },
             {
                 "from": "5",
                 "to": "6",
-                "flow": 1.794
+                "flow": 0.129
             },
             {
                 "from": "5",
                 "to": "7",
-                "flow": 1.037
+                "flow": 0.922
             },
             {
                 "from": "5",
                 "to": "8",
-                "flow": 0.752
+                "flow": 1.002
             },
             {
                 "from": "5",
                 "to": "9",
-                "flow": 0.029
+                "flow": 3.609
             },
             {
                 "from": "5",
                 "to": "10",
-                "flow": 1.983
+                "flow": 2.591
             },
             {
                 "from": "5",
                 "to": "11",
-                "flow": 0.715
+                "flow": 0.053
             },
             {
                 "from": "5",
                 "to": "12",
-                "flow": 3.672
+                "flow": 2.718
             },
             {
                 "from": "5",
                 "to": "13",
-                "flow": 0.861
+                "flow": 0.19
             },
             {
                 "from": "5",
                 "to": "14",
-                "flow": 1.295
+                "flow": 1.302
             },
             {
                 "from": "6",
                 "to": "7",
-                "flow": 3.068
+                "flow": 3.838
             },
             {
                 "from": "6",
                 "to": "8",
-                "flow": 1.714
+                "flow": 2.742
             },
             {
                 "from": "6",
                 "to": "9",
-                "flow": 1.294
+                "flow": 1.588
             },
             {
                 "from": "6",
                 "to": "10",
-                "flow": 0.732
+                "flow": 3.759
             },
             {
                 "from": "6",
                 "to": "11",
-                "flow": 0.563
+                "flow": 1.907
             },
             {
                 "from": "6",
                 "to": "12",
-                "flow": 2.889
+                "flow": 2.292
             },
             {
                 "from": "6",
                 "to": "13",
-                "flow": 0.14
+                "flow": 3.393
             },
             {
                 "from": "6",
                 "to": "14",
-                "flow": 0.434
+                "flow": 1.099
             },
             {
                 "from": "7",
                 "to": "8",
-                "flow": 2.925
+                "flow": 2.503
             },
             {
                 "from": "7",
                 "to": "9",
-                "flow": 1.678
+                "flow": 0.845
             },
             {
                 "from": "7",
                 "to": "10",
-                "flow": 3.275
+                "flow": 2.018
             },
             {
                 "from": "7",
                 "to": "11",
-                "flow": 2.989
+                "flow": 1.581
             },
             {
                 "from": "7",
                 "to": "12",
-                "flow": 1.479
+                "flow": 0.051
             },
             {
                 "from": "7",
                 "to": "13",
-                "flow": 2.865
+                "flow": 3.703
             },
             {
                 "from": "7",
                 "to": "14",
-                "flow": 1.353
+                "flow": 2.894
             },
             {
                 "from": "8",
                 "to": "9",
-                "flow": 2.598
+                "flow": 2.081
             },
             {
                 "from": "8",
                 "to": "10",
-                "flow": 3.117
+                "flow": 2.703
             },
             {
                 "from": "8",
                 "to": "11",
-                "flow": 2.252
+                "flow": 2.387
             },
             {
                 "from": "8",
                 "to": "12",
-                "flow": 0.328
+                "flow": 0.256
             },
             {
                 "from": "8",
                 "to": "13",
-                "flow": 2.548
+                "flow": 2.182
             },
             {
                 "from": "8",
                 "to": "14",
-                "flow": 0.766
+                "flow": 0.948
             },
             {
                 "from": "9",
                 "to": "10",
-                "flow": 1.032
+                "flow": 1.103
             },
             {
                 "from": "9",
                 "to": "11",
-                "flow": 2.096
+                "flow": 3.115
             },
             {
                 "from": "9",
                 "to": "12",
-                "flow": 0.775
+                "flow": 2.076
             },
             {
                 "from": "9",
                 "to": "13",
-                "flow": 0.526
+                "flow": 1.611
             },
             {
                 "from": "9",
                 "to": "14",
-                "flow": 1.289
+                "flow": 2.718
             },
             {
                 "from": "10",
                 "to": "11",
-                "flow": 3.432
+                "flow": 1.229
             },
             {
                 "from": "10",
                 "to": "12",
-                "flow": 3.325
+                "flow": 1.052
             },
             {
                 "from": "10",
                 "to": "13",
-                "flow": 1.332
+                "flow": 2.705
             },
             {
                 "from": "10",
                 "to": "14",
-                "flow": 2.332
+                "flow": 1.604
             },
             {
                 "from": "11",
                 "to": "12",
-                "flow": 2.99
+                "flow": 0.036
             },
             {
                 "from": "11",
                 "to": "13",
-                "flow": 2.413
+                "flow": 1.049
             },
             {
                 "from": "11",
                 "to": "14",
-                "flow": 0.507
+                "flow": 3.517
             },
             {
                 "from": "12",
                 "to": "13",
-                "flow": 1.354
+                "flow": 1.537
             },
             {
                 "from": "12",
                 "to": "14",
-                "flow": 2.023
+                "flow": 2.954
             },
             {
                 "from": "13",
                 "to": "14",
-                "flow": 3.962
+                "flow": 1.676
             }
         ]
     }
