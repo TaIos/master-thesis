@@ -9,7 +9,7 @@ Both the datasets and Python code can be found in the attached medium.
 
 \subsection{Generation parameters}\label{subsec:generation-parameters}
 
-Table~\ref{tab:dataset-params} describes the generation parameters of each dataset. Value \textit{layout area ratio}
+Table~\ref{tab:scenarious-params} describes the generation parameters of each testing scenario. Value \textit{layout area ratio}
 describes the ratio between the area of the layout and the painting area sum. It can thus be computed as
 
 \[
@@ -27,20 +27,21 @@ It is computed as
     \dfrac{\max(w,h)}{\min(w,h)}\,.
 \]
 
-Increasing \textit{max painting ratio} implies the possibility for generation of paintings
-that are very thin, i.e. $w \ll h$ or $h \ll w$. On the other hand, setting the value to 1
+Increasing \textit{max painting ratio} implies the possibility for the generation of paintings
+that are very thin, i.e., $w \ll h$ or $h \ll w$. On the other hand, setting the value to 1
 implies that every generated painting is square.
 
 The last parameter, \textit{eval function}, determines the evaluation of the space inside the layout.
-For example, at the \textit{random} dataset, the function is set to $f(x,y) = x+y$ because of its simplicity, linearity, and interpretability.
+For example, in the {random scenario, the function is set to $f(x,y) = x+y$ because of its simplicity, linearity, and interpretability.
 This means that it is advantageous to place small paintings close to the top right corner as the function value is highest there and
-big paintings to the bottom left corner. On the other hand, for \textit{cluster} and \textit{packing}
-dataset, it is set to a constant value $f(x,y) = 0$. The reason is that in those datasets, different
+big paintings to the bottom left corner.
+On the other hand, for clustering and {packing scenario, it is set to a constant value $f(x,y) = 0$.
+The reason is that in those scenarios, different
 capabilities are tested (clustering and packing), and using a non-constant function might make
-it difficult to interpret the results.
+it challenging to interpret the results.
 
 Rest of the parameters, \textit{max painting width}, \textit{max painting height}, \textit{flow min}, \textit{flow max}
-are self-explanatory and were set to low numeric values to possibly increase computation speed and avoid overflow.
+are self-explanatory and were set as low numeric values to possibly increase computation speed and avoid overflow.
 
 
 \begin{table}[]
@@ -69,43 +70,76 @@ are self-explanatory and were set to low numeric values to possibly increase com
             eval\\ function
         \end{tabular} \\ \hline
         random        & 1.2 & 10 & 10 & 3 & 0 & 4 & $f(x,y) = x+y$ \\ \hline
-        clustering       & 1.2 & 10 & 10 & 3 & - & - & $f(x,y) = 0$   \\ \hline
+        clustering    & 1.2 & 10 & 10 & 3 & - & - & $f(x,y) = 0$   \\ \hline
         packing       & 1   & 10 & 10 & 3 & 0 & 4 & $f(x,y) = 0$   \\ \hline
         \begin{tabular}[c]{@{}c@{}}
             biased\\ clustering
         \end{tabular} & 2   & 10 & 10 & 3 & - & - & -              \\ \hline
     \end{tabular}
     \caption{Parameters used to generate testing scenarios. Left-out values marked with - are discussed later in the text.}
-    \label{tab:dataset-params}
+    \label{tab:scenarious-params}
 \end{table}
 
 \subsection{Instances}
-This subsection describes and explores datasets that are generated to test scenarios defined in section~\ref{sec:scenarios}.
+There are seven instances in total with their parameters described in table~\ref{tab:instances}.
+\todo{describe eval function at biased clustering}.
+Visualization of a flow between paintings can be seen in two instances in figure~\ref{fig:instance-flow}.
+Flow, in other instances, follows the same generation pattern determined by the scenario
+– random flow for random and packing scenarios and non-zero flow only between
+the same group of paintings in a (biased)-clustering scenario.
 
 
-i\begin{table}[]
-     \begin{tabular}{|c|c|c|c|c|}
-         \hline
-         name &
-         \begin{tabular}[c]{@{}c@{}}painting\\ count\end{tabular} &
-         \begin{tabular}[c]{@{}c@{}}layout\\ width x height\end{tabular} &
-         scenario &
-         description \\ \hline
-         random\_10     & 10 & 24 x 19 & random     &                                                                         \\ \hline
-         random\_20     & 20 & 31 x 25 & random     &                                                                         \\ \hline
-         packing\_10    & 10 & 19 x 15 & packing    &                                                                         \\ \hline
-         packing\_20    & 20 & 33 x 26 & packing    &                                                                         \\ \hline
-         cluster\_3\_10 & 30 & 42 x 34 & clustering & \begin{tabular}[c]{@{}c@{}}3 clusters,\\ 10 paintings each\end{tabular} \\ \hline
-         cluster\_4\_20 & 80 & 66 x 54 & clustering & \begin{tabular}[c]{@{}c@{}}4 clusters,\\ 10 paintings each\end{tabular} \\ \hline
-         biased\_sparse\_cluster\_3\_10 &
-         30 &
-         55 x 45 &
-         biased clustering &
-         \begin{tabular}[c]{@{}c@{}}3 clusters,\\ 10 paintings each\end{tabular} \\ \hline
-     \end{tabular}
-     \caption{Description of datasets used for testing.}
-     \label{tab:datasets}
+\begin{table}[]
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        instance name &
+        \begin{tabular}[c]{@{}c@{}}
+            painting\\ count
+        \end{tabular} &
+        \begin{tabular}[c]{@{}c@{}}
+            layout\\ width x height
+        \end{tabular} &
+        scenario &
+        description \\ \hline
+        random\_10  & 10 & 24 x 19 & random  & \\ \hline
+        random\_20  & 20 & 31 x 25 & random  & \\ \hline
+        packing\_10 & 10 & 19 x 15 & packing & \\ \hline
+        packing\_20 & 20 & 33 x 26 & packing & \\ \hline
+        cluster\_3\_10 & 30 & 42 x 34 & clustering & \begin{tabular}[c]{@{}c@{}}
+                                                         3 clusters,\\ 10 paintings each
+        \end{tabular} \\ \hline
+        cluster\_4\_20 & 80 & 66 x 54 & clustering & \begin{tabular}[c]{@{}c@{}}
+                                                         4 clusters,\\ 10 paintings each
+        \end{tabular} \\ \hline
+        biased\_sparse\_cluster\_3\_10 &
+        30 &
+        55 x 45 &
+        biased clustering &
+        \begin{tabular}[c]{@{}c@{}}
+            3 clusters,\\ 10 paintings each
+        \end{tabular} \\ \hline
+    \end{tabular}
+    \caption{Parameters of generated instances.}
+    \label{tab:instances}
 \end{table}
 
-
-
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{heatmap_random_10}\label{subfig:heatmap-random-10}}
+%    \hspace{1pt}
+%            \subfloat[]{\includegraphics[width=0.7\textwidth]{heatmap_random_20}\label{subfig:heatmap-random-20}}
+%    \hspace{1pt}
+%            \subfloat{\includegraphics[width=0.7\textwidth]{heatmap_packing_10}\label{subfig:heatmap-packing-10}}
+%    \hspace{1pt}
+%            \subfloat[]{\includegraphics[width=0.7\textwidth]{heatmap_packing_20}\label{subfig:heatmap-packing-20}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{heatmap_cluster_3_10}\label{subfig:heatmap-cluster-3-10}}
+            \caption[Flow matrices examples]{Two flow matrices for random and clustering instances.
+            Matrices are symmetric,i.e., the flow between two paintings is the same from each direction. Also, flow to/from itself is zero.}
+            \label{fig:instance-flow}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
