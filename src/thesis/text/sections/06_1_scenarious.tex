@@ -1,0 +1,18 @@
+\section{Scenarios}\label{sec:scenarios}
+
+There are 4 scenarios that are tested – random, clustering, packing and biased clustering.
+Also, there is one dataset that describes the painting placement at the London National Gallery in figure~\ref{fig:london-wall}. \\
+
+\navesti{Random} scenario contains randomly generated datasets that are mainly used for performance testing.\\
+
+\navesti{Clustering} scenario tests the ability to form clusters.
+This is achieved as dividing the paintings to groups. Paintings belonging to the
+same group have increased flow between them. Paintings from the distinct group have flow between
+them set to 0. \\
+
+\navesti{Packing} scenario is the same as the \textit{random} with the only difference that the layout area
+is equal to the area of all paintings summed together. This tests the ability to create compact solutions.\\
+
+\navesti{Biased clustering} scenario is similar to the \textit{clustering} with the only difference
+that the evaluation function is set in a way that the formation of clusters is advantageous in certain parts
+of the layout. This test the ability to not only create clusters but also to force their formation in certain parts of the layout.\\
