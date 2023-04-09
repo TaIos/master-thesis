@@ -14,3 +14,6 @@ libraryDependencies ++= Seq(
   "org.apache.commons" % "commons-text" % "1.10.0",
   "org.mariuszgromada.math" % "MathParser.org-mXparser" % "5.2.1"
 )
+
+import com.typesafe.sbt.packager.MappingsHelper._
+mappings in Universal ++= directory(baseDirectory.value / "public")
