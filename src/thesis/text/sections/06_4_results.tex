@@ -1,19 +1,54 @@
 \section{Results}\label{sec:results}
 
-This section presents results of testing the proposed solution.
-First, two hyper-parameters are tested in order to determine their reasonable values in subsection~\ref{subsec:hyper-parameters}.
-They are:
-
-\begin{itemize}
-    \item Population size
-    \item Overlapping penalization constant
-\end{itemize}
-
-Next, using these values, performance tests are conducted in subsection~\ref{subsec:performance}.
+This section presents testing results of the proposed solution.
+First, hyper-parameters are tested in order to determine their reasonable values in subsection~\ref{subsec:hyper-parameters}.
+Next, using these values, results of performance tests are presented subsection~\ref{subsec:performance}.
+Lastly, best obtained solutions are visualized in section
 
 \subsection{Hyper-parameters}\label{subsec:hyper-parameters}
 
+\subsubsection{Population size}
+
+Population size is tested in order to determine a reasonable value called \textit{population scaling factor}.
+This value determines the size of the population with respect to the instance size.
+Thus, for instance with size $N$ and scaling factor $k$, population size is determined as
+$k \times N$.
+This means that a population size in linear with respect to the instance size.
+
+Results for two random instances can be seen in figure~\ref{fig:pop-size}.
+From it, we can deduce that scaling factor $10$ does not allow
+the population objective average to decrease to the levels comparable to scaling factors $50$ and $100$.
+This might imply that scaling factor $10$ in insufficient to represent knowledge gathered over time
+in genetic approach.
+Also, researches in~\cite{goncalvesBiasedRandomkeyGenetic2015} solving UA-FLP using BRKGA
+similarly obtained their best results for scaling factor $100$.
+
+
+The conclusion is that using scaling factor between $50$ and $100$ is sufficient, with bias towards $100$
+for obtaining better average objective performance.
+However, increasing scaling factor leads to slower computation speed as every population contains
+more individuals for which genetic operators and reproductive plan must be computed.
+
+
+
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{pop_size_random_10}\label{subfig:pop-size-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{pop_size_random_20}\label{subfig:pop-size-random-20}}
+            \caption[Testing population scaling factor]{Testing population scaling factor at two random instances.}
+            \label{fig:pop-size}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
 \subsection{Performance}\label{subsec:performance}
+
+\subsection{Visualization}\label{subsec:visualization}
 
 
 
