@@ -51,7 +51,9 @@ Additionally, when using representations similar to~\cite{friedrichIntegratedSli
 after the application of the genetic operators, usually crossover and mutation, an invalid individual might be created.
 That is an individual that does not represent any solution.
 The presence of invalid individuals might lead to performance loss in facility layout problem~\cite{liuMultiimprovedGeneticAlgorithm2012}
-Moreover, unique solutions for dealing with invalid individuals must be introduced, for example, left-to-right scan used by~\cite{hwangGeneticAlgorithmApproach2009, kandasamyEffectiveLocationMicro2020}.
+Moreover, unique solutions for dealing with invalid individuals must be introduced,
+for example, left-to-right scan used by~\cite{hwangGeneticAlgorithmApproach2009, kandasamyEffectiveLocationMicro2020}
+or leaving them inside the population but penalizing them~\cite{hwangGeneticAlgorithmApproach2009}.
 The solution proposed in this thesis produces only valid individuals.
 
 Finally, the reasoning behind using a stochastic vector and not $[0,1]^N$ as in RKGA~\cite{beanGeneticAlgorithmsRandom1994}
