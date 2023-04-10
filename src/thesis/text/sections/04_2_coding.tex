@@ -2,19 +2,19 @@
 
 The central part of a genetic approach to the painting placement problem is how an individual is represented.
 This is important not only for the construction of the genetic operators, e.g., crossover and mutation but also for the process of decoding an individual from its representation to the solution.
+In this thesis, a novel individual representation is introduced.
 
-
-In this thesis, an individual is represented as a 3D—which means having three genes—chromosome that is composed of
+An individual is represented as a 3D chromosome—which means having three genes—that is composed of
 (1) painting sequence random key, (2) slicing order random key, and (3) orientation probabilities.
-An example of chromosome is in figure~\ref{fig:chromosome}
+An example of a chromosome is in figure~\ref{fig:chromosome}
 
 Let us use the notation for painting sequence random key as $PS_{rk}$,
 slicing order random key as $SO_{rk}$,
 orientation probabilities as $OR_{prob}$ and instance size as $N$, i.e., number of paintings.
 First two are vectors, where $PS_{rk} \in \real^N$ and $SO_{rk} \in \real^{N-1}$.
 Orientation probabilities is a matrix where $OR_{prob} \in \real^{N-1, N-1}$.
-
-Multiple constraints apply to each part of a chromosome.
+Multiple constraints apply to each of these parts with
+a stochastic vector meaning a vector that contains non-negative elements that add up to one.
 
 \begin{itemize}
     \item Painting sequence random key is a stochastic vector.
@@ -22,15 +22,13 @@ Multiple constraints apply to each part of a chromosome.
     \item Each row in orientation probabilities is a stochastic vector.
 \end{itemize}
 
-Here, a stochastic vector means a vector that contains non-negative elements that add up to one.
-The reasoning behind the decision to represent an individual in this way is given later in the text.
 
 The above-mentioned representation is based on a solution to the facility layout problem using a slicing tree representation
-from~\cite{friedrichIntegratedSlicingTree2018},
-where the author also represents an individual as a 3D chromosome.
+from~\cite{friedrichIntegratedSlicingTree2018, riponAdaptiveVariableNeighborhood2013},
+where the authors also represent an individual as a 3D chromosome.
 However, the difference is that in this thesis, each part is a stochastic vector while
-in~\cite{friedrichIntegratedSlicingTree2018} author uses concrete identifiers of facilities, slicing order, and orientation.
-Thus, in this thesis, an additional decoding layer is introduced together with different genetic operators.
+in~\cite{friedrichIntegratedSlicingTree2018, riponAdaptiveVariableNeighborhood2013} authors use concrete identifiers of facilities, slicing order, and orientation.
+Thus, an additional decoding layer is introduced together with different genetic operators.
 
 \begin{figure}[htp]
     \includegraphics[width=0.8\textwidth, center]{chromosome}\caption[Example of an individual representation]{
@@ -39,3 +37,23 @@ Thus, in this thesis, an additional decoding layer is introduced together with d
     }
     \label{fig:chromosome}
 \end{figure}
+
+There are multiple ideas behind representing an individual as a set of stochastic vectors that stem
+from extending RKGA~\cite{beanGeneticAlgorithmsRandom1994}, where chromosome is represented as a vector of values from $[0,1]$. \todo{nahradit zavorky [ a ] za jine, je to matouci s citacemi}
+First of them is the ability to perform mutation at an arbitrary element of these vectors using
+a simple replacement, i.e., substituting an element for a random one from interval $[0,1]$,
+followed by normalization back to the stochastic vector.
+For example, using representation described in~\cite{friedrichIntegratedSlicingTree2018, riponAdaptiveVariableNeighborhood2013},
+there has to be a different mutation method for each part of a chromosome.
+Using the representation proposed in this thesis, there has to be only one mutation operator that can be used universally for all parts of the chromosome.
+
+Additionally, when using representations similar to~\cite{friedrichIntegratedSlicingTree2018, riponAdaptiveVariableNeighborhood2013},
+after the application of the genetic operators, usually crossover and mutation, an invalid individual might be created.
+That is an individual that does not represent any solution.
+The presence of invalid individuals might lead to performance loss in facility layout problem~\cite{liuMultiimprovedGeneticAlgorithm2012}
+Moreover, unique solutions for dealing with invalid individuals must be introduced, for example, left-to-right scan used by~\cite{hwangGeneticAlgorithmApproach2009, kandasamyEffectiveLocationMicro2020}.
+The solution proposed in this thesis produces only valid individuals.
+
+Finally, the reasoning behind using a stochastic vector and not $[0,1]^N$ as in RKGA~\cite{beanGeneticAlgorithmsRandom1994}
+is the unique implementation of crossover used in this thesis, which is described in~\cite{subsec:crossover}.
+
