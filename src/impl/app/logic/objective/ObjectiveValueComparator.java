@@ -8,8 +8,8 @@ public class ObjectiveValueComparator implements Comparator<EvaluatedSlicingLayo
 
   public static final double OBJECTIVE_VALUE_MAX = Double.MAX_VALUE;
 
-  public int compare(double first, double second) {
-    return (int) (first - second);
+  public int compare(Double first, Double second) {
+    return first.compareTo(second);
   }
 
   @Override
