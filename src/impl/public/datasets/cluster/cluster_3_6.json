@@ -1,0 +1,330 @@
+{
+    "name": "cluster_3_6",
+    "source": "https://projects.fit.cvut.cz/theses/4473",
+    "data": {
+        "layout": {
+            "width": 30,
+            "height": 25,
+            "evalFunc": "f(x,y) = 0"
+        },
+        "paintings": [
+            {
+                "ident": "1",
+                "width": 9,
+                "height": 5
+            },
+            {
+                "ident": "2",
+                "width": 6,
+                "height": 6
+            },
+            {
+                "ident": "3",
+                "width": 6,
+                "height": 2
+            },
+            {
+                "ident": "4",
+                "width": 6,
+                "height": 6
+            },
+            {
+                "ident": "5",
+                "width": 6,
+                "height": 6
+            },
+            {
+                "ident": "6",
+                "width": 3,
+                "height": 2
+            },
+            {
+                "ident": "7",
+                "width": 4,
+                "height": 6
+            },
+            {
+                "ident": "8",
+                "width": 10,
+                "height": 8
+            },
+            {
+                "ident": "9",
+                "width": 5,
+                "height": 4
+            },
+            {
+                "ident": "10",
+                "width": 2,
+                "height": 6
+            },
+            {
+                "ident": "11",
+                "width": 4,
+                "height": 8
+            },
+            {
+                "ident": "12",
+                "width": 7,
+                "height": 3
+            },
+            {
+                "ident": "13",
+                "width": 7,
+                "height": 9
+            },
+            {
+                "ident": "14",
+                "width": 7,
+                "height": 10
+            },
+            {
+                "ident": "15",
+                "width": 5,
+                "height": 6
+            },
+            {
+                "ident": "16",
+                "width": 10,
+                "height": 8
+            },
+            {
+                "ident": "17",
+                "width": 3,
+                "height": 4
+            },
+            {
+                "ident": "18",
+                "width": 5,
+                "height": 2
+            }
+        ],
+        "paintingsFlow": [
+            {
+                "from": "1",
+                "to": "2",
+                "flow": 10.0
+            },
+            {
+                "from": "1",
+                "to": "3",
+                "flow": 10.0
+            },
+            {
+                "from": "1",
+                "to": "4",
+                "flow": 10.0
+            },
+            {
+                "from": "1",
+                "to": "5",
+                "flow": 10.0
+            },
+            {
+                "from": "1",
+                "to": "6",
+                "flow": 10.0
+            },
+            {
+                "from": "2",
+                "to": "3",
+                "flow": 10.0
+            },
+            {
+                "from": "2",
+                "to": "4",
+                "flow": 10.0
+            },
+            {
+                "from": "2",
+                "to": "5",
+                "flow": 10.0
+            },
+            {
+                "from": "2",
+                "to": "6",
+                "flow": 10.0
+            },
+            {
+                "from": "3",
+                "to": "4",
+                "flow": 10.0
+            },
+            {
+                "from": "3",
+                "to": "5",
+                "flow": 10.0
+            },
+            {
+                "from": "3",
+                "to": "6",
+                "flow": 10.0
+            },
+            {
+                "from": "4",
+                "to": "5",
+                "flow": 10.0
+            },
+            {
+                "from": "4",
+                "to": "6",
+                "flow": 10.0
+            },
+            {
+                "from": "5",
+                "to": "6",
+                "flow": 10.0
+            },
+            {
+                "from": "7",
+                "to": "8",
+                "flow": 10.0
+            },
+            {
+                "from": "7",
+                "to": "9",
+                "flow": 10.0
+            },
+            {
+                "from": "7",
+                "to": "10",
+                "flow": 10.0
+            },
+            {
+                "from": "7",
+                "to": "11",
+                "flow": 10.0
+            },
+            {
+                "from": "7",
+                "to": "12",
+                "flow": 10.0
+            },
+            {
+                "from": "8",
+                "to": "9",
+                "flow": 10.0
+            },
+            {
+                "from": "8",
+                "to": "10",
+                "flow": 10.0
+            },
+            {
+                "from": "8",
+                "to": "11",
+                "flow": 10.0
+            },
+            {
+                "from": "8",
+                "to": "12",
+                "flow": 10.0
+            },
+            {
+                "from": "9",
+                "to": "10",
+                "flow": 10.0
+            },
+            {
+                "from": "9",
+                "to": "11",
+                "flow": 10.0
+            },
+            {
+                "from": "9",
+                "to": "12",
+                "flow": 10.0
+            },
+            {
+                "from": "10",
+                "to": "11",
+                "flow": 10.0
+            },
+            {
+                "from": "10",
+                "to": "12",
+                "flow": 10.0
+            },
+            {
+                "from": "11",
+                "to": "12",
+                "flow": 10.0
+            },
+            {
+                "from": "13",
+                "to": "14",
+                "flow": 10.0
+            },
+            {
+                "from": "13",
+                "to": "15",
+                "flow": 10.0
+            },
+            {
+                "from": "13",
+                "to": "16",
+                "flow": 10.0
+            },
+            {
+                "from": "13",
+                "to": "17",
+                "flow": 10.0
+            },
+            {
+                "from": "13",
+                "to": "18",
+                "flow": 10.0
+            },
+            {
+                "from": "14",
+                "to": "15",
+                "flow": 10.0
+            },
+            {
+                "from": "14",
+                "to": "16",
+                "flow": 10.0
+            },
+            {
+                "from": "14",
+                "to": "17",
+                "flow": 10.0
+            },
+            {
+                "from": "14",
+                "to": "18",
+                "flow": 10.0
+            },
+            {
+                "from": "15",
+                "to": "16",
+                "flow": 10.0
+            },
+            {
+                "from": "15",
+                "to": "17",
+                "flow": 10.0
+            },
+            {
+                "from": "15",
+                "to": "18",
+                "flow": 10.0
+            },
+            {
+                "from": "16",
+                "to": "17",
+                "flow": 10.0
+            },
+            {
+                "from": "16",
+                "to": "18",
+                "flow": 10.0
+            },
+            {
+                "from": "17",
+                "to": "18",
+                "flow": 10.0
+            }
+        ]
+    }
+}
