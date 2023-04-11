@@ -28,6 +28,24 @@ for obtaining better average objective performance.
 However, increasing the scaling factor leads to slower computation speed as every population contains
 more individuals for which genetic operators and reproductive plan must be computed.
 
+\subsubsection*{Overlapping penalization constant}
+
+It is not desirable to produce a solution where paintings overlap.
+Thus, \textit{overlapping penalization constant} is used to penalize
+individuals that represent such a solution.
+How this constant is used inside the objective function is in equation~\ref{eq:objective}.
+
+The optimal value where the penalization is strong enough
+to uproot overlapping solutions from the population and, at the same time, low enough
+to be at the same scale as other parts of the objective value are tested on four instances – random\_10, random\_20, cluster\_10, and cluster\_20.
+
+Value tested for \textit{overlapping penalization constant} is proportional to the diagonal length of the layout to which paintings are placed.
+Thus, if $w$ is width and $h$ is height of the layout, tested value is called $k$ which determines
+\textit{overlapping penalization constant} as $k\sqrt{w^2 + h^2}$.
+
+Results are in figure~\ref{fig:overlapping-random} for the two random instances and in figure~\ref{fig:overlapping-cluster} for two cluster instances.
+From it, we can deduce that the optimal value for \textit{overlapping penalization constant} is between $1$ and $5$ times the length of the layout diagonal.
+
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
     \begin{landscape}% Landscape page
