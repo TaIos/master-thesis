@@ -140,7 +140,7 @@ From it, we can see
         \begin{figure}
             \centering
             \subfloat[brute-force]{\includegraphics[width=0.8\textwidth]{visualization_random20_brute}\label{subfig:random20-brute}}
-%        \subfloat{\includegraphics[width=0.8\textwidth]{visualization_random20_ga}\label{subfig:random20-ga}}
+            \subfloat[proposed solution]{\includegraphics[width=0.8\textwidth]{visualization_random20_ga}\label{subfig:random20-ga}}
             \caption[Instance random\_20 visualization]{Visualization of best result of proposed solution and brute-force for random\_20 instance.}
             \label{fig:visualization-random20}%
         \end{figure}
@@ -148,3 +148,16 @@ From it, we can see
     \clearpage% Flush page
 }
 
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{visualization_cluster_3_6_ga}\label{subfig:cluster-3-6-ga}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{visualization_cluster_4_5_ga}\label{subfig:cluster-4-5-ga}}
+            \caption[Clustering instances visualization]{Visualization of the best result of proposed solution for instances cluster\_3\_6 and cluster\_4\_5.}
+            \label{fig:visualization-cluster}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
