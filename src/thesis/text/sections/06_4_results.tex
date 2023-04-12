@@ -47,6 +47,17 @@ Thus, if $w$ is width and $h$ is height of the layout, tested value is called $k
 Results are in figure~\ref{fig:overlapping-penalization} for two instances.
 From it, we can deduce that the optimal value for \textit{overlapping penalization constant} is between $2$ and $5$ times the length of the layout diagonal.
 
+\subsubsection*{Maximum wild card count}
+Maximum wild card count determines the maximum number of wild card symbol $*$ that a decoded individual can contain.
+It is recommended to keep this parameter very low or even set it to zero.
+Reason is that if the parameter is high, computation time might increase if $*$ will spread in population.
+For instance os size $N$, if the wild card count in unconstrained, i.e., it is set to maximum possible number $N-1$,
+then one individual decodes to $2^{N-1}$ values.
+
+Results for computation time are in figure~\ref{fig:computation-time}.
+From it, we can see
+
+
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
     \begin{landscape}% Landscape page
@@ -77,6 +88,20 @@ From it, we can deduce that the optimal value for \textit{overlapping penalizati
     \clearpage% Flush page
 }
 
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{computation_time_random_10}\label{subfig:computation-time-10}}
+%            \subfloat{\includegraphics[width=0.8\textwidth]{computation_time_random_20}\label{subfig:computation-time-20}}
+            \caption[Testing computation speed]{Testing computation speed for increasing maximum wild card count.}
+            \label{fig:computation-time}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
 \subsection{Performance}\label{subsec:performance}
 
 \afterpage{%
@@ -94,3 +119,32 @@ From it, we can deduce that the optimal value for \textit{overlapping penalizati
 }
 
 \subsection{Visualization}\label{subsec:visualization}
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat[brute-force]{\includegraphics[width=0.9\textwidth]{visualization_random10_brute}\label{subfig:random10-brute}}
+            \subfloat[proposed solution]{\includegraphics[width=0.9\textwidth]{visualization_random10_ga}\label{subfig:random10-ga}}
+            \caption[Instance random\_10 visualization]{Visualization of best result of proposed solution and brute-force for random\_10 instance.}
+            \label{fig:visualization-random10}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat[brute-force]{\includegraphics[width=0.8\textwidth]{visualization_random20_brute}\label{subfig:random20-brute}}
+%        \subfloat{\includegraphics[width=0.8\textwidth]{visualization_random20_ga}\label{subfig:random20-ga}}
+            \caption[Instance random\_20 visualization]{Visualization of best result of proposed solution and brute-force for random\_20 instance.}
+            \label{fig:visualization-random20}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
