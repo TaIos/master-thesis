@@ -161,3 +161,16 @@ From it, we can see
     \end{landscape}
     \clearpage% Flush page
 }
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{visualization_london_nationa_gallery_ga}\label{subfig:london-gallery-ga}}
+            \caption[London National Gallery visualization]{Visualization of the London National Gallery wall dataset.}
+            \label{fig:visualization-cluster}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
