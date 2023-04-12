@@ -37,14 +37,15 @@ How this constant is used inside the objective function is in equation~\ref{eq:o
 
 The optimal value where the penalization is strong enough
 to uproot overlapping solutions from the population and, at the same time, low enough
-to be at the same scale as other parts of the objective value are tested on four instances – random\_10, random\_20, cluster\_10, and cluster\_20.
+to be at the same scale as other parts of the objective value are tested on two instances – random\_10 and packing\_10.
 
 Value tested for \textit{overlapping penalization constant} is proportional to the diagonal length of the layout to which paintings are placed.
+This way, it contains the information about layout dimensions.
 Thus, if $w$ is width and $h$ is height of the layout, tested value is called $k$ which determines
 \textit{overlapping penalization constant} as $k\sqrt{w^2 + h^2}$.
 
-Results are in figure~\ref{fig:overlapping-random} for the two random instances and in figure~\ref{fig:overlapping-cluster} for two cluster instances.
-From it, we can deduce that the optimal value for \textit{overlapping penalization constant} is between $1$ and $5$ times the length of the layout diagonal.
+Results are in figure~\ref{fig:overlapping-penalization} for two instances.
+From it, we can deduce that the optimal value for \textit{overlapping penalization constant} is between $2$ and $5$ times the length of the layout diagonal.
 
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
@@ -53,8 +54,24 @@ From it, we can deduce that the optimal value for \textit{overlapping penalizati
             \centering
             \subfloat{\includegraphics[width=0.8\textwidth]{pop_size_random_10}\label{subfig:pop-size-random-10}}
             \subfloat{\includegraphics[width=0.8\textwidth]{pop_size_random_20}\label{subfig:pop-size-random-20}}
-            \caption[Testing population scaling factor]{Testing population scaling factor at two random instances.}
+            \caption[Testing population scaling factor]{Testing population scaling factor at two random instances.
+            For population scaling factor $k$ and instance of size $N$, i.e. the number of paintings, population size is $k \times N$.}
             \label{fig:pop-size}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{overlapping_penalization_constant_random_10}\label{subfig:overlapping-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{overlapping_penalization_constant_packing_10}\label{subfig:overlapping-packing-10}}
+            \caption[Testing population overlapping penalization constant]{Testing overlapping penalization contanst.
+            Diagonal multiple $k$ determines overlapping penalization constant as $k \times \sqrt{w^2 + h^2}$, where $w$, $h$ are dimension of the layout.}
+            \label{fig:overlapping-penalization}%
         \end{figure}
     \end{landscape}
     \clearpage% Flush page
