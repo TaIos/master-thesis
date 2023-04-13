@@ -39,9 +39,9 @@ Thus, an additional decoding layer is introduced together with different genetic
 \end{figure}
 
 There are multiple ideas behind representing an individual as a set of stochastic vectors that stem
-from extending RKGA~\cite{beanGeneticAlgorithmsRandom1994}, where chromosome is represented as a vector of values from $[0,1]$. \todo{nahradit zavorky [ a ] za jine, je to matouci s citacemi}
+from extending RKGA~\cite{beanGeneticAlgorithmsRandom1994}, where chromosome is represented as a vector of values from $\langle0,1\rangle$.
 First of them is the ability to perform mutation at an arbitrary element of these vectors using
-a simple replacement, i.e., substituting an element for a random one from interval $[0,1]$,
+a simple replacement, i.e., substituting an element for a random one from interval $\langle0,1 \rangle$,
 followed by normalization back to the stochastic vector.
 For example, using representation described in~\cite{friedrichIntegratedSlicingTree2018, riponAdaptiveVariableNeighborhood2013},
 there has to be a different mutation method for each part of a chromosome.
@@ -56,6 +56,6 @@ for example, left-to-right scan used by~\cite{hwangGeneticAlgorithmApproach2009,
 or leaving them inside the population but penalizing them~\cite{hwangGeneticAlgorithmApproach2009}.
 The solution proposed in this thesis produces only valid individuals.
 
-Finally, the reasoning behind using a stochastic vector and not $[0,1]^N$ as in RKGA~\cite{beanGeneticAlgorithmsRandom1994}
+Finally, the reasoning behind using a stochastic vector and not $\langle0,1\rangle^N$ as in RKGA~\cite{beanGeneticAlgorithmsRandom1994}
 is the unique implementation of crossover used in this thesis, which is described in~\cite{subsec:crossover}.
 
