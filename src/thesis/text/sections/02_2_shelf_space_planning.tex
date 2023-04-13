@@ -34,7 +34,7 @@ Each individual is thus a power set of the products placed.
 This solution inherently decides which products to place at all, e.g., an individual does not contain a product, and thus the product is not placed.
 Decoding of an individual then takes place, which serves as an input to the BL-F pack heuristic to fill up the shelves and calculate fitness.
 
-Another solution in~\cite{hwangGeneticAlgorithmApproach2009} is using a genetic algorithm and a slicing tree, which was first used by~\cite{ottenAutomaticFloorplanDesign1982}.
+Another solution in~\cite{hwangGeneticAlgorithmApproach2009} uses a genetic algorithm and a slicing tree.
 They define a chromosome as a traversal of a slicing tree, which contains horizontal and vertical cuts as the internal nodes and products as leaves.
 Upon that traversal, they apply genetic operators – crossover as copying parts of the chromosome from parents and mutation as random swapping and inverting.
 For each genetic operator, an invalid individual might be created, and thus they fix the resultant individual with a left-to-right scan.
