@@ -36,21 +36,21 @@ Furthermore, there exists no FLP dataset that defines facilities in terms of the
 
 Metric $d$ in equation~\ref{sec:facility-layout-problem} used for measuring the distance between facilities is important in practical applications of the facility layout problem.
 Authors in~\cite{friedrichIntegratedSlicingTree2018} argue that using Euclidean $L2$ norm
-to measure facility distance produces suboptimal results as, for example, the material between facilities
+to measure facility distance produces suboptimal results as, for example, transportation of material between facilities
 hardly ever follows a direct route.
 Thus, they recommend using a contour-based metric instead.
 In addition to that, they also try to assign I/O points to the facilities from which the distance is measured as opposed to measuring the distance from the facility center.
+Also, some authors also consider facility orientation~\cite{liuMultiobjectiveParticleSwarm2018, tamHierarchicalApproachFacility1991}
+to be part of the facility layout problem.
 
-Some authors also consider facility orientation~\cite{liuMultiobjectiveParticleSwarm2018, tamHierarchicalApproachFacility1991}
-to be part of the problem.
-
-
-\todo{popsat metody reseni, hlavne genetiku a slicing trees}
-
-
-
-
-
-
-
-
+Solution methods differ in the exact definition of the FLP problem.
+Authors in~\cite{liuMultiobjectiveParticleSwarm2018} solve the UA-FLP, that is, the variant of FLP where the placed facilities have unequal area.
+They propose a solution using particle swarm optimization.
+Authors in~\cite{changSlicingTreeRepresentation2013} proposed a solution to UA-FLP combining harmony search and slicing tree.
+They represent harmony vector as coding of a slicing tree, which has two parts – the first part being a binary string determining the slicing tree node type, i.e., inner or leaf,
+and the second part codes the content of the slicing tree leaves.
+Authors in~\cite{karyantamGeneticAlgorithmsFunction1992} use a similar genetic approach with a chromosome being defined as a post-order traversal of a slicing tree.
+An interesting genetic solution for the UA-FLP proposed in~\cite{goncalvesBiasedRandomkeyGenetic2015} uses a BRKGA, where the chromosome contains coded facility sequence,
+aspect ratios and position of the \textit{first} facility.
+Next, an iterative greedy heuristic is used with the above-mentioned chromosome as an input.
+Authors in~\cite{friedrichIntegratedSlicingTree2018} propose a unique solution to the FLP called parallel tempting, which is based on simulated annealing.
