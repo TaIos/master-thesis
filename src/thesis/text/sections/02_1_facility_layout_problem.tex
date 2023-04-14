@@ -1,26 +1,24 @@
 \section{Facility layout problem}\label{sec:facility-layout-problem}
 
 The goal of the FLP is to place facilities, which are often represented as a rectangle,
-in a given two-dimensional grid. The resulting placement tries to minimize
-the cost function $c$.
-Example used by~\cite{goncalvesBiasedRandomkeyGenetic2015} is shown is
+in a given two-dimensional grid that is also rectangular.
+In addition, between each pair of facilities exists a flow, i.e., the number that defines whether it is advantageous to place facilities close together or not.
+
+Authors in~\cite{goncalvesBiasedRandomkeyGenetic2015} define facility layout problem using a cost function $c$ as
 
 \begin{equation}
-    \argmin_{x \in K} c(x) = \sum\limits_{i=1}^{i=N}\sum\limits_{j=1}^{j=N}c_{i,j}\,f_{i,j}\,d_{i,j}
+    \argmin_{x \in K} c(x) = \sum\limits_{i=1}^{i=N}\sum\limits_{j=1}^{j=N}c_{i,j}\,f_{i,j}\,d_{i,j}\,,
     \label{eq:flp-objective}
 \end{equation}
 
 where $K$ is the set of all possible facility placements, $f_{i,j} \in \mathbb{R^+}$ is the flow between facility $i$ and $j$, $c_{i,j} \in \mathbb{R^+}$
 is price for a unit of distance between $i$, $j$ and $d_{i,j}$ is their distance.
 Flow $f$ is defined to be symmetric, i.e., $f_{i,j} = f_{j,i}$~\cite{goncalvesBiasedRandomkeyGenetic2015, dunkerCoevolutionaryAlgorithmFacility2003}.
+The constraint to the facility placement is that no two facilities can overlap.
 The FLP defined as such is NP-hard~\cite{liuMultiobjectiveParticleSwarm2018, goncalvesBiasedRandomkeyGenetic2015, friedrichIntegratedSlicingTree2018}.
 
-Constraints to the facility placement is that no two facilities can overlap.
-Some authors also consider facility orientation~\cite{liuMultiobjectiveParticleSwarm2018, tamHierarchicalApproachFacility1991}
-to be part of the optimization problem.
-
-Important part of the input to the FLP are the facility dimensions.
-They are \textit{not} defined in terms of a pairs $w_i, h_i$, where $w_i$ would be width and $h_i$ height of a facility $i$.
+An important part of the input to the FLP is the facility dimensions.
+They are \textit{not} defined in terms of pairs $w_i, h_i$, where $w_i$ is the width and $h_i$ height of a facility $i$.
 Each facility is defined using its area $a_i$ and maximum aspect ratio $r_i \in \mathbb{R^+}$ which must satisfy equations~\ref{eq:flp-area} and~\ref{eq:flp-shape}.
 \begin{equation}
     a_i = w_i h_i
@@ -32,17 +30,20 @@ Each facility is defined using its area $a_i$ and maximum aspect ratio $r_i \in 
     \label{eq:flp-shape}
 \end{equation}
 
-Thus determining the width $w_i$ and height $h_i$ of the facility $i$ is part of the optimization problem.
-Furthermore, there exists no FLP dataset that defines facilities in terms their width and height
-– facility record in the dataset is always in the form of a $(a_i, r_i)$ pair~\cite{tamHierarchicalApproachFacility1991, dunkerCoevolutionaryAlgorithmFacility2003, liuSequencepairRepresentationMIPmodelbased2007}.
+Thus, determining the width $w_i$ and height $h_i$ of the facility $i$ is part of the facility layout problem.
+Furthermore, there exists no FLP dataset that defines facilities in terms of their width and height
+– facility records in the datasets are always in the form of a $(a_i, r_i)$ pair~\cite{tamHierarchicalApproachFacility1991, dunkerCoevolutionaryAlgorithmFacility2003, liuSequencepairRepresentationMIPmodelbased2007}.
 
-Metric used for measuring the distance in~\ref{eq:flp-objective} is important in practical applications.
-Authors in~\cite{friedrichIntegratedSlicingTree2018} argue that using euclidean metric
-to measure distance produces suboptimal results as, for example, material between facilities
-hardly ever follows a direct route. Thus, they recommend using a countour-based metric.
-In addition to solving the FLP, they also try to assign I/O points to the facilities
-from which the distance is measured as opposed to measuring the distance from the
-facility center.
+Metric $d$ in equation~\ref{sec:facility-layout-problem} used for measuring the distance between facilities is important in practical applications of the facility layout problem.
+Authors in~\cite{friedrichIntegratedSlicingTree2018} argue that using Euclidean $L2$ norm
+to measure facility distance produces suboptimal results as, for example, the material between facilities
+hardly ever follows a direct route.
+Thus, they recommend using a contour-based metric instead.
+In addition to that, they also try to assign I/O points to the facilities from which the distance is measured as opposed to measuring the distance from the facility center.
+
+Some authors also consider facility orientation~\cite{liuMultiobjectiveParticleSwarm2018, tamHierarchicalApproachFacility1991}
+to be part of the problem.
+
 
 \todo{popsat metody reseni, hlavne genetiku a slicing trees}
 
