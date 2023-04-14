@@ -1,15 +1,15 @@
 \section{Shelf-space planning}\label{sec:shelf-space-planning}
 
 Shelf-space planning problem solves the assignment of different products to shelves in order to achieve the maximum profit.
-It often contains two parts – partitioning the shelf and assigning product or product variants to each partition.
-Often, there are multiple shelves that need to be considered simultaneously.
+It contains two parts – partitioning the shelf and assigning product or product variants to each partition.
+There can be multiple shelves that need to be considered simultaneously.
 
-Author in~\cite{yangStudyShelfSpace1999} defines the capacity and facing constraints for the shelf-space planning problem.
+Authors in~\cite{yangStudyShelfSpace1999} define the capacity and facing constraints for the shelf-space planning problem.
 Capacity constraints determine the maximum number of products that can be placed on each shelf.
 Facing constraints determine the minimum and maximum number of facings of each product, i.e., how much total area of the shelf can be taken up by the product.
 Also, there are availability constraints for each product, i.e., the supply limit of each product.
 Lastly, considering an unlimited supply of each product and multiple shelves with fixed dimensions,
-the author defines the shelf-space planning problem as an integer programming problem using a profit function $P$ as
+the authors define the shelf-space planning problem as an integer programming problem using a profit function $P$ as
 
 \begin{equation}
     \max P = \sum\limits_{i=1}^n\sum\limits_{k=1}^mp_{ik} x_{ik}\,,
@@ -18,27 +18,27 @@ the author defines the shelf-space planning problem as an integer programming pr
 
 where $n$ is the number of products, $m$ is the number of shelves, $p_{ik}$ is the profit of product $i$ placed inside the shelf $k$, $x_{ik}$
 is number of products $i$ placed inside the shelf $k$.
-According to the author, the shelf-space planning problem defined as mentioned above is NP-hard.
+According to the authors, the shelf-space planning problem defined as mentioned above is NP-hard.
 
-Author in~\cite{hwangGeneticAlgorithmApproach2009} adds to the shelf-space problem a function that assigns
+Authors in~\cite{hwangGeneticAlgorithmApproach2009} add to the shelf-space problem a function that assigns
 different importance to parts of the shelf.
-The author argues that the reason for using such a function is that products placed at eye level are more noticed by the customers.
-Thus the proposed function has higher values for products placed at the eye level and lower at the bottom of the shelf,
+They argue that the reason for using such a function is that products placed at eye level are more noticed by the customers.
+Thus, the proposed function has higher values for products placed at eye level and lower at the bottom of the shelf,
 where customer attention is the lowest.
 Also, authors in~\cite{hubnerMaximizingProfitAssortment2020} consider the dimensions of the products, i.e., their width and height.
 They argue that products with a larger area are noticed more often by the customers, and thus their demand is increased.
 
 Solution method in~{\cite{hubnerMaximizingProfitAssortment2020} is a genetic algorithm where each individual is represented as a container,
 which contains one or multiple products.
-Each individual is thus a power set of the products placed.
+Each individual is thus a power set of products that can be placed.
 This solution inherently decides which products to place at all, e.g., an individual does not contain a product, and thus the product is not placed.
 Decoding of an individual then takes place, which serves as an input to the BL-F pack heuristic to fill up the shelves and calculate fitness.
 
 Another solution in~\cite{hwangGeneticAlgorithmApproach2009} uses a genetic algorithm and a slicing tree.
 They define a chromosome as a traversal of a slicing tree, which contains horizontal and vertical cuts as the internal nodes and products as leaves.
 Upon that traversal, they apply genetic operators – crossover as copying parts of the chromosome from parents and mutation as random swapping and inverting.
-For each genetic operator, an invalid individual might be created, and thus they fix the resultant individual with a left-to-right scan.
-
+When using each genetic operator, an invalid individual might be created.
+Thus, they fix the resultant invalid individual with a left-to-right scan.
 
 Lastly, according to the comprehensive review~\cite{bianchi-aguiarRetailShelfSpace2021}, there exists no unified dataset for the shelf-space planning problem
-that would be used as a benchmark.
+that can be used as a benchmark.
