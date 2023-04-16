@@ -81,7 +81,7 @@ On the other hand, setting $P= \langle 1,1,1 \rangle$ removes any penalization.
 The main reason for introducing $P$ is to limit the spread of wildcard $*$ in population,
 making its appearance only at the most advantageous parts of the genes.
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
     \includegraphics[width=1.0\textwidth, left]{crossover_random_keys}\caption{
         Crossover example for painting sequence and slicing order random keys.
         The procedure is the same for both – sum weighted parent vectors and then normalize to stochastic vector.
@@ -89,7 +89,7 @@ making its appearance only at the most advantageous parts of the genes.
     \label{fig:crossover-random-keys}
 \end{figure}
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
     \includegraphics[width=0.85\textwidth, left]{crossover_orientation_probabilities}\caption{
         Crossover example for orientation probabilities. The procedure is first to sum weighted parent matrices,
         then multiply the matrix with orientation penalization vector and normalize each row to a stochastic vector.}
@@ -129,7 +129,7 @@ This is the reason for defining mutation as such – to damage the chromosome as
 An example of a mutation that happens on all tree parts at once is in figure~\ref{fig:mutation}.
 
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
     \includegraphics[width=1.0\textwidth, left]{muation}\caption{
         Example of a mutation on all three parts of a chromosome.
         Since all parts can be treated as a stochastic vector, the same procedure
