@@ -25,7 +25,7 @@ we can define crossover for two parents $A$, $B$ and offspring $C$ as
 \end{equation}
 
 \begin{equation}
-    \|(w_A A_{OR_{prob}i:} + w_B B_{OR_{prob}i:})P\| = C_{OR_{prob}i:}\,,
+    \|P^T(w_A A_{OR_{prob}i:} + w_B B_{OR_{prob}i:})\| = C_{OR_{prob}i:}\,,
     \label{eq:crossover-orprob}
 \end{equation}
 
@@ -40,17 +40,48 @@ An example of crossover for orientation probabilities, eq.~\ref{eq:crossover-orp
 The crossover implementation described above has multiple parts – vector sum, weights, orientation penalization and normalization.
 Following are arguments for incorporating each of those parts into a crossover.
 
-\subsubsection*{Vector sum}
+\subsubsection*{Vector addition and normalization}
+
+Adding and then normalizing vectors to stochastic vectors differs from other crossover implementations.
+For example, in one-point-crossover~\cite{hollandAdaptationNaturalArtificial1975} and
+uniform crossover~\cite{uniformCrossover1989}, parts of the parent chromosomes are copied directly without any modification to form an offspring.
+
+\todo{poradny argument}
+
 
 \subsubsection*{Weights}
+Adding weights $w_A$ and $w_B$ determine the preference for transfer of information from one parent then the other.
+The weights are calculated using a cost function $c$ from eq.~\ref{eq:objective} as
+
+\begin{equation}
+    w_A = \dfrac{c(B)}{c(A)+{c(B)}}, w_B = 1 - w_A\,.
+    \label{eq:weights}
+\end{equation}
+
+Thus, parent with better performance in the population, i.e., having lower cost function,
+has more influence on what genes are being transferred to the offspring.
+
+Adding $w_A$ and $w_B$ prevents from creating offsprings that do not share the advantageous schemata.
+For example, considering only one stochastic vector of length 3 as chromosome,
+it might be advantageous having high value for the first value in the chromosome, e.g., $A=\langle 0.7, 0.1, 0.2 \rangle$.
+On the other hand, poorly performing individual might be $B=\langle 0.1, 0.3, 0.6 \rangle$.
+Without weights, $\| A+B\| = \langle 0.4, 0.2 , 0.4 \rangle$.
+Adding weights according to the eq.~\ref{eq:weights} penalize the transfer of schemata that perform poorly.
 
 \subsubsection*{Orientation penalization}
 
-\subsubsection*{Normalization}
+Another part of the crossover used in orientation probabilities matrix is the penalization vector $P$.
+As mentioned in section~\ref{sec:layout-construction}, each individual is decoded to a slicing tree
+whose internal nodes contain type of the cut – $H$ for horizontal, $V$ for vertical
+and $*$ for wildcard, that can take up any value $H$ or $V$.
+Vector $P$ controls the preference for each type of the cut.
+For example, setting $P= \langle 1,1,0.5 \rangle$ penalize only the wildcard $*$.
+On the other hand, setting $P= \langle 1,1,1 \rangle$ removes any penalization.
 
-%This implementation of crossover differs from others in a way that there is no copying parts of the chromosome from each parent.
-%For example, one-point-crossover~\cite{hollandAdaptationNaturalArtificial1975} that produces an offspring’s chromosome by copying
-%first half of the first parent’s chromosome followed by the second’s parent second half of the chromosome.
+The main reason for introducing $P$ is to limit the spread of wildcard $*$ in population,
+making its appearance only at the most advantageous parts of the genes.
+
+
 
 \begin{figure}[htp]
     \includegraphics[width=1.0\textwidth, left]{crossover_random_keys}\caption{
