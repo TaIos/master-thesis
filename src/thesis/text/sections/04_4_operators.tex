@@ -81,8 +81,6 @@ On the other hand, setting $P= \langle 1,1,1 \rangle$ removes any penalization.
 The main reason for introducing $P$ is to limit the spread of wildcard $*$ in population,
 making its appearance only at the most advantageous parts of the genes.
 
-
-
 \begin{figure}[htp]
     \includegraphics[width=1.0\textwidth, left]{crossover_random_keys}\caption{
         Crossover example for painting sequence and slicing order random keys.
@@ -99,3 +97,44 @@ making its appearance only at the most advantageous parts of the genes.
 \end{figure}
 
 \subsection{Mutation}\label{subsec:mutation}
+
+Mutation can happen on all three genes of a chromosome – painting sequence random key $PS_{rk}$,
+slicing order random key $SO_{rk}$ and orientation probabilities $OR_{prob}$.
+Due to the coding described in section~\ref{sec:coding}, $PS_{rk}$, $SO_{rk}$ and rows of $OR_{prob}$ are stochastic vectors.
+We use this common trait and define the mutation operator for a stochastic vector as follows.
+
+\begin{enumerate}
+    \item Replace one randomly chosen element with a uniformly generated value from $\langle 0,1 \rangle$.
+    \item Normalize to stochastic vector.
+\end{enumerate}
+
+With the definition of the mutation operator for a stochastic vector above, the mutation operator for an individual is defined as follows.
+
+\begin{enumerate}
+    \item Choose one of $PS_{rk}$, $SO_{rk}$, $OR_{prob}$ at random.
+    \item If $PS_{rk}$ or $SO_{rk}$ is chosen, apply mutation operator for a stochastic vector.\\
+    If $OR_{prob}$ is chosen, select one row at random and apply a mutation operator for a stochastic vector.
+\end{enumerate}
+
+It is important to mention how to interpret a mutation operator.
+As mentioned in section~\ref{sec:layout-construction}, an individual is decoded to a slicing tree.
+Mutation modifies this tree.
+First, if applied to $OR_{prob}$, the value of an inner node of the tree might change.
+That means a change in a type of cut – $H$, $V$, or $*$.
+Second, if applied to $PS_{rk}$, the value of leaves in the tree might change.
+Lastly, if applied to $SO_{rk}$, the whole structure of a tree might change.
+
+As described above, even changing one value can result in a completely different layout after decoding.
+This is the reason for defining mutation as such – to damage the chromosome as little as possible.
+An example of a mutation that happens on all tree parts at once is in figure~\ref{fig:mutation}.
+
+
+\begin{figure}[htp]
+    \includegraphics[width=1.0\textwidth, left]{muation}\caption{
+        Example of a mutation on all three parts of a chromosome.
+        Since all parts can be treated as a stochastic vector, the same procedure
+        is used for all of them – replace one value randomly and then normalize to a stochastic vector.
+    }
+    \label{fig:mutation}
+\end{figure}
+
