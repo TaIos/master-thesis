@@ -19,7 +19,7 @@ and $OR$ contains type of the cuts in the slicing layout – $H$ for horizontal,
 and $*$ for wildcard, that can take up any value $H$ or $V$.
 
 \subsubsection*{Random keys decoding}
-Decoding both $PS_{rk}$ and $SO_{rk}$ is the same as in the RKGA in~\cite{beanGeneticAlgorithmsRandom1994}.
+Decoding both $PS_{rk}$ and $SO_{rk}$ is the same as the RKGA in~\cite{beanGeneticAlgorithmsRandom1994}.
 Graphical illustration is in figure~\ref{fig:individual-decoding} marked as~\textit{random key decoder}.
 Decoding random keys can be explained in the following steps on a sequence of four numbers $S = 0.3, 0.2, 0.4, 0.1$\,.
 
@@ -32,8 +32,37 @@ Decoding random keys can be explained in the following steps on a sequence of fo
 \end{enumerate}
 
 
-
 \subsubsection*{Orientation probabilities decoding}
+
+Last part of the individual, matrix $OR_{prob} \in \real^{N-1, 3}$, decodes to the sequence of symbols from $\Sigma = \{H, V, *\} $.
+The graphical illustration is in figure~\ref{fig:individual-decoding} marked as~\textit{orientation decoder}.
+
+Decoding $OR_{prob}$ translates each row to one symbol from $\Sigma$, producing a symbol sequence.
+Thus, decoding orientation probabilities can be explained for one row, say $R = 0.7, 0.2, 0.1$
+in the following steps.
+
+
+\begin{enumerate}
+    \item Create $R'$ by adding lower index $H$ to the first, $V$ to the second, and $*$ to the last $R$'s elements.
+    $R' = 0.7_H, 0.2_V, 0.1_*$
+    \item Select element from $R'$ with the maximum value. $\max R' = 0.7_H$.
+    \item Take lower index of $\max R'$.
+    It is the result – $H$.
+\end{enumerate}
+
+There is one exception to the steps described above.
+It is the limit on the maximum number of $*$ symbols produced by orientation probabilities decoding.
+Let us call this limit $k$.
+If the limit is not applicable, i.e., $k \geq N-1$, there is no change to steps 1--3 described above.
+However, if applicable, only the first $k$ symbols $*$ with the highest probability are considered.
+It is achieved by setting probability to $0$ (only for the duration of the decoding) to the bottom $N-1-k$ symbols $*$ with the lowest probability.
+Then the same 1--3 steps are applied as described above.
+
+One example where the limit applies is for the $k=1$ and $OR_{prob}$ that has two rows, $R_1 = 0.2, 0.3, 0.5$ and $R_2 = 0.1, 0.2, 0.7$.
+Without exception, the result is $*, *$.
+However, considering the exception on the maximum limit $k=1$, the result is $V, *$.
+Reason is that in $R_2$, symbol $*$ has probability $0.7$,
+which is higher than probability of $*$ in $R_1$, which is $0.5$.
 
 
 
