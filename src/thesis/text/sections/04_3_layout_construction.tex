@@ -1,12 +1,27 @@
+\newpage
 \section{Layout construction}\label{sec:layout-construction}
 
 This section describes the process of how to transform or decode an individual.
 This transformation aims to create a solution to the painting placement problem,
 which is a set of placement points for the paintings.
-There are multiple steps to this process which are described in the following subsections
-– decoding random keys and orientation probabilities in~\ref{subsec:individual-decoding},
-slicing layout construction in~\ref{subsec:slicing-tree-construction},
-and greedy placement heuristic in~\ref{subsec:placement-heuristics}.
+There are multiple steps to this process.
+
+\begin{enumerate}
+    \item Individual decoding (\ref{subsec:individual-decoding}).
+    \item Slicing tree construction (\ref{subsec:slicing-tree-construction}).
+    \item Slicing layout construction (\ref{subsec:slicing-tree-construction}).
+    \item Using placement heuristic to create a painting placement solution (\ref{subsec:placement-heuristics}).
+\end{enumerate}
+
+Steps in the transformation of an individual to the painting placement solution are
+in figure~\ref{fig:layout-construction-steps}.
+All of them steps are explained in the following text.
+
+\begin{figure}[h!]
+    \includegraphics[height=0.65\textheight, center]{layout_construction_steps}
+    \caption{Steps in the transformation of an individual to the painting placement solution.}
+    \label{fig:layout-construction-steps}
+\end{figure}
 
 \subsection{Individual decoding}\label{subsec:individual-decoding}
 First, we must decode an individual to the representation from which a slicing layout can be constructed.
@@ -30,7 +45,6 @@ Decoding random keys can be explained in the following steps on a sequence of fo
     \item Take lower indexes of $S'$.
     It is the result – $4, 2, 1, 3$.
 \end{enumerate}
-
 
 \subsubsection*{Orientation probabilities decoding}
 
@@ -85,7 +99,6 @@ This construction has three steps, which are as follows.
     \item Creating a slicing layout using a resolved slicing tree.
 \end{enumerate}
 
-
 \subsubsection*{Slicing tree construction}
 
 First, let us describe what a slicing tree is.
@@ -118,8 +131,6 @@ In the general case, an unresolved slicing tree can at most resolve to $2^k$ res
 where $k$ is the number of internal nodes, i.e., the nodes that can contain wildcard $*$.
 Reformulation for a decoded individual is that decoded individual can, at most, represent
 $2^k$ resolved slicing trees, where $k$ is the number of orientations.
-
-
 
 \subsubsection*{Slicing layout}
 
