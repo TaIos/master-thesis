@@ -10,7 +10,7 @@ and greedy placement heuristic in~\ref{subsec:placement-heuristics}.
 
 \subsection{Individual decoding}\label{subsec:individual-decoding}
 First, we must decode an individual to the representation from which a slicing layout can be constructed.
-Decoded individual is composed of (1) painting sequence, (2) slicing order, and (3) orientations.
+A decoded individual is composed of (1) painting sequence, (2) slicing order, and (3) orientations.
 An example of individual decoding is in figure~\ref{fig:individual-decoding}.
 
 Let us use the notation for painting sequence as $PS$, slicing order as $SO$, orientations $OR$.
@@ -20,11 +20,11 @@ and $*$ for wildcard, that can take up any value $H$ or $V$.
 
 \subsubsection*{Random keys decoding}
 Decoding both $PS_{rk}$ and $SO_{rk}$ is the same as the RKGA in~\cite{beanGeneticAlgorithmsRandom1994}.
-Graphical illustration is in figure~\ref{fig:individual-decoding} marked as~\textit{random key decoder}.
+The graphical illustration is in figure~\ref{fig:individual-decoding} marked as~\textit{random key decoder}.
 Decoding random keys can be explained in the following steps on a sequence of four numbers $S = 0.3, 0.2, 0.4, 0.1$\,.
 
 \begin{enumerate}
-    \item Create $S'$ by adding lower index to each element from $S$ which marks its ordinal position starting from one.
+    \item Create $S'$ by adding a lower index to each element from $S$, which marks its ordinal position starting from one.
     $S' = 0.3_1, 0.2_2, 0.4_3, 0.1_4$\,.
     \item Sort $S'$ in descending order. $S' = 0.1_4, 0.2_2,  0.3_1, 0.4_3$\,.
     \item Take lower indexes of $S'$.
@@ -34,10 +34,10 @@ Decoding random keys can be explained in the following steps on a sequence of fo
 
 \subsubsection*{Orientation probabilities decoding}
 
-Last part of the individual, matrix $OR_{prob} \in \real^{N-1, 3}$, decodes to the sequence of symbols from $\Sigma = \{H, V, *\} $.
+Last part of the individual, matrix $OR_{prob} \in \real^{N-1, 3}$, decodes to the sequence of symbols from $\Sigma_* = \{H, V, *\} $.
 The graphical illustration is in figure~\ref{fig:individual-decoding} marked as~\textit{orientation decoder}.
 
-Decoding $OR_{prob}$ translates each row to one symbol from $\Sigma$, producing a symbol sequence.
+Decoding $OR_{prob}$ translates each row to one symbol from $\Sigma_*$, producing a symbol sequence.
 Thus, decoding orientation probabilities can be explained for one row, say $R = 0.7, 0.2, 0.1$
 in the following steps.
 
@@ -64,9 +64,7 @@ However, considering the exception on the maximum limit $k=1$, the result is $V,
 Reason is that in $R_2$, symbol $*$ has probability $0.7$,
 which is higher than probability of $*$ in $R_1$, which is $0.5$.
 
-
-
-\begin{figure}[htp]
+\begin{figure}[h!]
     \includegraphics[width=1.1\textwidth, left]{individual_decoding}
     \caption{
         Individual decoding example. Both the painting sequence random key and slicing order random key
@@ -76,6 +74,57 @@ which is higher than probability of $*$ in $R_1$, which is $0.5$.
 \end{figure}
 
 \subsection{Slicing layout construction}\label{subsec:slicing-tree-construction}
+In the previous subsection, decoding an individual is described.
+The decoded individual consists of three parts – painting sequence, slicing order, and orientations.
+With this representation, a slicing layout can be constructed.
+This construction has three steps, which are as follows.
+
+\begin{enumerate}
+    \item Unresolved slicing tree construction from a decoded individual.
+    \item Resolving an unresolved slicing tree.
+    \item Creating a slicing layout using a resolved slicing tree.
+\end{enumerate}
+
+
+\subsubsection*{Slicing tree construction}
+
+First, let us describe what a slicing tree is.
+The slicing tree was first introduced in 1982 by Otten~\cite{ottenAutomaticFloorplanDesign1982} to solve automatic floorplan design.
+In the most general sense, it is a tree that recursively divides space.
+This thesis defines and uses the slicing tree in two variants.\\
+
+\navesti{Resolved slicing tree} is a tree with internal nodes having values from $\Sigma = \{H, V\}$
+and leafs having values from the painting sequence.\\
+
+\navesti{Unresolved slicing tree} is a slicing tree with internal nodes having values from $\Sigma_* = \{H, V, *\}$ \\
+
+Symbols $H$ and $V$ are common for both types of the slicing tree.
+$H$ means a horizontal cut and $V$ means a vertical cut.
+An unresolved slicing tree can also contain the \textit{wildcard} symbol $*$.
+This symbol means a cut that best suits the use – wildcard can thus become both $H$ or $V$.
+
+Now, we can use a decoded individual to construct an unresolved slicing tree.
+This construction is graphically illustrated in the left part of a figure~\ref{fig:slicing-tree-construction}.
+During this process, the painting sequence results in leaf nodes, slicing order determines the shape of a tree, and orientations are the values assigned to internal nodes.
+Thus, each decoded individual represents one unresolved slicing tree.
+
+Finally, an unresolved slicing tree is resolved.
+Resolving is graphically illustrated in the right part of a figure~\ref{fig:slicing-tree-construction},
+where the unresolved tree contains one wildcard symbol $*$ as a root.
+By resolving this tree, $*$ is first replaced by $H$ and then by $V$.
+In this case, resolving the unresolved slicing tree produces two resolved slicing trees,
+which differ in root node value.
+In the general case, an unresolved slicing tree can at most resolve to $2^k$ resolved slicing trees,
+where $k$ is the number of internal nodes, i.e., the nodes that can contain wildcard $*$.
+Reformulation for a decoded individual is that decoded individual can, at most, represent
+$2^k$ resolved slicing trees, where $k$ is the number of orientations.
+
+
+
+\subsubsection*{Slicing layout}
+
+The last step is to construct a slicing layout.
+
 
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
@@ -84,9 +133,8 @@ which is higher than probability of $*$ in $R_1$, which is $0.5$.
             \centering
             \includegraphics[width=1.5\textwidth]{slicing_tree_construction}
             \caption{
-                Slicing tree and slicing layout construction from a decoded individual.
-                On the left is the process of constructing an unresolved slicing tree.
-                On the right are an unresolved slicing tree, and two resolved slicing trees that it represents together with corresponding slicing layouts.}
+                On the left is an example of unresolved slicing tree construction from a decoded individual.
+                On the right is an example of resolving an unresolved slicing tree.}
             \label{fig:slicing-tree-construction}
         \end{figure}
     \end{landscape}
