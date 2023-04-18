@@ -1,4 +1,6 @@
 \newpage
+
+
 \section{Layout construction}\label{sec:layout-construction}
 
 This section describes the process of how to transform or decode an individual.
@@ -68,15 +70,15 @@ There is one exception to the steps described above.
 It is the limit on the maximum number of $*$ symbols produced by orientation probabilities decoding.
 Let us call this limit $k$.
 If the limit is not applicable, i.e., $k \geq N-1$, there is no change to steps 1--3 described above.
-However, if applicable, only the first $k$ symbols $*$ with the highest probability are considered.
-It is achieved by setting probability to $0$ (only for the duration of the decoding) to the bottom $N-1-k$ symbols $*$ with the lowest probability.
+However, if applicable, only the first $k$ symbols $*$ with the highest value are considered.
+It is achieved by setting value to $0$ (only for the duration of the decoding) to the bottom $N-1-k$ symbols $*$ with the lowest values.
 Then the same 1--3 steps are applied as described above.
 
 One example where the limit applies is for the $k=1$ and $OR_{prob}$ that has two rows, $R_1 = 0.2, 0.3, 0.5$ and $R_2 = 0.1, 0.2, 0.7$.
 Without exception, the result is $*, *$.
 However, considering the exception on the maximum limit $k=1$, the result is $V, *$.
-Reason is that in $R_2$, symbol $*$ has probability $0.7$,
-which is higher than probability of $*$ in $R_1$, which is $0.5$.
+Reason is that in $R_2$, symbol $*$ has value $0.7$,
+which is higher than value of $*$ in $R_1$, which is $0.5$.
 
 \begin{figure}[h!]
     \includegraphics[width=1.1\textwidth, left]{individual_decoding}
@@ -94,27 +96,28 @@ With this representation, a slicing layout can be constructed.
 This construction has three steps, which are as follows.
 
 \begin{enumerate}
-    \item Unresolved slicing tree construction from a decoded individual.
-    \item Resolving an unresolved slicing tree.
-    \item Creating a slicing layout using a resolved slicing tree.
+    \item Construct unresolved slicing tree from a decoded individual.
+    \item Resolve an unresolved slicing tree.
+    \item Create a slicing layout using a resolved slicing tree.
 \end{enumerate}
 
 \subsubsection*{Slicing tree construction}
 
 First, let us describe what a slicing tree is.
 The slicing tree was first introduced in 1982 by Otten~\cite{ottenAutomaticFloorplanDesign1982} to solve automatic floorplan design.
-In the most general sense, it is a tree that recursively divides space.
+In the most general sense, it is a tree that recursively divides space into rectangles.
 This thesis defines and uses the slicing tree in two variants.\\
 
 \navesti{Resolved slicing tree} is a tree with internal nodes having values from $\Sigma = \{H, V\}$
 and leafs having values from the painting sequence.\\
 
-\navesti{Unresolved slicing tree} is a slicing tree with internal nodes having values from $\Sigma_* = \{H, V, *\}$ \\
+\navesti{Unresolved slicing tree} is an extension of a resolved slicing tree where internal nodes have values from $\Sigma_* = \{H, V, *\}$ \\
 
 Symbols $H$ and $V$ are common for both types of the slicing tree.
 $H$ means a horizontal cut and $V$ means a vertical cut.
-An unresolved slicing tree can also contain the \textit{wildcard} symbol $*$.
+An unresolved slicing tree can also contain the wildcard symbol $*$.
 This symbol means a cut that best suits the use – wildcard can thus become both $H$ or $V$.
+The presence of a wildcard symbol is a novel idea also proposed in this thesis. \todo{vice zduraznit}
 
 Now, we can use a decoded individual to construct an unresolved slicing tree.
 This construction is graphically illustrated in the left part of a figure~\ref{fig:slicing-tree-construction}.
@@ -132,10 +135,6 @@ where $k$ is the number of internal nodes, i.e., the nodes that can contain wild
 Reformulation for a decoded individual is that decoded individual can, at most, represent
 $2^k$ resolved slicing trees, where $k$ is the number of orientations.
 
-\subsubsection*{Slicing layout}
-
-The last step is to construct a slicing layout.
-
 
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
@@ -151,5 +150,61 @@ The last step is to construct a slicing layout.
     \end{landscape}
     \clearpage% Flush page
 }
+
+\subsubsection*{Slicing layout}
+
+Next, we can construct a slicing layout using a resolved slicing tree.\\
+
+\navesti{Slicing layout} is the recursive partitioning of space to rectangles.\\
+
+Creating a slicing layout from a slicing tree can be explained using an
+example in figure~\ref{fig:slicing-layout-dimensions}.
+We are given a space to partition. Let us call it layout. Also, we are given areas of rectangles to place.
+Rectangles to place are the paintings, and the layout is the wall on which the paintings are being placed.
+The example has rectangles $1,2,3$ with areas $a_1, a_2, a_3$.
+This is depicted in the left part of the figure.
+Then, we recursively traverse the resolved slicing tree.
+Depending on the node value, there are three possible actions.
+
+\begin{itemize}
+    \item $H$ – cut layout horizontally.
+    \item $V$ – cut layout vertically.
+    \item Otherwise, assign node value to the layout.
+\end{itemize}
+
+After performing the cut, the process mentioned above is recursively repeated
+for the left and right child.
+If the cut is horizontal, the left child is given the upper part of the cut as its layout, and the right child is given the lower part.
+If the cut is vertical, the left child is given the left part of the cut as its layout, and the right child is given the right part.
+This can be seen in the middle part of the figure, where the cut is vertical.
+The left child is an orphan, i.e., it has no children.
+Thus, the left part of the cut is assigned value 1.
+The right child is not an orphan, meaning the process is applied recursively to the right part of the cut and the right child.
+It is depicted on the right part of the figure.
+
+The last part of creating a slicing layout is the position of the cut points.
+As mentioned above, there are two cut types – horizontal and vertical.
+For each cut type, the position is determined proportionally to the area of rectangles assigned to the cut result.
+Again, it can be described using an example in figure~\ref{fig:slicing-layout-dimensions}.
+The first cut is vertical, where the left part of the cut is assigned rectangles $1$ and the right part is assigned rectangles $2,3$.
+The vertical cut thus splits the layout into two parts – the left part having $1/3$ of the total layout area and the right part
+having the rest.
+
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \includegraphics[width=1.5\textwidth]{slicing_layout_dimensions}
+            \caption{Example of a slicing layout construction from a resolved slicing tree. There are three paintings, $1,2,3$ together with their areas $a_1, a_2, a_3$.
+            The position of a cut is determined proportionally to the area of the paintings.} \label{fig:slicing-layout-dimensions}
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
+
+\newpage
 
 \subsection{Placement heuristics}\label{subsec:placement-heuristics}
