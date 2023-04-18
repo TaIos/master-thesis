@@ -12,7 +12,7 @@ There are multiple steps to this process.
     \item Individual decoding (\ref{subsec:individual-decoding}).
     \item Slicing tree construction (\ref{subsec:slicing-tree-construction}).
     \item Slicing layout construction (\ref{subsec:slicing-tree-construction}).
-    \item Using placement heuristic to create a painting placement solution (\ref{subsec:placement-heuristics}).
+    \item Using placement heuristic to create a painting placement solution (\ref{subsec:placement-heuristic}).
 \end{enumerate}
 
 Steps in the transformation of an individual to the painting placement solution are
@@ -207,4 +207,103 @@ having the rest.
 
 \newpage
 
-\subsection{Placement heuristics}\label{subsec:placement-heuristics}
+\subsection{Placement heuristic}\label{subsec:placement-heuristic}
+
+The placement heuristic is the last part of transforming an individual into a painting placement solution.
+Input to the heuristic is the slicing layout together with paintings, and output is the painting placement solution.
+The pseudocode of the proposed placing heuristic is in algorithm~\ref{alg:placement-heurictic}
+
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \LinesNumbered
+
+    \SetKwData{PlacedPaintings}{placedPaintings}
+    \SetKwData{Painting}{painting}
+    \SetKwData{PlacedPainting}{placedPainting}
+    \SetKwData{Paintings}{paintings}
+    \SetKwData{Best}{best}
+    \SetKwData{SlicingLayout}{slicing layout}
+    \SetKwData{Nil}{NIL}
+    \SetKwData{EmptyList}{EMPTY LIST}
+
+    \SetKwFunction{PossiblePlacementPoints}{possiblePlacementPoints}
+    \SetKwFunction{Place}{place}
+    \SetKwFunction{Objective}{objective}
+
+    \SetKw{In}{in}
+    \SetKw{Or}{or}
+
+
+    \KwData{\SlicingLayout, \Paintings}
+    \KwResult{painting placement solution} \BlankLine
+
+    %%%%%%%%%%%%%%%%%%%%%%%%
+
+    \PlacedPaintings $\leftarrow$ \EmptyList \\
+
+    \For{$painting$ \In \Paintings} {
+        \Best $\leftarrow$ \Nil \\
+        \For{$point$ \In \PossiblePlacementPoints{painting, \PlacedPaintings, \SlicingLayout}} {
+            \PlacedPainting $\leftarrow$ \Place{painting, point}\\
+            \If{\Best == \Nil \Or \Objective{\PlacedPainting} <  \Objective{\Best}}{
+                \Best $\leftarrow$ \PlacedPainting
+            }
+        }
+        \PlacedPaintings += \Best
+    }
+
+    \KwRet{\PlacedPaintings}
+
+    \caption{Placement heuristic}\label{alg:placement-heurictic}
+\end{algorithm}
+
+The proposed heuristic is greedy and iterative.
+Iterative means that it creates the painting placement solution gradually, as it
+tries to place one painting after another using the slicing layout.
+It is greedy because, at each iterative step, it places a painting in a way that minimizes the objective value.
+
+An important part of the heuristic placement algorithm~\ref{alg:placement-heurictic}
+is function \verb|possiblePlacementPoints| on line 4.
+This function returns points that the heuristic tries for placing a painting.
+Furthermore, it is the only part that uses a slicing layout.
+
+As mentioned earlier, the slicing layout divides space into rectangles.
+Additionally, each rectangle in the slicing layout has been assigned a painting.
+The function \verb|possiblePlacementPoints| uses this assigned space as allocated area.\\
+
+\navesti{Allocated area} for a painting is a rectangle from a slicing layout to which it was assigned.\\
+
+This means that every slicing layout has one allocated area for each painting.
+Also, the allocated area does not necessarily need larger dimensions than the painting.
+E.g., the width of a painting might be greater than the width of its allocated area.
+An example of a painting and its allocated area is in figure~\ref{fig:allocated-area}.
+
+With the defined allocated area,
+we can describe which implementation is used for the function \verb|possiblePlacementPoints|.
+It is called the corner-placing heuristic.\\
+
+\navesti{Corner-placing heuristic} is a placing heuristic that considers four painting placement points for each painting
+– the allocated area's bottom-left, bottom-right, top-left, and top-right corners.\\
+
+Examples of the painting placement points created by the corner-placing heuristic are in figure~\ref{fig:allocated-area}.
+On the left, we can see that the allocated area's dimensions are sufficient
+to try all four points.
+In the middle, there are only two points where the placing of a painting does not
+result in it being outside the allocated area.
+On the right, all points result in being outside the allocated area.
+Additionally, figure~\ref {fig:corner-placing-heuristic} shows iteration of the corner-placing heuristic considering one placement point.
+
+\begin{figure}[h!]
+    \includegraphics[width=1.2\textwidth, center]{allocated_area}
+    \caption{Examples of the painting placement points created by the corner-placing heuristic
+    for three different allocated areas that are plotted using a dashed line.}
+    \label{fig:allocated-area}
+\end{figure}
+
+\begin{figure}[h!]
+    \includegraphics[width=0.8\textwidth, center]{corner_placing_heuristic}
+    \caption{Example of a painting 4 placed inside its allocated area using the corner-placing heuristic.
+    The allocated area is plotted using a dashed line.
+    Also, the distances between the placed painting and all other paintings are displayed using a dotted line.}
+    \label{fig:corner-placing-heuristic}
+\end{figure}
