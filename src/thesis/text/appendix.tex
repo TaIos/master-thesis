@@ -1,4 +1,66 @@
 \chapter{Appendix}
 
 
-Sem přijde to, co nepatří do hlavní části.
+\begin{listing}[h!]
+    \centering
+    \begin{cminted}[autogobble,breaklines=true]{shell}
+        $ curl --location 'localhost:9000/compute' \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "instanceParameters": {
+                "layout": {
+                    "width": 30,
+                    "height": 20,
+                    "evalFunc": "f(x,y) = x+y"
+                },
+                "paintings": [
+                    { "ident": "1", "width": 5, "height": 7 },
+                    { "ident": "2", "width": 5, "height": 7 },
+                    { "ident": "3", "width": 5, "height": 7 },
+                    { "ident": "4", "width": 5, "height": 7 },
+                    { "ident": "5", "width": 5, "height": 7 },
+                    { "ident": "6", "width": 5, "height": 7 }
+                ],
+                "paintingsFlow": [
+                    { "from": 1, "to": 2, "flow": 3.3 },
+                    { "from": 1, "to": 3, "flow": 4.4 },
+                    { "from": 1, "to": 5, "flow": 0 }
+                ]
+            },
+            "gaParameters": {
+                "maxNumberOfIter": 2,
+                "populationSize": 100,
+                "maximumWildCardCount": 1,
+                "orientationWeights": [ 1, 1, 0.5 ],
+                "geneticAlgorithm": "simpleGa",
+                "mate": "normalizedProbabilityVectorSum",
+                "mutate": "flipOnePartAtRandom",
+                "select": "tournament",
+                "objective": "simple",
+                "evaluator": "ga",
+                "placingHeuristics": "corner",
+                "populationDivisionCounts": {
+                    "elite": 0.2, "average": 0.6, "worst": 0.2,
+                    "children": 0.3, "mutant": 0.2, "winner": 0.2,
+                    "random": 0.1
+                },
+                "initialPopulationDivisionCounts": {
+                    "random": 0.7, "greedy": 0.3
+                }
+            },
+            "objectiveParameters": {
+                "name": "simple",
+                "params": {
+                    "overlappingPenalizationConstant": 1000,
+                    "outsideOfAllocatedAreaPenalizationConstant": 0
+                }
+            }
+        }'
+    \end{cminted}
+    \cprotect\caption[Example of computation submission without instance.]{Example of computation submission using \verb|curl|\footnotemark[1] without specyfing the instance name.
+    Without it, everything has to be entered manually into the request – layout width and height, paintings together with their flow and evaluation function.}
+
+    \label{lst:computation-submission-manual}
+\end{listing}
+
+\footnotetext[1]{\url{https://curl.se/}}

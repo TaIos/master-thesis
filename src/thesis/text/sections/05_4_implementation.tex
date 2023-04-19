@@ -3,24 +3,62 @@
 
 \section{Implementation}\label{sec:implementation}
 
-Proposed implementation of a genetic approach is written in Java 11
-using a Play Framework\footnotemark[1] v2.8, which is a web framework for Java and Scala.
+The proposed implementation of a genetic approach is written in Java 11
+using a Play Framework\footnotemark[1] v2.8, a web framework for Java and Scala.
 
 Implementation using a Play Framework behaves like a computation server to which
 a user can submit a computation.
 Then, the server asynchronously starts the computation and returns an identifier of the computation.
-User can then check the computation state using this identifier.
+The user can then check the computation state using this identifier.
 
-Steps to submit a computation are as follows.
+To start the computation server, locate the directory containing a file \verb|build.sbt| in the attached medium.
+Then, run the following command in that directory.
 
-\begin{enumerate}
-    \item a
-    \item b
-    \item c
-\end{enumerate}
+\begin{listing}[h!]
+    \begin{cminted}[autogobble,breaklines=true]{shell}
+        $ sbt run
+    \end{cminted}
+    \caption{Starting a computation server.}
+    \label{lst:sbt-run}
+\end{listing}
 
+It will use \verb|sbt|\footnotemark[3] with \verb|run| argument to start the computation server.
+By default, the computation server will accept requests on \verb|localhost:9000|.
+An example of submitting a computation to the computation server is in listing~\ref{lst:computation-submission-dataset}.
+Example of a successful computation submission is in listing~\ref{lst:computation-response-success}.
 
+\begin{listing}[h!]
+%    \centering
+    \begin{cminted}[autogobble,breaklines=true]{json}
+    {
+      "id":"random_10_9B5F8",
+      "outputDirectory":"./out/088_random_10_9B5F8"
+    }
+    \end{cminted}
+    \caption{Successful computation submission response.}
+    \label{lst:computation-response-success}
+\end{listing}
 
+The computation server also validates input before starting the computation.
+For example, if misspelling the dataset name, the response can be seen in~\ref{lst:computation-response-fail}.
+
+\begin{listing}[h!]
+    \centering
+    \begin{cminted}[autogobble,breaklines=true]{json}
+    {
+      "message":"Entity [DatasetDto] with identifier [randomm_10] was not found."
+    }
+    \end{cminted}
+    \cprotect\caption{Unsuccessful computation submission response.}
+    \label{lst:computation-response-fail}
+\end{listing}
+
+Lastly, there is also an option not to specify the instance name in the submission, as seen
+in listing~\ref{lst:computation-submission-dataset} where the instance name is random\_10.
+In that case, a user has to specify the instance manually in the request – layout width and height,
+paintings together with their flow and evaluation function $\pi$, see eq.~\ref{eq:objective}, in the format that is accepted by
+mXparser\footnotemark[4].
+An example of submission without specifying the instance is in the appendix in listing~\ref{lst:computation-submission-manual}.
 
 \begin{listing}[h!]
     \centering
@@ -63,9 +101,11 @@ Steps to submit a computation are as follows.
             }
         }'
     \end{cminted}
-    \cprotect\caption[Example of computation submission]{Example of computation submission of random\_10 instance using \verb|curl|\footnotemark[2] to a server running on \verb|localhost:9000|.}
-    \label{lst:computation-submission}
+    \cprotect\caption[Example of computation submission with instance name.]{Example of computation submission of random\_10 instance using \verb|curl|\footnotemark[2] to a server running on \verb|localhost:9000|.}
+    \label{lst:computation-submission-dataset}
 \end{listing}
 
 \footnotetext[1]{\url{https://www.playframework.com/documentation/2.8.x/Home}}
 \footnotetext[2]{\url{https://curl.se/}}
+\footnotetext[3]{\url{https://www.scala-sbt.org/}}
+\footnotetext[4]{\url{https://mathparser.org/}}
