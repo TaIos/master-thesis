@@ -49,35 +49,35 @@ uniform crossover~\cite{uniformCrossover1989}, parts of the parent chromosomes a
 By using a stochastic vector for painting sequence random keys, slicing order random keys and rows of an orientation probability matrix,
 we can interpret each of them as a probability mass function.
 Next, by implementing the crossover as vector addition followed by normalization, we can
-say the crossover approximates a probability mass function of some distribution from two samples, i.e.,two parents.
-Over the course of the multiple generations, more and more samples are added to this approximation.
-Thus, each part of the chromosome tries to approximate probability mass function
+say the crossover approximates a probability mass function of some distribution from two samples, i.e., two parents.
+Throughout the multiple generations, more samples are added to this approximation.
+Thus, each part of the chromosome tries to approximate the probability mass function
 that produces (sub)-optimal painting placement solution.
 
 Going back to the schema theorem described subsection~\ref{subsec:schema-theorem},
 we can say that the crossover proposed in this thesis does not prefer schemata with any particular order
 and that length of a schema does not matter.
 
-Preference for schemata with short length in one-point-crossover~\cite{hollandAdaptationNaturalArtificial1975}
-stems from the fact that a chromosome is split at the particular position.
-This idea of splitting a chromosome is not present in the proposed approach.
-For example, let us consider slicing order random key vector $A_{rk} = 0, 0.2, 0.7, 0.1$.
+Preference for schemata with a short length in one-point-crossover~\cite{hollandAdaptationNaturalArtificial1975}
+stems from the fact that a chromosome is split at a particular position.
+This idea of splitting a chromosome is absent in the proposed approach.
+For example, consider slicing order random key vector $A_{rk} = 0, 0.2, 0.7, 0.1$.
 Using the decoding procedure described in~\ref{subsec:individual-decoding},
 $A_{rk}$ decodes to $A = 1, 4, 2, 3$.
 Then, $A$ belongs to the schema $S_1 = 1, \_, \_, \_$ and also to schema $S_2 = 1, \_, \_, 3$.
 $S_1$ has order 1 and $S_2$ has order 4.
 Let us apply crossover to $A_{rk}$ and $B_{rk} = b_1, b_2, b_3, b_4$.
 Result is $\|b_1, 0.2+b_2, 0.7+b_3, 0.1+b_4\|$.
-We cannot make any assumptions whether the result belongs to $S_1$ or $S_2$, as it purely depends on on $B_{rk}$.
-Additionally, we cannot predict probability whether $S_1$ or $S_2$ survives, i.e., they will be still present in the crossover result.
-However, using one-point-crossover, it would depend on the position of the split.
+We cannot make any assumptions about whether the result belongs to $S_1$ or $S_2$, as it purely depends on $B_{rk}$.
+Additionally, we cannot predict the probability of whether $S_1$ or $S_2$ survives, i.e., they will still be present in the crossover result.
+However, when using a one-point-crossover, it would depend on the position of the split.
 
 Lastly, the proposed crossover does not prefer any particular order of schemata.
-This is the same as in one-point-crossover, which has only preference for shorter schemata.
+This is the same as in one-point crossover, which only prefers shorter schemata.
 
 
 \subsubsection*{Weights}
-Adding weights $w_A$ and $w_B$ determine the preference for transfer of information from one parent then the other.
+Adding weights $w_A$ and $w_B$ determines the preference for transferring information from one parent to the other.
 The weights are calculated using a cost function $c$ from eq.~\ref{eq:objective} as
 
 \begin{equation}
@@ -85,23 +85,22 @@ The weights are calculated using a cost function $c$ from eq.~\ref{eq:objective}
     \label{eq:weights}
 \end{equation}
 
-Thus, parent with better performance in the population, i.e., having lower cost function,
+Thus, the parent with better performance in the population, i.e., having lower cost function,
 has more influence on what genes are being transferred to the offspring.
 
-Adding $w_A$ and $w_B$ prevents from creating offsprings that do not share the advantageous schemata.
-For example, considering only one stochastic vector of length 3 as chromosome,
-it might be advantageous having high value for the first value in the chromosome, e.g., $A=\langle 0.7, 0.1, 0.2 \rangle$.
-On the other hand, poorly performing individual might be $B=\langle 0.1, 0.3, 0.6 \rangle$.
+Adding $w_A$ and $w_B$ prevents the creation of offspring that do not share the advantageous schemata.
+For example, considering only one stochastic vector of length three as a chromosome,
+it might be advantageous to have a high value for the first value in the chromosome, e.g., $A=\langle 0.7, 0.1, 0.2 \rangle$.
+On the other hand, a poorly performing individual might be $B=\langle 0.1, 0.3, 0.6 \rangle$.
 Without weights, $\| A+B\| = \langle 0.4, 0.2 , 0.4 \rangle$.
-Adding weights according to the eq.~\ref{eq:weights} penalize the transfer of schemata that perform poorly.
+Adding weights according to the eq.~\ref{eq:weights} penalizes the transfer of poorly performing schemata.
 
 \subsubsection*{Orientation penalization}
 
-Another part of the crossover used in orientation probabilities matrix is the penalization vector $P$.
+Another part of the crossover used in the orientation probabilities matrix is the penalization vector $P$.
 As mentioned in section~\ref{sec:layout-construction}, each individual is decoded to a slicing tree
-whose internal nodes contain type of the cut – $H$ for horizontal, $V$ for vertical
-and $*$ for wildcard, that can take up any value $H$ or $V$.
-Vector $P$ controls the preference for each type of the cut.
+whose internal nodes contain a type of the cut – $H$ for horizontal, $V$ for vertical, and $*$ for a wildcard, that can take up any value $H$ or $V$.
+Vector $P$ controls the preference for each type of cut.
 For example, setting $P= \langle 1,1,0.5 \rangle$ penalize only the wildcard $*$.
 On the other hand, setting $P= \langle 1,1,1 \rangle$ removes any penalization.
 
@@ -139,7 +138,7 @@ With the definition of the mutation operator for a stochastic vector above, the 
 
 \begin{enumerate}
     \item Choose one of $PS_{rk}$, $SO_{rk}$, $OR_{prob}$ at random.
-    \item If $PS_{rk}$ or $SO_{rk}$ is chosen, apply mutation operator for a stochastic vector.\\
+    \item If $PS_{rk}$ or $SO_{rk}$ is chosen, apply the mutation operator for a stochastic vector.\\
     If $OR_{prob}$ is chosen, select one row at random and apply a mutation operator for a stochastic vector.
 \end{enumerate}
 
@@ -160,8 +159,7 @@ An example of a mutation that happens on all tree parts at once is in figure~\re
     \includegraphics[width=1.0\textwidth, left]{muation}\caption{
         Example of a mutation on all three parts of a chromosome.
         Since all parts can be treated as a stochastic vector, the same procedure
-        is used for all of them – replace one value randomly and then normalize to a stochastic vector.
+        is used for all of them – replace one value randomly and then normalize it to a stochastic vector.
     }
     \label{fig:mutation}
 \end{figure}
-
