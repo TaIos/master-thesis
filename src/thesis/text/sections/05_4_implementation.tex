@@ -1,0 +1,71 @@
+\newpage
+
+
+\section{Implementation}\label{sec:implementation}
+
+Proposed implementation of a genetic approach is written in Java 11
+using a Play Framework\footnotemark[1] v2.8, which is a web framework for Java and Scala.
+
+Implementation using a Play Framework behaves like a computation server to which
+a user can submit a computation.
+Then, the server asynchronously starts the computation and returns an identifier of the computation.
+User can then check the computation state using this identifier.
+
+Steps to submit a computation are as follows.
+
+\begin{enumerate}
+    \item a
+    \item b
+    \item c
+\end{enumerate}
+
+
+
+
+\begin{listing}[h!]
+    \centering
+    \begin{cminted}[autogobble,breaklines=true]{shell}
+        $ curl --location 'localhost:9000/compute/dataset' \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "datasetName": "random_10",
+            "gaParameters": {
+                "maxNumberOfIter": 300,
+                "populationSize": 100,
+                "maximumWildCardCount": 1,
+                "orientationWeights": [ 1, 1, 0.5 ],
+                "geneticAlgorithm": "simpleGa",
+                "mate": "normalizedProbabilityVectorSum",
+                "mutate": "flipOnePartAtRandom",
+                "select": "tournament",
+                "objective": "simple",
+                "evaluator": "ga",
+                "placingHeuristics": "corner",
+                "populationDivisionCounts": {
+                    "elite": 0.2,
+                    "average": 0.6,
+                    "worst": 0.2,
+                    "children": 0.3,
+                    "mutant": 0.2,
+                    "winner": 0.2,
+                    "random": 0.1
+                },
+                "initialPopulationDivisionCounts": {
+                    "random": 0.7, "greedy": 0.3
+                }
+            },
+            "objectiveParameters": {
+                "name": "simple",
+                "params": {
+                    "overlappingPenalizationConstant": 1000,
+                    "outsideOfAllocatedAreaPenalizationConstant": 0
+                }
+            }
+        }'
+    \end{cminted}
+    \cprotect\caption[Example of computation submission]{Example of computation submission of random\_10 instance using \verb|curl|\footnotemark[2] to a server running on \verb|localhost:9000|.}
+    \label{lst:computation-submission}
+\end{listing}
+
+\footnotetext[1]{\url{https://www.playframework.com/documentation/2.8.x/Home}}
+\footnotetext[2]{\url{https://curl.se/}}

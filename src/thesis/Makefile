@@ -33,7 +33,7 @@ all: thesis.pdf
 
 thesis.pdf:
 	#latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make thesis-old.tex
-	latexmk -pdfxe ctufit-thesis-en.tex
+	latexmk -shell-escape -pdfxe ctufit-thesis-en.tex
 
 rm-clean:
 	rm -f *.log *.out *.aux *.fls *.fdb_latexmk *.blg *.bbl *.toc *.run.xml *.lol *~
