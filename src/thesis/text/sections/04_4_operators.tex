@@ -46,7 +46,34 @@ Adding and then normalizing vectors to stochastic vectors differs from other cro
 For example, in one-point-crossover~\cite{hollandAdaptationNaturalArtificial1975} and
 uniform crossover~\cite{uniformCrossover1989}, parts of the parent chromosomes are copied directly without any modification to form an offspring.
 
-\todo{poradny argument}
+By using a stochastic vector for painting sequence random keys, slicing order random keys and rows of an orientation probability matrix,
+we can interpret each of them as a probability mass function.
+Next, by implementing the crossover as vector addition followed by normalization, we can
+say the crossover approximates a probability mass function of some distribution from two samples, i.e.,two parents.
+Over the course of the multiple generations, more and more samples are added to this approximation.
+Thus, each part of the chromosome tries to approximate probability mass function
+that produces (sub)-optimal painting placement solution.
+
+Going back to the schema theorem described subsection~\ref{subsec:schema-theorem},
+we can say that the crossover proposed in this thesis does not prefer schemata with any particular order
+and that length of a schema does not matter.
+
+Preference for schemata with short length in one-point-crossover~\cite{hollandAdaptationNaturalArtificial1975}
+stems from the fact that a chromosome is split at the particular position.
+This idea of splitting a chromosome is not present in the proposed approach.
+For example, let us consider slicing order random key vector $A_{rk} = 0, 0.2, 0.7, 0.1$.
+Using the decoding procedure described in~\ref{subsec:individual-decoding},
+$A_{rk}$ decodes to $A = 1, 4, 2, 3$.
+Then, $A$ belongs to the schema $S_1 = 1, \_, \_, \_$ and also to schema $S_2 = 1, \_, \_, 3$.
+$S_1$ has order 1 and $S_2$ has order 4.
+Let us apply crossover to $A_{rk}$ and $B_{rk} = b_1, b_2, b_3, b_4$.
+Result is $\|b_1, 0.2+b_2, 0.7+b_3, 0.1+b_4\|$.
+We cannot make any assumptions whether the result belongs to $S_1$ or $S_2$, as it purely depends on on $B_{rk}$.
+Additionally, we cannot predict probability whether $S_1$ or $S_2$ survives, i.e., they will be still present in the crossover result.
+However, using one-point-crossover, it would depend on the position of the split.
+
+Lastly, the proposed crossover does not prefer any particular order of schemata.
+This is the same as in one-point-crossover, which has only preference for shorter schemata.
 
 
 \subsubsection*{Weights}
