@@ -3,37 +3,44 @@
 Placement of the images or paintings on the wall may seem trivial at first.
 However, it is not true.
 There are different arrangements and constraints to each particular placement.
-For example, an art gallery might want to place paintings on the wall, grouping them by their author, style, etc.
+For example, an art gallery might want to place paintings on the wall, grouping them by their author or style.
 One example of such placement can be seen in figure~\ref{fig:london-wall}.
-In addition, the room's lighting and the paintings and wall dimensions need to be considered.
+In addition, the room's lighting and the dimensions of the wall and paintings need to be considered.
 Together, these requirements pose a complex problem to solve.
 
-Furthermore, a solution to the painting placement problem can be used in many other, more practical fields.
-For example, a facility layout problem (FLP) places a set of facilities on a grid
-while having the same constraints as the painting placement – grouping related facilities and considering their dimensions.
-Another field is retail shelf-space planning, which tries to partition a shelf into rectangles.
-Subsequently, the partitioned shelf is filled with goods that the customers can buy.
-Similarly to the lightning conditions for paintings, goods depend on the
-particular placement on the shelf – goods close to the customer's eye level increase their visibility and thus lead to more sales.
-Last but not least, there is a plethora of packing problems.
-One such well-known problem is the 2D rectangular packing problem, which can be reformulated as a knapsack problem.
-
-This thesis proposes a genetic solution to the painting placement problem based on a slicing tree.
-It takes a different approach to input parameters and constraints as opposed to some of the
-problems mentioned above – inputs are rectangles (paintings) with fixed width and height,
-while the same is true for the wall they are placed on. Also, paintings cannot be rotated.
-Lastly, there is no constraint on the solution, i.e., the proposed genetic solution can
-produce a placement with overlapping paintings or paintings with their parts outside the wall.
-A precise definition of the painting placement problem and other mentioned methods can be found in later chapters.
-
-\todo{strucny popis vsech kapitol a struktury prace} Etiam sapien elit, consequat eget, tristique non, venenatis quis, ante. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Suspendisse nisl. Mauris metus. Cras elementum. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Fusce suscipit libero eget elit. Cras elementum. Quisque tincidunt scelerisque libero. Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut tempus purus at lorem. Nulla est. Etiam posuere lacus quis dolor. Maecenas sollicitudin. Mauris tincidunt sem sed arcu. Duis viverra diam non justo. Pellentesque arcu.
-
-\begin{figure}
+\begin{figure}[]
     \includegraphics[width=1\textwidth, left]{london_gallery_wall}
     \caption[Painting placement at the London National Gallery]{Painting placement at the London National Gallery. Source~\cite{ScreenshotWallGoogle}:}
     \label{fig:london-wall}
 \end{figure}
 
 
+Furthermore, a solution that places paintings on the wall can be used in many other fields.
+For example, the facility layout problem places a set of facilities on a grid
+while having the same constraints as the painting placement – grouping related facilities and considering their dimensions.
+Another field is retail shelf-space planning, which tries to partition a shelf in a store into rectangles.
+Subsequently, the partitioned shelf is filled with goods that the customers can buy.
+Similarly to the lighting conditions for paintings, the placement of goods depends on the
+particular placement on the shelf – goods close to the customer's eye level increase their visibility and thus lead to more sales.
 
+The goals of the thesis are:
 
+\begin{enumerate}
+    \item Define the painting placement problem, its inputs, constraints, and what a solution to the painting placement problem is.
+    \item Create a dataset for the painting placement problem.
+    \item Implement a genetic approach for solving the painting placement problem.
+    \item Evaluate the performance of the proposed genetic approach.
+    \item Discuss the results and suggest further improvements.
+\end{enumerate}
+
+The thesis is structured as follows.
+Chapter~\ref{ch:literature-review} describes similar problems to the painting placement problem.
+They are facility layout problems, shelf-space planning, and sheet metal cutting.
+Chapter~\ref{ch:problem-statement-and-formulation} defines the painting placement, its inputs, constraints, and what a solution to the painting placement problem is.
+The central part of the thesis is in chapter~\ref{ch:coding-and-layout-construction}.
+This chapter describes the proposed genetic approach and the construction of the solution to the painting placement problem.
+Chapter~\ref{ch:computational-results} evaluates the performance of the proposed genetic approach
+and presents the generated datasets.
+Chapter~\ref{ch:discussion} discusses the results and suggests further improvements and future work.
+Lastly, chapter~\ref{ch:conclusion} concludes the whole thesis.
+There is also an appendix~\ref{ch:appendix}, which contains figures and listings outside the thesis's main part.
