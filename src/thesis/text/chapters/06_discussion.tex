@@ -79,8 +79,6 @@ A similar approach is used in~\cite{goncalvesBiasedRandomkeyGenetic2015} for sol
 They move the facility centroid as close as possible to the calculated unconstrained optimum without leaving the
 boundaries where the facility can be placed.
 
-
-
 \subsection{Post-optimization}\label{subsec:post-optimization}
 
 One interesting idea is to introduce post-optimization.
@@ -91,16 +89,34 @@ Another example would be if the goal is to create the most compact layout.
 Then, solution can be the compaction operation proposed in~\cite{laiSlicingTreeComplete2001}
 which tries to reduce free space between paintings as much as possible.
 
-% === Slicing layout modification
+%% === Slicing layout modification
+%
+%Another interesting are to explore is the slicing layout modification.
+%One example can be the introduction of heuristic, that would move the slicing lines.
+%This would mean that their position would no longer be determined proportionally by the area of the rectangles.
 
-Another interesting are to explore is the slicing layout modification.
-One example can be the introduction of heuristic, that would move the slicing lines.
-This would mean that their position would no longer be determined proportionally by the area of the rectangles.
+\subsection{Extension to other problems}\label{subsec:extension-to-other-problems}
 
-% === Extention to other problems
+This thesis solves the painting placement problem.
+The novel genetic approach uses stochastic vector representation with a crossover that adds stochastic vectors together.
+This approach can be applied to other optimization problems.
+The suitable ones are the ones that optimize some permutation of elements.
+For example, elements can be rectangles, and their permutation is used
+as an input to a placing heuristic.
 
-Pouzit jeden stochasticky vektor a ten jako input pro BL heuristiku.
-((6412244d-da08-414d-a9f6-a2c7b2440e74))
+One concrete example is 2D-KP problem with rectangular pieces~\cite{bortfeldtGeneticAlgorithmTwodimensional2009},
+where the objective is to place as many rectangles in a container as possible,
+minimizing unused space.
+The solution proposed in this thesis can solve the 2D-KP problem with rectangular pieces by
+representing an individual as a stochastic vector that is then decoded
+in the same way as the painting sequence random key described in Individual decoding~\ref{subsec:individual-decoding}.
+Then, this decoding produces a sequence of rectangles used as an input to BL heuristic~\cite{chazelleBottomnLeftBinPackingHeuristic1983}.
+BL heuristic then places all the rectangles inside the container.
+After the placing is finished, all rectangles placed outside the container are removed.
+
+
+%Pouzit jeden stochasticky vektor a ten jako input pro BL heuristiku.
+%((6412244d-da08-414d-a9f6-a2c7b2440e74))
 
 % === Zastavit rez
 % guilottine cut
