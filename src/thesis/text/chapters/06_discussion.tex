@@ -39,7 +39,7 @@ Another extension to the proposed solution is adding the ability to work with la
 It can be solved using the dummy paintings described in subsection~\ref{subsec:free-space}.
 These dummy paintings are as small as possible and placed over the parts of the layout that are not rectangular.
 By placing these dummy facilities, the layout becomes rectangular.
-A similar approach is used in~\ref{scholzExtensionsSTaTSPractical2010} to modify a slicing tree to solve FLP.
+A similar approach is used in~\cite{scholzExtensionsSTaTSPractical2010} to modify a slicing tree to solve FLP.
 
 An example of using dummy paintings to work with a non-rectangular layout is in figure~\ref{fig:non-rectangular-layout}.
 There are two irregularities in both corners of the layout.
@@ -52,14 +52,18 @@ Two dummy paintings are injected into the slicing tree using a dummy painting in
     \label{fig:non-rectangular-layout}
 \end{figure}
 
-
 \subsection{Non-rectangular paintings}\label{subsec:non-rectangular-paintings}
 
-Another extension is allowing painting shapes that are not rectangular.
-In the proposed implementation, this problem can be easily solved by representing
-a non-rectangular painting as a smallest possible rectangle to which the painting will fit in.
-However, this solution might result in the painting placement solution being too sparse,
+Not only can the layout be non-rectangular, but also paintings can have a non-rectangular shape.
+Thus, another extension is to allow painting shapes that are not rectangular.
+This problem can be easily solved by representing a non-rectangular painting
+as the smallest possible rectangle to which the painting fits.
+By using this approach, the proposed implementation can work with non-rectangular paintings.
+One possible drawback is that the painting placement solution might become more sparse,
 i.e., containing too much free space.
+However, this can be solved using a post-optimization heuristic that tries to reduce a free space
+of a painting placement solution.
+
 
 \subsection{Placing heuristic}\label{subsec:placing-heuristic}
 
