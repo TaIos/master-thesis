@@ -64,19 +64,24 @@ i.e., containing too much free space.
 However, this can be solved using a post-optimization heuristic that tries to reduce a free space
 of a painting placement solution.
 
-
 \subsection{Placing heuristic}\label{subsec:placing-heuristic}
 
-At the place of a placing heuristic defined in~\ref{fig:corner-placing-heuristic} can be used a different one.
-One candidate can be a heuristic that, instead of trying to place painting in the corners of the allocated are,
-would place the painting to all possible placement points.
-However, using this solution might bee computationally expensive.
-On the other hand, heuristic that only tries the bottom-left of the allocated area as a placement point can be much faster but
+Instead of using the placing heuristic described in~\ref{fig:corner-placing-heuristic}, a different one can be used.
+One candidate is a heuristic that, instead of trying to place painting in the corners of the allocated area,
+tries to place the painting at all possible placement points, e.g., to place the painting in the middle of the allocated area.
+However, using this solution might be computationally expensive.
+On the other hand, a heuristic that only tries the bottom-left of the allocated area as a placement point can be much faster but
 might not produce good results.
 
-One solution to placing a
+Another approach is calculating suboptimal or optimal placement point inside the allocated area.
+Then, move the painting as close as possible to that point.
+A similar approach is used in~\cite{goncalvesBiasedRandomkeyGenetic2015} for solving FLP.
+They move the facility centroid as close as possible to the calculated unconstrained optimum without leaving the
+boundaries where the facility can be placed.
 
-% === Post-optimization
+
+
+\subsection{Post-optimization}\label{subsec:post-optimization}
 
 One interesting idea is to introduce post-optimization.
 This is a process that takes the result, in this case painting placement solution,
