@@ -28,22 +28,30 @@ The aisle is created between paintings 1,2, and 3 by adding a vertical cut $V$ t
 
 
 \begin{figure}[h!]
-    \includegraphics[height=0.3\textheight, center]{dummy_painting}
+    \includegraphics[height=0.33\textheight, center]{dummy_painting}
     \caption{Example of dummy painting injection.}
     \label{fig:dummy-painting}
 \end{figure}
 
-
 \subsection{Non-rectangular layouts}\label{subsec:non-rectangular-layouts}
 
+Another extension to the proposed solution is adding the ability to work with layouts that are not rectangular.
+It can be solved using the dummy paintings described in subsection~\ref{subsec:free-space}.
+These dummy paintings are as small as possible and placed over the parts of the layout that are not rectangular.
+By placing these dummy facilities, the layout becomes rectangular.
+A similar approach is used in~\ref{scholzExtensionsSTaTSPractical2010} to modify a slicing tree to solve FLP.
 
-Another possible extension to the proposed solution is adding the ability to work
-with layouts that are not rectangular.
-It might be solved using the same concept of dummy paintings as described previously.
-These dummy paintings would have to be as small as possible and placed over the
-parts of the layout that are not rectangular.
-Effectively, by placing these dummy facilities, the layout would become rectangular.
-Similar approach is used in~\ref{scholzExtensionsSTaTSPractical2010} to modify a slicing tree used to solve FLP.
+An example of using dummy paintings to work with a non-rectangular layout is in figure~\ref{fig:non-rectangular-layout}.
+There are two irregularities in both corners of the layout.
+Two dummy paintings are injected into the slicing tree using a dummy painting injection to fill the irregularities.
+
+\begin{figure}[h!]
+    \includegraphics[width=0.8\textwidth, center]{non-rectangular-layout}
+    \caption[Example of working with non-rectangular layout.]{Example of working with non-rectangular layout. The allocated area is marked using a dotted line.
+    Dummy paintings that fill the irregularities in both corners are A and B.}
+    \label{fig:non-rectangular-layout}
+\end{figure}
+
 
 \subsection{Non-rectangular paintings}\label{subsec:non-rectangular-paintings}
 
