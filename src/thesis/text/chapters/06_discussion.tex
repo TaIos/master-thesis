@@ -89,12 +89,6 @@ Another example would be if the goal is to create the most compact layout.
 Then, solution can be the compaction operation proposed in~\cite{laiSlicingTreeComplete2001}
 which tries to reduce free space between paintings as much as possible.
 
-%% === Slicing layout modification
-%
-%Another interesting are to explore is the slicing layout modification.
-%One example can be the introduction of heuristic, that would move the slicing lines.
-%This would mean that their position would no longer be determined proportionally by the area of the rectangles.
-
 \subsection{Extension to other problems}\label{subsec:extension-to-other-problems}
 
 This thesis solves the painting placement problem.
@@ -114,18 +108,23 @@ Then, this decoding produces a sequence of rectangles used as an input to BL heu
 BL heuristic then places all the rectangles inside the container.
 After the placing is finished, all rectangles placed outside the container are removed.
 
+\subsection{Future work}\label{subsec:future-work}
 
-%Pouzit jeden stochasticky vektor a ten jako input pro BL heuristiku.
-%((6412244d-da08-414d-a9f6-a2c7b2440e74))
+There are at least three ideas for the painting placement problem and the proposed implementation that future work might try to address.
 
-% === Zastavit rez
-% guilottine cut
+\begin{itemize}
+    \item Deciding which painting to place.
+    \item Multiple walls for painting placement.
+    \item Human operator assistance.
+\end{itemize}
 
-% rozhodovat o umisteni obbrazu
-
-% vice sten
-
-
-
-
-
+Deciding which painting to place can happen when the paintings exceed a wall's area.
+Thus, some subset of paintings has to be selected and placed.
+Also, there can be multiple walls.
+Additionally, the walls might have some interactions between them, e.g., placing a painting on the first wall
+limits the subset of paintings that can be placed on the second wall.
+Lastly, the produced result can be easily visualized.
+Thus, it can be used as an input to some human operators that will further modify it.
+For example, FLP, see section~\ref{sec:facility-layout-problem}, which creates a layout for multiple facilities.
+A human engineer that creates the plan for placing these facilities might use the output of an algorithm as a starting point.
+Then, the engineer can modify it by increasing the aisle or changing the position of some facilities.
