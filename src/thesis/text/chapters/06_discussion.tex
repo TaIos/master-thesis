@@ -1,25 +1,41 @@
 \chapter{Discussion}\label{ch:discussion}
 
-This chapter discusses the obtained results and further possible improvements for the proposed solution.
+This chapter discusses the obtained results and further possible improvements or extensions for the proposed solution.
+First, it describes several ways the proposed solution can be improved or extended in section~\ref{sec:implementation}.
 
-% === Free space
 
-One possible extension of the proposed solution would be to take a different approach to the free space.
-Free space can be defined as a part of the painting placement solution where the painting is not placed.
-For example, free space is important in the FLP problem as there must be isles between the placed facilities
-through which the material transportation takes place
+\section{Improvements and extensions}\label{sec:improvements}
 
-In the proposed solution, there are two main parts that have influence on where the free space is created.
-It is (1) the placing heuristic, and (2) evaluation function $\pi$, see eq.~\ref{eq:objective}.
-Placing heuristic works locally, i.e., only in allocated area for the painting, and the evaluation
-function, although it might be used to define arbitrary free space shape, it is not a constraint
-but a penalization – it does not guarantee that the painting placement solution will follow
-it's exact definition.
+\subsection{Free space}\label{subsec:free-space}
 
-One possible approach to guarantee the free space can be introduction of the dummy paintings.
-These dummy paintings could be injected during the slicing tree construction.
+The extension of the proposed solution is to take a different approach to free space.
+\definice{Free space} can be defined as a part of the painting placement solution where the painting is not placed.
+For example, free space is important in the FLP problem as there is a need for an aisle between the facilities
+through which the material transportation takes place~\cite{scholzExtensionsSTaTSPractical2010}.
 
-% === Non-rectangular layout
+In the proposed solution, two main parts influence where the free space is created.
+It is (1) the placing heuristic and (2) the evaluation function $\pi$, see eq.~\ref{eq:objective}.
+Placing heuristic works locally, i.e., only in the allocated area for the painting, and the evaluation
+function, although it might be used to define arbitrary free space shape, is not a constraint but a penalization.
+Thus, it does not guarantee that the painting placement solution will create a solution with the desired free space.
+
+One possible approach to guarantee free space is the introduction of dummy paintings.
+These dummy paintings can be injected during the slicing tree construction.
+The resulting painting placement solution will thus, among the paintings, contain free space occupied by dummy paintings.
+
+An example of dummy painting injection can be seen in figure~\ref{fig:dummy-painting}.
+The aisle is created between paintings 1,2, and 3 by adding a vertical cut $V$ to the tree.
+
+
+\begin{figure}[h!]
+    \includegraphics[height=0.3\textheight, center]{dummy_painting}
+    \caption{Example of dummy painting injection.}
+    \label{fig:dummy-painting}
+\end{figure}
+
+
+\subsection{Non-rectangular layouts}\label{subsec:non-rectangular-layouts}
+
 
 Another possible extension to the proposed solution is adding the ability to work
 with layouts that are not rectangular.
@@ -29,7 +45,7 @@ parts of the layout that are not rectangular.
 Effectively, by placing these dummy facilities, the layout would become rectangular.
 Similar approach is used in~\ref{scholzExtensionsSTaTSPractical2010} to modify a slicing tree used to solve FLP.
 
-% === Non-rectangular paintings
+\subsection{Non-rectangular paintings}\label{subsec:non-rectangular-paintings}
 
 Another extension is allowing painting shapes that are not rectangular.
 In the proposed implementation, this problem can be easily solved by representing
@@ -37,7 +53,7 @@ a non-rectangular painting as a smallest possible rectangle to which the paintin
 However, this solution might result in the painting placement solution being too sparse,
 i.e., containing too much free space.
 
-% === Placing heuristic
+\subsection{Placing heuristic}\label{subsec:placing-heuristic}
 
 At the place of a placing heuristic defined in~\ref{fig:corner-placing-heuristic} can be used a different one.
 One candidate can be a heuristic that, instead of trying to place painting in the corners of the allocated are,
@@ -71,6 +87,10 @@ Pouzit jeden stochasticky vektor a ten jako input pro BL heuristiku.
 
 % === Zastavit rez
 % guilottine cut
+
+% rozhodovat o umisteni obbrazu
+
+% vice sten
 
 
 
