@@ -5,32 +5,32 @@ It follows the methods mentioned in previous Chapter~\ref{ch:introduction} with
 a more precise and in-depth explanation – facility layout problem (FLP) in section~\ref{sec:facility-layout-problem},
 shelf-space planning problem in section~\ref{sec:shelf-space-planning} and sheet metal cutting problem in section~\ref{sec:sheet-metal-cutting}.
 
-The main difference in all methods is their domain, which determines the objective function, i.e.,
-the measure by which different solutions can be compared.
+The similarity in all methods is that each place objects and evaluates the particular placement.
+The main difference is their domain, which determines the objective function, i.e., the measure by which different solutions can be compared.
 Also, there are differences between the given constraints, as some of them are more loose or strict,
 depending on the intended use of the result.
 A concise comparison, further explained in the following sections, follows.\\
 
-\navesti{Facility layout problem} defines the \textit{flow} between every facility pair and metric for measuring the distance between facilities.
-The goal is to minimize the \textit{flow} sum between all facilities.
-Good results are mainly compactly placed facilities, where the ones having the
-highest flow between them are placed closer together with respect to the metric.\\
+\navesti{Facility layout problem} defines the flow between every facility pair and metric for measuring the distance between facilities.
+The goal is to minimize the flow sum between all facilities.
+Good results are mainly compactly placed facilities, where the ones with the highest flow between them are placed closer together.\\
 
 \navesti{Shelf-space planning problem} has two main parts – dividing a shelf into rectangles and assigning a product to them.
-This product placement into a shelf is evaluated using a \textit{profit function}. Similar to sheet metal cutting problem, it differs from FLP
-in not having any mutual relationship between placed products, i.e., there is no \textit{flow}.
-Another difference is that there are more products than available shelf-space.
-This implies that product choice also has to be part of shelf-space planning problem.
-It is unique in using all shelf-space in the first step.
+This product placement on a shelf is evaluated using a profit function.
+Similar to the sheet metal cutting problem, it differs from FLP
+in not having any mutual relationship between placed products, i.e., there is no flow.
+Another difference is that there are more products than available shelf space.
+It implies that product choice must also be part of the shelf-space planning problem.
+It is unique in using all shelf space in the first step.
 However, empty space can still exist if the product has smaller dimensions than the shelf it is placed on.
 Good results are mainly shelves that contain the largest amount of the most desired products at customer eye level.\\
 
 \navesti{Sheet metal cutting problem} evaluates two aspects – compactness of the layout and distance taken by the path-cutting tool to cut all placed parts.
-Similar to shelf-space planning problem, there is no mutual relationship between placed parts.
+Similar to the shelf-space planning problem, placed parts have no mutual relationship.
+However, unlike FLP and shelf-space planning, placed parts can have arbitrary shapes.
 Good results depend on the balance between the two evaluated aspects.
 If compactness is preferred, results will be more compactly packed, but the distance of the path-cutting tool might increase.
 If, on the other hand, the lower cutting distance is preferred, it results in more common edges between the placed parts or clustering.\\
-
 
 \input{text/sections/02_1_facility_layout_problem}
 \input{text/sections/02_2_shelf_space_planning}

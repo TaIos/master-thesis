@@ -1,8 +1,8 @@
-\section{Shelf-space planning}\label{sec:shelf-space-planning}
+\section{Shelf-space planning problem}\label{sec:shelf-space-planning}
 
-Shelf-space planning problem solves the assignment of different products to shelves in order to achieve the maximum profit.
+Shelf-space planning problem solves the assignment of different products to shelves to achieve maximum profit.
 It contains two parts – partitioning the shelf and assigning product or product variants to each partition.
-There can be multiple shelves that need to be considered simultaneously.
+There can be multiple shelves that need to be considered simultaneously.~\cite{bianchi-aguiarRetailShelfSpace2021}
 
 Authors in~\cite{yangStudyShelfSpace1999} define the capacity and facing constraints for the shelf-space planning problem.
 Capacity constraints determine the maximum number of products that can be placed on each shelf.
@@ -18,7 +18,7 @@ the authors define the shelf-space planning problem as an integer programming pr
 
 where $n$ is the number of products, $m$ is the number of shelves, $p_{ik}$ is the profit of product $i$ placed inside the shelf $k$, $x_{ik}$
 is number of products $i$ placed inside the shelf $k$.
-According to the authors, the shelf-space planning problem defined as mentioned above is NP-hard.
+According to the authors, the shelf-space planning problem mentioned above is NP-hard.
 
 Authors in~\cite{hwangGeneticAlgorithmApproach2009} add to the shelf-space problem a function that assigns
 different importance to parts of the shelf.
@@ -31,7 +31,7 @@ They argue that products with a larger area are noticed more often by the custom
 Solution method in~{\cite{hubnerMaximizingProfitAssortment2020} is a genetic algorithm where each individual is represented as a container,
 which contains one or multiple products.
 Each individual is thus a power set of products that can be placed.
-This solution inherently decides which products to place at all, e.g., an individual does not contain a product, and thus the product is not placed.
+This solution inherently decides which products to place, e.g., an individual does not contain a product, and thus the product is not placed.
 Decoding of an individual then takes place, which serves as an input to the BL-F pack heuristic to fill up the shelves and calculate fitness.
 
 Another solution in~\cite{hwangGeneticAlgorithmApproach2009} uses a genetic algorithm and a slicing tree.

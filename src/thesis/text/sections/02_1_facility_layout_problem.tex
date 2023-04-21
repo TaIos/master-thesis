@@ -2,7 +2,7 @@
 
 The goal of the FLP is to place facilities, which are often represented as a rectangle,
 in a given two-dimensional grid that is also rectangular.
-In addition, between each pair of facilities exists a flow, i.e., the number that defines whether it is advantageous to place facilities close together or not.
+In addition, a flow exists between each pair of facilities, i.e., the number that defines whether it is advantageous to place facilities close together.
 
 Authors in~\cite{goncalvesBiasedRandomkeyGenetic2015} define facility layout problem using a cost function $c$ as
 
@@ -11,14 +11,14 @@ Authors in~\cite{goncalvesBiasedRandomkeyGenetic2015} define facility layout pro
     \label{eq:flp-objective}
 \end{equation}
 
-where $K$ is the set of all possible facility placements, $f_{i,j} \in \mathbb{R^+}$ is the flow between facility $i$ and $j$, $c_{i,j} \in \mathbb{R^+}$
+where $K$ is the set of all possible facility placements, $N$ is the number of facilities, $f_{i,j} \in \mathbb{R^+}$ is the flow between facility $i$ and $j$, $c_{i,j} \in \mathbb{R^+}$
 is price for a unit of distance between $i$, $j$ and $d_{i,j}$ is their distance.
-Flow $f$ is defined to be symmetric, i.e., $f_{i,j} = f_{j,i}$~\cite{goncalvesBiasedRandomkeyGenetic2015, dunkerCoevolutionaryAlgorithmFacility2003}.
-The constraint to the facility placement is that no two facilities can overlap.
+Flow $f$ is defined to be symmetric, i.e., $f_{i,j} = f_{j,i}$.
+The constraint to the facility placement problem is that no facilities can overlap.
 The FLP defined as such is NP-hard~\cite{liuMultiobjectiveParticleSwarm2018, goncalvesBiasedRandomkeyGenetic2015, friedrichIntegratedSlicingTree2018}.
 
 An important part of the input to the FLP is the facility dimensions.
-They are \textit{not} defined in terms of pairs $w_i, h_i$, where $w_i$ is the width and $h_i$ height of a facility $i$.
+They are not defined $w_i, h_i$ pairs, where $w_i$ is the width and $h_i$ height of a facility $i$.
 Each facility is defined using its area $a_i$ and maximum aspect ratio $r_i \in \mathbb{R^+}$ which must satisfy equations~\ref{eq:flp-area} and~\ref{eq:flp-shape}.
 \begin{equation}
     a_i = w_i h_i
@@ -31,7 +31,7 @@ Each facility is defined using its area $a_i$ and maximum aspect ratio $r_i \in 
 \end{equation}
 
 Thus, determining the width $w_i$ and height $h_i$ of the facility $i$ is part of the facility layout problem.
-Furthermore, there exists no FLP dataset that defines facilities in terms of their width and height
+Furthermore, no FLP dataset defines facilities in terms of their width and height
 – facility records in the datasets are always in the form of a $(a_i, r_i)$ pair~\cite{tamHierarchicalApproachFacility1991, dunkerCoevolutionaryAlgorithmFacility2003, liuSequencepairRepresentationMIPmodelbased2007}.
 
 Metric $d$ in equation~\ref{sec:facility-layout-problem} used for measuring the distance between facilities is important in practical applications of the facility layout problem.
@@ -39,18 +39,17 @@ Authors in~\cite{friedrichIntegratedSlicingTree2018} argue that using Euclidean 
 to measure facility distance produces suboptimal results as, for example, transportation of material between facilities
 hardly ever follows a direct route.
 Thus, they recommend using a contour-based metric instead.
-In addition to that, they also try to assign I/O points to the facilities from which the distance is measured as opposed to measuring the distance from the facility center.
-Also, some authors also consider facility orientation~\cite{liuMultiobjectiveParticleSwarm2018, tamHierarchicalApproachFacility1991}
+In addition, they also try to assign I/O points to the facilities from which the distance is measured as opposed to measuring the distance from the facility center.
+Some authors also consider facility orientation~\cite{liuMultiobjectiveParticleSwarm2018, tamHierarchicalApproachFacility1991}
 to be part of the facility layout problem.
 
 Solution methods differ in the exact definition of the FLP problem.
-Authors in~\cite{liuMultiobjectiveParticleSwarm2018} solve the UA-FLP, that is, the variant of FLP where the placed facilities have unequal area.
+Authors in~\cite{liuMultiobjectiveParticleSwarm2018} solve the UA-FLP, the variant of FLP where the placed facilities have unequal areas.
 They propose a solution using particle swarm optimization.
 Authors in~\cite{changSlicingTreeRepresentation2013} proposed a solution to UA-FLP combining harmony search and slicing tree.
-They represent harmony vector as coding of a slicing tree, which has two parts – the first part being a binary string determining the slicing tree node type, i.e., inner or leaf,
-and the second part codes the content of the slicing tree leaves.
-Authors in~\cite{karyantamGeneticAlgorithmsFunction1992} use a similar genetic approach with a chromosome being defined as a post-order traversal of a slicing tree.
-An interesting genetic solution for the UA-FLP proposed in~\cite{goncalvesBiasedRandomkeyGenetic2015} uses a BRKGA, where the chromosome contains coded facility sequence,
-aspect ratios and position of the \textit{first} facility.
-Next, an iterative greedy heuristic is used with the above-mentioned chromosome as an input.
-Authors in~\cite{friedrichIntegratedSlicingTree2018} propose a unique solution to the FLP called parallel tempting, which is based on simulated annealing.
+They represent harmony vector as coding of a slicing tree, which has two parts – the first part being a binary string determining the slicing tree node type, i.e., inner or leaf, and the second part codes the content of the slicing tree leaves.
+Authors in~\cite{karyantamGeneticAlgorithmsFunction1992} use a similar genetic approach with a chromosome defined as a post-order traversal of a slicing tree.
+A genetic solution for the UA-FLP proposed in~\cite{goncalvesBiasedRandomkeyGenetic2015} uses a BRKGA, where the chromosome contains facility sequence random keys,
+aspect ratios and position of the first facility.
+Next, an iterative greedy heuristic with the above chromosome as an input is used.
+Authors in~\cite{friedrichIntegratedSlicingTree2018} propose a unique solution to the FLP called parallel tempting based on simulated annealing.
