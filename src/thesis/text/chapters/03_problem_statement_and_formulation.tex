@@ -1,7 +1,7 @@
 \chapter{Problem statement and formulation}\label{ch:problem-statement-and-formulation}
 
-This chapter defines the painting placement problem, and its constraints.
-First, let us define what a painting placement instance is.
+This chapter defines the painting placement problem, its inputs, constraints, and what a solution to the painting placement problem is.
+First, let us define what a painting placement instance is.\\
 
 \navesti{Painting placement isntance} is an ordered quadruple
 
@@ -10,9 +10,10 @@ First, let us define what a painting placement instance is.
     \label{eq:painting-placement-instance}
 \end{equation}
 
-where $P \subseteq (\nat^+, \nat^+)$ are painting dimensions (width$, $height pairs),
-$F \subseteq \real^{|P|, |P|}$ is matrix defining flow between paintings,
-$L \in \nat^+ \times \nat^+$ is layout dimension (width$\times$height pair)
+where $P \subseteq (\nat, \nat)^N$ are painting dimensions (width$, $height pairs),
+$N$ is the number of paintings,
+$F \subseteq \real^{N, N}$ is matrix defining flow between paintings,
+$L \in (\nat, \nat)$ is layout dimension (width, height pair)
 and $\pi: \real \times \real \to \real$ is evaluation function.
 
 An example of a painting placement instance is
@@ -27,25 +28,26 @@ An example of a painting placement instance is
     \overbrace{f(x,y) = x+y)}^{evaluation function}\,.
 \]
 
-Instance $I_1$ has two paintings, the first one with dimensions $5\times4$, the second with $8\times5$.
-The flow between them is $5.8$. The layout to which paintings are placed has a width $15$ and a height $7$.
+Instance $I_1$ contains two paintings, the first with dimensions $5\times4$, the second with $8\times5$.
+The flow between them is $5.8$.
+The layout to which paintings are placed has a width $15$ and a height $7$.
 The evaluation function is $f(x,y) = x+y$.
 
-Next, each painting placement instance can have multiple solutions.
+Next, each painting placement instance can have multiple solutions.\\
 
-\navesti{Painting placement solution} is an ordered set of placement points
+\navesti{Painting placement solution} is a sequence of placement points
 \begin{equation}
-    S \subseteq (\natpos \times \natpos)^N  \,,
+    S \subseteq (\nat,\nat)^N  \,.
     \label{eq:painting-placement-solution}
 \end{equation}
-where $N$ is the size of the painting placement instance, i.e., the number of paintings.
-For example, one solution $S_1$ for the instance $I_1$ can be
+
+For example, one solution $S_1$ for the instance $I_1$ is
 
 \[
     S_1 = ((0,0), (6,1)) \,.
 \]
 
-This means that the first painting's lower left corner will have coordinates $(0,0)$
+This means that the first painting's lower left corner has coordinates $(0,0)$
 and similarly $(6,1)$ for the second painting.
 Illustration of both $I_1$ and $S_1$ can be seen in figure~\ref{fig:painting-placement-solution}.
 
@@ -57,9 +59,9 @@ Illustration of both $I_1$ and $S_1$ can be seen in figure~\ref{fig:painting-pla
 
 \newpage
 
-Lastly, the painting placement solution needs to be evaluated.
-Let's assume an instance $I$ and a set of all possible solutions $S$ to that instance.
-Then, the painting placement problem is to find a minimum of a cost function $c: S \to \realpos$,
+Lastly, we need to evaluate the performance of the painting placement solution.
+Let us assume a painting placement instance $I$ and a set of all possible painting placement solutions $S$ to that instance.
+Then, the \definice{painting placement problem} is to find a minimum of a cost function $c: S \to \realpos$,
 which can also be called an objective function, as
 
 
@@ -69,7 +71,15 @@ which can also be called an objective function, as
 \end{equation}
 
 where $f_{i,j}$ is flow between painting $i$ and $j$, $d(i,j)$ is their distance,
-$\pi(i)$ is evaluation function applied to painting's $i$ lower left corner,
+$\pi(i)$ is the evaluation function applied to the bottom left corner of the painting's $i$  placement point,
 $m$ calculates number of overlapping paintings with penalization parameter $\lambda \in \real^+$
-and $\gamma$ calculates the number of paintings placed outside of their allocated are
+and $\gamma$ calculates the number of paintings placed outside their allocated area (see~\ref{subsec:placement-heuristic})
 with penalization parameter $\gamma \in \real^+$.
+
+The problem defined as such is NP-hard.
+The reason is that by setting penalization parameters $\lambda$, $\gamma$ to zero and $\pi$ to $f(x,y) = 0$,
+the objective function of a painting placement problem becomes similar to the FLP objective as defined in equation~\ref{eq:flp-objective}.
+The only difference is the price for a unit of distance in the FLP objective, but it can be added to the flow making the objective functions identical.
+Also, at FLP, placed facilities are defined in terms of their area and maximum aspect ratio as opposed to width and height pair in the painting placement problem.
+However, the facilities at the FLP problem must be assigned a dimension as the objective function application includes calculating the distance from placement points.
+Thus, by FLP being NP-hard~\cite{liuMultiobjectiveParticleSwarm2018, goncalvesBiasedRandomkeyGenetic2015, friedrichIntegratedSlicingTree2018}, painting placement is also NP-hard.
