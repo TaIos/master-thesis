@@ -108,7 +108,8 @@ The main reason for introducing $P$ is to limit the spread of wildcard $*$ in po
 making its appearance only at the most advantageous parts of the genes.
 
 \begin{figure}[!htp]
-    \includegraphics[width=1.0\textwidth, left]{crossover_random_keys}\caption{
+    \includegraphics[width=1.0\textwidth, left]{crossover_random_keys}
+    \caption[Crossover example for painting sequence and slicing order random keys]{
         Crossover example for painting sequence and slicing order random keys.
         The procedure is the same for both – sum weighted parent vectors and then normalize to stochastic vector.
     }
@@ -116,7 +117,8 @@ making its appearance only at the most advantageous parts of the genes.
 \end{figure}
 
 \begin{figure}[!htp]
-    \includegraphics[width=0.85\textwidth, left]{crossover_orientation_probabilities}\caption{
+    \includegraphics[width=0.85\textwidth, left]{crossover_orientation_probabilities}
+    \caption[Crossover example for orientation probabilities]{
         Crossover example for orientation probabilities. The procedure is first to sum weighted parent matrices,
         then multiply the matrix with orientation penalization vector and normalize each row to a stochastic vector.}
     \label{fig:crossover-orientation-probabilities}
@@ -156,7 +158,8 @@ An example of a mutation that happens on all tree parts at once is in figure~\re
 
 
 \begin{figure}[!htp]
-    \includegraphics[width=1.0\textwidth, left]{muation}\caption{
+    \includegraphics[width=1.0\textwidth, left]{muation}
+    \caption[Example of a mutation on all three parts of a chromosome]{
         Example of a mutation on all three parts of a chromosome.
         Since all parts can be treated as a stochastic vector, the same procedure
         is used for all of them – replace one value randomly and then normalize it to a stochastic vector.

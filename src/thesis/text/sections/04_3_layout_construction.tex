@@ -21,7 +21,8 @@ All of them steps are explained in the following text.
 
 \begin{figure}[h!]
     \includegraphics[height=0.65\textheight, center]{layout_construction_steps}
-    \caption{Steps in the transformation of an individual to the painting placement solution.}
+    \caption[Transformation of an individual to the painting placement solution]
+    {Steps in the transformation of an individual to the painting placement solution.}
     \label{fig:layout-construction-steps}
 \end{figure}
 
@@ -82,10 +83,9 @@ which is higher than value of $*$ in $R_1$, which is $0.5$.
 
 \begin{figure}[h!]
     \includegraphics[width=1.1\textwidth, left]{individual_decoding}
-    \caption{
+    \caption[Individual decoding example]{
         Individual decoding example. Both the painting sequence random key and slicing order random key
-        are decoded using the same procedure. The decoded individual can be used to construct a slicing tree.
-    }
+        are decoded using the same procedure. The decoded individual can be used to construct a slicing tree. }
     \label{fig:individual-decoding}
 \end{figure}
 
@@ -142,7 +142,7 @@ $2^k$ resolved slicing trees, where $k$ is the number of orientations.
         \begin{figure}[]
             \centering
             \includegraphics[width=1.5\textwidth]{slicing_tree_construction}
-            \caption{
+            \caption[Slicing tree construction]{
                 On the left is an example of unresolved slicing tree construction from a decoded individual.
                 On the right is an example of resolving an unresolved slicing tree.}
             \label{fig:slicing-tree-construction}
@@ -197,7 +197,8 @@ having the rest.
         \begin{figure}
             \centering
             \includegraphics[width=1.5\textwidth]{slicing_layout_dimensions}
-            \caption{Example of a slicing layout construction from a resolved slicing tree. There are three paintings, $1,2,3$ together with their areas $a_1, a_2, a_3$.
+            \caption[Slicing layout construction]
+            {Example of a slicing layout construction from a resolved slicing tree. There are three paintings, $1,2,3$ together with their areas $a_1, a_2, a_3$.
             The position of a cut is determined proportionally to the area of the paintings.} \label{fig:slicing-layout-dimensions}
         \end{figure}
     \end{landscape}
@@ -295,14 +296,16 @@ Additionally, figure~\ref {fig:corner-placing-heuristic} shows iteration of the 
 
 \begin{figure}[h!]
     \includegraphics[width=1.2\textwidth, center]{allocated_area}
-    \caption{Examples of the painting placement points created by the corner-placing heuristic
+    \caption[Examples of the painting placement points created by the corner-placing heuristic]
+    {Examples of the painting placement points created by the corner-placing heuristic
     for three different allocated areas that are plotted using a dashed line.}
     \label{fig:allocated-area}
 \end{figure}
 
 \begin{figure}[h!]
     \includegraphics[width=0.8\textwidth, center]{corner_placing_heuristic}
-    \caption{Example of a painting 4 placed inside its allocated area using the corner-placing heuristic.
+    \caption[Painting placement example]
+    {Example of a painting 4 placed inside its allocated area using the corner-placing heuristic.
     The allocated area is plotted using a dashed line.
     Also, the distances between the placed painting and all other paintings are displayed using a dotted line.}
     \label{fig:corner-placing-heuristic}
