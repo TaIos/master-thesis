@@ -152,6 +152,51 @@ Reformulation for a decoded individual is that decoded individual can, at most, 
 $2^k$ resolved slicing trees, where $k$ is the number of orientations.
 
 
+
+\subsubsection*{Slicing layout}
+
+Next, we can construct a slicing layout using a resolved slicing tree.
+Input to the construction has three parts that are as follows.
+
+\begin{enumerate}
+    \item Layout to partition.
+    \item Areas of paintings to place.
+    \item Resolved slicing tree
+\end{enumerate}
+
+The layout is the wall on which the paintings are placed.
+Areas of the paintings are retrieved using the resolved slicing tree,
+which contains painting identifiers as leaf nodes.
+
+Construction can be described using figure~\ref{fig:slicing-layout-dimensions}.
+On the left is an input to the construction – three paintings $1,2,3$ with areas $a_1, a_2, a_3$ and resolved slicing tree.
+Then, we recursively traverse the resolved slicing tree.
+Depending on the node value, there are three possible actions. \todo{mozna dodat pseudokod?}
+
+\begin{itemize}
+    \item $H$ – cut layout horizontally.
+    \item $V$ – cut layout vertically.
+    \item Otherwise, assign node value to the layout.
+\end{itemize}
+
+After performing the cut, the process mentioned above is recursively repeated
+for the left and right child.
+If the cut is horizontal, the left child is given the upper part of the cut as its layout, and the right child is given the lower part.
+If the cut is vertical, the left child is given the left part of the cut as its layout, and the right child is given the right part.
+It can be seen in the middle part of the figure, where the cut is vertical.
+The left child is an orphan, i.e., it has no children.
+Thus, the left part of the cut is assigned value 1.
+The right child is not an orphan, meaning the process is applied recursively to the right part of the cut and the right child.
+It is depicted on the right part of the figure.
+
+The last part of creating a slicing layout is the position of the cut.
+As mentioned above, there are horizontal and vertical cut types at the resolved slicing tree.
+Each cut type's position is determined proportionally to the area of rectangles assigned to the cut result.
+Again, it can be described using an example in figure~\ref{fig:slicing-layout-dimensions}.
+The first cut is vertical, where the left part of the cut is assigned rectangles $1$ and the right part is assigned rectangles $2,3$.
+The vertical cut thus splits the layout into two parts – the left part having $1/3$ of the total layout area and the right part
+having the rest.
+
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
     \begin{landscape}% Landscape page
@@ -167,47 +212,6 @@ $2^k$ resolved slicing trees, where $k$ is the number of orientations.
     \clearpage% Flush page
 }
 
-
-\subsubsection*{Slicing layout}
-
-Next, we can construct a slicing layout using a resolved slicing tree.\\
-
-
-
-Creating a slicing layout from a slicing tree can be explained using an
-example in figure~\ref{fig:slicing-layout-dimensions}.
-We are given a space to partition. Let us call it layout. Also, we are given areas of rectangles to place.
-Rectangles to place are the paintings, and the layout is the wall on which the paintings are being placed.
-The example has rectangles $1,2,3$ with areas $a_1, a_2, a_3$.
-This is depicted in the left part of the figure.
-Then, we recursively traverse the resolved slicing tree.
-Depending on the node value, there are three possible actions.
-
-\begin{itemize}
-    \item $H$ – cut layout horizontally.
-    \item $V$ – cut layout vertically.
-    \item Otherwise, assign node value to the layout.
-\end{itemize}
-
-After performing the cut, the process mentioned above is recursively repeated
-for the left and right child.
-If the cut is horizontal, the left child is given the upper part of the cut as its layout, and the right child is given the lower part.
-If the cut is vertical, the left child is given the left part of the cut as its layout, and the right child is given the right part.
-This can be seen in the middle part of the figure, where the cut is vertical.
-The left child is an orphan, i.e., it has no children.
-Thus, the left part of the cut is assigned value 1.
-The right child is not an orphan, meaning the process is applied recursively to the right part of the cut and the right child.
-It is depicted on the right part of the figure.
-
-The last part of creating a slicing layout is the position of the cut points.
-As mentioned above, there are two cut types – horizontal and vertical.
-For each cut type, the position is determined proportionally to the area of rectangles assigned to the cut result.
-Again, it can be described using an example in figure~\ref{fig:slicing-layout-dimensions}.
-The first cut is vertical, where the left part of the cut is assigned rectangles $1$ and the right part is assigned rectangles $2,3$.
-The vertical cut thus splits the layout into two parts – the left part having $1/3$ of the total layout area and the right part
-having the rest.
-
-
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
     \begin{landscape}% Landscape page
@@ -215,7 +219,7 @@ having the rest.
             \centering
             \includegraphics[width=1.5\textwidth]{slicing_layout_dimensions}
             \caption[Slicing layout construction]
-            {Example of a slicing layout construction from a resolved slicing tree. There are three paintings, $1,2,3$ together with their areas $a_1, a_2, a_3$.
+            {Example of a slicing layout construction from a resolved slicing tree, painting areas and layout. There are three paintings, $1,2,3$ together with their areas $a_1, a_2, a_3$.
             The position of a cut is determined proportionally to the area of the paintings.} \label{fig:slicing-layout-dimensions}
         \end{figure}
     \end{landscape}
