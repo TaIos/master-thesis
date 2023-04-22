@@ -102,38 +102,40 @@ which is higher than value of $*$ in $R_1$, which is $0.5$.
     \label{fig:individual-decoding}
 \end{figure}
 
-
 \subsection{Slicing layout construction}\label{subsec:slicing-tree-construction}
 In the previous subsection, decoding an individual is described.
 The decoded individual consists of three parts – painting sequence, slicing order, and orientations.
-With this representation, a slicing layout can be constructed.
-This construction has three steps, which are as follows.
+From this representation, a slicing layout can be constructed.\\
+
+\navesti{Slicing layout} is the recursive partitioning of space to rectangles using horizontal and vertical cuts.\\
+
+Construction of the slicing layout from painting sequence, slicing order, and orientations has three steps, which are as follows.
 
 \begin{enumerate}
-    \item Construct unresolved slicing tree from a decoded individual.
+    \item Construct an unresolved slicing tree from a decoded individual.
     \item Resolve an unresolved slicing tree.
     \item Create a slicing layout using a resolved slicing tree.
 \end{enumerate}
 
 \subsubsection*{Slicing tree construction}
 
-First, let us describe what a slicing tree is. \todo{pridat poznamku, ze slicing tree muze reprezentovat jakykoliv floorplan}
+First, let us describe what a slicing tree is.
 The slicing tree was first introduced in 1982 by Otten~\cite{ottenAutomaticFloorplanDesign1982} to solve automatic floorplan design.
-In the most general sense, it is a tree that recursively divides space into rectangles.
+In the most general sense, it is a tree that codes the recursive division of space into rectangles using horizontal and vertical cuts.
+A slicing tree can thus be used to construct a slicing layout.
+According to~\cite{laiSlicingTreeComplete2001}, a slicing tree is a complete representation of a slicing layout.
+That means that every possible slicing layout has at least one slicing tree that represents it.
 This thesis defines and uses the slicing tree in two variants.\\
 
-\navesti{Resolved slicing tree} is a tree with internal nodes having values from $\Sigma = \{H, V\}$
+\navesti{Resolved slicing tree} is a binary tree with internal nodes having values from $\{H, V\}$
 and leafs having values from the painting sequence.\\
 
-\navesti{Unresolved slicing tree} is an extension of a resolved slicing tree where internal nodes have values from $\Sigma_* = \{H, V, *\}$ \\
+\navesti{Unresolved slicing tree} is an extension of a resolved slicing tree where internal nodes have values from $\{H, V, *\}$. \\
 
-Symbols $H$ and $V$ are common for both types of the slicing tree.
-$H$ means a horizontal cut and $V$ means a vertical cut.
-An unresolved slicing tree can also contain the wildcard symbol $*$.
-This symbol means a cut that best suits the use – wildcard can thus become both $H$ or $V$.
-The presence of a wildcard symbol is a novel idea also proposed in this thesis. \todo{vice zduraznit}
+Cut types $H$ for horizontal and $V$ for vertical are common for both types of the slicing tree.
+An unresolved slicing tree can also contain the wildcard cut type $*$.
 
-Now, we can use a decoded individual to construct an unresolved slicing tree.
+Next, we can use a decoded individual to construct an unresolved slicing tree.
 This construction is graphically illustrated in the left part of a figure~\ref{fig:slicing-tree-construction}.
 During this process, the painting sequence results in leaf nodes, slicing order determines the shape of a tree, and orientations are the values assigned to internal nodes.
 Thus, each decoded individual represents one unresolved slicing tree.
@@ -165,11 +167,12 @@ $2^k$ resolved slicing trees, where $k$ is the number of orientations.
     \clearpage% Flush page
 }
 
+
 \subsubsection*{Slicing layout}
 
 Next, we can construct a slicing layout using a resolved slicing tree.\\
 
-\navesti{Slicing layout} is the recursive partitioning of space to rectangles.\\
+
 
 Creating a slicing layout from a slicing tree can be explained using an
 example in figure~\ref{fig:slicing-layout-dimensions}.
