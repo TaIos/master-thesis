@@ -1,4 +1,6 @@
 \newpage
+
+
 \section{Solution construction}\label{sec:solution-construction}
 
 This section describes the process of how to transform or decode an individual.
@@ -231,7 +233,7 @@ having the rest.
 
 The placement heuristic is the last part of transforming an individual into a painting placement solution.
 Input to the heuristic is the slicing layout together with paintings, and output is the painting placement solution.
-The pseudocode of the proposed placing heuristic is in algorithm~\ref{alg:placement-heurictic}
+The pseudocode of the proposed placing heuristic is in algorithm~\ref{alg:placement-heurictic}.
 
 \begin{algorithm}[H]
     \SetAlgoLined
@@ -239,7 +241,7 @@ The pseudocode of the proposed placing heuristic is in algorithm~\ref{alg:placem
 
     \SetKwData{PlacedPaintings}{placedPaintings}
     \SetKwData{Painting}{painting}
-    \SetKwData{PlacedPainting}{placedPainting}
+    \SetKwData{PlacedPainting}{candidate}
     \SetKwData{Paintings}{paintings}
     \SetKwData{Best}{best}
     \SetKwData{SlicingLayout}{slicing layout}
@@ -265,7 +267,9 @@ The pseudocode of the proposed placing heuristic is in algorithm~\ref{alg:placem
         \Best $\leftarrow$ \Nil \\
         \For{$point$ \In \PossiblePlacementPoints{painting, \PlacedPaintings, \SlicingLayout}} {
             \PlacedPainting $\leftarrow$ \Place{painting, point}\\
-            \If{\Best == \Nil \Or \Objective{\PlacedPainting} <  \Objective{\Best}}{
+            \If{\Best == \Nil\\
+            \Or \Objective{\PlacedPaintings$+$\PlacedPainting, \SlicingLayout}\\
+                $<$  \Objective{\PlacedPaintings $+$ \Best, \SlicingLayout}}{
                 \Best $\leftarrow$ \PlacedPainting
             }
         }
@@ -282,25 +286,22 @@ Iterative means that it creates the painting placement solution gradually, as it
 tries to place one painting after another using the slicing layout.
 It is greedy because, at each iterative step, it places a painting in a way that minimizes the objective value.
 
-An important part of the heuristic placement algorithm~\ref{alg:placement-heurictic}
-is function \verb|possiblePlacementPoints| on line 4.
-This function returns points that the heuristic tries for placing a painting.
-Furthermore, it is the only part that uses a slicing layout.
+As mentioned earlier, the slicing layout recursively divides space into rectangles.
+Additionally, each rectangle in the slicing layout has been assigned a painting identifier.
+The function in algorithm~\ref{alg:placement-heurictic} \verb|possiblePlacementPoints|
+uses this assigned space as an allocated area.\\
 
-As mentioned earlier, the slicing layout divides space into rectangles.
-Additionally, each rectangle in the slicing layout has been assigned a painting.
-The function \verb|possiblePlacementPoints| uses this assigned space as allocated area.\\
-
-\navesti{Allocated area} for a painting is a rectangle from a slicing layout to which it was assigned.\\
+\navesti{Allocated area} for a painting is a rectangle from a slicing layout to which its identifier is assigned.\\
 
 It means that every slicing layout has one allocated area for each painting.
 Also, the allocated area does not necessarily need larger dimensions than the painting.
 E.g., the width of a painting might be greater than the width of its allocated area.
 An example of a painting and its allocated area is in figure~\ref{fig:allocated-area}.
 
-With the defined allocated area,
-we can describe which implementation is used for the function \verb|possiblePlacementPoints|.
-It is called the corner-placing heuristic.\\
+An important part of the algorithm~\ref{alg:placement-heurictic}
+is function \verb|possiblePlacementPoints| on line 4.
+This function returns points that the heuristic tries for placing a painting.
+Implementation in this thesis is called the corner-placing heuristic.\\
 
 \navesti{Corner-placing heuristic} is a placing heuristic that considers four painting placement points for each painting
 – the allocated area's bottom-left, bottom-right, top-left, and top-right corners.\\
