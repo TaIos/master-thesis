@@ -98,7 +98,7 @@ Adding weights according to the eq.~\ref{eq:weights} penalizes the transfer of p
 \subsubsection*{Orientation penalization}
 
 Another part of the crossover used in the orientation probabilities matrix is the penalization vector $P$.
-As mentioned in section~\ref{sec:layout-construction}, each individual is decoded to a slicing tree
+As mentioned in section~\ref{sec:solution-construction}, each individual is decoded to a slicing tree
 whose internal nodes contain a type of the cut – $H$ for horizontal, $V$ for vertical, and $*$ for a wildcard, that can take up any value $H$ or $V$.
 Vector $P$ controls the preference for each type of cut.
 For example, setting $P= \langle 1,1,0.5 \rangle$ penalize only the wildcard $*$.
@@ -145,7 +145,7 @@ With the definition of the mutation operator for a stochastic vector above, the 
 \end{enumerate}
 
 It is important to mention how to interpret a mutation operator.
-As mentioned in section~\ref{sec:layout-construction}, an individual is decoded to a slicing tree.
+As mentioned in section~\ref{sec:solution-construction}, an individual is decoded to a slicing tree.
 Mutation modifies this tree.
 First, if applied to $OR_{prob}$, the value of an inner node of the tree might change.
 That means a change in a type of cut – $H$, $V$, or $*$.
