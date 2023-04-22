@@ -1,7 +1,9 @@
+\clearpage% Flush earlier floats (otherwise order might not be correct)
+\newpage
 \section{Operators}\label{sec:operators}
 As described in section~\ref{sec:genetics}, genetic operators are used to create
 new individuals.
-This section presents crossover and mutation genetic operators
+This section presents the novel crossover and mutation genetic operators
 that are used for the individual representation from section~\ref{sec:coding}.
 
 \subsection{Crossover}\label{subsec:crossover}
@@ -33,11 +35,11 @@ where $\|\cdot\|$ is normalization to the stochastic vector, $+$ is vector addit
 $P \in \real^{N-1}$ is orientation penalization vector with $N$ being instance size, notation $X_{i:}$ means $i$-th row of a matrix $X$
 and multiplying a vector by a scalar multiplies each element of the vector by that scalar.
 
-Example of crossover for painting sequence random key and slicing order random key, eq.~\ref{eq:crossover-psrk} and~\ref{eq:crossover-sork},
+Example of crossover for painting sequence random key and slicing order random key (eq.~\ref{eq:crossover-psrk} and~\ref{eq:crossover-sork}),
 is in figure~\ref{fig:crossover-random-keys}.
-An example of crossover for orientation probabilities, eq.~\ref{eq:crossover-orprob}, is in figure~\ref{fig:crossover-orientation-probabilities}.
+An example of crossover for orientation probabilities (eq.~\ref{eq:crossover-orprob}) is in figure~\ref{fig:crossover-orientation-probabilities}.
 
-The crossover implementation described above has multiple parts – vector sum, weights, orientation penalization and normalization.
+The crossover implementation described above has multiple parts – vector addition, weights, orientation penalization, and normalization.
 Following are arguments for incorporating each of those parts into a crossover.
 
 \subsubsection*{Vector addition and normalization}
@@ -72,12 +74,11 @@ We cannot make any assumptions about whether the result belongs to $S_1$ or $S_2
 Additionally, we cannot predict the probability of whether $S_1$ or $S_2$ survives, i.e., they will still be present in the crossover result.
 However, when using a one-point-crossover, it would depend on the position of the split.
 
-Lastly, the proposed crossover does not prefer any particular order of schemata.
-This is the same as in one-point crossover, which only prefers shorter schemata.
-
+Lastly, the proposed crossover does not prefer any particular order of schemata for the same reasons mentioned above.
+It is a common feature with one-point crossover, which only prefers shorter schemata.
 
 \subsubsection*{Weights}
-Adding weights $w_A$ and $w_B$ determines the preference for transferring information from one parent to the other.
+Adding weights $w_A$ and $w_B$ determines the preference for transferring information from one parent to another.
 The weights are calculated using a cost function $c$ from eq.~\ref{eq:objective} as
 
 \begin{equation}
@@ -88,7 +89,7 @@ The weights are calculated using a cost function $c$ from eq.~\ref{eq:objective}
 Thus, the parent with better performance in the population, i.e., having lower cost function,
 has more influence on what genes are being transferred to the offspring.
 
-Adding $w_A$ and $w_B$ prevents the creation of offspring that do not share the advantageous schemata.
+Adding $w_A$ and $w_B$ lowers the chance of creating offspring that do not share the advantageous schemata.
 For example, considering only one stochastic vector of length three as a chromosome,
 it might be advantageous to have a high value for the first value in the chromosome, e.g., $A=\langle 0.7, 0.1, 0.2 \rangle$.
 On the other hand, a poorly performing individual might be $B=\langle 0.1, 0.3, 0.6 \rangle$.
@@ -98,13 +99,13 @@ Adding weights according to the eq.~\ref{eq:weights} penalizes the transfer of p
 \subsubsection*{Orientation penalization}
 
 Another part of the crossover used in the orientation probabilities matrix is the penalization vector $P$.
-As mentioned in section~\ref{sec:solution-construction}, each individual is decoded to a slicing tree
+As mentioned in section~\ref{sec:solution-construction}, each individual decodes to one unresolved slicing tree
 whose internal nodes contain a type of the cut – $H$ for horizontal, $V$ for vertical, and $*$ for a wildcard, that can take up any value $H$ or $V$.
 Vector $P$ controls the preference for each type of cut.
-For example, setting $P= \langle 1,1,0.5 \rangle$ penalize only the wildcard $*$.
+For example, setting $P= \langle 1,1,0.5 \rangle$ penalizes only the wildcard cut $*$.
 On the other hand, setting $P= \langle 1,1,1 \rangle$ removes any penalization.
 
-The main reason for introducing $P$ is to limit the spread of wildcard $*$ in population,
+The main reason for introducing $P$ is to limit the spread of wildcard cut $*$ in population,
 making its appearance only at the most advantageous parts of the genes.
 
 \begin{figure}[!htp]
@@ -124,6 +125,7 @@ making its appearance only at the most advantageous parts of the genes.
     \label{fig:crossover-orientation-probabilities}
 \end{figure}
 
+\newpage
 \subsection{Mutation}\label{subsec:mutation}
 
 Mutation can happen on all three genes of a chromosome – painting sequence random key $PS_{rk}$,
@@ -145,19 +147,20 @@ With the definition of the mutation operator for a stochastic vector above, the 
 \end{enumerate}
 
 It is important to mention how to interpret a mutation operator.
-As mentioned in section~\ref{sec:solution-construction}, an individual is decoded to a slicing tree.
+As mentioned in section~\ref{sec:solution-construction}, an individual decodes to one unresolved slicing tree.
 Mutation modifies this tree.
 First, if applied to $OR_{prob}$, the value of an inner node of the tree might change.
 That means a change in a type of cut – $H$, $V$, or $*$.
 Second, if applied to $PS_{rk}$, the value of leaves in the tree might change.
 Lastly, if applied to $SO_{rk}$, the whole structure of a tree might change.
 
-As described above, even changing one value can result in a completely different layout after decoding.
-This is the reason for defining mutation as such – to damage the chromosome as little as possible.
+As described above, even changing one value can result in a completely different tree and
+after further decoding the slicing layout and painting placement solution.
+It is the reason for defining mutation as such – to damage the chromosome as little as possible.
 An example of a mutation that happens on all tree parts at once is in figure~\ref{fig:mutation}.
 
 
-\begin{figure}[!htp]
+\begin{figure}[!h]
     \includegraphics[width=1.0\textwidth, left]{muation}
     \caption[Example of a mutation on all three parts of a chromosome]{
         Example of a mutation on all three parts of a chromosome.
