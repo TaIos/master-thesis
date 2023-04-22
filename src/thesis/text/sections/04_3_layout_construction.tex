@@ -122,7 +122,7 @@ The slicing tree was first introduced in 1982 by Otten~\cite{ottenAutomaticFloor
 In the most general sense, it is a tree that codes the recursive division of space into rectangles using horizontal and vertical cuts.
 A slicing tree can thus be used to construct a slicing layout.
 According to~\cite{laiSlicingTreeComplete2001}, a slicing tree is a complete representation of a slicing layout.
-That means that every possible slicing layout has at least one slicing tree that represents it.
+That means every possible slicing layout has at least one slicing tree representing it.
 This thesis defines and uses the slicing tree in two variants.\\
 
 \navesti{Resolved slicing tree} is a binary tree with internal nodes having values from $\{H, V\}$
@@ -188,7 +188,7 @@ The right child is not an orphan, meaning the process is applied recursively to 
 It is depicted on the right part of the figure.
 
 The last part of creating a slicing layout is the position of the cut.
-As mentioned above, there are horizontal and vertical cut types at the resolved slicing tree.
+As mentioned above, the resolved slicing tree has horizontal and vertical cut types.
 Each cut type's position is determined proportionally to the area of rectangles assigned to the cut result.
 Again, it can be described using an example in figure~\ref{fig:slicing-layout-dimensions}.
 The first cut is vertical, where the left part of the cut is assigned rectangles $1$ and the right part is assigned rectangles $2,3$.
@@ -217,7 +217,7 @@ having the rest.
             \centering
             \includegraphics[width=1.5\textwidth]{slicing_layout_dimensions}
             \caption[Slicing layout construction]
-            {Example of a slicing layout construction from a resolved slicing tree, painting areas and layout. There are three paintings, $1,2,3$ together with their areas $a_1, a_2, a_3$.
+            {Example of a slicing layout construction from a resolved slicing tree, painting areas, and layout. There are three paintings, $1,2,3$ together with their areas $a_1, a_2, a_3$.
             The position of a cut is determined proportionally to the area of the paintings.} \label{fig:slicing-layout-dimensions}
         \end{figure}
     \end{landscape}
@@ -293,7 +293,7 @@ The function \verb|possiblePlacementPoints| uses this assigned space as allocate
 
 \navesti{Allocated area} for a painting is a rectangle from a slicing layout to which it was assigned.\\
 
-This means that every slicing layout has one allocated area for each painting.
+It means that every slicing layout has one allocated area for each painting.
 Also, the allocated area does not necessarily need larger dimensions than the painting.
 E.g., the width of a painting might be greater than the width of its allocated area.
 An example of a painting and its allocated area is in figure~\ref{fig:allocated-area}.
