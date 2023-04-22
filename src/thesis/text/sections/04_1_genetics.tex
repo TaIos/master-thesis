@@ -60,25 +60,38 @@ of their alleles in their genes, produces a new individual/s called \definice{of
 \navesti{Mutation} genetic operator takes one individual as input and produces a new one
 which may have some of its alleles replaced by different ones at random.\\
 
-Finally, there needs to be a process that transforms a population
-to a new one with the goal of if this transformation process is applied sufficient
-number of times to some initial population,
-(sub)-optimal solution to the problem will be found.
-This process is called the reproductive plan.\\
+Additionally, there needs to be a process that transforms a population
+to a new one.
+This process is called the reproductive plan.
+Also, there is a special term for the population to which the reproductive plan is applied.
+\\
 
-\navesti{Reproductive plan} is a process that takes a population on input and produces a modified
-population using genetic operators.\\
+\navesti{Reproductive plan} is a process that takes a population on input and produces a modified population on the output
+by using mainly genetic operators.\\
 
-One example of a reproductive plan is in figure~\ref{fig:reproductive-plan}.
+\navesti{Initial population} is the population before the first application of the reproductive plan.\\
+
+\navesti{Generation} $k$ is the population after applying the reproductive plan $k$-times to it.\\
+
+\newpage
+
+Finally, a genetic algorithm uses all the processes mentioned above to
+find a solution to some problem.\\
+
+\navesti{Genetic algorithm} or \definice{genetic approach} applies a reproductive plan
+on an initial population until the stopping condition is met with the
+goal of finding a (sub)-optimal solution to the problem.\\
+
+One example of a genetic approach is in figure~\ref{fig:reproductive-plan}.
 At the start, an initial population of individuals is generated.
-Then, for each individual, the fitness value is calculated.
-Lastly, two genetic operators are applied to produce the new population.
-In this example, crossover and mutation.
-The process ends if the stopping condition is met.
+Then, the reproductive plan is applied until the stopping condition is met.
+Application of the reproductive plan creates the next generation by using crossover and mutation genetic operators.
 
 \begin{figure}[h]
     \includegraphics[width=0.65\textheight, center]{reproductive_plan}
-    \caption[Example of a reproductive plan]{Example of a reproductive plan with crossover and mutation genetic operators.}
+    \caption[Example of a genetic approach]{
+        Example of a genetic approach.
+        It uses a reproductive plan that creates the next generation by applying crossover and mutation.}
     \label{fig:reproductive-plan}
 \end{figure}
 
@@ -87,7 +100,7 @@ The process ends if the stopping condition is met.
 Holland in~\cite{hollandAdaptationNaturalArtificial1975} proposed
 the Schema Theorem arguing why the genetic approach described above works.
 This subsection describes the main idea behind the argument.
-First, an important term to describe is the schema.\\
+First, an important term to describe is schema.\\
 
 \navesti{Schema} is an extended representation of chromosome,
 where each gene can contain a “don’t care” symbol marked as underscore $\_$.
