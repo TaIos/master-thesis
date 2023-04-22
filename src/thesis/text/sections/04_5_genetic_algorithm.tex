@@ -24,8 +24,39 @@ individuals, which can be considered a diversification strategy~\cite{blumMetahe
 However, researchers in~\cite{hanshengBalanceExplorationExploitation1999} argue that crossover
 also has an intensification effect.
 They argue that if the population were primarily composed of the same individuals, the crossover would not be able to improve the solution.
+\\
 
-\todo{ALGORITMUS}
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \LinesNumbered
+
+    \SetKwData{Best}{best}
+    \SetKwData{Candidate}{candidate}
+    \SetKwData{Population}{population}
+    \SetKwData{MaxNumberOfIter}{maxNumberOfIter}
+    \SetKwData{Nil}{NIL}
+
+    \SetKwFunction{Objective}{objective}
+    \SetKwFunction{SelectBest}{selectBest}
+    \SetKwFunction{GenerateInitialPopulation}{generateInitialPopulation}
+    \SetKwFunction{ApplyReproductivePlan}{applyReproductivePlan}
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%
+
+    \Population $\leftarrow$ \GenerateInitialPopulation \\
+    \Best $\leftarrow$ \SelectBest{\Population} \\
+
+    \For{$i\leftarrow 1$ \KwTo \MaxNumberOfIter}{
+        \Population $\leftarrow$ \ApplyReproductivePlan{\Population} \\
+        \If{\Objective{\Candidate} $<$ \Objective{\Best}}{
+            \Best $\leftarrow$ \Candidate
+        }
+    }
+    \KwRet{\Best}
+
+    \caption{Genetic algorithm}\label{alg:genetic}
+\end{algorithm}
 
 \subsection{Initial population}\label{subsec:initial-population}
 The initial population is the population that is used as a starting point for the genetic algorithm.
