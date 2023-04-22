@@ -46,7 +46,7 @@ The reason for adding RANDOM individuals is that greedy solutions might increase
 of an algorithm getting caught in local optima.
 
 \begin{figure}[!h]
-    \includegraphics[width=0.8\textwidth, left]{pupulation_schema}
+    \includegraphics[width=1\textwidth, center]{pupulation_schema}
     \caption[Initial population generation strategy and transition]
     {Initial population generation strategy and transition from generation $k$ to $k+1$ using a reproductive plan.}
     \label{fig:population-schema}
@@ -54,52 +54,45 @@ of an algorithm getting caught in local optima.
 
 
 \newpage
+
 \subsection{Reproductive plan}\label{subsec:reproductive-plan}
-This section describes a reproductive plan used in this thesis
-– a process that takes a population on input and produces a modified population using mainly genetic operators.
-Reproductive plan is described in figure~\ref{fig:population-schema}.
-It has two parts – generating the initial population and transitioning from one generation to the next.
-After each application of the reproductive plan, the number of individuals is the same.
-This means that population size is a fixed hyperparameter of the genetic approach.
-
-After generating the initial population, the genetic approach transforms the current population
-to the next using crossover, mutation, selection, elitism and tournament selection.
-
-First, the population is partitioned into three parts according to performance.\\
+This section describes a reproductive plan used in this thesis.
+It is visualized on the right of the figure~\ref{fig:population-schema}.
+The reproductive plan starts with partitioning the individuals in the current
+population into three groups according to their performance.\\
 
 \navesti{ELITE} individuals are the ones that decode to the solutions with the lowest objective value.\\
 
-\navesti{WORST} are the ones that decode to the solution the highest objective value.\\
+\navesti{WORST} are the ones that decode to the solutions the highest objective value.\\
 
 \navesti{AVERAGE} individuals are in between the ELITE and WORST.\\
 
-Next, the elitism strategy is used as all ELITE individuals are copied to the next generation.
-Elitism enforces intensification, as it keeps the best individuals inside the population without any
+Then, the elitism strategy is used.
+It copies all ELITE individuals to the next generation.
+Elitism enforces intensification, keeping the best individuals inside the population without any
 modification or recombination with others.
-This increases the representation of current (sub)-optimal solutions in the population, and thus it is more likely that operators increasing intensification will use ELITE as an input.
-In addition, without the use of elitism, the best individual might be lost after crossing over or mutation.
-\todo{pridat nejake reference do literatury}
+It increases the representation of current (sub)-optimal solutions in the population, and thus it is
+more likely that operators increasing intensification will use ELITE as an input.
+In addition, without elitism, the best individuals might be lost after crossing over or mutation.
 
-After copying all ELITE individuals, crossover and mutation operators are used, with the crossover being
-the most significant in terms of individuals that it produces for the next generation.\\
+The next step is to use crossover and mutation genetic operators, with the crossover being
+the most significant in terms of the individuals it produces for the next generation.\\
 
-\navesti{CHILDREN} are individuals that are created using a crossover operator, with the first parent being selected
+\navesti{CHILDREN} are individuals that are created using a crossover, with the first parent being selected
 at random from ELITE and the second parent selected at random from AVERAGE.\\
 
-\navesti{MUTANTS} are individuals that are created using a mutation operator,
+\navesti{MUTANTS} are individuals that are created using a mutation,
 with an input selected at random from ELITE and AVERAGE.\\
 
-The two last parts of the next generation are WINNER and RANDOM.\\
-
-\navesti{WINNER} individuals are a result of tournament selection between WORST and GREEDY.
-Selection picks the best individuals from both WORST and GREEDY until all available spots for WINNER are filled. \\
-
-The use of tournament selection between greedily generated individuals in GREEDY and the least performant
-individuals in WORST is that the worst individuals are often the ones who have high penalization
+Another step is the tournament selection between the least performant and greedily generated individuals.
+Reason for it is that the least performant individuals often receive high penalization
 values in objective~\ref{eq:objective}.
-This means that they produce solutions with mostly overlapping paintings.
+It means that they produce solutions with mostly overlapping paintings.
+\\
 
-Lastly, a small group of randomly generated individuals RANDOM is injected into the next population.
-The reason is to decrease the chance of the genetic approach getting stuck in a local optimum
+\navesti{WINNER} individuals result from tournament selection between WORST and GREEDY.
+Selection picks the best individuals from WORST and GREEDY until all available spots for WINNER are filled. \\
+
+Finally, RANDOM, a small group of randomly generated individuals, is injected into the next population.
+The reason is to decrease the chance of the genetic algorithm getting stuck in a local optimum
 by randomly adding samples from the search space.
-
