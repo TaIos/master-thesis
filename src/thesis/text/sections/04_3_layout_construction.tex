@@ -5,7 +5,7 @@
 
 This section describes the process of how to transform or decode an individual.
 This transformation aims to create a solution to the painting placement problem,
-which is a set of placement points for the paintings.
+which is a sequence of placement points for the paintings.
 There are multiple steps to this process.
 
 \begin{enumerate}
@@ -17,7 +17,8 @@ There are multiple steps to this process.
 
 Steps in the transformation of an individual to the painting placement solution are
 in figure~\ref{fig:layout-construction-steps}.
-All of them steps are explained in the following text.
+All of these steps are explained in the following text.
+
 
 \begin{figure}[h!]
     \includegraphics[height=0.65\textheight, center]{layout_construction_steps}
@@ -28,18 +29,28 @@ All of them steps are explained in the following text.
 
 \subsection{Individual decoding}\label{subsec:individual-decoding}
 First, we must decode an individual to the representation from which a slicing layout can be constructed.
-A decoded individual is composed of (1) painting sequence, (2) slicing order, and (3) orientations.
+A decoded individual is composed of painting sequence, slicing order, and orientations.
 An example of individual decoding is in figure~\ref{fig:individual-decoding}.
 
-Let us use the notation for painting sequence as $PS$, slicing order as $SO$, orientations $OR$.
+Let us use the notation for painting sequence as $PS$, slicing order as $SO$, and orientations as $OR$.
 $PS$ contains painting identifiers, $SO$ contains information used to construct slicing layout,
-and $OR$ contains type of the cuts in the slicing layout – $H$ for horizontal, $V$ for vertical
-and $*$ for wildcard, that can take up any value $H$ or $V$.
+and $OR$ contains type of the cuts.\\
 
-\subsubsection*{Random keys decoding}
-Decoding both $PS_{rk}$ and $SO_{rk}$ is the same as the RKGA in~\cite{beanGeneticAlgorithmsRandom1994}.
+\navesti{Cut type} in $OR$  can take up three values.
+\begin{itemize}
+    \item $H$ for horizontal.
+    \item $V$ for vertical.
+    \item $*$ for wildcard, that can take up any value $H$ or $V$.
+\end{itemize}
+
+The introduction of the wildcard cut type $*$ is a novel idea proposed in this thesis.
+In literature, only $H$ and $V$ cut types are used~\cite{friedrichIntegratedSlicingTree2018, changSlicingTreeRepresentation2013, liuMultiimprovedGeneticAlgorithm2012, hwangGeneticAlgorithmApproach2009}.
+
+\subsubsection*{Decoding random keys}
+
+Decoding $PS_{rk}$ to $PS$ and $SO_{rk}$ to $SO$ is the same as the RKGA in~\cite{beanGeneticAlgorithmsRandom1994}.
 The graphical illustration is in figure~\ref{fig:individual-decoding} marked as~\textit{random key decoder}.
-Decoding random keys can be explained in the following steps on a sequence of four numbers $S = 0.3, 0.2, 0.4, 0.1$\,.
+Decoding random keys in $PS_{rk}$ and  $SO_{rk}$ can be explained in the following steps on a sequence of four numbers $S = 0.3, 0.2, 0.4, 0.1$\,.
 
 \begin{enumerate}
     \item Create $S'$ by adding a lower index to each element from $S$, which marks its ordinal position starting from one.
@@ -49,12 +60,13 @@ Decoding random keys can be explained in the following steps on a sequence of fo
     It is the result – $4, 2, 1, 3$.
 \end{enumerate}
 
+
 \subsubsection*{Orientation probabilities decoding}
 
-Last part of the individual, matrix $OR_{prob} \in \real^{N-1, 3}$, decodes to the sequence of symbols from $\Sigma_* = \{H, V, *\} $.
+Last part of the individual, matrix $OR_{prob} \in \real^{N-1, 3}$, decodes to $OR$, which is a sequence of cut types.
 The graphical illustration is in figure~\ref{fig:individual-decoding} marked as~\textit{orientation decoder}.
 
-Decoding $OR_{prob}$ translates each row to one symbol from $\Sigma_*$, producing a symbol sequence.
+Decoding $OR_{prob}$ to $OR$ translates each row to one cut type.
 Thus, decoding orientation probabilities can be explained for one row, say $R = 0.7, 0.2, 0.1$
 in the following steps.
 
@@ -68,26 +80,28 @@ in the following steps.
 \end{enumerate}
 
 There is one exception to the steps described above.
-It is the limit on the maximum number of $*$ symbols produced by orientation probabilities decoding.
+It is the limit on the maximum number of $*$ cut types produced by $OR_{prob}$ decoding.
 Let us call this limit $k$.
-If the limit is not applicable, i.e., $k \geq N-1$, there is no change to steps 1--3 described above.
-However, if applicable, only the first $k$ symbols $*$ with the highest value are considered.
-It is achieved by setting value to $0$ (only for the duration of the decoding) to the bottom $N-1-k$ symbols $*$ with the lowest values.
-Then the same 1--3 steps are applied as described above.
+If the limit is not applicable, i.e., $k \geq N-1$, there is no change to decoding steps 1--3 described above.
+However, only the first $k$ wildcard cut types $*$ with the highest value are considered if applicable.
+It is achieved by setting the value to $0$ (only for the duration of the decoding) to the bottom $N-1-k$ wildcard cut types $*$ with the lowest values.
+Then the same 1--3 decoding steps are applied as described above.
 
-One example where the limit applies is for the $k=1$ and $OR_{prob}$ that has two rows, $R_1 = 0.2, 0.3, 0.5$ and $R_2 = 0.1, 0.2, 0.7$.
+One example where the limit on wildcard cut types $*$ applies is for the $k=1$ and $OR_{prob}$ that has two rows, $R_1 = 0.2, 0.3, 0.5$ and $R_2 = 0.1, 0.2, 0.7$.
 Without exception, the result is $*, *$.
 However, considering the exception on the maximum limit $k=1$, the result is $V, *$.
-Reason is that in $R_2$, symbol $*$ has value $0.7$,
+Reason is that in $R_2$, wildcard $*$ has value $0.7$,
 which is higher than value of $*$ in $R_1$, which is $0.5$.
 
 \begin{figure}[h!]
     \includegraphics[width=1.1\textwidth, left]{individual_decoding}
     \caption[Individual decoding example]{
         Individual decoding example. Both the painting sequence random key and slicing order random key
-        are decoded using the same procedure. The decoded individual can be used to construct a slicing tree. }
+        are decoded using the same procedure.
+        The decoded individual is used to construct an unresolved slicing tree. }
     \label{fig:individual-decoding}
 \end{figure}
+
 
 \subsection{Slicing layout construction}\label{subsec:slicing-tree-construction}
 In the previous subsection, decoding an individual is described.
