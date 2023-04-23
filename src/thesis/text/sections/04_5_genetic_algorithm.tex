@@ -49,6 +49,7 @@ They argue that if the population were primarily composed of the same individual
 
     \For{$i\leftarrow 1$ \KwTo \MaxNumberOfIter}{
         \Population $\leftarrow$ \ApplyReproductivePlan{\Population} \\
+        \Candidate $\leftarrow$ \SelectBest{\Population} \\
         \If{\Objective{\Candidate} $<$ \Objective{\Best}}{
             \Best $\leftarrow$ \Candidate
         }

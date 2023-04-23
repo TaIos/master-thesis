@@ -1,35 +1,51 @@
 \chapter{Discussion}\label{ch:discussion}
 
-This chapter discusses the obtained results and further possible improvements or extensions for the proposed solution.
-First, it describes several ways the proposed solution can be improved or extended in section~\ref{sec:implementation}.
+This chapter discusses the obtained results
+from chapter~\ref{ch:computational-results} in section~\ref{sec:comp-res-discussion}.
+Also, it suggests further improvements, extensions, and future work in section~\ref{sec:improvements}.
 
 
-\section{Improvements and extensions}\label{sec:improvements}
+\section{Computational result discussion}\label{sec:comp-res-discussion}
+TODO
+
+
+\section{Improvements, extensions, future work}\label{sec:improvements}
+This section suggests further improvements and extensions to the proposed solution
+and future work.
+Improvements and extensions are minor or moderate changes that, according to the author,
+can be implemented without much difficulty and the need for modifying
+much of the proposed solution.
+However, each improvement or extension might become a new idea and thus produce a topic for future work.
 
 \subsection{Free space}\label{subsec:free-space}
 
 The extension of the proposed solution is to take a different approach to free space.
-\definice{Free space} can be defined as a part of the painting placement solution where the painting is not placed.
-For example, free space is important in the FLP problem as there is a need for an aisle between the facilities
+\\
+
+\navesti{Free space} is part of the painting placement solution where the paintings are not placed.
+\\
+
+For example, free space is important in the FLP problem (sec.~\ref{sec:facility-layout-problem})
+as there is a need for an aisle between the facilities
 through which the material transportation takes place~\cite{scholzExtensionsSTaTSPractical2010}.
 
 In the proposed solution, two main parts influence where the free space is created.
-It is (1) the placing heuristic and (2) the evaluation function $\pi$, see eq.~\ref{eq:objective}.
+It is (1) the placing heuristic and (2) the evaluation function $\pi$ (eq.~\ref{eq: objective}).
 Placing heuristic works locally, i.e., only in the allocated area for the painting, and the evaluation
 function, although it might be used to define arbitrary free space shape, is not a constraint but a penalization.
-Thus, it does not guarantee that the painting placement solution will create a solution with the desired free space.
+Thus, it does not guarantee that the painting placement solution creates a solution with the desired free space.
 
-One possible approach to guarantee free space is the introduction of dummy paintings.
+One possible approach to guarantee free space is the introduction of \definice{dummy paintings}.
 These dummy paintings can be injected during the slicing tree construction.
 The resulting painting placement solution will thus, among the paintings, contain free space occupied by dummy paintings.
 
 An example of dummy painting injection can be seen in figure~\ref{fig:dummy-painting}.
-The aisle is created between paintings 1,2, and 3 by adding a vertical cut $V$ to the tree.
+The free space is created between paintings 1,2 and 3 by adding a vertical cut $V$ to the tree.
 
 
 \begin{figure}[h!]
     \includegraphics[height=0.33\textheight, center]{dummy_painting}
-    \caption[Example of dummy painting injection]{Example of dummy painting injection.}
+    \caption[Example of dummy painting injection]{Example of dummy painting injection to guarantee the free space between paintings 1,2 and 3.}
     \label{fig:dummy-painting}
 \end{figure}
 
@@ -37,13 +53,13 @@ The aisle is created between paintings 1,2, and 3 by adding a vertical cut $V$ t
 
 Another extension to the proposed solution is adding the ability to work with layouts that are not rectangular.
 It can be solved using the dummy paintings described in subsection~\ref{subsec:free-space}.
-These dummy paintings are as small as possible and placed over the parts of the layout that are not rectangular.
-By placing these dummy facilities, the layout becomes rectangular.
-A similar approach is used in~\cite{scholzExtensionsSTaTSPractical2010} to modify a slicing tree to solve FLP.
+These dummy paintings must be created as small as possible and placed over the parts of the layout that are not rectangular.
+By placing such created dummy facilities, the layout becomes rectangular.
+A similar approach is used in~\cite{scholzExtensionsSTaTSPractical2010} to modify a slicing tree to solve FLP (sec.~\ref{sec:facility-layout-problem}).
 
 An example of using dummy paintings to work with a non-rectangular layout is in figure~\ref{fig:non-rectangular-layout}.
 There are two irregularities in both corners of the layout.
-Two dummy paintings are injected into the slicing tree using a dummy painting injection to fill the irregularities.
+Two dummy paintings are injected into the slicing tree to fill the irregularities.
 
 \begin{figure}[h!]
     \includegraphics[width=0.8\textwidth, center]{non-rectangular-layout}
@@ -54,8 +70,7 @@ Two dummy paintings are injected into the slicing tree using a dummy painting in
 
 \subsection{Non-rectangular paintings}\label{subsec:non-rectangular-paintings}
 
-Not only can the layout be non-rectangular, but also paintings can have a non-rectangular shape.
-Thus, another extension is to allow painting shapes that are not rectangular.
+Another extension is to allow painting shapes that are not rectangular.
 This problem can be easily solved by representing a non-rectangular painting
 as the smallest possible rectangle to which the painting fits.
 By using this approach, the proposed implementation can work with non-rectangular paintings.
@@ -66,65 +81,62 @@ of a painting placement solution.
 
 \subsection{Placing heuristic}\label{subsec:placing-heuristic}
 
-Instead of using the placing heuristic described in~\ref{fig:corner-placing-heuristic}, a different one can be used.
+Instead of using the placement heuristic described in subsection~\ref{subsec:placement-heuristic}, a different one can be used.
 One candidate is a heuristic that, instead of trying to place painting in the corners of the allocated area,
 tries to place the painting at all possible placement points, e.g., to place the painting in the middle of the allocated area.
 However, using this solution might be computationally expensive.
 On the other hand, a heuristic that only tries the bottom-left of the allocated area as a placement point can be much faster but
 might not produce good results.
 
-Another approach is calculating suboptimal or optimal placement point inside the allocated area.
+Another approach is calculating suboptimal or optimal placement points inside the allocated area.
 Then, move the painting as close as possible to that point.
-A similar approach is used in~\cite{goncalvesBiasedRandomkeyGenetic2015} for solving FLP.
+A similar approach is used in~\cite{goncalvesBiasedRandomkeyGenetic2015} for solving FLP (sec.~\ref{sec:facility-layout-problem}).
 They move the facility centroid as close as possible to the calculated unconstrained optimum without leaving the
 boundaries where the facility can be placed.
 
 \subsection{Post-optimization}\label{subsec:post-optimization}
 
 One interesting idea is to introduce post-optimization.
-This is a process that takes the result, in this case painting placement solution,
+It is a process that takes the result, in this case, the painting placement solution,
 and tries to improve it.
-For example, if there is not enough free space between a paintings, they can be moved by the post-optimization process.
-Another example would be if the goal is to create the most compact layout.
-Then, solution can be the compaction operation proposed in~\cite{laiSlicingTreeComplete2001}
-which tries to reduce free space between paintings as much as possible.
+For example, if there is insufficient free space between paintings, they can be moved by the post-optimization process.
+Another example will be if the goal is to create the most compact layout.
+Then, a solution can be to use the compaction operation proposed in~\cite{laiSlicingTreeComplete2001},
+which tries to reduce free space as much as possible.
 
 \subsection{Extension to other problems}\label{subsec:extension-to-other-problems}
 
-This thesis solves the painting placement problem.
-The novel genetic approach uses stochastic vector representation with a crossover that adds stochastic vectors together.
-This approach can be applied to other optimization problems.
-The suitable ones are the ones that optimize some permutation of elements.
-For example, elements can be rectangles, and their permutation is used
-as an input to a placing heuristic.
+The solution proposed in this method can be applied to other problems.
+The central part of the thesis is the coding of an individual and crossover.
+These can be used to solve problems that optimize some permutation of elements.
 
 One concrete example is 2D-KP problem with rectangular pieces~\cite{bortfeldtGeneticAlgorithmTwodimensional2009},
 where the objective is to place as many rectangles in a container as possible,
 minimizing unused space.
 The solution proposed in this thesis can solve the 2D-KP problem with rectangular pieces by
-representing an individual as a stochastic vector that is then decoded
-in the same way as the painting sequence random key described in Individual decoding~\ref{subsec:individual-decoding}.
-Then, this decoding produces a sequence of rectangles used as an input to BL heuristic~\cite{chazelleBottomnLeftBinPackingHeuristic1983}.
-BL heuristic then places all the rectangles inside the container.
-After the placing is finished, all rectangles placed outside the container are removed.
+using unchanged individual representation (sec.~\ref{sec:coding}), unchanged decoding procedure (subsec.~\ref{subsec:individual-decoding}),
+and unchanged slicing layout construction (subsec.~\ref{subsec:slicing-tree-construction}).
+Then, the problem-specific placement heuristic places the rectangles,
+followed by BL heuristic~\cite{chazelleBottomnLeftBinPackingHeuristic1983} that minimized unused space.
 
-\subsection{Future work}\label{subsec:future-work}
-
-There are at least three ideas for the painting placement problem and the proposed implementation that future work might try to address.
-
-\begin{itemize}
-    \item Deciding which painting to place.
-    \item Multiple walls for painting placement.
-    \item Human operator assistance.
-\end{itemize}
-
-Deciding which painting to place can happen when the paintings exceed a wall's area.
+\subsection{Deciding which painting to place}\label{subsec:deciding-which-painting-to-place}
+Deciding which painting to place can happen when the wall area is insufficient to place all paintings.
 Thus, some subset of paintings has to be selected and placed.
-Also, there can be multiple walls.
+A similar problem is solved in the shelf-space planning problem (sec.~\ref{sec:shelf-space-planning}),
+where the retailer has to decide which goods to place on shelves to achieve maximum profits.
+
+\subsection{Multiple walls}\label{subsec:multiple-walls-for-painting-placement}
+
+The painting placement problem can be extended to contain multiple walls instead of one.
 Additionally, the walls might have some interactions between them, e.g., placing a painting on the first wall
 limits the subset of paintings that can be placed on the second wall.
-Lastly, the produced result can be easily visualized.
-Thus, it can be used as an input to some human operators that will further modify it.
-For example, FLP, see section~\ref{sec:facility-layout-problem}, which creates a layout for multiple facilities.
+A similar problem is solved in the shelf-space planning problem (sec.~\ref{sec:shelf-space-planning}),
+where there are multiple shelves at the same time.
+
+\subsection{Human operator assistance}\label{subsec:human-operator-assistance}
+Painting placement solution, which is some placement of paintings, can be easily visualized.
+Thus, it can be presented to a human operator that will further modify it.
+
+For example, FLP (sec.~\ref{sec:facility-layout-problem}) creates a layout for multiple facilities.
 A human engineer that creates the plan for placing these facilities might use the output of an algorithm as a starting point.
-Then, the engineer can modify it by increasing the aisle or changing the position of some facilities.
+Then, the engineer can modify it by increasing the aisle size or changing the position of some facilities.
