@@ -1,0 +1,63 @@
+\section{Hyper-parameters}\label{sec:hyper-parameters}
+
+\begin{table}[]
+    \caption{Hyperparameters and their optimal values}
+    \begin{tabular}{|l|l|}
+        \hline
+        & optimal value                         \\ \hline
+        population size         & $50$ or $100$ times the instance size \\ \hline
+        overlapping penalization constant & \begin{tabular}[c]{@{}l@{}}between $2$ and $5$ times\\ the layout diagonal length\end{tabular} \\ \hline
+        maximum wild card count & 1                                     \\ \hline
+    \end{tabular}
+    \label{tab:hyperparameters-opt}
+\end{table}
+
+\subsection{Population size}\label{subsec:population-size}
+
+Population size is tested in order to determine a reasonable value called \textit{population scaling factor}.
+This value determines the size of the population with respect to the instance size.
+Thus, for instance, with size $N$ and scaling factor $k$, population size is determined as
+$kN$.
+This means that the population size is linear with respect to the instance size.
+
+Results for two random instances can be seen in figure~\ref{fig:pop-size}.
+From it, we can deduce that scaling factor $10$ does not allow
+the population objective average to decrease to the levels comparable to scaling factors $50$ and $100$.
+This might imply that the scaling factor $10$ is insufficient to represent knowledge gathered over time
+in the genetic approach.
+Also, researches in~\cite{goncalvesBiasedRandomkeyGenetic2015} solving UA-FLP using BRKGA
+similarly obtained their best results for scaling factor $100$.
+
+The conclusion is that using scaling factor between $50$ and $100$ is sufficient, with bias towards $100$
+for obtaining better average objective performance.
+However, increasing the scaling factor leads to slower computation speed as every population contains
+more individuals for which genetic operators and reproductive plan must be computed.
+
+\subsection{Overlapping penalization constant}\label{subsec:overlapping-penalization-constant}
+
+It is not desirable to produce a solution where paintings overlap.
+Thus, \textit{overlapping penalization constant} is used to penalize
+individuals that represent such a solution.
+How this constant is used inside the objective function is in equation~\ref{eq:objective}.
+
+The optimal value where the penalization is strong enough
+to uproot overlapping solutions from the population and, at the same time, low enough
+to be at the same scale as other parts of the objective value are tested on two instances – random\_10 and packing\_10.
+
+Value tested for \textit{overlapping penalization constant} is proportional to the diagonal length of the layout to which paintings are placed.
+This way, it contains the information about layout dimensions.
+Thus, if $w$ is width and $h$ is height of the layout, tested value is called $k$ which determines
+\textit{overlapping penalization constant} as $k\sqrt{w^2 + h^2}$.
+
+Results are in figure~\ref{fig:overlapping-penalization} for two instances.
+From it, we can deduce that the optimal value for \textit{overlapping penalization constant} is between $2$ and $5$ times the length of the layout diagonal.
+
+\subsection{Maximum wild card count}\label{subsec:maximum-wild-card-count}
+Maximum wild card count determines the maximum number of wild card symbol $*$ that a decoded individual can contain.
+It is recommended to keep this parameter very low or even set it to zero.
+Reason is that if the parameter is high, computation time might increase if $*$ will spread in population.
+For instance os size $N$, if the wild card count in unconstrained, i.e., it is set to maximum possible number $N-1$,
+then one individual decodes to $2^{N-1}$ values.
+
+Results for computation time are in figure~\ref{fig:computation-time}.
+From it, we can see
