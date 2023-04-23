@@ -31,9 +31,14 @@ we can define crossover for two parents $A$, $B$ and offspring $C$ as
     \label{eq:crossover-orprob}
 \end{equation}
 
-where $\|\cdot\|$ is normalization to the stochastic vector, $+$ is vector addition, $w_A, w_B \in \real$ are weights,
+where $\|\cdot\|$ is normalization to the stochastic vector\footnotemark[1], $+$ is vector addition, $w_A, w_B \in \real$ are weights,
 $P \in \real^{N-1}$ is orientation penalization vector with $N$ being instance size, notation $X_{i:}$ means $i$-th row of a matrix $X$
 and multiplying a vector by a scalar multiplies each element of the vector by that scalar.
+
+\footnotetext[1]{
+Normalization $\|\langle x_1, x_2, \ldots x_n \rangle\| = \langle y_1, y_2, \ldots y_n \rangle$,
+    where $y_i = \dfrac{x_i}{\sum\limits_{k=1}^{n}x_k}$.
+}
 
 Example of crossover for painting sequence random key and slicing order random key (eq.~\ref{eq:crossover-psrk} and~\ref{eq:crossover-sork}),
 is in figure~\ref{fig:crossover-random-keys}.
@@ -63,13 +68,13 @@ and that length of a schema does not matter.
 Preference for schemata with a short length in one-point-crossover~\cite{hollandAdaptationNaturalArtificial1975}
 stems from the fact that a chromosome is split at a particular position.
 This idea of splitting a chromosome is absent in the proposed approach.
-For example, consider slicing order random key vector $A_{rk} = 0, 0.2, 0.7, 0.1$.
+For example, consider slicing order random key vector $A_{rk} = \langle 0, 0.2, 0.7, 0.1 \rangle$.
 Using the decoding procedure described in~\ref{subsec:individual-decoding},
-$A_{rk}$ decodes to $A = 1, 4, 2, 3$.
-Then, $A$ belongs to the schema $S_1 = 1, \_, \_, \_$ and also to schema $S_2 = 1, \_, \_, 3$.
+$A_{rk}$ decodes to $A = \langle 1, 4, 2, 3 \rangle$.
+Then, $A$ belongs to the schema $S_1 = \langle 1, \_, \_, \_\rangle$ and also to schema $S_2 = \langle 1, \_, \_, 3 \rangle$.
 $S_1$ has order 1 and $S_2$ has order 4.
-Let us apply crossover to $A_{rk}$ and $B_{rk} = b_1, b_2, b_3, b_4$.
-Result is $\|b_1, 0.2+b_2, 0.7+b_3, 0.1+b_4\|$.
+Let us apply crossover to $A_{rk}$ and $B_{rk} = \langle b_1, b_2, b_3, b_4 \rangle$.
+Result is $\|\langle b_1, 0.2+b_2, 0.7+b_3, 0.1+b_4 \rangle\|$.
 We cannot make any assumptions about whether the result belongs to $S_1$ or $S_2$, as it purely depends on $B_{rk}$.
 Additionally, we cannot predict the probability of whether $S_1$ or $S_2$ survives, i.e., they will still be present in the crossover result.
 However, when using a one-point-crossover, it would depend on the position of the split.
