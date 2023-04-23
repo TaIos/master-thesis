@@ -1,37 +1,39 @@
 \chapter{Conclusion}\label{ch:conclusion}
 
 The central part of the thesis was to propose a genetic approach for solving the painting placement problem.
-It was accomplished by creating a novel solution representing an individual as multiple stochastic vectors
-and crossover as vector addition, followed by normalization back to the stochastic vector.
+It was accomplished by creating a genetic algorithm with novel individual representation as multiple stochastic vectors
+and novel crossover as vector addition, followed by normalization back to the stochastic vector.
 Subsequent parts and goals of the thesis were defined in the introduction chapter~\ref{ch:introduction}.
 All of them were accomplished and presented in this thesis.
 
-The first goal was to define a painting placement problem and what a solution is.
-It was defined in terms of a painting placement instance, which consists
-of paintings, flow between paintings, layout, and evaluation function.
-The solution was defined as an ordered set of placement points for the paintings.
+\begin{enumerate}
+    \item The first goal was to define a painting placement problem and what a solution is.
+    It was defined in terms of a painting placement instance, which consists
+    of paintings, flow between paintings, layout, and evaluation function.
+    The solution was defined as a sequence of placement points for the paintings.
 
-The second goal was to create a dataset for the painting placement problem.
-Four scenarios were defined – random, clustering, packing, and biased clustering.
-Multiple instances of the painting placement problem were generated for each of them.
+    \item  The second goal was to create a dataset for the painting placement problem.
+    Four scenarios were defined – random, clustering, packing, and biased clustering.
+    Multiple instances of the painting placement problem were generated for each scenario.
 
-The thesis's third and central goal was to propose and implement a genetic approach for solving the painting placement problem.
-As described above, an individual is represented as multiple stochastic vectors in the novel genetic approach.
-Then, the crossover is implemented as vector addition, followed by normalization back to the stochastic vector.
-These vectors decode into one slicing tree, which recursively divides the space or wall where the paintings are placed.
-The second novel approach was to add a wildcard symbol $*$ to the possible values contained in the internal node of a slicing tree.
-Wildcard symbol $*$ can take up any value – $H$ for horizontal cut and $V$ for vertical cut.
+    \item  The thesis's third and central goal was to propose and implement a genetic approach for solving the painting placement problem.
+    As described above, an individual is represented as multiple stochastic vectors in the novel genetic approach.
+    Then, the crossover is implemented as vector addition, followed by normalization back to the stochastic vector.
+    These vectors decode into one slicing tree, which recursively divides the space or wall where the paintings are placed.
+    The second novel approach was to add a wildcard symbol $*$ to the possible values contained in the internal node of a slicing tree.
+    Wildcard symbol $*$ can take up any value – $H$ for horizontal cut and $V$ for vertical cut.
 
-The fourth goal was to evaluate the performance of the proposed genetic approach.
-It was achieved by creating a computational server to which a painting placement
-instance can be submitted and its painting placement solution obtained.
-Each instance in the dataset was submitted multiple times to the computation server to account for the statistical significance of the obtained results.
-These results were then presented and discussed.
+    \item  The fourth goal was to evaluate the performance of the proposed genetic approach.
+    It was achieved by creating a computational server to which a painting placement
+    instance can be submitted and its painting placement solution obtained.
+    Each instance in the dataset was submitted multiple times to the computation server to account for the statistical significance of the obtained results.
+    These results were then presented and discussed.
 
-The fifth and last goal was to discuss the results and suggest further improvements.
-Multiple improvements were discussed in chapter~\ref{ch:discussion}.
-One was an idea for creating an empty space inside the resulting layout by injecting dummy paintings into the slicing tree.
-This injection could be further used to work with non-rectangular layouts.
-Additionally, human operator assistance was mentioned, where the painting placement solution is presented to a human operator
-that further modifies it to his/her needs.
+    \item  The fifth and last goal was to discuss the results and suggest further improvements, extensions, and future work.
+    Suggestions and result discussion were presented in chapter~\ref{ch:discussion}.
+    One suggestion was creating an empty space inside the resulting layout by injecting dummy paintings into the slicing tree.
+    This injection could be further used to work with non-rectangular layouts.
+    Additionally, human operator assistance was mentioned, where the painting placement solution is presented to a human operator
+    that further modifies it to his/her needs.
 
+\end{enumerate}
