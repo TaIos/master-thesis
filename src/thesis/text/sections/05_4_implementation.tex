@@ -1,18 +1,17 @@
 \newpage
-
-
 \section{Implementation}\label{sec:implementation}
 
 The proposed implementation of a genetic approach is written in Java 11
-using a Play Framework\footnotemark[1] v2.8, a web framework for Java and Scala.
+using a Play Framework v2.8\footnotemark[1], a web framework for Java and Scala.
 
-Implementation using a Play Framework behaves like a computation server to which
+Implementation behaves like a computation server to which
 a user can submit a computation.
-Then, the server asynchronously starts the computation and returns an identifier of the computation.
-The user can then check the computation state using this identifier.
+Then, the server asynchronously starts the submitted computation and returns an identifier of the computation.
+It means that multiple computations can be submitted without blocking the user.
+The user can then check the computation state using the returned identifier.
 
-To start the computation server, locate the directory containing a file \verb|build.sbt| in the attached medium.
-Then, run the following command in that directory.
+To start the computation server, locate the directory containing a file \verb|build.sbt| in the attached medium (see appendix~\ref{ch:contents-of-the-attached-medium}).
+Then, run the following command in that directory (Java~11, SBT\footnotemark[3], and Scala must be installed).
 
 \begin{listing}[h!]
     \begin{cminted}[autogobble,breaklines=true]{shell}
@@ -23,10 +22,10 @@ Then, run the following command in that directory.
     \label{lst:sbt-run}
 \end{listing}
 
-It will use \verb|sbt|\footnotemark[3] with \verb|run| argument to start the computation server.
-By default, the computation server will accept requests on \verb|localhost:9000|.
-An example of submitting a computation to the computation server is in listing~\ref{lst:computation-submission-dataset}.
-Example of a successful computation submission is in listing~\ref{lst:computation-response-success}.
+Command in listing~\ref{lst:sbt-run} uses \verb|sbt|\footnotemark[3] with \verb|run| argument to start the computation server.
+By default, the computation server accept requests on \verb|localhost:9000|.
+An example of submitting a computation with a predefined instance name to the computation server is in listing~\ref{lst:computation-submission-dataset}.
+An example of a successful computation submission response is in listing~\ref{lst:computation-response-success}.
 
 \begin{listing}[h!]
 %    \centering
@@ -42,7 +41,7 @@ Example of a successful computation submission is in listing~\ref{lst:computatio
 \end{listing}
 
 The computation server also validates input before starting the computation.
-For example, if misspelling the dataset name, the response can be seen in~\ref{lst:computation-response-fail}.
+For example, if misspelling the instance name, the response by the computation server can be seen in~\ref{lst:computation-response-fail}.
 
 \begin{listing}[h!]
     \centering
@@ -61,51 +60,56 @@ in listing~\ref{lst:computation-submission-dataset} where the instance name is r
 In that case, a user has to specify the instance manually in the request – layout width and height,
 paintings together with their flow and evaluation function $\pi$ (eq.~\ref{eq:objective}), in the format that is accepted by
 mXparser\footnotemark[4].
-An example of submission without specifying the instance is in the appendix in listing~\ref{lst:computation-submission-manual}.
+An example of submission without specifying the instance name is in the appendix in listing~\ref{lst:computation-submission-manual}.
 
 \begin{listing}[h!]
 \centering
-\begin{cminted}[autogobble,breaklines=true]{shell}
+\begin{minted}[autogobble,breaklines=true]{shell}
 $ curl --location 'localhost:9000/compute/dataset' \
 --header 'Content-Type: application/json' \
 --data '{
-"datasetName": "random_10",
-"gaParameters": {
-"maxNumberOfIter": 300,
-"populationSize": 100,
-"maximumWildCardCount": 1,
-"orientationWeights": [ 1, 1, 0.5 ],
-"geneticAlgorithm": "simpleGa",
-"mate": "normalizedProbabilityVectorSum",
-"mutate": "flipOnePartAtRandom",
-"select": "tournament",
-"objective": "simple",
-"evaluator": "ga",
-"placingHeuristics": "corner",
-"populationDivisionCounts": {
-"elite": 0.2,
-"average": 0.6,
-"worst": 0.2,
-"children": 0.3,
-"mutant": 0.2,
-"winner": 0.2,
-"random": 0.1
-},
-"initialPopulationDivisionCounts": {
-"random": 0.7, "greedy": 0.3
-}
-},
-"objectiveParameters": {
-"name": "simple",
-"params": {
-"overlappingPenalizationConstant": 1000,
-"outsideOfAllocatedAreaPenalizationConstant": 0
-}
-}
+   "datasetName":"random_10",
+   "gaParameters":{
+      "maxNumberOfIter":300,
+      "populationSize":100,
+      "maximumWildCardCount":1,
+      "orientationWeights":[
+         1,
+         1,
+         0.5
+      ],
+      "geneticAlgorithm":"simpleGa",
+      "mate":"normalizedProbabilityVectorSum",
+      "mutate":"flipOnePartAtRandom",
+      "select":"tournament",
+      "objective":"simple",
+      "evaluator":"ga",
+      "placingHeuristics":"corner",
+      "populationDivisionCounts":{
+         "elite":0.2,
+         "average":0.6,
+         "worst":0.2,
+         "children":0.3,
+         "mutant":0.2,
+         "winner":0.2,
+         "random":0.1
+      },
+      "initialPopulationDivisionCounts":{
+         "random":0.7,
+         "greedy":0.3
+      }
+   },
+   "objectiveParameters":{
+      "name":"simple",
+      "params":{
+         "overlappingPenalizationConstant":1000,
+         "outsideOfAllocatedAreaPenalizationConstant":0
+      }
+   }
 }'
-\end{cminted}
+\end{minted}
 \cprotect\caption[Example of computation submission with instance name]
-    {Example of computation submission of random\_10 instance using \verb|curl|\footnotemark[2] to a server running on \verb|localhost:9000|.}
+{Example of computation submission of random\_10 instance using \verb|curl|\footnotemark[2] to a computation server running on \verb|localhost:9000|.}
 \label{lst:computation-submission-dataset}
 \end{listing}
 

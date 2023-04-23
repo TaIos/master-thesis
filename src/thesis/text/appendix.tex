@@ -3,7 +3,7 @@
 
 \begin{listing}[h!]
     \centering
-    \begin{cminted}[autogobble,breaklines=true]{shell}
+    \begin{minted}[autogobble,breaklines=true]{shell}
         $ curl --location 'localhost:9000/compute' \
         --header 'Content-Type: application/json' \
         --data '{
@@ -28,7 +28,7 @@
                 ]
             },
             "gaParameters": {
-                "maxNumberOfIter": 2,
+                "maxNumberOfIter": 300,
                 "populationSize": 100,
                 "maximumWildCardCount": 1,
                 "orientationWeights": [ 1, 1, 0.5 ],
@@ -56,10 +56,11 @@
                 }
             }
         }'
-    \end{cminted}
+    \end{minted}
     \cprotect\caption[Example of computation submission without instance]
-    {Example of computation submission using \verb|curl|\footnotemark[1] without specyfing the instance name.
-    Without it, everything has to be entered manually into the request – layout width and height, paintings together with their flow and evaluation function.}
+    {Example of computation submission using \verb|curl|\footnote{\url{https://curl.se/}} without specifying the instance name.
+    Without it, everything has to be entered manually into the request – layout width and height, paintings together with their flow, and evaluation function.
+    }
 
     \label{lst:computation-submission-manual}
 \end{listing}
