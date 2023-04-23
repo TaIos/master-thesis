@@ -1,18 +1,23 @@
 \section{Scenarios}\label{sec:scenarios}
 
-There are 4 scenarios that are tested – random, clustering, packing and biased clustering.
-Additionally, there is one scenario that describes the painting placement at the London National Gallery in figure~\ref{fig:london-wall}. \\
+There are four testing scenarios to evaluate different aspects of the proposed solution.
+They are random, clustering, packing, and biased clustering.
+Additionally, one scenario describes the painting placement at the London National Gallery in figure~\ref{fig:london-wall}. \\
 
-\navesti{Random} scenario contains randomly generated instances that are mainly used for performance testing.\\
+\navesti{Random} scenario contains randomly generated painting placement instances. It is mainly used for performance testing.
+\\
 
 \navesti{Clustering} scenario tests the ability to form clusters.
-This is achieved as dividing the paintings to groups. Paintings belonging to the
-same group have increased flow between them. Paintings from the distinct group have flow between
-them set to 0. \\
+It is achieved by dividing the paintings into groups.
+Paintings belonging to the same group have increased flow between them.
+Paintings from the distinct group have flow between them set to 0.
+\\
 
-\navesti{Packing} scenario is the same as the \textit{random} with the only difference that the layout area
-is equal to the area of all paintings summed together. This tests the ability to create compact solutions.\\
+\navesti{Packing} scenario is the same as the random scenario, with the only difference being that the layout area is equal to the area of all paintings summed together.
+It tests the ability to create compact solutions.
+\\
 
-\navesti{Biased clustering} scenario is similar to the \textit{clustering} with the only difference
-that the evaluation function is set in a way that the formation of clusters is advantageous in certain parts
-of the layout. This test the ability to not only create clusters but also to force their formation in certain parts of the layout.\\
+\navesti{Biased clustering} scenario is the same clustering scenario with the only difference
+that the evaluation function $\pi$ (eq.~\ref{eq:objective})
+is set in a way that the formation of clusters is advantageous in certain parts of the layout.
+It test the ability to create clusters and force their formation in certain parts of the layout.\\
