@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-04-13T07:42:59.792Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="hUxQPhGJ2-8EJTLdI8V6" version="21.1.2" type="device">
+<mxfile host="Electron" modified="2023-04-23T08:49:49.750Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="IIotGLYkmfFR0Yv6CGNY" version="21.1.2" type="device">
   <diagram id="0VI-XoIRhaBafQQYP77Y" name="Page-1">
-    <mxGraphModel dx="1118" dy="622" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="574" dy="323" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -15,18 +15,6 @@
         </mxCell>
         <mxCell id="TaGQrZyLiSGGniFciTtF-2" value="Calculate Fitness" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="240" y="520" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="TaGQrZyLiSGGniFciTtF-7" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="420" y="495" width="440" height="97.5" as="geometry" />
-        </mxCell>
-        <mxCell id="TaGQrZyLiSGGniFciTtF-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="TaGQrZyLiSGGniFciTtF-7" vertex="1">
-          <mxGeometry x="-30" y="12.5" width="220" height="85" as="geometry" />
-        </mxCell>
-        <mxCell id="TaGQrZyLiSGGniFciTtF-4" value="Crossover" style="rounded=0;whiteSpace=wrap;html=1;" parent="TaGQrZyLiSGGniFciTtF-7" vertex="1">
-          <mxGeometry x="-10" y="29.57" width="90.44" height="50.85" as="geometry" />
-        </mxCell>
-        <mxCell id="TaGQrZyLiSGGniFciTtF-26" value="Mutation" style="rounded=0;whiteSpace=wrap;html=1;" parent="TaGQrZyLiSGGniFciTtF-7" vertex="1">
-          <mxGeometry x="90" y="29.57000000000005" width="90.44" height="50.85" as="geometry" />
         </mxCell>
         <mxCell id="TaGQrZyLiSGGniFciTtF-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="TaGQrZyLiSGGniFciTtF-10" target="TaGQrZyLiSGGniFciTtF-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -52,6 +40,15 @@
         </mxCell>
         <mxCell id="TaGQrZyLiSGGniFciTtF-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="TaGQrZyLiSGGniFciTtF-3" target="TaGQrZyLiSGGniFciTtF-10" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TaGQrZyLiSGGniFciTtF-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="391.99545454545455" y="507.5" width="216" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="TaGQrZyLiSGGniFciTtF-4" value="Crossover" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="410.1818181818182" y="524.57" width="88.79563636363633" height="50.85" as="geometry" />
+        </mxCell>
+        <mxCell id="TaGQrZyLiSGGniFciTtF-26" value="Mutation" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="508.3636363636364" y="524.57" width="88.79563636363633" height="50.85" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
