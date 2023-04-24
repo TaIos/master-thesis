@@ -1,30 +1,57 @@
+\newpage
+
+
 \section{Hyper-parameters}\label{sec:hyper-parameters}
 
-\begin{table}[h!]
-    \caption{Hyperparameters and their optimal values}
-    \begin{tabular}{|l|l|}
+There are eight hyperparameters to the proposed genetic algorithm~\ref{alg:genetic}.
+They are described in table~\ref{tab:hyperparams}.
+An example of these hyperparameter values is in listing~\ref{lst:computation-submission-dataset}.
+The rest of the sections discuss these hyperparameters further and tries to find their reasonable values.
+
+\begin{table}[]
+    \caption{Hyperparameters of the genetic algorithm}
+    \label{tab:hyperparams}
+    \begin{tabular}{ll}
         \hline
-        & optimal value                         \\ \hline
-        population size         & $50$ or $100$ times the instance size \\ \hline
-        overlapping penalization constant & \begin{tabular}[c]{@{}l@{}}between $2$ and $5$ times\\ the layout diagonal length\end{tabular} \\ \hline
-        maximum wild card count & 1                                     \\ \hline
+        \multicolumn{1}{c}{\textbf{hyperparameter}} & \multicolumn{1}{c}{\textbf{description}}                   \\ \hline
+        \verb|maxNumberOfIter|                      & maximum number of iterations                               \\ \hline
+        \verb|populationSize|                       & population size                                            \\ \hline
+        \verb|maximumWildCardCount| & \begin{tabular}[c]{@{}l@{}}
+                                          limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding
+        \end{tabular} \\ \hline
+        \verb|orientationWeights|                   & penalization vector $P$ from eq.~\ref{eq:crossover-orprob} \\ \hline
+        \verb|populationDivisionCounts| & \begin{tabular}[c]{@{}l@{}}
+                                              reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})
+        \end{tabular} \\ \hline
+        \verb|initialPopulationDivisionCounts| &
+        \begin{tabular}[c]{@{}l@{}}
+            initial population ratios\\ (right part of fig.~\ref{fig:population-schema})
+        \end{tabular} \\ \hline
+        \verb|overlappingPenalizationConstant| &
+        \begin{tabular}[c]{@{}l@{}}
+            overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}
+        \end{tabular} \\ \hline
+        \verb|outsideOfAllocatedAreaPenalizationConstant| &
+        \begin{tabular}[c]{@{}l@{}}
+            outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}
+        \end{tabular} \\ \hline
     \end{tabular}
-    \label{tab:hyperparameters-opt}
 \end{table}
+
+\subsection{Iteration count}\label{subsec:iteration-count}
+TODO
 
 \subsection{Population size}\label{subsec:population-size}
 
-Population size is tested in order to determine a reasonable value called \textit{population scaling factor}.
-This value determines the size of the population with respect to the instance size.
-Thus, for instance, with size $N$ and scaling factor $k$, population size is determined as
-$kN$.
-This means that the population size is linear with respect to the instance size.
+Population size is tested in order to determine the value for the population scaling factor.
+\definice{Population scaling factor} is value $k$ that determines the hyperparameter \verb|populationSize| as $kN$, where $N$ is the instance size.
+Thus, the population size is linear with respect to the instance size.
 
-Results for two random instances can be seen in figure~\ref{fig:pop-size}.
+Results for two random instances are in figure~\ref{fig:pop-size}.
 From it, we can deduce that scaling factor $10$ does not allow
 the population objective average to decrease to the levels comparable to scaling factors $50$ and $100$.
-This might imply that the scaling factor $10$ is insufficient to represent knowledge gathered over time
-in the genetic approach.
+It might imply that the scaling factor $10$ cannot represent knowledge gathered over time
+in the genetic algorithm.
 Also, researches in~\cite{goncalvesBiasedRandomkeyGenetic2015} solving UA-FLP using BRKGA
 similarly obtained their best results for scaling factor $100$.
 
@@ -33,31 +60,29 @@ for obtaining better average objective performance.
 However, increasing the scaling factor leads to slower computation speed as every population contains
 more individuals for which genetic operators and reproductive plan must be computed.
 
+\subsection{Maximum wild card count}\label{subsec:maximum-wild-card-count}
+Hyperparameter \verb|maximumWildCardCount| limits the maximum number of $*$ cut types produced by $OR_{prob}$ decoding.
+It is recommended to keep this hyperparameter very low or even set it to zero.
+The reason is that if it is high, computation time increases as $*$ spreads in the population.
+For example, consider an individual whose orientation vector is solely composed of $*$ cut types.
+If the size of that vector is $n$, individual decodes to $2^n$ resolved slicing trees as seen in figure~\ref{fig:layout-construction-steps}.
+
 \subsection{Overlapping penalization constant}\label{subsec:overlapping-penalization-constant}
 
-It is not desirable to produce a solution where paintings overlap.
-Thus, \textit{overlapping penalization constant} is used to penalize
-individuals that represent such a solution.
-How this constant is used inside the objective function is in equation~\ref{eq:objective}.
+It is not desirable to produce painting placement solutions that overlap.
+Thus, hyperparameter \verb|overlappingPenalizationConstant| penalizes
+individuals representing such a solution.
 
-The optimal value where the penalization is strong enough
-to uproot overlapping solutions from the population and, at the same time, low enough
-to be at the same scale as other parts of the objective value are tested on two instances – random\_10 and packing\_10.
+The optimal value must be strong enough to remove or limit overlapping solutions from the population.
+Also, it must be low enough not to become the dominant part of the objective function (eq.~\ref{eq:objective})
+as it can lead the genetic algorithm to neglect other parts – eval function, clustering, and flow between paintings.
 
-Value tested for \textit{overlapping penalization constant} is proportional to the diagonal length of the layout to which paintings are placed.
-This way, it contains the information about layout dimensions.
-Thus, if $w$ is width and $h$ is height of the layout, tested value is called $k$ which determines
-\textit{overlapping penalization constant} as $k\sqrt{w^2 + h^2}$.
+Values tested for \verb|overlappingPenalizationConstant| are proportional to the diagonal
+length of the layout to which paintings are placed.
+It means that if we define constant $k$, width of the layout as $W$ and its height as $H$,
+tested value is $k\sqrt{W^2 + H^2}$.
 
 Results are in figure~\ref{fig:overlapping-penalization} for two instances.
 From it, we can deduce that the optimal value for \textit{overlapping penalization constant} is between $2$ and $5$ times the length of the layout diagonal.
 
-\subsection{Maximum wild card count}\label{subsec:maximum-wild-card-count}
-Maximum wild card count determines the maximum number of wild card symbol $*$ that a decoded individual can contain.
-It is recommended to keep this parameter very low or even set it to zero.
-Reason is that if the parameter is high, computation time might increase if $*$ will spread in population.
-For instance os size $N$, if the wild card count in unconstrained, i.e., it is set to maximum possible number $N-1$,
-then one individual decodes to $2^{N-1}$ values.
-
-Results for computation time are in figure~\ref{fig:computation-time}.
-From it, we can see
+\subsection{TODO dalsi hyperparametry}
