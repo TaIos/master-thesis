@@ -83,8 +83,10 @@ are self-explanatory and were set as low numeric values to increase computation 
 
 Seven painting placement instances are generated using table~\ref{tab:generation-parameters} parameters.
 Generated instances are described in table~\ref{tab:instances}.
-For random and packing scenarios, values for parameters max painting width/height, flow min/max, and max painting ratio are randomly generated from the parameter range described in table~\ref{tab:generation-parameters}.
-Clustering and biased clustering it is the same apart from the flow, which is set in a way to form clusters.
+For random and packing scenarios, values for max painting width/height, flow min/max, and max painting ratio are randomly generated from the parameter range described in table~\ref{tab:generation-parameters}.
+The clustering and biased clustering parameters are also generated randomly.
+The only exception is the flow, which is set in a way to form clusters.
+
 
 Visualization of the flow for two painting placement instances is in figure~\ref{fig:instance-flow}.
 On the left is the randomly generated flow for random\_10 instance, and on the right is the flow for cluster\_3\_6 instance that forms clusters.
@@ -92,29 +94,29 @@ On the left is the randomly generated flow for random\_10 instance, and on the r
 Lastly, the eval function for biased\_sparse\_cluster\_3\_5 partitions the layout into six same-size chessboard squares.
 Half are assigned the same advantageous evaluation to force the cluster formation.
 The second half is evaluated to zero.
-The concrete value for the eval function is in the appendix listing~\ref{lst:biased-sparse-cluster-eval-function}.
+The concrete value for the eval function is in the appendix in listing~\ref{lst:biased-sparse-cluster-eval-function}.
 
 \begin{table}[h!]
     \caption{Values of generated instances}
     \label{tab:instances}
     \begin{tabular}{lcccc}
         \hline
-        \begin{tabular}[c]{@{}l@{}}instance name\end{tabular} &
+        instance name &
         \begin{tabular}[c]{@{}c@{}}paint.\\ count\end{tabular} &
         \begin{tabular}[c]{@{}c@{}}layout\\ width, height\end{tabular} &
         scenario &
         description \\ \hline
-        random\_10     & 10 & 24 x 19 & random     &                                                                         \\ \hline
-        random\_20     & 20 & 31 x 25 & random     &                                                                         \\ \hline
-        packing\_10    & 10 & 19 x 15 & packing    &                                                                         \\ \hline
-        packing\_20    & 20 & 33 x 26 & packing    &                                                                         \\ \hline
-        cluster\_3\_10 & 30 & 42 x 34 & clustering & \begin{tabular}[c]{@{}c@{}}3 clusters,\\ 10 paintings each\end{tabular} \\ \hline
-        cluster\_4\_20 & 80 & 66 x 54 & clustering & \begin{tabular}[c]{@{}c@{}}4 clusters,\\ 10 paintings each\end{tabular} \\ \hline
-        biased\_sparse\_cluster\_3\_10 &
-        30 &
-        55 x 45 &
+        random\_10    & 10 & 24 x 19 & random     &                                                                        \\ \hline
+        random\_20    & 20 & 31 x 25 & random     &                                                                        \\ \hline
+        packing\_10   & 10 & 19 x 15 & packing    &                                                                        \\ \hline
+        packing\_20   & 20 & 33 x 26 & packing    &                                                                        \\ \hline
+        cluster\_3\_6 & 18 & 30 x 25 & clustering & \begin{tabular}[c]{@{}c@{}}3 clusters,\\ 6 paintings each\end{tabular} \\ \hline
+        cluster\_4\_5 & 20 & 34 x 27 & clustering & \begin{tabular}[c]{@{}c@{}}4 clusters,\\ 5 paintings each\end{tabular} \\ \hline
+        biased\_sparse\_cluster\_3\_5 &
+        15 &
+        29 x 23 &
         biased clustering &
-        \begin{tabular}[c]{@{}c@{}}3 clusters,\\ 10 paintings each\end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}c@{}}3 clusters,\\ 5 paintings each\end{tabular} \\ \hline
     \end{tabular}
 \end{table}
 
