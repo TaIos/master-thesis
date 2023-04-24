@@ -13,28 +13,18 @@ The rest of the sections discuss these hyperparameters further and tries to find
     \label{tab:hyperparams}
     \begin{tabular}{ll}
         \hline
-        \multicolumn{1}{c}{\textbf{hyperparameter}} & \multicolumn{1}{c}{\textbf{description}}                   \\ \hline
-        \verb|maxNumberOfIter|                      & maximum number of iterations                               \\ \hline
-        \verb|populationSize|                       & population size                                            \\ \hline
-        \verb|maximumWildCardCount| & \begin{tabular}[c]{@{}l@{}}
-                                          limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding
-        \end{tabular} \\ \hline
-        \verb|orientationWeights|                   & penalization vector $P$ from eq.~\ref{eq:crossover-orprob} \\ \hline
-        \verb|populationDivisionCounts| & \begin{tabular}[c]{@{}l@{}}
-                                              reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})
-        \end{tabular} \\ \hline
+        \multicolumn{1}{c}{hyperparameter} & \multicolumn{1}{c}{description}                                                                                         \\ \hline
+        \verb|maxNumberOfIter|             & maximum number of iterations                                                                                            \\ \hline
+        \verb|populationSize|              & population size                                                                                                         \\ \hline
+        \verb|maximumWildCardCount|        & \begin{tabular}[c]{@{}l@{}}limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding\end{tabular} \\ \hline
+        \verb|orientationWeights|          & penalization vector $P$ from eq.~\ref{eq:crossover-orprob}                                                              \\ \hline
+        \verb|populationDivisionCounts|    & \begin{tabular}[c]{@{}l@{}}reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})\end{tabular}      \\ \hline
         \verb|initialPopulationDivisionCounts| &
-        \begin{tabular}[c]{@{}l@{}}
-            initial population ratios\\ (right part of fig.~\ref{fig:population-schema})
-        \end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}l@{}}initial population ratios\\ (right part of fig.~\ref{fig:population-schema})\end{tabular} \\ \hline
         \verb|overlappingPenalizationConstant| &
-        \begin{tabular}[c]{@{}l@{}}
-            overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}
-        \end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}l@{}}overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}\end{tabular} \\ \hline
         \verb|outsideOfAllocatedAreaPenalizationConstant| &
-        \begin{tabular}[c]{@{}l@{}}
-            outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}
-        \end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}l@{}}outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}\end{tabular} \\ \hline
     \end{tabular}
 \end{table}
 
