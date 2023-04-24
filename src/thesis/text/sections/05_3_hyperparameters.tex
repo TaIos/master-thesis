@@ -13,22 +13,32 @@ The rest of the sections discuss these hyperparameters further and tries to find
     \label{tab:hyperparams}
     \begin{tabular}{ll}
         \hline
-        \multicolumn{1}{c}{hyperparameter} & \multicolumn{1}{c}{description}                                                                                         \\ \hline
-        \verb|maxNumberOfIter|             & maximum number of iterations                                                                                            \\ \hline
-        \verb|populationSize|              & population size                                                                                                         \\ \hline
-        \verb|maximumWildCardCount|        & \begin{tabular}[c]{@{}l@{}}limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding\end{tabular} \\ \hline
-        \verb|orientationWeights|          & penalization vector $P$ from eq.~\ref{eq:crossover-orprob}                                                              \\ \hline
-        \verb|populationDivisionCounts|    & \begin{tabular}[c]{@{}l@{}}reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})\end{tabular}      \\ \hline
+        \multicolumn{1}{c}{hyperparameter} & \multicolumn{1}{c}{description}                            \\ \hline
+        \verb|maxNumberOfIter|             & maximum number of iterations                               \\ \hline
+        \verb|populationSize|              & population size                                            \\ \hline
+        \verb|maximumWildCardCount| & \begin{tabular}[c]{@{}l@{}}
+                                          limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding
+        \end{tabular} \\ \hline
+        \verb|orientationWeights|          & penalization vector $P$ from eq.~\ref{eq:crossover-orprob} \\ \hline
+        \verb|populationDivisionCounts| & \begin{tabular}[c]{@{}l@{}}
+                                              reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})
+        \end{tabular} \\ \hline
         \verb|initialPopulationDivisionCounts| &
-        \begin{tabular}[c]{@{}l@{}}initial population ratios\\ (right part of fig.~\ref{fig:population-schema})\end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}l@{}}
+            initial population ratios\\ (right part of fig.~\ref{fig:population-schema})
+        \end{tabular} \\ \hline
         \verb|overlappingPenalizationConstant| &
-        \begin{tabular}[c]{@{}l@{}}overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}\end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}l@{}}
+            overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}
+        \end{tabular} \\ \hline
         \verb|outsideOfAllocatedAreaPenalizationConstant| &
-        \begin{tabular}[c]{@{}l@{}}outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}\end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}l@{}}
+            outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}
+        \end{tabular} \\ \hline
     \end{tabular}
 \end{table}
 
-\subsection{Iteration count}\label{subsec:iteration-count}
+\subsection{Max number of iter}\label{subsec:max-number-of-iter}
 TODO
 
 \subsection{Population size}\label{subsec:population-size}
@@ -57,6 +67,15 @@ The reason is that if it is high, computation time increases as $*$ spreads in t
 For example, consider an individual whose orientation vector is solely composed of $*$ cut types.
 If the size of that vector is $n$, individual decodes to $2^n$ resolved slicing trees as seen in figure~\ref{fig:layout-construction-steps}.
 
+\subsection{Orientation weights}\label{subsec:orientation-weights}
+TODO
+
+\subsection{Population division counts}\label{subsec:population-division-counts}
+TODO
+
+\subsection{Initial population division counts}\label{subsec:initial-population-division-counts}
+TODO
+
 \subsection{Overlapping penalization constant}\label{subsec:overlapping-penalization-constant}
 
 It is not desirable to produce painting placement solutions that overlap.
@@ -75,4 +94,5 @@ tested value is $k\sqrt{W^2 + H^2}$.
 Results are in figure~\ref{fig:overlapping-penalization} for two instances.
 From it, we can deduce that the optimal value for \textit{overlapping penalization constant} is between $2$ and $5$ times the length of the layout diagonal.
 
-\subsection{TODO dalsi hyperparametry}
+\subsection{Outside of allocated area penalization constant}\label{subsec:outside-of-allocated-area-penalization-constant}
+TODO
