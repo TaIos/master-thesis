@@ -11,7 +11,7 @@ Both the datasets and Python code can be found in the attached medium.
 
 Seven parameters are used for dataset generation.
 They are layout area ratio, max painting ratio, eval function, max painting width, max painting height, flow min, and flow max.
-Their values for generating instances for testing scenarios are in table~\ref{tab:scenarious-params}.
+Their values for generating instances for testing scenarios are in table~\ref{tab:generation-parameters}.
 A description of each of them follows in the rest of this subsection.
 
 \begin{table}[h!]
@@ -24,13 +24,13 @@ A description of each of them follows in the rest of this subsection.
                 layout\\ area ratio
             \end{tabular} &
             \begin{tabular}[c]{@{}c@{}}
-                max painting\\ width
+                max paint.\\ width
             \end{tabular} &
             \begin{tabular}[c]{@{}c@{}}
-                max painting\\ height
+                max paint.\\ height
             \end{tabular} &
             \begin{tabular}[c]{@{}c@{}}
-                max painting\\ ratio
+                max paint.\\ ratio
             \end{tabular} &
             \begin{tabular}[c]{@{}c@{}}
                 flow\\ min
@@ -53,7 +53,7 @@ A description of each of them follows in the rest of this subsection.
             \item Left-out values marked with - are discussed later in the text.
         \end{tablenotes}
     \end{threeparttable}
-    \label{tab:scenarious-params}
+    \label{tab:generation-parameters}
 \end{table}
 
 \definice{Layout area ratio} is the ratio between the area of the layout and the painting area sum.
@@ -91,26 +91,31 @@ Furthermore, using a non-constant eval function makes it harder to interpret the
 Rest of the parameters, \definice{max painting width}, \definice{max painting height}, \definice{flow min}, \definice{flow max}
 are self-explanatory and were set as low numeric values to increase computation speed and avoid overflow.
 
+\subsection{Instances}\label{subsec:instances}
 
-\subsection{Instances}
-There are seven instances in total with their parameters described in table~\ref{tab:instances}.
-\todo{describe eval function at biased clustering}.
-Visualization of a flow between paintings can be seen in two instances in figure~\ref{fig:instance-flow}.
-Flow, in other instances, follows the same generation pattern determined by the scenario
-– random flow for random and packing scenarios and non-zero flow only between
-the same group of paintings in a (biased)-clustering scenario.
+Seven painting placement instances are generated using table~\ref{tab:generation-parameters} parameters.
+Generated instances are described in table~\ref{tab:instances}.
+For random and packing scenarios, values for parameters max painting width/height, flow min/max, and max painting ratio are randomly generated from the parameter range described in table~\ref{tab:generation-parameters}.
+Clustering and biased clustering it is the same apart from the flow, which is set in a way to form clusters.
 
+Visualization of the flow for two painting placement instances is in figure~\ref{fig:instance-flow}.
+On the left is the randomly generated flow for random\_10 instance, and on the right is the flow for cluster\_3\_6 instance that forms clusters.
+
+Lastly, the eval function for biased\_sparse\_cluster\_3\_5 partitions the layout into six same-size chessboard squares.
+Half are assigned the same advantageous evaluation to force the cluster formation.
+The second half is evaluated to zero.
+The concrete value for the eval function is in the appendix listing~\ref{lst:biased-sparse-cluster-eval-function}.
 
 \begin{table}[h!]
-    \caption{Parameters of generated instances}
+    \caption{Values of generated instances}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        instance name &
+        name &
         \begin{tabular}[c]{@{}c@{}}
-            painting\\ count
+            paint.\\ count
         \end{tabular} &
         \begin{tabular}[c]{@{}c@{}}
-            layout\\ width x height
+            layout\\ width, height
         \end{tabular} &
         scenario &
         description \\ \hline
@@ -134,5 +139,6 @@ the same group of paintings in a (biased)-clustering scenario.
     \end{tabular}
     \label{tab:instances}
 \end{table}
+
 
 
