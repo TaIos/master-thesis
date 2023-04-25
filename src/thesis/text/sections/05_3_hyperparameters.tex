@@ -39,7 +39,11 @@ The rest of the sections discuss these hyperparameters further and tries to find
 \end{table}
 
 \subsection{Max number of iter}\label{subsec:max-number-of-iter}
-TODO
+Results for hyperparameter \verb|maxNumberOfIter| are in figure~\ref{fig:hyperparams-max-number-of-iter}.
+We can see the initial decrease of the average population objective for both random instances.
+Between iterations 100 and 150, decreasing trend and fluctuations stop.
+From it, we can deduce that at least 150 iterations are needed.
+
 
 \subsection{Population size}\label{subsec:population-size}
 
@@ -96,3 +100,18 @@ From it, we can deduce that the optimal value for \textit{overlapping penalizati
 
 \subsection{Outside of allocated area penalization constant}\label{subsec:outside-of-allocated-area-penalization-constant}
 TODO
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_10}\label{subfig:hyperparams-max-number-of-iter-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_20}\label{subfig:hyperparams-max-number-of-iter-random-20}}
+            \caption[Max number of iter]
+            {Testing hyperparameter maximum number of iterations at two random instances.}
+            \label{fig:hyperparams-max-number-of-iter}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
