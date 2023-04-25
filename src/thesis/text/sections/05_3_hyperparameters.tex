@@ -44,20 +44,17 @@ We can see the initial decrease of the average population objective for both ran
 Between iterations 100 and 150, decreasing trend and fluctuations stop.
 From it, we can deduce that at least 150 iterations are needed.
 
-
 \subsection{Population size}\label{subsec:population-size}
 
-Population size is tested in order to determine the value for the population scaling factor.
-\definice{Population scaling factor} is value $k$ that determines the hyperparameter \verb|populationSize| as $kN$, where $N$ is the instance size.
+Population size is calculated as $kN$, where $k$ is \definice{population scaling factor}
+and $N$ is instance size.
 Thus, the population size is linear with respect to the instance size.
 
-Results for two random instances are in figure~\ref{fig:pop-size}.
-From it, we can deduce that scaling factor $10$ does not allow
+Results for two random instances are in figure~\ref{fig:hyperparameters-population-size}.
+We can see that scaling factor $10$ does not allow
 the population objective average to decrease to the levels comparable to scaling factors $50$ and $100$.
 It might imply that the scaling factor $10$ cannot represent knowledge gathered over time
-in the genetic algorithm.
-Also, researches in~\cite{goncalvesBiasedRandomkeyGenetic2015} solving UA-FLP using BRKGA
-similarly obtained their best results for scaling factor $100$.
+in the genetic algorithm or that more iterations are needed.
 
 The conclusion is that using scaling factor between $50$ and $100$ is sufficient, with bias towards $100$
 for obtaining better average objective performance.
@@ -108,9 +105,25 @@ TODO
             \centering
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_10}\label{subfig:hyperparams-max-number-of-iter-random-10}}
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_20}\label{subfig:hyperparams-max-number-of-iter-random-20}}
-            \caption[Max number of iter]
+            \caption[Testing maximum number of iterations]
             {Testing hyperparameter maximum number of iterations at two random instances.}
             \label{fig:hyperparams-max-number-of-iter}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparams-population-size-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_20}\label{subfig:huperparameters-population-size-random-20}}
+            \caption[Testing population scaling factor]
+            {Testing population scaling factor at two random instances.
+            The population size is $kN$ for population scaling factor $k$ and instance of size $N$. }
+            \label{fig:hyperparameters-population-size}%
         \end{figure}
     \end{landscape}
     \clearpage% Flush page
