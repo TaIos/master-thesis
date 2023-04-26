@@ -203,3 +203,52 @@ TODO
     \clearpage% Flush page
 }
 
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_10}\label{subfig:hyperparameters-initial-population-division-counts-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_20}\label{subfig:hyperparameters-initial-population-division-counts-random-20}}
+            \caption[Testing initial population division counts]
+            {Testing initial population division counts at two random instances.}
+            \label{fig:hyperparameters-initial-population-division-counts}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_10}\label{subfig:hyperparameters-overlapping-penalization-constant-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_20}\label{subfig:hyperparameters-overlapping-penalization-constant-random-20}}
+            \caption[Testing overlapping penalization constant]
+            {Testing overlapping penalization constant $\lambda$ (eq.~\ref{eq:objective}) at two random instances.
+            It is determined as $kD$, where $k$ is diagonal multiple and $D$ is the length of a diagonal in a layout.
+            Graps show the average averlapping count for best individual at each iteration.}
+            \label{fig:hyperparameters-overlapping-penalization-constant}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/outside_of_allocated_area_penalization_constant_random_10}\label{subfig:hyperparameters-outside-of-allocated-area-penalization-constant-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/outside_of_allocated_area_penalization_constant_random_20}\label{subfig:hyperparameters-outside-of-allocated-area-penalization-constant-random-20}}
+            \caption[Testing outside of allocated area penalization constant]
+            {Testing outside of allocated area penalization constant $\gamma$ (eq.~\ref{eq:objective}) at two random instances.
+            It is determined as $kD$, where $k$ is diagonal multiple and $D$ is the length of a diagonal in a layout.
+            Graps show the average number of paintings that are placed outside of their allocated are for best individual at each iteration.}
+            \label{fig:hyperparameters-outside-of-allocated-area-penalization-constant}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
