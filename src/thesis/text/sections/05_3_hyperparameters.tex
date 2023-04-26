@@ -123,6 +123,23 @@ TODO
     \end{table}
 \end{landscape}
 
+
+%\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparams-maximum-wild-card-count-performance}}
+
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_computation_time_random_10}\label{subfig:hyperparams-maximum-wild-card-count-computation-speed}}
+    \caption[Testing maximum wild card count]
+    {Testing performance (top) and computation speed (bottom) for increasing maximum wild card count.}
+    \label{fig:computation-time}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
+
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
     \begin{landscape}% Landscape page
@@ -131,7 +148,7 @@ TODO
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_10}\label{subfig:hyperparams-max-number-of-iter-random-10}}
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_20}\label{subfig:hyperparams-max-number-of-iter-random-20}}
             \caption[Testing maximum number of iterations]
-            {Testing hyperparameter maximum number of iterations at two random instances.}
+            {Testing  maximum number of iterations at two random instances.}
             \label{fig:hyperparams-max-number-of-iter}%
         \end{figure}
     \end{landscape}
@@ -146,7 +163,7 @@ TODO
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparams-population-size-random-10}}
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_20}\label{subfig:hyperparameters-population-size-random-20}}
             \caption[Testing population scaling factor]
-            {Testing population scaling factor at two random instances.
+            {Testing population scaling factor  at two random instances.
             The population size is $kN$ for population scaling factor $k$ and instance of size $N$. }
             \label{fig:hyperparameters-population-size}%
         \end{figure}
@@ -154,18 +171,18 @@ TODO
     \clearpage% Flush page
 }
 
-%\afterpage{%
-%    \clearpage% Flush earlier floats (otherwise order might not be correct)
-%    \begin{landscape}% Landscape page
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
         \begin{figure}
             \centering
-            \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparams-maximum-wild-card-count-performance}}
-
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_computation_time_random_10}\label{subfig:hyperparams-maximum-wild-card-count-computation-speed}}
-            \caption[Testing maximum wild card count]
-            {Testing performance (top) and computation speed (top) for increasing maximum wild card count.}
-            \label{fig:computation-time}%
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_random_10}\label{subfig:hyperparams-orientation-weights-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_random_20}\label{subfig:hyperparameters-orientation-weights-random-20}}
+            \caption[Testing orientation weights]
+            {Testing orientation weight for a wildcard cut type $*$ at two random instances.}
+            \label{fig:hyperparameters-orientation-weights}%
         \end{figure}
-%    \end{landscape}
-%    \clearpage% Flush page
-%}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
