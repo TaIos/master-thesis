@@ -125,7 +125,7 @@ TODO
 
 
 %\afterpage{%
-    \clearpage% Flush earlier floats (otherwise order might not be correct)
+\clearpage% Flush earlier floats (otherwise order might not be correct)
 %    \begin{landscape}% Landscape page
 \begin{figure}
     \centering
@@ -148,7 +148,7 @@ TODO
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_10}\label{subfig:hyperparams-max-number-of-iter-random-10}}
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_20}\label{subfig:hyperparams-max-number-of-iter-random-20}}
             \caption[Testing maximum number of iterations]
-            {Testing  maximum number of iterations at two random instances.}
+            {Testing maximum number of iterations at two random instances.}
             \label{fig:hyperparams-max-number-of-iter}%
         \end{figure}
     \end{landscape}
@@ -163,7 +163,7 @@ TODO
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparams-population-size-random-10}}
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_20}\label{subfig:hyperparameters-population-size-random-20}}
             \caption[Testing population scaling factor]
-            {Testing population scaling factor  at two random instances.
+            {Testing population scaling factor at two random instances.
             The population size is $kN$ for population scaling factor $k$ and instance of size $N$. }
             \label{fig:hyperparameters-population-size}%
         \end{figure}
@@ -181,6 +181,23 @@ TODO
             \caption[Testing orientation weights]
             {Testing orientation weight for a wildcard cut type $*$ at two random instances.}
             \label{fig:hyperparameters-orientation-weights}%
+        \end{figure}
+    \end{landscape}
+    \clearpage% Flush page
+}
+
+\afterpage{%
+    \clearpage% Flush earlier floats (otherwise order might not be correct)
+    \begin{landscape}% Landscape page
+        \begin{figure}
+            \centering
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_division_counts_random_10}\label{subfig:hyperparameters-population-division-counts-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_division_counts_random_20}\label{subfig:hyperparameters-population-division-counts-random-20}}
+            \caption[Testing population division counts]
+            {Testing population division counts at two random instances.
+            Four variants are displayed. First does not use elitism, second does not inject random individuals, third combines first and second,
+                and the last does not make any change to the population division counts.}
+            \label{fig:hyperparameters-population-division-counts}%
         \end{figure}
     \end{landscape}
     \clearpage% Flush page
