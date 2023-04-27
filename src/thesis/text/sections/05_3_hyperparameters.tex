@@ -4,7 +4,7 @@
 \section{Hyper-parameters}\label{sec:hyper-parameters}
 
 Proposed genetic algorithm~\ref{alg:genetic} has eight hyperparameters.
-They are described in table~\ref{tab:hyperparams}.
+They are described in table~\ref{tab:hyperparameters-description}.
 The rest of the sections discuss these hyperparameters further and tries to find their reasonable values.
 
 Hyperparameter testing is performed by changing only the hyperparameter under test.
@@ -21,7 +21,7 @@ Presented values are thus an average from five samples.
 
 \begin{table}[h!]
     \caption{Hyperparameters of the genetic algorithm}
-    \label{tab:hyperparams}
+    \label{tab:hyperparameters-description}
     \begin{tabular}{lc}
         \hline
         \multicolumn{1}{c}{\textbf{hyperparameter}} & \textbf{description}                                       \\ \hline
@@ -49,9 +49,8 @@ Presented values are thus an average from five samples.
     \end{tabular}
 \end{table}
 
-
 \subsection{Max number of iter}\label{subsec:max-number-of-iter}
-Results for hyperparameter \verb|maxNumberOfIter| are in figure~\ref{fig:hyperparams-max-number-of-iter}.
+Results for hyperparameter \verb|maxNumberOfIter| are in figure~\ref{fig:hyperparameters-max-number-of-iter}.
 We can see the initial decrease of the average population objective for both random instances.
 Between iterations 100 and 150, decreasing trend and fluctuations stop.
 From it, we can deduce that at least 150 iterations are needed before the average population objective
@@ -75,14 +74,47 @@ However, increasing the scaling factor leads to slower computation speed as ever
 more individuals for which genetic operators and reproductive plan must be computed.
 
 \subsection{Maximum wild card count}\label{subsec:maximum-wild-card-count}
-Hyperparameter \verb|maximumWildCardCount| limits the maximum number of $*$ cut types produced by $OR_{prob}$ decoding.
+Hyperparameter \verb|maximumWildCardCount| limits the maximum number of $*$ cut types produced by $OR_{prob}$ decoding (subsec.~\ref{subsec:individual-decoding}).
 It is recommended to keep this hyperparameter very low or even set it to zero.
 The reason is that if it is high, computation time increases as $*$ spreads in the population.
 For example, consider an individual whose orientation vector is solely composed of $*$ cut types.
 If the size of that vector is $n$, individual decodes to $2^n$ resolved slicing trees as seen in figure~\ref{fig:layout-construction-steps}.
 
+
+Results for two random instances are in figure~\ref{fig:hyperparameters-maximum-wild-card-count}.
+\todo{popsat vysledky az dobehnou vypocty}Maecenas libero. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc dapibus tortor vel mi dapibus sollicitudin. Duis viverra diam non justo. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim.
+
 \subsection{Orientation weights}\label{subsec:orientation-weights}
-TODO
+Hyperparameter \verb|orientationWeights| determines the bias towards the type of cut ($H$, $V$, $*$, see~\ref{subsec:individual-decoding}) \textit{during crossover}.
+The orientation penalization vector $P$ from eq.~\ref{eq:crossover-orprob} contains the penalization value for each cut type.
+In this thesis, only penalization for the wildcard cut type $*$ is tested, as there is no need to penalize or have a preference for $H$ or $V$ cut types.
+Recall that the hyperparameter \verb|maximumWildCardCount| is \textit{set to one}, as described at the beginning of the section and showed in listing~\ref{lst:computation-submission-dataset}.
+
+Performance results for two random instances are in figure~\ref{fig:hyperparameters-orientation-weights}.
+We can see that for random\_10 instance,
+weight does not significantly influence the average population objective, and after iteration 250, differences become negligible.
+However, for random\_20 instance,
+weight one (no penalization) has a faster-decreasing trend and produces a population with a better average population objective.
+From it, we can deduce that (a) smaller instances, such as random\_10, do not benefit from the introduction of wildcard cut type $*$,
+and (b) bigger instances, such as random\_20, benefit from no penalization by having a faster-decreasing trend and producing a better average population.
+
+The reason for better average performance at larger instance with weight one (no penalization) might
+be that search space increases exponentially (there are at least $2^{N-1}$ different unresolved slicing trees for instance of size $N$) and the introduction of wildcard cut type $*$ starts to manifest itself
+at larger instances.
+
+Results for the number of wildcard cut types $*$ at the best individual at each iteration are in
+figure~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}.
+We can see that for the random\_10 instance, weights below one have less than one wildcard on average.
+However, on average, there are between three and four wildcards for a weight equal to one (no penalization).
+Similar can be seen for random\_20 instance.
+The deduction is that if we want to be certain that wildcard cut type $*$ is contained in the best individual at each iteration,
+wild card orientation weight must be set close to one.
+
+The reason why there are wildcards present in the figure~~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}
+even for weight equal to zero (maximal penalization) is that wildcard can be introduced to a chromosome by mutation
+or injection random individuals (see reproductive plan~\ref{subsec:reproductive-plan}).
+Penalization described only applies to the crossover.
+
 
 \subsection{Population division counts}\label{subsec:population-division-counts}
 TODO
@@ -111,99 +143,28 @@ From it, we can deduce that the optimal value for \textit{overlapping penalizati
 \subsection{Outside of allocated area penalization constant}\label{subsec:outside-of-allocated-area-penalization-constant}
 TODO
 
-%\begin{landscape}% Landscape page
-%    \begin{table}[]
-%        \caption{Hyperparameters of the genetic algorithm}
-%        \label{tab:hyperparams}
-%        \begin{tabular}{lcc}
-%            \hline
-%            \textbf{hyperparameter} &
-%            \textbf{\begin{tabular}[c]{@{}c@{}}
-%                        recommended\\ value
-%            \end{tabular}} &
-%            \textbf{description} \\ \hline
-%            \verb|maxNumberOfIter| &
-%            $\ge 150$ &
-%            maximum number of iterations \\ \hline
-%            \verb|populationSize| &
-%            \begin{tabular}[c]{@{}c@{}}
-%                population scaling factor\\ \numrange{50}{100}
-%            \end{tabular} &
-%            population size \\ \hline
-%            \verb|maximumWildCardCount| &
-%            1 &
-%            \begin{tabular}[c]{@{}c@{}}
-%                limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding
-%            \end{tabular} \\ \hline
-%            \verb|orientationWeights| &
-%            TODO &
-%            penalization vector $P$ from eq.~\ref{eq:crossover-orprob} \\ \hline
-%            \verb|populationDivisionCounts| &
-%            TODO &
-%            \begin{tabular}[c]{@{}c@{}}
-%                reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})
-%            \end{tabular} \\ \hline
-%            \verb|initialPopulationDivisionCounts| &
-%            TODO &
-%            \begin{tabular}[c]{@{}c@{}}
-%                initial population ratios\\ (right part of fig.~\ref{fig:population-schema})
-%            \end{tabular} \\ \hline
-%            \verb|overlappingPenalizationConstant| &
-%            \begin{tabular}[c]{@{}c@{}}
-%                diagonal length\\ of the layout
-%            \end{tabular} &
-%            \begin{tabular}[c]{@{}c@{}}
-%                overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}
-%            \end{tabular} \\ \hline
-%            \verb|outsideOfAllocatedAreaPenalizationConstant| &
-%            \begin{tabular}[c]{@{}c@{}}
-%                diagonal length\\ of the layout
-%            \end{tabular} &
-%            \begin{tabular}[c]{@{}c@{}}
-%                outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}
-%            \end{tabular} \\ \hline
-%        \end{tabular}
-%    \end{table}
-%\end{landscape}
-
-
-%\afterpage{%
-\clearpage% Flush earlier floats (otherwise order might not be correct)
-%    \begin{landscape}% Landscape page
-\begin{figure}
-    \centering
-    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparams-maximum-wild-card-count-performance}}
-
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_computation_time_random_10}\label{subfig:hyperparams-maximum-wild-card-count-computation-speed}}
-    \caption[Testing maximum wild card count]
-    {Testing performance (top) and computation speed (bottom) for increasing maximum wild card count.}
-    \label{fig:computation-time}%
-\end{figure}
-%    \end{landscape}
-%    \clearpage% Flush page
-%}
-
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
     \begin{landscape}% Landscape page
         \begin{figure}
             \centering
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_10}\label{subfig:hyperparams-max-number-of-iter-random-10}}
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_20}\label{subfig:hyperparams-max-number-of-iter-random-20}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_10}\label{subfig:hyperparameters-max-number-of-iter-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_20}\label{subfig:hyperparameters-max-number-of-iter-random-20}}
             \caption[Testing maximum number of iterations]
             {Testing maximum number of iterations at two random instances.}
-            \label{fig:hyperparams-max-number-of-iter}%
+            \label{fig:hyperparameters-max-number-of-iter}%
         \end{figure}
     \end{landscape}
     \clearpage% Flush page
 }
 
+
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
     \begin{landscape}% Landscape page
         \begin{figure}
             \centering
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparams-population-size-random-10}}
+            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparameters-population-size-random-10}}
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_20}\label{subfig:hyperparameters-population-size-random-20}}
             \caption[Testing population scaling factor]
             {Testing population scaling factor at two random instances.
@@ -214,20 +175,58 @@ TODO
     \clearpage% Flush page
 }
 
-\afterpage{%
-    \clearpage% Flush earlier floats (otherwise order might not be correct)
-    \begin{landscape}% Landscape page
-        \begin{figure}
-            \centering
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_random_10}\label{subfig:hyperparams-orientation-weights-random-10}}
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_random_20}\label{subfig:hyperparameters-orientation-weights-random-20}}
-            \caption[Testing orientation weights]
-            {Testing orientation weight for a wildcard cut type $*$ at two random instances.}
-            \label{fig:hyperparameters-orientation-weights}%
-        \end{figure}
-    \end{landscape}
-    \clearpage% Flush page
-}
+
+%\afterpage{%
+\clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-performance}}
+
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_computation_time_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-computation-speed}}
+    \caption[Testing maximum wild card count]
+    {Testing increasing maximum wild card count. Performance (top) and computation speed (bottom).}
+    \label{fig:hyperparameters-maximum-wild-card-count}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
+
+
+%\afterpage{%
+%    \clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/orientation_weights_random_10}\label{subfig:hyperparameters-orientation-weights-random-10}}
+
+    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/orientation_weights_random_20}\label{subfig:hyperparameters-orientation-weights-random-20}}
+    \cprotect\caption[Testing orientation weights performance]
+    {Testing performance of orientation weight for a wildcard cut type $*$ at two random instances.
+    Hyperparameter \verb|maximumWildCardCount| is 1.}
+    \label{fig:hyperparameters-orientation-weights}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
+
+%\afterpage{%
+%    \clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=1\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_10}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-10}}
+
+    \subfloat{\includegraphics[width=1\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_20}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-20}}
+    \cprotect\caption[Testing wildcard spread]
+    {Testing wildcard spread at two random instances.
+    Each iteration shows average count of wildcard cut type $*$ at best individual for different values of wild card orientation weights.
+    Hyperparameter \verb|maximumWildCardCount| is 1.}
+    \label{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
 
 \afterpage{%
     \clearpage% Flush earlier floats (otherwise order might not be correct)
