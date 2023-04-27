@@ -15,26 +15,39 @@ Population size is set to $50N$, where $N$ is the size of the instance.
 The reason for choosing such parameters as base parameters for testing
 is preliminary results (not presented in this thesis), which proved correct in many cases.
 
+To achieve the statistical significance of the results presented in this section, each computation (sec.~\ref{sec:implementation}) is submitted five times with a different random seed.
+Presented values are thus an average from five samples.
+
+
 \begin{table}[h!]
     \caption{Hyperparameters of the genetic algorithm}
     \label{tab:hyperparams}
     \begin{tabular}{lc}
         \hline
-        \multicolumn{1}{c}{\textbf{hyperparameter}} & \textbf{description}                                                                                                    \\ \hline
-        \verb|maxNumberOfIter|                      & maximum number of iterations                                                                                            \\ \hline
-        \verb|populationSize|                       & population size                                                                                                         \\ \hline
-        \verb|maximumWildCardCount|                 & \begin{tabular}[c]{@{}c@{}}limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding\end{tabular} \\ \hline
-        \verb|orientationWeights|                   & penalization vector $P$ from eq.~\ref{eq:crossover-orprob}                                                              \\ \hline
-        \verb|populationDivisionCounts|             & \begin{tabular}[c]{@{}c@{}}reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})\end{tabular}      \\ \hline
+        \multicolumn{1}{c}{\textbf{hyperparameter}} & \textbf{description}                                       \\ \hline
+        \verb|maxNumberOfIter|                      & maximum number of iterations                               \\ \hline
+        \verb|populationSize|                       & population size                                            \\ \hline
+        \verb|maximumWildCardCount| & \begin{tabular}[c]{@{}c@{}}
+                                          limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding
+        \end{tabular} \\ \hline
+        \verb|orientationWeights|                   & penalization vector $P$ from eq.~\ref{eq:crossover-orprob} \\ \hline
+        \verb|populationDivisionCounts| & \begin{tabular}[c]{@{}c@{}}
+                                              reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})
+        \end{tabular} \\ \hline
         \verb|initialPopulationDivisionCounts| &
-        \begin{tabular}[c]{@{}c@{}}initial population ratios\\ (right part of fig.~\ref{fig:population-schema})\end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}c@{}}
+            initial population ratios\\ (right part of fig.~\ref{fig:population-schema})
+        \end{tabular} \\ \hline
         \verb|overlappingPenalizationConstant| &
-        \begin{tabular}[c]{@{}c@{}}overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}\end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}c@{}}
+            overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}
+        \end{tabular} \\ \hline
         \verb|outsideOfAllocatedAreaPenalizationConstant| &
-        \begin{tabular}[c]{@{}c@{}}outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}\end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}c@{}}
+            outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}
+        \end{tabular} \\ \hline
     \end{tabular}
 \end{table}
-
 
 
 \subsection{Max number of iter}\label{subsec:max-number-of-iter}
