@@ -3,10 +3,39 @@
 
 \section{Hyper-parameters}\label{sec:hyper-parameters}
 
-There are eight hyperparameters to the proposed genetic algorithm~\ref{alg:genetic}.
+Proposed genetic algorithm~\ref{alg:genetic} has eight hyperparameters.
 They are described in table~\ref{tab:hyperparams}.
-An example of these hyperparameter values is in listing~\ref{lst:computation-submission-dataset}.
 The rest of the sections discuss these hyperparameters further and tries to find their reasonable values.
+
+Hyperparameter testing is performed by changing only the hyperparameter under test.
+Hyperparameters not under test are identical to the values in listing~\ref{lst:computation-submission-dataset}.
+The exceptions are penalization constants $\lambda, \gamma$ (eq.~\ref{eq:objective}), and \verb|populationSize|.
+Penalization constants are set to the length of the layout diagonal (see~\ref{subsec:overlapping-penalization-constant}).
+Population size is set to $50N$, where $N$ is the size of the instance.
+The reason for choosing such parameters as base parameters for testing
+is preliminary results (not presented in this thesis), which proved correct in many cases.
+
+\begin{table}[h!]
+    \caption{Hyperparameters of the genetic algorithm}
+    \label{tab:hyperparams}
+    \begin{tabular}{lc}
+        \hline
+        \multicolumn{1}{c}{\textbf{hyperparameter}} & \textbf{description}                                                                                                    \\ \hline
+        \verb|maxNumberOfIter|                      & maximum number of iterations                                                                                            \\ \hline
+        \verb|populationSize|                       & population size                                                                                                         \\ \hline
+        \verb|maximumWildCardCount|                 & \begin{tabular}[c]{@{}c@{}}limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding\end{tabular} \\ \hline
+        \verb|orientationWeights|                   & penalization vector $P$ from eq.~\ref{eq:crossover-orprob}                                                              \\ \hline
+        \verb|populationDivisionCounts|             & \begin{tabular}[c]{@{}c@{}}reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})\end{tabular}      \\ \hline
+        \verb|initialPopulationDivisionCounts| &
+        \begin{tabular}[c]{@{}c@{}}initial population ratios\\ (right part of fig.~\ref{fig:population-schema})\end{tabular} \\ \hline
+        \verb|overlappingPenalizationConstant| &
+        \begin{tabular}[c]{@{}c@{}}overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}\end{tabular} \\ \hline
+        \verb|outsideOfAllocatedAreaPenalizationConstant| &
+        \begin{tabular}[c]{@{}c@{}}outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}\end{tabular} \\ \hline
+    \end{tabular}
+\end{table}
+
+
 
 \subsection{Max number of iter}\label{subsec:max-number-of-iter}
 Results for hyperparameter \verb|maxNumberOfIter| are in figure~\ref{fig:hyperparams-max-number-of-iter}.
@@ -68,60 +97,60 @@ From it, we can deduce that the optimal value for \textit{overlapping penalizati
 \subsection{Outside of allocated area penalization constant}\label{subsec:outside-of-allocated-area-penalization-constant}
 TODO
 
-\begin{landscape}% Landscape page
-    \begin{table}[]
-        \caption{Hyperparameters of the genetic algorithm}
-        \label{tab:hyperparams}
-        \begin{tabular}{lcc}
-            \hline
-            \textbf{hyperparameter} &
-            \textbf{\begin{tabular}[c]{@{}c@{}}
-                        recommended\\ value
-            \end{tabular}} &
-            \textbf{description} \\ \hline
-            \verb|maxNumberOfIter| &
-            $\ge 150$ &
-            maximum number of iterations \\ \hline
-            \verb|populationSize| &
-            \begin{tabular}[c]{@{}c@{}}
-                population scaling factor\\ \numrange{50}{100}
-            \end{tabular} &
-            population size \\ \hline
-            \verb|maximumWildCardCount| &
-            1 &
-            \begin{tabular}[c]{@{}c@{}}
-                limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding
-            \end{tabular} \\ \hline
-            \verb|orientationWeights| &
-            TODO &
-            penalization vector $P$ from eq.~\ref{eq:crossover-orprob} \\ \hline
-            \verb|populationDivisionCounts| &
-            TODO &
-            \begin{tabular}[c]{@{}c@{}}
-                reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})
-            \end{tabular} \\ \hline
-            \verb|initialPopulationDivisionCounts| &
-            TODO &
-            \begin{tabular}[c]{@{}c@{}}
-                initial population ratios\\ (right part of fig.~\ref{fig:population-schema})
-            \end{tabular} \\ \hline
-            \verb|overlappingPenalizationConstant| &
-            \begin{tabular}[c]{@{}c@{}}
-                diagonal length\\ of the layout
-            \end{tabular} &
-            \begin{tabular}[c]{@{}c@{}}
-                overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}
-            \end{tabular} \\ \hline
-            \verb|outsideOfAllocatedAreaPenalizationConstant| &
-            \begin{tabular}[c]{@{}c@{}}
-                diagonal length\\ of the layout
-            \end{tabular} &
-            \begin{tabular}[c]{@{}c@{}}
-                outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}
-            \end{tabular} \\ \hline
-        \end{tabular}
-    \end{table}
-\end{landscape}
+%\begin{landscape}% Landscape page
+%    \begin{table}[]
+%        \caption{Hyperparameters of the genetic algorithm}
+%        \label{tab:hyperparams}
+%        \begin{tabular}{lcc}
+%            \hline
+%            \textbf{hyperparameter} &
+%            \textbf{\begin{tabular}[c]{@{}c@{}}
+%                        recommended\\ value
+%            \end{tabular}} &
+%            \textbf{description} \\ \hline
+%            \verb|maxNumberOfIter| &
+%            $\ge 150$ &
+%            maximum number of iterations \\ \hline
+%            \verb|populationSize| &
+%            \begin{tabular}[c]{@{}c@{}}
+%                population scaling factor\\ \numrange{50}{100}
+%            \end{tabular} &
+%            population size \\ \hline
+%            \verb|maximumWildCardCount| &
+%            1 &
+%            \begin{tabular}[c]{@{}c@{}}
+%                limit on the maximum number of $*$ cut types\\ produced by $OR_{prob}$ decoding
+%            \end{tabular} \\ \hline
+%            \verb|orientationWeights| &
+%            TODO &
+%            penalization vector $P$ from eq.~\ref{eq:crossover-orprob} \\ \hline
+%            \verb|populationDivisionCounts| &
+%            TODO &
+%            \begin{tabular}[c]{@{}c@{}}
+%                reproductive plan ratios\\ (left part of fig.~\ref{fig:population-schema})
+%            \end{tabular} \\ \hline
+%            \verb|initialPopulationDivisionCounts| &
+%            TODO &
+%            \begin{tabular}[c]{@{}c@{}}
+%                initial population ratios\\ (right part of fig.~\ref{fig:population-schema})
+%            \end{tabular} \\ \hline
+%            \verb|overlappingPenalizationConstant| &
+%            \begin{tabular}[c]{@{}c@{}}
+%                diagonal length\\ of the layout
+%            \end{tabular} &
+%            \begin{tabular}[c]{@{}c@{}}
+%                overlapping paintings penalization\\ parameter $\lambda$ from eq.~\ref{eq:objective}
+%            \end{tabular} \\ \hline
+%            \verb|outsideOfAllocatedAreaPenalizationConstant| &
+%            \begin{tabular}[c]{@{}c@{}}
+%                diagonal length\\ of the layout
+%            \end{tabular} &
+%            \begin{tabular}[c]{@{}c@{}}
+%                outside of allocated area penalization\\ parameter $\gamma$ from eq.~\ref{eq:objective}
+%            \end{tabular} \\ \hline
+%        \end{tabular}
+%    \end{table}
+%\end{landscape}
 
 
 %\afterpage{%

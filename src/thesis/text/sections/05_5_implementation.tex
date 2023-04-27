@@ -68,44 +68,44 @@ An example of submission without specifying the instance name is in the appendix
 $ curl --location 'localhost:9000/compute/dataset' \
 --header 'Content-Type: application/json' \
 --data '{
-   "datasetName":"random_10",
-   "gaParameters":{
-      "maxNumberOfIter":300,
-      "populationSize":100,
-      "maximumWildCardCount":1,
-      "orientationWeights":[
-         1,
-         1,
-         0.5
-      ],
-      "geneticAlgorithm":"simpleGa",
-      "mate":"normalizedProbabilityVectorSum",
-      "mutate":"flipOnePartAtRandom",
-      "select":"tournament",
-      "objective":"simple",
-      "evaluator":"ga",
-      "placingHeuristics":"corner",
-      "populationDivisionCounts":{
-         "elite":0.2,
-         "average":0.6,
-         "worst":0.2,
-         "children":0.3,
-         "mutant":0.2,
-         "winner":0.2,
-         "random":0.1
-      },
-      "initialPopulationDivisionCounts":{
-         "random":0.7,
-         "greedy":0.3
-      }
-   },
-   "objectiveParameters":{
-      "name":"simple",
-      "params":{
-         "overlappingPenalizationConstant":1000,
-         "outsideOfAllocatedAreaPenalizationConstant":0
-      }
-   }
+  "datasetName": "random_10",
+  "gaParameters": {
+    "maxNumberOfIter": 300,
+    "populationSize": 500,
+    "maximumWildCardCount": 1,
+    "orientationWeights": [
+      1,
+      1,
+      0.5
+    ],
+    "geneticAlgorithm": "simpleGa",
+    "mate": "normalizedProbabilityVectorSum",
+    "mutate": "flipOnePartAtRandom",
+    "select": "tournament",
+    "objective": "simple",
+    "evaluator": "ga",
+    "placingHeuristics": "corner",
+    "populationDivisionCounts": {
+      "elite": 0.2,
+      "average": 0.6,
+      "worst": 0.2,
+      "children": 0.3,
+      "mutant": 0.2,
+      "winner": 0.2,
+      "random": 0.1
+    },
+    "initialPopulationDivisionCounts": {
+      "random": 0.7,
+      "greedy": 0.3
+    }
+  },
+  "objectiveParameters": {
+    "name": "simple",
+    "params": {
+      "overlappingPenalizationConstant": 30.61,
+      "outsideOfAllocatedAreaPenalizationConstant": 30.61
+    }
+  }
 }'
 \end{minted}
 \cprotect\caption[Example of computation submission with instance name]
