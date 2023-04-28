@@ -116,11 +116,32 @@ or injection random individuals (see reproductive plan~\ref{subsec:reproductive-
 Penalization described only applies to the crossover.
 
 \subsection{Population division counts}\label{subsec:population-division-counts}
-Hyperparameter \verb|populationDivisionCounts| is used to configure ratios in reproductive plan (subsec.~\ref{subsec:reproductive-plan}).
-It influences how the next generation is crated in the genetic algorithm~\ref{alg:genetic}.
-There are values that control (a) how many elite individuals are copied, (b) how many children are created using a crossover operator,
+Hyperparameter \verb|populationDivisionCounts| configures ratios in the reproductive plan (subsec.~\ref{subsec:reproductive-plan}).
+It influences how the next generation is created in the genetic algorithm~\ref{alg:genetic}
+by setting (a) how many elite individuals are copied, (b) how many children are created using a crossover operator,
 (c) how many mutants are created using a mutation operator, (d) how many tournament winners are included,
 and (e) how many random individuals are injected.
+
+Performance results for two random instances are in figure~\ref{fig:hyperparameters-population-division-counts}.
+Removing the injection of $0.1$ random individuals achieves a better average population objective for both instances.
+The reason for that might be the implementation of crossover and that offsprings created by crossover
+are the major part of the next population.
+Crossover implementation (described in subsec.~\ref{subsec:crossover}) uses weights $w_A$ and $w_B$
+based on the performance of parents $A$ and $B$.
+Weights limit the transfer of information from the lower-performance parent.
+However, consider the weights are almost the same, i.e., parents perform similarly, and each parent represents a different (sub)-optimal solution. Information transfer does not happen in that case, and the offspring performs poorly.
+It stems from the idea that each individual contains stochastic vectors that approximate the probability mass
+function, and if each parent represents a different but performant function, the offspring contains
+neither of those performant probability mass functions.
+
+The conclusion is that parents with similar performance representing different (sub)-optimal solution
+produce offspring that perform poorly.
+It might also be the reason why the second-best result in figure~\ref{fig:hyperparameters-population-division-counts}
+is achieved by, in addition to removing random individuals, also removing the elitism strategy.
+Elitism keeps track of any (sub)-optimal solutions, which are then used as a first parent
+to the crossover (right part of fig.~\ref{fig:population-schema}).
+Thus, elitism increases the probability that crossover parents represent different (sub)-optimal solutions.
+
 
 \subsection{Initial population division counts}\label{subsec:initial-population-division-counts}
 TODO
@@ -242,7 +263,7 @@ TODO
     \caption[Testing population division counts]
     {Testing population division counts at two random instances.
     Four variants are displayed. First does not use elitism, second does not inject random individuals, third combines first and second,
-        and the last does not make any change to the population division counts as described in figure~\ref{lst:computation-submission-dataset}.}
+        and the last does not make any change to the population division counts as described in listing~\ref{lst:computation-submission-dataset}.}
     \label{fig:hyperparameters-population-division-counts}%
 \end{figure}
 %    \end{landscape}
