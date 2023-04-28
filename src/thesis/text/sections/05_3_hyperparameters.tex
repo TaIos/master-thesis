@@ -19,7 +19,7 @@ To achieve the statistical significance of the results presented in this section
 Presented values are thus an average from five samples.
 
 
-\begin{table}[]
+\begin{table}[h!]
     \caption[Hyperparameters of the genetic algorithm]{Hyperparameters of the genetic algorithm~\ref{alg:genetic}}
     \label{tab:hyperparameters-description}
     \begin{tabular}{ll}
@@ -101,9 +101,6 @@ weight does not significantly influence the average population objective, and af
 However, for random\_20 instance,
 weight one (no penalization) has a faster-decreasing trend and produces a population with a better average population objective.
 
-First conclusion it that (a) smaller instances, such as random\_10, do not benefit from the introduction of wildcard cut type $*$,
-and (b) bigger instances, such as random\_20, benefit from no penalization by having a faster-decreasing trend and producing a better average population.
-
 The reason for better average performance at larger instance with weight one (no penalization) might
 be that search space increases exponentially (there are at least $2^{N-1}$ different unresolved slicing trees for instance of size $N$) and the introduction of wildcard cut type $*$ starts to manifest itself
 at larger instances.
@@ -114,13 +111,16 @@ We can see that for the random\_10 instance, weights below one have less than on
 However, on average, there are between three and four wildcards for a weight equal to one (no penalization).
 Similar can be seen for random\_20 instance.
 
-Second conclusion is that if we want to be certain that wildcard cut type $*$ is contained in the best individual at each iteration,
-wild card orientation weight must be set close to one.
-
 The reason why there are wildcards present in the figure~~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}
 even for weight equal to zero (maximal penalization) is that wildcard can be introduced to a chromosome by mutation
 or injection random individuals (see reproductive plan~\ref{subsec:reproductive-plan}).
 Penalization described only applies to the crossover.
+
+First conclusion it that (a) smaller instances, such as random\_10, do not benefit from the introduction of wildcard cut type $*$,
+and (b) bigger instances, such as random\_20, benefit from no penalization by having a faster-decreasing trend and producing a better average population.
+
+Second conclusion is that if we want to be certain that wildcard cut type $*$ is contained in the best individual at each iteration,
+wild card orientation weight must be set close to one.
 
 \subsection{Population division counts}\label{subsec:population-division-counts}
 Hyperparameter \verb|populationDivisionCounts| configures ratios in the reproductive plan (subsec.~\ref{subsec:reproductive-plan}).

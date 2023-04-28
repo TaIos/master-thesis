@@ -3,7 +3,40 @@
 
 
 \section{Results}\label{sec:results}
-This sections presents the measurement and visualization graphs of the proposed solution.
+This section presents a painting placement solution to the seven painting placement instances described in table~\ref{tab:instances}.
+
+Hyperparameter values used to obtain all results in this section are in table~\ref{tab:hyperparameters-values}.
+They are selected based on the hyperparameter testing from section~\ref{sec:hyper-parameters}.
+
+The only difference is that \verb|maxNumberOfIter| is set to 500 instead of recommended range \numrange{100}{150} to possibly find better painting placement solution.
+Other hyperparameters are set to their recommended values from section~\ref{sec:hyper-parameters}.
+Hyperparameter \verb|populationSize| is set as the middle of the recommended range \numrange{50}{100}.
+Penalization for orientation weight is removed by setting \verb|orientationWeights| to $\langle 1,1,1\rangle$.
+
+
+\begin{table}[h!]
+    \caption{Hyperparameter values used to obtain results}
+    \label{tab:hyperparameters-values}
+    \begin{threeparttable}
+        \begin{tabular}{ll}
+            \hline
+            \textbf{Hyperparameter}                           & \textbf{Value}                \\ \hline
+            \verb|maxNumberOfIter|                            & 500                           \\ \hline
+            \verb|populationSize|                             & 75 times the instance size    \\ \hline
+            \verb|maximumWildCardCount|                       & 1                             \\ \hline
+            \verb|orientationWeights|                         & $\langle 1,1,1 \rangle$       \\ \hline
+            \verb|populationDivisionCounts|                   & remove elitism and random     \\ \hline
+            \verb|initialPopulationDivisionCounts|            & 0.7 random, 0.3 greedy        \\ \hline
+            \verb|overlappingPenalizationConstant|            & two times the diagonal length \\ \hline
+            \verb|outsideOfAllocatedAreaPenalizationConstant| & 0                             \\ \hline
+        \end{tabular}
+        \begin{tablenotes}
+            \small
+            \item Hyperparameter description is in table~\ref{tab:hyperparameters-description}.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
 
 %\afterpage{%
 %    \clearpage% Flush earlier floats (otherwise order might not be correct)
