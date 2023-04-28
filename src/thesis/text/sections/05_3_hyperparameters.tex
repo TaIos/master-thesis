@@ -142,9 +142,13 @@ Elitism keeps track of any (sub)-optimal solutions, which are then used as a fir
 to the crossover (right part of fig.~\ref{fig:population-schema}).
 Thus, elitism increases the probability that crossover parents represent different (sub)-optimal solutions.
 
-
 \subsection{Initial population division counts}\label{subsec:initial-population-division-counts}
-TODO
+Hyperparameter \verb|initialPopulationDivisionCounts| configures generation ratios of the initial population (left part of fig.~\ref{fig:population-schema}).
+It consists of randomly generated and greedily generated individuals.
+
+Performance results for two random instances are in figure~\ref{fig:hyperparameters-initial-population-division-counts}.
+We can see that results for the different ratios does not significantly differ.
+Conclusion is that initial population does not play a significant role in the obtained results.
 
 \subsection{Overlapping penalization constant}\label{subsec:overlapping-penalization-constant}
 
@@ -278,7 +282,8 @@ TODO
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_10}\label{subfig:hyperparameters-initial-population-division-counts-random-10}}
             \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_20}\label{subfig:hyperparameters-initial-population-division-counts-random-20}}
             \caption[Testing initial population division counts]
-            {Testing initial population division counts at two random instances.}
+            {Testing initial population division counts at two random instances.
+            Initial population consists of randomly generated and greedily generated individuals (left part of fig.~\ref{fig:population-schema}).}
             \label{fig:hyperparameters-initial-population-division-counts}%
         \end{figure}
     \end{landscape}
