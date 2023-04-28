@@ -53,7 +53,8 @@ Presented values are thus an average from five samples.
 Results for hyperparameter \verb|maxNumberOfIter| are in figure~\ref{fig:hyperparameters-max-number-of-iter}.
 We can see the initial decrease of the average population objective for both random instances.
 Between iterations 100 and 150, decreasing trend and fluctuations stop.
-From it, we can deduce that at least 150 iterations are needed before the average population objective
+
+The conclusion is that at least 150 iterations are needed before the average population objective
 stops decreasing rapidly.
 
 \subsection{Population size}\label{subsec:population-size}
@@ -84,6 +85,8 @@ If the size of that vector is $n$, individual decodes to $2^n$ resolved slicing 
 Results for two random instances are in figure~\ref{fig:hyperparameters-maximum-wild-card-count}.
 \todo{popsat vysledky az dobehnou vypocty}Maecenas libero. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc dapibus tortor vel mi dapibus sollicitudin. Duis viverra diam non justo. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim.
 
+The conclusion is ...
+
 \subsection{Orientation weights}\label{subsec:orientation-weights}
 Hyperparameter \verb|orientationWeights| determines the bias towards the type of cut ($H$, $V$, $*$, see~\ref{subsec:individual-decoding}) \textit{during crossover}.
 The orientation penalization vector $P$ from eq.~\ref{eq:crossover-orprob} contains the penalization value for each cut type.
@@ -95,7 +98,8 @@ We can see that for random\_10 instance,
 weight does not significantly influence the average population objective, and after iteration 250, differences become negligible.
 However, for random\_20 instance,
 weight one (no penalization) has a faster-decreasing trend and produces a population with a better average population objective.
-From it, we can deduce that (a) smaller instances, such as random\_10, do not benefit from the introduction of wildcard cut type $*$,
+
+First conclusion it that (a) smaller instances, such as random\_10, do not benefit from the introduction of wildcard cut type $*$,
 and (b) bigger instances, such as random\_20, benefit from no penalization by having a faster-decreasing trend and producing a better average population.
 
 The reason for better average performance at larger instance with weight one (no penalization) might
@@ -107,7 +111,8 @@ figure~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}.
 We can see that for the random\_10 instance, weights below one have less than one wildcard on average.
 However, on average, there are between three and four wildcards for a weight equal to one (no penalization).
 Similar can be seen for random\_20 instance.
-The deduction is that if we want to be certain that wildcard cut type $*$ is contained in the best individual at each iteration,
+
+Second conclusion is that if we want to be certain that wildcard cut type $*$ is contained in the best individual at each iteration,
 wild card orientation weight must be set close to one.
 
 The reason why there are wildcards present in the figure~~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}
@@ -148,7 +153,8 @@ It consists of randomly generated and greedily generated individuals.
 
 Performance results for two random instances are in figure~\ref{fig:hyperparameters-initial-population-division-counts}.
 We can see that results for the different ratios does not significantly differ.
-Conclusion is that initial population does not play a significant role in the obtained results.
+
+Conclusion is that hyperparameter Hyperparameter \verb|initialPopulationDivisionCounts| does not play a significant role in the obtained results.
 
 \subsection{Overlapping penalization constant}\label{subsec:overlapping-penalization-constant}
 
