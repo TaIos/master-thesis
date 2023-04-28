@@ -178,17 +178,22 @@ It penalizes paintings that are placed outside their allocated area (see fig.~\r
 It is calculated identically as \verb|overlappingPenalizationConstant|.
 That is, as $kD$, where $k$ is a diagonal multiple and $D$ is the length of a diagonal in a layout.
 
-Results of the average number of paintings outside their allocated area for the best individual are in table~\ref{TODO}.
-We can see that diagonal multiple $k$ cannot force the creation of the allocated space that would fit most paintings.
+Results of the average number of paintings outside their allocated area
+for the best individual at each iteration are in table~\ref{tab:hyperparameters-outside-of-allocated-area-penalization-constant}.
+We can see that diagonal multiple cannot force the creation of the allocated space that would fit most paintings.
+In addition, there are a few percentage points drops in favor of the larger instance.
+The reason might be that it has more degrees of freedom, i.e., a number of cuts,
+and can create more fitting slicing layouts.
 
 However, the failure of \verb|outsideOfAllocatedAreaPenalizationConstant| hyperparameter to force
 the creation of sufficient allocated space in most cases is not that important.
 The reason is the placing heuristic (subsec.~\ref{subsec:placement-heuristic})
 tries to place the painting at several placement points in the allocated area (see fig.~\ref{fig:allocated-area}).
-It can thus balance the few paintings that have been allocated sufficient area to avoid overlapping with other paintings.
+It can thus balance the few paintings that have been allocated sufficient area to avoid overlapping with other paintings
+and account for other parts of the objective function.
 
 The conclusion is that hyperparameter \verb|outsideOfAllocatedAreaPenalizationConstant| is the least
-important and might be left out by setting it to zero.
+important and might be left out by setting it to zero to save computation time.
 
 
 \begin{table}[h!]
@@ -218,6 +223,8 @@ important and might be left out by setting it to zero.
     \end{threeparttable}
     \shorthandon{-}
 \end{table}
+
+
 %\afterpage{%
 %    \clearpage% Flush earlier floats (otherwise order might not be correct)
 %    \begin{}% Landscape page
