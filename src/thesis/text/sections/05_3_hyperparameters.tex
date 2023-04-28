@@ -59,9 +59,9 @@ stops decreasing rapidly.
 
 \subsection{Population size}\label{subsec:population-size}
 
-Population size is calculated as $kN$, where $k$ is \definice{population scaling factor}
+Hyperparameter \verb|populationSize| is calculated as $kN$, where $k$ is \definice{population scaling factor}
 and $N$ is instance size.
-Thus, the population size is linear with respect to the instance size.
+It determines the population size that is linear to the instance size.
 
 Results for two random instances are in figure~\ref{fig:hyperparameters-population-size}.
 We can see that scaling factor $10$ does not allow
@@ -73,6 +73,7 @@ The conclusion is that using scaling factor between $50$ and $100$ is sufficient
 for obtaining better average objective performance.
 However, increasing the scaling factor leads to slower computation speed as every population contains
 more individuals for which genetic operators and reproductive plan must be computed.
+
 
 \subsection{Maximum wild card count}\label{subsec:maximum-wild-card-count}
 Hyperparameter \verb|maximumWildCardCount| limits the maximum number of $*$ cut types produced by $OR_{prob}$ decoding (subsec.~\ref{subsec:individual-decoding}).
