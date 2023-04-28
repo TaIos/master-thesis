@@ -156,12 +156,13 @@ The different ratios' results do not significantly differ.
 
 The conclusion is that hyperparameter hyperparameter \verb|initialPopulationDivisionCounts| does not significantly affect the obtained results.
 
-
 \subsection{Overlapping penalization constant}\label{subsec:overlapping-penalization-constant}
 
-It is not desirable to produce painting placement solutions that overlap.
-Thus, hyperparameter \verb|overlappingPenalizationConstant| penalizes
-individuals representing such a solution.
+Hyperparameter \verb|overlappingPenalizationConstant| is the penalization constant $\lambda$ from eq.~\ref{eq:objective}.
+It penalizes individuals that represent solution with paintings that overlap.
+
+Performance results for two random instances are in figure~\ref{fig:hyperparameters-overlapping-penalization-constant}.
+
 
 The optimal value must be strong enough to remove or limit overlapping solutions from the population.
 Also, it must be low enough not to become the dominant part of the objective function (eq.~\ref{eq:objective})
@@ -178,37 +179,39 @@ From it, we can deduce that the optimal value for \textit{overlapping penalizati
 \subsection{Outside of allocated area penalization constant}\label{subsec:outside-of-allocated-area-penalization-constant}
 TODO
 
-\afterpage{%
-    \clearpage% Flush earlier floats (otherwise order might not be correct)
-    \begin{landscape}% Landscape page
-        \begin{figure}
-            \centering
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_10}\label{subfig:hyperparameters-max-number-of-iter-random-10}}
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_20}\label{subfig:hyperparameters-max-number-of-iter-random-20}}
-            \caption[Testing maximum number of iterations]
-            {Testing maximum number of iterations at two random instances.}
-            \label{fig:hyperparameters-max-number-of-iter}%
-        \end{figure}
-    \end{landscape}
-    \clearpage% Flush page
-}
+%\afterpage{%
+%    \clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_10}\label{subfig:hyperparameters-max-number-of-iter-random-10}}
+
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/max_number_of_iter_random_20}\label{subfig:hyperparameters-max-number-of-iter-random-20}}
+    \caption[Testing maximum number of iterations]
+    {Testing maximum number of iterations at two random instances.}
+    \label{fig:hyperparameters-max-number-of-iter}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
 
 
-\afterpage{%
-    \clearpage% Flush earlier floats (otherwise order might not be correct)
-    \begin{landscape}% Landscape page
-        \begin{figure}
-            \centering
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparameters-population-size-random-10}}
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_20}\label{subfig:hyperparameters-population-size-random-20}}
-            \caption[Testing population scaling factor]
-            {Testing population scaling factor at two random instances.
-            The population size is $kN$ for population scaling factor $k$ and instance of size $N$. }
-            \label{fig:hyperparameters-population-size}%
-        \end{figure}
-    \end{landscape}
-    \clearpage% Flush page
-}
+%\afterpage{%
+%    \clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparameters-population-size-random-10}}
+
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_20}\label{subfig:hyperparameters-population-size-random-20}}
+    \caption[Testing population scaling factor]
+    {Testing population scaling factor at two random instances.
+    The population size is $kN$ for population scaling factor $k$ and instance of size $N$. }
+    \label{fig:hyperparameters-population-size}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
 
 
 %\afterpage{%
@@ -216,7 +219,7 @@ TODO
 %    \begin{landscape}% Landscape page
 \begin{figure}
     \centering
-    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-performance}}
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-performance}}
 
     \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_computation_time_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-computation-speed}}
     \caption[Testing maximum wild card count]
@@ -233,9 +236,9 @@ TODO
 %    \begin{landscape}% Landscape page
 \begin{figure}
     \centering
-    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/orientation_weights_random_10}\label{subfig:hyperparameters-orientation-weights-random-10}}
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_random_10}\label{subfig:hyperparameters-orientation-weights-random-10}}
 
-    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/orientation_weights_random_20}\label{subfig:hyperparameters-orientation-weights-random-20}}
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_random_20}\label{subfig:hyperparameters-orientation-weights-random-20}}
     \cprotect\caption[Testing orientation weights performance]
     {Testing performance of orientation weight for a wildcard cut type $*$ at two random instances.
     Hyperparameter \verb|maximumWildCardCount| is 1.}
@@ -250,9 +253,9 @@ TODO
 %    \begin{landscape}% Landscape page
 \begin{figure}
     \centering
-    \subfloat{\includegraphics[width=1\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_10}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-10}}
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_10}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-10}}
 
-    \subfloat{\includegraphics[width=1\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_20}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-20}}
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_20}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-20}}
     \cprotect\caption[Testing wildcard spread]
     {Testing wildcard spread at two random instances.
     Each iteration shows average count of wildcard cut type $*$ at best individual for different values of wild card orientation weights.
@@ -268,9 +271,9 @@ TODO
 %    \begin{landscape}% Landscape page
 \begin{figure}
     \centering
-    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/population_division_counts_random_10}\label{subfig:hyperparameters-population-division-counts-random-10}}
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_division_counts_random_10}\label{subfig:hyperparameters-population-division-counts-random-10}}
 
-    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/population_division_counts_random_20}\label{subfig:hyperparameters-population-division-counts-random-20}}
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_division_counts_random_20}\label{subfig:hyperparameters-population-division-counts-random-20}}
     \caption[Testing population division counts]
     {Testing population division counts at two random instances.
     Four variants are displayed. First does not use elitism, second does not inject random individuals, third combines first and second,
@@ -281,53 +284,60 @@ TODO
 %    \clearpage% Flush page
 %}
 
-\afterpage{%
-    \clearpage% Flush earlier floats (otherwise order might not be correct)
-    \begin{landscape}% Landscape page
-        \begin{figure}
-            \centering
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_10}\label{subfig:hyperparameters-initial-population-division-counts-random-10}}
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_20}\label{subfig:hyperparameters-initial-population-division-counts-random-20}}
-            \caption[Testing initial population division counts]
-            {Testing initial population division counts at two random instances.
-            Initial population consists of randomly generated and greedily generated individuals (left part of fig.~\ref{fig:population-schema}).}
-            \label{fig:hyperparameters-initial-population-division-counts}%
-        \end{figure}
-    \end{landscape}
-    \clearpage% Flush page
-}
+\clearpage% Flush earlier floats (otherwise order might not be correct)
 
-\afterpage{%
-    \clearpage% Flush earlier floats (otherwise order might not be correct)
-    \begin{landscape}% Landscape page
-        \begin{figure}
-            \centering
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_10}\label{subfig:hyperparameters-overlapping-penalization-constant-random-10}}
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_20}\label{subfig:hyperparameters-overlapping-penalization-constant-random-20}}
-            \caption[Testing overlapping penalization constant]
-            {Testing overlapping penalization constant $\lambda$ (eq.~\ref{eq:objective}) at two random instances.
-            It is determined as $kD$, where $k$ is diagonal multiple and $D$ is the length of a diagonal in a layout.
-            Graps show the average averlapping count for best individual at each iteration.}
-            \label{fig:hyperparameters-overlapping-penalization-constant}%
-        \end{figure}
-    \end{landscape}
-    \clearpage% Flush page
-}
+%\afterpage{%
+%    \clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_10}\label{subfig:hyperparameters-initial-population-division-counts-random-10}}
 
-\afterpage{%
-    \clearpage% Flush earlier floats (otherwise order might not be correct)
-    \begin{landscape}% Landscape page
-        \begin{figure}
-            \centering
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/outside_of_allocated_area_penalization_constant_random_10}\label{subfig:hyperparameters-outside-of-allocated-area-penalization-constant-random-10}}
-            \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/outside_of_allocated_area_penalization_constant_random_20}\label{subfig:hyperparameters-outside-of-allocated-area-penalization-constant-random-20}}
-            \caption[Testing outside of allocated area penalization constant]
-            {Testing outside of allocated area penalization constant $\gamma$ (eq.~\ref{eq:objective}) at two random instances.
-            It is determined as $kD$, where $k$ is diagonal multiple and $D$ is the length of a diagonal in a layout.
-            Graps show the average number of paintings that are placed outside of their allocated are for best individual at each iteration.}
-            \label{fig:hyperparameters-outside-of-allocated-area-penalization-constant}%
-        \end{figure}
-    \end{landscape}
-    \clearpage% Flush page
-}
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_20}\label{subfig:hyperparameters-initial-population-division-counts-random-20}}
+    \caption[Testing initial population division counts]
+    {Testing initial population division counts at two random instances.
+    Initial population consists of randomly generated and greedily generated individuals (left part of fig.~\ref{fig:population-schema}).}
+    \label{fig:hyperparameters-initial-population-division-counts}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
+
+\clearpage% Flush earlier floats (otherwise order might not be correct)
+
+%\afterpage{%
+%    \clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_10}\label{subfig:hyperparameters-overlapping-penalization-constant-random-10}}
+
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_20}\label{subfig:hyperparameters-overlapping-penalization-constant-random-20}}
+    \caption[Testing overlapping penalization constant]
+    {Testing overlapping penalization constant $\lambda$ (eq.~\ref{eq:objective}) at two random instances.
+    It is determined as $kD$, where $k$ is diagonal multiple and $D$ is the length of a diagonal in a layout.
+    Graps show the average averlapping count for best individual at each iteration.}
+    \label{fig:hyperparameters-overlapping-penalization-constant}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
+
+%\afterpage{%
+%    \clearpage% Flush earlier floats (otherwise order might not be correct)
+%    \begin{landscape}% Landscape page
+\begin{figure}
+    \centering
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/outside_of_allocated_area_penalization_constant_random_10}\label{subfig:hyperparameters-outside-of-allocated-area-penalization-constant-random-10}}
+
+    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/outside_of_allocated_area_penalization_constant_random_20}\label{subfig:hyperparameters-outside-of-allocated-area-penalization-constant-random-20}}
+    \caption[Testing outside of allocated area penalization constant]
+    {Testing outside of allocated area penalization constant $\gamma$ (eq.~\ref{eq:objective}) at two random instances.
+    It is determined as $kD$, where $k$ is diagonal multiple and $D$ is the length of a diagonal in a layout.
+    Graps show the average number of paintings that are placed outside of their allocated are for best individual at each iteration.}
+    \label{fig:hyperparameters-outside-of-allocated-area-penalization-constant}%
+\end{figure}
+%    \end{landscape}
+%    \clearpage% Flush page
+%}
 
