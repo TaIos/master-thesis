@@ -2,8 +2,8 @@ package logic.genetic.operators.select;
 
 import java.util.ArrayList;
 import java.util.List;
-import logic.genetic.generator.GreedyGenerator;
 import logic.genetic.evaluator.Evaluator;
+import logic.genetic.generator.GreedyGenerator;
 import models.entity.EvaluatedIndividual;
 import models.entity.Individual;
 import models.entity.Population;
@@ -19,7 +19,7 @@ public class TournamentSelectionOperator implements SelectOperator {
 
   @Override
   public List<Individual> select(List<Individual> individuals, int size, Evaluator evaluator) {
-    assert (individuals.size() >= size);
+//    assert (individuals.size() >= size); HOTFIX
     List<Individual> winners = new ArrayList<>(size);
 
     List<EvaluatedIndividual> contenders = new Population(individuals, evaluator)
@@ -33,8 +33,9 @@ public class TournamentSelectionOperator implements SelectOperator {
     int greedyIdx = 0;
 
     for (int i = 0; i < size; i++) {
-      EvaluatedIndividual contenderInd = contenders.get(contenderIdx);
-      EvaluatedIndividual greedyInd = greedy.get(greedyIdx);
+      EvaluatedIndividual contenderInd = contenders.get(
+          contenderIdx % contenders.size());// HOTFIX modulo
+      EvaluatedIndividual greedyInd = greedy.get(greedyIdx % greedy.size()); // HOTFIX modulo
 
       if (evaluator.getObjectiveValueComparator()
           .compare(contenderInd.getLayout(), greedyInd.getLayout()) < 0) {
