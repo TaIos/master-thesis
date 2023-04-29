@@ -30,8 +30,6 @@ They argue that if the population were primarily composed of the same individual
     \SetAlgoLined
     \LinesNumbered
 
-    \SetKwData{Best}{best}
-    \SetKwData{Candidate}{candidate}
     \SetKwData{Population}{population}
     \SetKwData{MaxNumberOfIter}{maxNumberOfIter}
     \SetKwData{Nil}{NIL}
@@ -45,16 +43,11 @@ They argue that if the population were primarily composed of the same individual
     %%%%%%%%%%%%%%%%%%%%%%%%
 
     \Population $\leftarrow$ \GenerateInitialPopulation \\
-    \Best $\leftarrow$ \SelectBest{\Population} \\
 
     \For{$i\leftarrow 1$ \KwTo \MaxNumberOfIter}{
         \Population $\leftarrow$ \ApplyReproductivePlan{\Population} \\
-        \Candidate $\leftarrow$ \SelectBest{\Population} \\
-        \If{\Objective{\Candidate} $<$ \Objective{\Best}}{
-            \Best $\leftarrow$ \Candidate
-        }
     }
-    \KwRet{\Best}
+    \KwRet{\SelectBest{\Population}}
 
     \caption{Genetic algorithm}\label{alg:genetic}
 \end{algorithm}
