@@ -3,15 +3,21 @@
 
 
 \section{Results}\label{sec:results}
-This section presents a painting placement solution to the seven painting placement instances described in table~\ref{tab:instances}.
-Hyperparameter values used to obtain all results in this section are in table~\ref{tab:hyperparameters-values}.
-They are selected based on the hyperparameter testing from section~\ref{sec:hyper-parameters}.
-Best achieved objective for each instance is in table~\ref{TODO}.
+This section presents a painting placement solution to the painting placement instances described in table~\ref{tab:instances}.
+Hyperparameter values used to obtain results in this section are in table~\ref{tab:hyperparameters-values}.
+Statistics for each instance are in table~\ref{tab:statistics}.
 
-The only difference in hyperparameter selection is that \verb|maxNumberOfIter| is set to 500 instead of recommended range \numrange{100}{150} to possibly find better painting placement solution.
-Other hyperparameters are set to their recommended values from section~\ref{sec:hyper-parameters}.
-Hyperparameter \verb|populationSize| is set as the middle of the recommended range \numrange{50}{100}.
-Penalization for orientation weight is removed by setting \verb|orientationWeights| to $\langle 1,1,1\rangle$.
+Hyperparameter values in table~\ref{tab:hyperparameters-values} are set to their recommended values
+from hyperparameter testing in section~\ref{sec:hyper-parameters}.
+The hyperparameter not set to the recommended values is \verb|maxNumberOfIter|.
+It is set to 500 instead of a value from the recommended range \numrange{100}{150}.
+The reason is to find a better painting placement solution.
+Also, the recommendation to remove orientation penalization by setting \verb|orientationWeights| to $\langle 1,1,1\rangle$ is followed.
+As described in hyperparameter testing, it should produce a population with a better on-average objective and a faster-decreasing trend in objective value.
+Lastly, the population size is set to 75 times the instance size.
+It is the midpoint of the recommended interval \numrange{50}{100}.
+
+
 
 
 \begin{table}[h!]
@@ -21,7 +27,7 @@ Penalization for orientation weight is removed by setting \verb|orientationWeigh
         \begin{tabular}{ll}
             \hline
             \textbf{Hyperparameter}                           & \textbf{Value}             \\ \hline
-            \verb|maxNumberOfIter|                            & 300                        \\ \hline
+            \verb|maxNumberOfIter|                            & 500                        \\ \hline
             \verb|populationSize|                             & 75 times the instance size \\ \hline
             \verb|maximumWildCardCount|                       & 1                          \\ \hline
             \verb|orientationWeights|                         & $\langle 1,1,1 \rangle$    \\ \hline
@@ -46,10 +52,18 @@ Penalization for orientation weight is removed by setting \verb|orientationWeigh
         \begin{tabular}{lllll}
             \hline
             \textbf{Instance name} &
-            \textbf{\begin{tabular}[c]{@{}l@{}}Best obj.\\ value\end{tabular}} &
-            \textbf{\begin{tabular}[c]{@{}l@{}}Worst obj.\\ value\end{tabular}} &
-            \textbf{\begin{tabular}[c]{@{}l@{}}Obj.\\ mean\end{tabular}} &
-            \textbf{\begin{tabular}[c]{@{}l@{}}Standard\\ deviation\end{tabular}} \\ \hline
+            \textbf{\begin{tabular}[c]{@{}l@{}}
+                        Best obj.\\ value
+            \end{tabular}} &
+            \textbf{\begin{tabular}[c]{@{}l@{}}
+                        Worst obj.\\ value
+            \end{tabular}} &
+            \textbf{\begin{tabular}[c]{@{}l@{}}
+                        Obj.\\ mean
+            \end{tabular}} &
+            \textbf{\begin{tabular}[c]{@{}l@{}}
+                        Standard\\ deviation
+            \end{tabular}} \\ \hline
             random\_10                    & 1106.33 & 2932.9  & 1475.31 & 319.91  \\ \hline
             random\_20                    & 5106.49 & 8617.66 & 5521.33 & 647.47  \\ \hline
             packing\_10                   & 647.47  & 1482.71 & 748.28  & 126.11  \\ \hline
