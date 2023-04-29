@@ -11,5 +11,6 @@ public class HallOfFameRecord {
   private double objectiveMin;
   private double objectiveMax;
   private double objectiveAvg;
+  private double standardDeviation;
   private EvaluatedIndividual bestIndividual;
 }

@@ -136,4 +136,11 @@ public final class JavaUtils {
       return res;
     }
   }
+
+  public static double calculateStandardDeviation(List<Double> lst) {
+    double mean = lst.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+    return Math.sqrt(lst.stream()
+        .map(val -> Math.pow(val - mean, 2))
+        .mapToDouble(Double::doubleValue).sum() / lst.size());
+  }
 }

@@ -42,6 +42,7 @@ public class HallOfFame {
             .objectiveMin(pop.getObjectiveMin())
             .objectiveMax(pop.getObjectiveMax())
             .objectiveAvg(pop.getObjectiveAvg())
+            .standardDeviation(pop.getStandardDeviation())
             .bestIndividual(
                 EvaluatedIndividual.builder()
                     .individual(individualCopyFactory.createCopy(bestIndividual))

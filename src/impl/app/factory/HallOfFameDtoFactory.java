@@ -38,6 +38,7 @@ public class HallOfFameDtoFactory implements Factory<HallOfFame, HallOfFameDto> 
                     .objectiveMin(r.getObjectiveMin())
                     .objectiveMax(r.getObjectiveMax())
                     .objectiveAvg(r.getObjectiveAvg())
+                    .standardDeviation(r.getStandardDeviation())
                     .bestIndividual(
                         individualDtoFactory.create(r.getBestIndividual(), r.getIteration()))
                     .build())

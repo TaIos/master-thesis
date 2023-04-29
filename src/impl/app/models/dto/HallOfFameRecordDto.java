@@ -22,5 +22,8 @@ public class HallOfFameRecordDto implements Dto {
   @JsonSerialize(using = DoubleSerializer.class)
   private Double objectiveAvg;
 
+  @JsonSerialize(using = DoubleSerializer.class)
+  private Double standardDeviation;
+
   private IndividualDto bestIndividual;
 }

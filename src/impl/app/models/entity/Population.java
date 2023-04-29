@@ -2,6 +2,7 @@ package models.entity;
 
 
 import static logic.objective.ObjectiveValueComparator.OBJECTIVE_VALUE_MAX;
+import static utils.JavaUtils.calculateStandardDeviation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,6 +79,13 @@ public class Population {
         .mapToDouble(EvaluatedSlicingLayout::getObjectiveValue)
         .average()
         .orElse(OBJECTIVE_VALUE_MAX);
+  }
+
+  public double getStandardDeviation() {
+    return calculateStandardDeviation(evaluatedIndividuals.stream()
+        .map(EvaluatedIndividual::getLayout)
+        .map(EvaluatedSlicingLayout::getObjectiveValue)
+        .collect(Collectors.toList()));
   }
 
   public int size() {
