@@ -64,8 +64,13 @@ public class SimpleGA extends BaseGeneticAlgorithm {
     List<Pair<EvaluatedIndividual, EvaluatedIndividual>> parents = new ArrayList<>(
         gaParams.getCounts().getChildren());
     for (int i = 0; i < gaParams.getCounts().getChildren(); i++) {
-      EvaluatedIndividual p1 = pop.getEliteEvaluated().get(rnd.nextInt(pop.getElite().size()));
-      EvaluatedIndividual p2 = pop.getAverageEvaluated().get(rnd.nextInt(pop.getElite().size()));
+      EvaluatedIndividual p1;
+      if (!pop.getEliteEvaluated().isEmpty()) {
+        p1 = pop.getEliteEvaluated().get(rnd.nextInt(pop.getEliteEvaluated().size()));
+      } else {
+        p1 = pop.getAverageEvaluated().get(rnd.nextInt(pop.getAverageEvaluated().size()));
+      }
+      EvaluatedIndividual p2 = pop.getAverageEvaluated().get(rnd.nextInt(pop.getAverageEvaluated().size()));
       parents.add(Pair.of(p1, p2));
     }
     return parents.parallelStream()
