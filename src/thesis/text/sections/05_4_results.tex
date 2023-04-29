@@ -4,11 +4,11 @@
 
 \section{Results}\label{sec:results}
 This section presents a painting placement solution to the seven painting placement instances described in table~\ref{tab:instances}.
-
 Hyperparameter values used to obtain all results in this section are in table~\ref{tab:hyperparameters-values}.
 They are selected based on the hyperparameter testing from section~\ref{sec:hyper-parameters}.
+Best achieved objective for each instance is in table~\ref{TODO}.
 
-The only difference is that \verb|maxNumberOfIter| is set to 500 instead of recommended range \numrange{100}{150} to possibly find better painting placement solution.
+The only difference in hyperparameter selection is that \verb|maxNumberOfIter| is set to 500 instead of recommended range \numrange{100}{150} to possibly find better painting placement solution.
 Other hyperparameters are set to their recommended values from section~\ref{sec:hyper-parameters}.
 Hyperparameter \verb|populationSize| is set as the middle of the recommended range \numrange{50}{100}.
 Penalization for orientation weight is removed by setting \verb|orientationWeights| to $\langle 1,1,1\rangle$.
@@ -20,17 +20,17 @@ Penalization for orientation weight is removed by setting \verb|orientationWeigh
     \begin{threeparttable}
         \begin{tabular}{ll}
             \hline
-            \textbf{Hyperparameter}                           & \textbf{Value}                                           \\ \hline
-            \verb|maxNumberOfIter|                            & 500                                                      \\ \hline
-            \verb|populationSize|                             & 75 times the instance size                               \\ \hline
-            \verb|maximumWildCardCount|                       & 1                                                        \\ \hline
-            \verb|orientationWeights|                         & $\langle 1,1,1 \rangle$                                  \\ \hline
-            \verb|populationDivisionCounts|                   & remove elitism and random                                \\ \hline
-            \verb|initialPopulationDivisionCounts|            & 0.7 random, 0.3 greedy                                   \\ \hline
-            \verb|overlappingPenalizationConstant|            & \begin{tabular}[c]{@{}l@{}}
-                                                                    two times the diagonal length\\ of the layout
+            \textbf{Hyperparameter}                           & \textbf{Value}             \\ \hline
+            \verb|maxNumberOfIter|                            & 300                        \\ \hline
+            \verb|populationSize|                             & 75 times the instance size \\ \hline
+            \verb|maximumWildCardCount|                       & 1                          \\ \hline
+            \verb|orientationWeights|                         & $\langle 1,1,1 \rangle$    \\ \hline
+            \verb|populationDivisionCounts|                   & remove elitism and random  \\ \hline
+            \verb|initialPopulationDivisionCounts|            & 0.7 random, 0.3 greedy     \\ \hline
+            \verb|overlappingPenalizationConstant| & \begin{tabular}[c]{@{}l@{}}
+                                                         4 times the diagonal length\\ of the layout
             \end{tabular} \\ \hline
-            \verb|outsideOfAllocatedAreaPenalizationConstant| & 0                                                        \\ \hline
+            \verb|outsideOfAllocatedAreaPenalizationConstant| & 0                          \\ \hline
         \end{tabular}
         \begin{tablenotes}
             \small
@@ -39,65 +39,89 @@ Penalization for orientation weight is removed by setting \verb|orientationWeigh
     \end{threeparttable}
 \end{table}
 
+\begin{table}[h!]
+    \caption{Statistics of the last iteration}
+    \label{tab:statistics}
+    \begin{threeparttable}
+        \begin{tabular}{lllll}
+            \hline
+            \textbf{Instance name} &
+            \textbf{\begin{tabular}[c]{@{}l@{}}Best obj.\\ value\end{tabular}} &
+            \textbf{\begin{tabular}[c]{@{}l@{}}Worst obj.\\ value\end{tabular}} &
+            \textbf{\begin{tabular}[c]{@{}l@{}}Obj.\\ mean\end{tabular}} &
+            \textbf{\begin{tabular}[c]{@{}l@{}}Standard\\ deviation\end{tabular}} \\ \hline
+            random\_10                    & 1106.33 & 2932.9  & 1475.31 & 319.91  \\ \hline
+            random\_20                    & 5106.49 & 8617.66 & 5521.33 & 647.47  \\ \hline
+            packing\_10                   & 647.47  & 1482.71 & 748.28  & 126.11  \\ \hline
+            packing\_20                   & 6607.76 & 10881.3 & 6996.43 & 792.16  \\ \hline
+            cluster\_3\_6                 & 4940.93 & 8924.68 & 5258.09 & 517.73  \\ \hline
+            cluster\_4\_5                 & 5080.58 & 9664.94 & 5592.13 & 695.56  \\ \hline
+            biased\_sparse\_cluster\_3\_5 & TODO    & TODO    & TODO    & TODO    \\ \hline
+            london\_gallery\_wall         & 2802.73 & 8487.18 & 3471.79 & 3471.79 \\ \hline
+        \end{tabular}
+        \begin{tablenotes}
+            \small
+            \item Instance description is in table~\ref{tab:instances}.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
 
-%\afterpage{%
-%    \clearpage% Flush earlier floats (otherwise order might not be correct)
-%    \begin{landscape}% Landscape page
 \begin{figure}[h!]
-    \centering
-    \subfloat[brute-force]{\includegraphics[width=0.9\textwidth]{visualization_random10_brute}\label{subfig:random10-brute}}
-
-    \subfloat[proposed solution]{\includegraphics[width=0.9\textwidth]{visualization_random10_ga}\label{subfig:random10-ga}}
-    \caption[Random\_10 instance solution visualization for brute-force]
-        {Visualization of best result of proposed solution and brute-force for random\_10 instance.}
-    \label{fig:visualization-random10}%
+    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_random_10}
+    \caption
+    {TODO overlappings=1}
+    \label{fig:results:visualization-random-10}
 \end{figure}
-%    \end{landscape}
-%    \clearpage% Flush page
-%}
 
-%\afterpage{%
-%    \clearpage% Flush earlier floats (otherwise order might not be correct)
-%    \begin{landscape}% Landscape page
 \begin{figure}[h!]
-    \centering
-    \subfloat[brute-force]{\includegraphics[width=0.8\textwidth]{visualization_random20_brute}\label{subfig:random20-brute}}
-
-    \subfloat[proposed solution]{\includegraphics[width=0.8\textwidth]{visualization_random20_ga}\label{subfig:random20-ga}}
-    \caption[Random\_10 instance solution visualization for proposed solution]
-        {Visualization of best result of proposed solution and brute-force for random\_20 instance.}
-    \label{fig:visualization-random20}%
+    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_random_20}
+    \caption
+    {TODO overlappings=2}
+    \label{fig:results:visualization-random-20}
 \end{figure}
-%    \end{landscape}
-\clearpage% Flush page
-%}
 
-%\afterpage{%
-%    \clearpage% Flush earlier floats (otherwise order might not be correct)
-%    \begin{landscape}% Landscape page
 \begin{figure}[h!]
-    \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{visualization_cluster_3_6_ga}\label{subfig:cluster-3-6-ga}}
-
-    \subfloat{\includegraphics[width=0.8\textwidth]{visualization_cluster_4_5_ga}\label{subfig:cluster-4-5-ga}}
-    \caption[Solution visualization of clustering instances for proposed solution]
-    {Visualization of the best result of proposed solution for instances cluster\_3\_6 and cluster\_4\_5.}
-    \label{fig:visualization-cluster}%
+    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_packing_10}
+    \caption
+    {TODO overlappings=0}
+    \label{fig:results:visualization-packing-10}
 \end{figure}
-%    \end{landscape}
-%    \clearpage% Flush page
-%}
 
-%\afterpage{%
-%    \clearpage% Flush earlier floats (otherwise order might not be correct)
-%    \begin{landscape}% Landscape page
 \begin{figure}[h!]
-    \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{visualization_london_nationa_gallery_ga}\label{subfig:london-gallery-ga}}
-    \caption[London National Gallery solution visualization]
-    {Visualization of the London National Gallery wall dataset.}
-    \label{fig:visualization-cluster}%
+    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_packing_20}
+    \caption
+    {TODO overlappings=8}
+    \label{fig:results:visualization-packing-20}
 \end{figure}
-%    \end{landscape}
-%    \clearpage% Flush page
-%}
+
+\begin{figure}[h!]
+    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_cluster_3_6}
+    \caption
+    {TODO overlappings=4}
+    \label{fig:results:visualization-cluster-3-6}
+\end{figure}
+
+\begin{figure}[h!]
+    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_cluster_4_5}
+    \caption
+    {TODO overlappings=8}
+    \label{fig:results:visualization-cluster-4-5}
+\end{figure}
+
+\begin{figure}[h!]
+%    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_biased_sparse_cluster}
+    \includegraphics[width=0.8\textwidth, center]{placeholder}
+    \caption
+    {TODO biased sparse cluster}
+    \label{fig:results:visualization-biased-sparse-cluster}
+\end{figure}
+
+
+\begin{figure}[h!]
+    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_london_gallery_wall}
+    \caption
+    {TODO overlappings=0}
+    \label{fig:results:visualization-london-gallery-wall}
+\end{figure}
+
+

@@ -1,4 +1,7 @@
+\clearpage% Flush earlier floats (otherwise order might not be correct)
 \newpage
+
+
 \section{Implementation}\label{sec:implementation}
 
 The proposed implementation of a genetic approach is written in Java 11
@@ -62,6 +65,7 @@ paintings together with their flow and evaluation function $\pi$ (eq.~\ref{eq:ob
 mXparser\footnotemark[4].
 An example of submission without specifying the instance name is in the appendix in listing~\ref{lst:computation-submission-manual}.
 
+% @formatter:off
 \begin{listing}[h!]
 \centering
 \begin{minted}[autogobble,breaklines=true]{shell}
@@ -112,6 +116,7 @@ $ curl --location 'localhost:9000/compute/dataset' \
 {Example of computation submission of random\_10 instance using \verb|curl|\footnotemark[2] to a computation server running on \verb|localhost:9000|.}
 \label{lst:computation-submission-dataset}
 \end{listing}
+% @formatter:on
 
 \footnotetext[1]{\url{https://www.playframework.com/documentation/2.8.x/Home}}
 \footnotetext[2]{\url{https://curl.se/}}
