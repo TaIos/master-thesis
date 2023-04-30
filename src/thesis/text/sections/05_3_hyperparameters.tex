@@ -7,6 +7,11 @@ Proposed genetic algorithm~\ref{alg:genetic} has eight hyperparameters.
 They are described in table~\ref{tab:hyperparameters-description}.
 The rest of the sections discuss these hyperparameters further and tries to find their reasonable values.
 
+Two instances are chosen for hyperparameter testing – random\_10 and random\_20.
+The reason is that they are not biased towards any preferred solution, e.g., forming clusters.
+Thus, insights into the proposed solution can be gained.
+However, fine-tuning the hyperparameters to the specific instance or scenario is recommended but only sometimes computationally feasible.
+
 Hyperparameter testing is performed by changing only the hyperparameter under test.
 Hyperparameters not under test are identical to the values in listing~\ref{lst:computation-submission-dataset}.
 The exceptions are penalization constants $\lambda, \gamma$ (eq.~\ref{eq:objective}), and \verb|populationSize|.
@@ -15,8 +20,13 @@ Population size is set to $50N$, where $N$ is the size of the instance.
 The reason for choosing such parameters as base parameters for testing
 is preliminary results (not presented in this thesis), which proved correct in many cases.
 
-To achieve the statistical significance of the results presented in this section, each computation (sec.~\ref{sec:implementation}) is submitted five times with a different random seed.
+Lastly, to achieve the statistical significance of the results presented in this section, each computation\footnotemark[1] is submitted five times with a different random seed.
 Presented values are thus an average from five samples.
+
+\footnotetext[1]{
+    Copmutations were run  on a notebook with Fedora36, 16GB RAM, AMD Ryzen 7 PRO 4750U 8 x 1.7 - 4.1 GHz, Renoir PRO (Zen 2).
+}
+
 
 \begin{table}[h!]
     \caption[Hyperparameters of the genetic algorithm]{Hyperparameters of the genetic algorithm~\ref{alg:genetic}}
@@ -167,9 +177,8 @@ Then, if the macho individual is randomly chosen more than once as a parent in a
 The chance of macho-individual taking over the population with elitism is decreased as it deliberately keeps track of multiple performant individuals,
 making it harder for the macho individual to spread.
 
-The conclusion is that  using elitism is essential for obtaining good painting placement solutions
+The conclusion is that using elitism is essential for obtaining good painting placement solutions
 as it can keep track of multiple (sub)-optimal solutions simultaneously.
-
 
 \subsection{Initial population division counts}\label{subsec:initial-population-division-counts}
 Hyperparameter \verb|initialPopulationDivisionCounts| configures generation ratios of the initial population (left part of fig.~\ref{fig:population-schema}).

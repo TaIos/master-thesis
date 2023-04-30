@@ -5,7 +5,8 @@
 \section{Results}\label{sec:results}
 This section presents a painting placement solution to the painting placement instances described in table~\ref{tab:instances}.
 Solutions to the random scenario instances are in subsection~\ref{subsec:random-scenario},
-packing scenarios in subsection~\ref{subsec:packing-scenario}, and clustering scenarios in subsection~\ref{subsec:clustering-scenario}.
+packing scenarios in subsection~\ref{subsec:packing-scenario}, clustering scenarios in subsection~\ref{subsec:clustering-scenario},
+and London National Gallery instance in subsection~\ref{subsec:london-gallery-wall}.
 Hyperparameter values used to obtain results in this section are in table~\ref{tab:hyperparameters-values}.
 Statistics for each instance are in table~\ref{tab:statistics}.
 
@@ -19,7 +20,7 @@ The recommendation to remove orientation penalization by setting \verb|orientati
 As described in hyperparameter testing, it should produce a population with a better on-average objective and a faster-decreasing trend in objective value.
 Also, the population size is set to 75 times the instance size.
 It is the midpoint of the recommended interval \numrange{50}{100}.
-Lastly, population division is set to the same values in listing~\ref{lst:computation-submission-dataset}.
+Lastly, population division is set to the same values as in listing~\ref{lst:computation-submission-dataset}.
 It means keeping an elitism strategy and injecting random individuals into the reproductive plan.
 
 \begin{table}[h!]
@@ -72,7 +73,6 @@ It means keeping an elitism strategy and injecting random individuals into the r
             packing\_20                   & 6219.13 & 12283.41 & 8140.29 & 1450.09 \\ \hline
             cluster\_3\_6                 & 3921.68 & 11121.96 & 6317.36 & 1844.99 \\ \hline
             cluster\_4\_5                 & 4887.04 & 12088.99 & 7177.9  & 1767.67 \\ \hline
-            biased\_sparse\_cluster\_3\_5 & TODO    & TODO     & TODO    & TODO    \\ \hline
             london\_gallery\_wall         & 2759.65 & 15764.31 & 5440.9  & 2633.81 \\ \hline
         \end{tabular}
         \begin{tablenotes}
@@ -200,14 +200,6 @@ Concrete flow values that are used are in the attached medium.
     Four groups of paintings, \numrange{1}{5}, \numrange{6}{10}, \numrange{11}{15}, and \numrange{15}{20}, are marked using different colors.
     There are seven overlapping pairs.}
     \label{fig:results:visualization-cluster-4-5}
-\end{figure}
-
-\begin{figure}[h!]
-%    \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_biased_sparse_cluster}
-    \includegraphics[width=0.8\textwidth, center]{placeholder}
-    \caption
-    {TODO biased sparse cluster}
-    \label{fig:results:visualization-biased-sparse-cluster}
 \end{figure}
 
 \begin{figure}[h!]

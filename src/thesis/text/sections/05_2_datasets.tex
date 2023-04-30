@@ -31,10 +31,9 @@ A description of each of them follows in the rest of this subsection.
             \textbf{\begin{tabular}[c]{@{}l@{}}Flow\\ min\end{tabular}} &
             \textbf{\begin{tabular}[c]{@{}l@{}}Flow\\ max\end{tabular}} &
             \textbf{\begin{tabular}[c]{@{}l@{}}Eval\\ func.\end{tabular}} \\ \hline
-            random                                                      & 1.2 & 10 & 10 & 3 & 0 & 4 & $x+y$ \\ \hline
-            cluster                                                     & 1.2 & 10 & 10 & 3 & - & - & $0$   \\ \hline
-            packing                                                     & 1   & 10 & 10 & 3 & 0 & 4 & $0$   \\ \hline
-            \begin{tabular}[c]{@{}l@{}}biased\\ clustering\end{tabular} & 1.3 & 10 & 10 & 3 & - & - & -     \\ \hline
+            random  & 1.2 & 10 & 10 & 3 & 0 & 4 & $x+y$ \\ \hline
+            cluster & 1.2 & 10 & 10 & 3 & - & - & $0$   \\ \hline
+            packing & 1   & 10 & 10 & 3 & 0 & 4 & $0$   \\ \hline
         \end{tabular}
         \begin{tablenotes}
             \small
@@ -81,19 +80,15 @@ are self-explanatory and were set as low numeric values to increase computation 
 
 \subsection{Instances}\label{subsec:instances}
 
-Seven painting placement instances are generated using table~\ref{tab:generation-parameters} parameters.
-Generated instances are described in table~\ref{tab:instances}.
+Six painting placement instances are generated using table~\ref{tab:generation-parameters} parameters
+and one is created from the London National Gallery in figure~\ref{fig:london-wall}.
+They are described in table~\ref{tab:instances}.
 For random and packing scenarios, values for max painting width/height, flow min/max, and max painting ratio are randomly generated from the parameter range described in table~\ref{tab:generation-parameters}.
-The clustering and biased clustering parameters are also generated randomly.
+The clustering parameters are also generated randomly.
 The only exception is the flow, which is set in a way to form clusters.
 
 Visualization of the flow for two painting placement instances is in appendix in figure~\ref{fig:instance-flow}.
 On the left is the randomly generated flow for random\_10 instance, and on the right is the flow for cluster\_3\_6 instance that forms clusters.
-
-Lastly, the eval function for biased\_sparse\_cluster\_3\_5 partitions the layout into six same-size chessboard squares.
-Half are assigned the same advantageous evaluation to force the cluster formation.
-The second half is evaluated to zero.
-The concrete value for the eval function is in the appendix in listing~\ref{lst:biased-sparse-cluster-eval-function}.
 
 \begin{table}[h!]
     \caption{Painting placement instances}
@@ -101,40 +96,21 @@ The concrete value for the eval function is in the appendix in listing~\ref{lst:
     \begin{tabular}{lllll}
         \hline
         \textbf{Instance name} &
-        \textbf{\begin{tabular}[c]{@{}l@{}}
-                    Paint.\\ count
-        \end{tabular}} &
-        \textbf{\begin{tabular}[c]{@{}l@{}}
-                    Layout\\ width, height
-        \end{tabular}} &
+        \textbf{\begin{tabular}[c]{@{}l@{}}Paint.\\ count\end{tabular}} &
+        \textbf{\begin{tabular}[c]{@{}l@{}}Layout\\ width, height\end{tabular}} &
         \textbf{Scenario} &
         \textbf{Description} \\ \hline
-        random\_10    & 10 & 24 x 19 & random     &                                        \\ \hline
-        random\_20    & 20 & 31 x 25 & random     &                                        \\ \hline
-        packing\_10   & 10 & 19 x 15 & packing    &                                        \\ \hline
-        packing\_20   & 20 & 33 x 26 & packing    &                                        \\ \hline
-        cluster\_3\_6 & 18 & 30 x 25 & clustering & \begin{tabular}[c]{@{}l@{}}
-                                                        3 clusters,\\ 6 paintings each
-        \end{tabular} \\ \hline
-        cluster\_4\_5 & 20 & 34 x 27 & clustering & \begin{tabular}[c]{@{}l@{}}
-                                                        4 clusters,\\ 5 paintings each
-        \end{tabular} \\ \hline
-        biased\_sparse\_cluster\_3\_5 &
-        15 &
-        29 x 23 &
-        \begin{tabular}[c]{@{}l@{}}
-            biased\\ clustering
-        \end{tabular} &
-        \begin{tabular}[c]{@{}l@{}}
-            3 clusters,\\ 5 paintings each
-        \end{tabular} \\ \hline
+        random\_10    & 10 & 24 x 19 & random     &                                                                        \\ \hline
+        random\_20    & 20 & 31 x 25 & random     &                                                                        \\ \hline
+        packing\_10   & 10 & 19 x 15 & packing    &                                                                        \\ \hline
+        packing\_20   & 20 & 33 x 26 & packing    &                                                                        \\ \hline
+        cluster\_3\_6 & 18 & 30 x 25 & clustering & \begin{tabular}[c]{@{}l@{}}3 clusters,\\ 6 paintings each\end{tabular} \\ \hline
+        cluster\_4\_5 & 20 & 34 x 27 & clustering & \begin{tabular}[c]{@{}l@{}}4 clusters,\\ 5 paintings each\end{tabular} \\ \hline
         london\_gallery\_wall &
         7 &
         180 x 90 &
-        - &
-        \begin{tabular}[c]{@{}l@{}}
-            created from figure~\ref{fig:london-wall}
-        \end{tabular} \\ \hline
+        \begin{tabular}[c]{@{}l@{}}London\\ National\\ Gallery\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}created from\\ figure~\ref{fig:london-wall}\end{tabular} \\ \hline
     \end{tabular}
 \end{table}
 
