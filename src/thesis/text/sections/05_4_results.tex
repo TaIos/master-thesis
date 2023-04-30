@@ -11,11 +11,15 @@ Hyperparameter values in table~\ref{tab:hyperparameters-values} are set to their
 from hyperparameter testing in section~\ref{sec:hyper-parameters}.
 The hyperparameter not set to the recommended values is \verb|maxNumberOfIter|.
 It is set to 500 instead of a value from the recommended range \numrange{100}{150}.
-The reason is to find a better painting placement solution.
-Also, the recommendation to remove orientation penalization by setting \verb|orientationWeights| to $\langle 1,1,1\rangle$ is followed.
+The reason is to possibly find a better painting placement solution in exchange for more computation time.
+
+The recommendation to remove orientation penalization by setting \verb|orientationWeights| to $\langle 1,1,1\rangle$ is followed.
 As described in hyperparameter testing, it should produce a population with a better on-average objective and a faster-decreasing trend in objective value.
-Lastly, the population size is set to 75 times the instance size.
+Also, the population size is set to 75 times the instance size.
 It is the midpoint of the recommended interval \numrange{50}{100}.
+Lastly, population division is set to the same values in listing~\ref{lst:computation-submission-dataset}.
+It means keeping an elitism strategy and injecting random individuals into the reproductive plan.
+
 
 \begin{table}[h!]
     \caption{Hyperparameter values used to obtain results}
@@ -23,17 +27,17 @@ It is the midpoint of the recommended interval \numrange{50}{100}.
     \begin{threeparttable}
         \begin{tabular}{ll}
             \hline
-            \textbf{Hyperparameter}                           & \textbf{Value}             \\ \hline
-            \verb|maxNumberOfIter|                            & 500                        \\ \hline
-            \verb|populationSize|                             & 75 times the instance size \\ \hline
-            \verb|maximumWildCardCount|                       & 1                          \\ \hline
-            \verb|orientationWeights|                         & $\langle 1,1,1 \rangle$    \\ \hline
-            \verb|populationDivisionCounts|                   & remove elitism and random  \\ \hline
-            \verb|initialPopulationDivisionCounts|            & 0.7 random, 0.3 greedy     \\ \hline
-            \verb|overlappingPenalizationConstant| & \begin{tabular}[c]{@{}l@{}}
-                                                         4 times the diagonal length\\ of the layout
+            \textbf{Hyperparameter}                           & \textbf{Value}                                         \\ \hline
+            \verb|maxNumberOfIter|                            & 500                                                    \\ \hline
+            \verb|populationSize|                             & 75 times the instance size                             \\ \hline
+            \verb|maximumWildCardCount|                       & 1                                                      \\ \hline
+            \verb|orientationWeights|                         & $\langle 1,1,1 \rangle$                                \\ \hline
+            \verb|populationDivisionCounts|                   & elitism, random                                        \\ \hline
+            \verb|initialPopulationDivisionCounts|            & 0.7 random, 0.3 greedy                                 \\ \hline
+            \verb|overlappingPenalizationConstant|            & \begin{tabular}[c]{@{}l@{}}
+                                                                    4 times the diagonal length\\ of the layout
             \end{tabular} \\ \hline
-            \verb|outsideOfAllocatedAreaPenalizationConstant| & 0                          \\ \hline
+            \verb|outsideOfAllocatedAreaPenalizationConstant| & 0                                                      \\ \hline
         \end{tabular}
         \begin{tablenotes}
             \small
@@ -60,15 +64,15 @@ It is the midpoint of the recommended interval \numrange{50}{100}.
             \end{tabular}} &
             \textbf{\begin{tabular}[c]{@{}l@{}}
                         Standard\\ deviation
-            \end{tabular}} \\ \hline
-            random\_10                    & 1106.33 & 2932.9  & 1475.31 & 319.91  \\ \hline
-            random\_20                    & 5106.49 & 8617.66 & 5521.33 & 647.47  \\ \hline
-            packing\_10                   & 647.47  & 1482.71 & 748.28  & 126.11  \\ \hline
-            packing\_20                   & 6607.76 & 10881.3 & 6996.43 & 792.16  \\ \hline
-            cluster\_3\_6                 & 4940.93 & 8924.68 & 5258.09 & 517.73  \\ \hline
-            cluster\_4\_5                 & 5080.58 & 9664.94 & 5592.13 & 695.56  \\ \hline
-            biased\_sparse\_cluster\_3\_5 & TODO    & TODO    & TODO    & TODO    \\ \hline
-            london\_gallery\_wall         & 2802.73 & 8487.18 & 3471.79 & 3471.79 \\ \hline
+            \end{tabular}}                    \\ \hline
+            random\_10                    & 1136.11  & 3438.01 & 1640.91 & 460.76 \\ \hline
+            random\_20                   & 5417.8  & 11629.59  & 7209.22 & 1400.13  \\ \hline
+            packing\_10                   & 669.48 & 2369.11 & 1142.96 & 383.22 \\ \hline
+            packing\_20                 & 6219.13 & 12283.41 & 8140.29 & 1450.09 \\ \hline
+            cluster\_3\_6                 & 3921.68 & 11121.96 & 6317.36  & 1844.99 \\ \hline
+            cluster\_4\_5 & 4887.04    & 12088.99     & 7177.9    & 1767.67    \\ \hline
+            biased\_sparse\_cluster\_3\_5         & TODO & TODO & TODO  & TODO \\ \hline
+            london\_gallery\_wall         & 2759.65 & 15764.31 & 5440.9  & 2633.81 \\ \hline
         \end{tabular}
         \begin{tablenotes}
             \small
