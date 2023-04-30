@@ -18,7 +18,6 @@ is preliminary results (not presented in this thesis), which proved correct in m
 To achieve the statistical significance of the results presented in this section, each computation (sec.~\ref{sec:implementation}) is submitted five times with a different random seed.
 Presented values are thus an average from five samples.
 
-
 \begin{table}[h!]
     \caption[Hyperparameters of the genetic algorithm]{Hyperparameters of the genetic algorithm~\ref{alg:genetic}}
     \label{tab:hyperparameters-description}
@@ -140,24 +139,37 @@ by setting (a) how many elite individuals are copied, (b) how many children are 
 and (e) how many random individuals are injected.
 
 Performance results for two random instances are in figure~\ref{fig:hyperparameters-population-division-counts}.
-Removing the injection of $0.1$ random individuals achieves a better average population objective for both instances.
-The reason for that might be the implementation of crossover and that offsprings created by crossover
-are the major part of the next population.
-Crossover implementation (described in subsec.~\ref{subsec:crossover}) uses weights $w_A$ and $w_B$
-based on the performance of parents $A$ and $B$.
-Weights limit the transfer of information from the lower-performance parent.
-However, consider the weights are almost the same, i.e., parents perform similarly, and each parent represents a different (sub)-optimal solution. Information transfer does not happen in that case, and the offspring performs poorly.
-It stems from the idea that each individual contains stochastic vectors that approximate the probability mass
-function, and if each parent represents a different but performant function, the offspring contains
-neither of those performant probability mass functions.
+We can see that results do not differ for the smaller or larger instance.
+The best reproductive plan strategy is achieved without changing population division hyperparameters from listing~\ref{lst:computation-submission-dataset}.
+That means elitism and randomly injected individuals are present.
+Additionally, we can see that the cause of good performance is the elitism strategy,
+as removing randomly generated individuals does not significantly improve performance.
 
-The conclusion is that parents with similar performance representing different (sub)-optimal solution
-produce offspring that perform poorly.
-It might also be the reason why the second-best result in figure~\ref{fig:hyperparameters-population-division-counts}
-is achieved by, in addition to removing random individuals, also removing the elitism strategy.
-Elitism keeps track of any (sub)-optimal solutions, which are then used as a first parent
-to the crossover (right part of fig.~\ref{fig:population-schema}).
-Thus, elitism increases the probability that crossover parents represent different (sub)-optimal solutions.
+The reason why the use of elitism is important to obtain good results might be the implementation of the crossover operator (subsec.~\ref{subsec:crossover}).
+Crossover adds weights $w_A$ and $w_B$ to each parent based on their objective value.
+It means that if $w_A \gg w_B$, the offspring is a sample from the search space close to the parent $A$ or nearly identical to $A$.
+On the other hand, if the weights are similar and each parent represents a different (sub)-optimal solution,
+the transfer of information does not happen, and the offspring is no better than a randomly generated individual.
+Elitism avoids crossover by directly copying the best individuals without any modification.
+It leads to keeping track of multiple (sub)-optimal solutions simultaneously.
+In addition, each time a crossover is applied, one parent is selected from the elite pool,
+which supports intensification.
+
+On the other hand, removing elitism produces the worst results.
+The reason might be the inability to keep track of competing (sub)-optimal and the fast spread of the first
+\definice{macho individual}, an individual that performs significantly better than everyone else.
+Without elitism, the most significant way to keep track of found (sub)-optimal solutions is through crossover.
+Crossover chooses parents randomly from the average pool, which does not give any constraint on the weights $w_A$ and $w_B$.
+Additionally, as mentioned in the previous paragraph, similar weights for two different parents produce no better offspring than randomly generated individuals.
+It means that most offspring do not perform well.
+On the other hand, as soon as the macho individual appears as the parent in the crossover, the offspring is effectively a copy of a macho individual.
+Then, if the macho individual is randomly chosen more than once as a parent in a crossover, it rapidly spreads and takes over the whole population.
+The chance of macho-individual taking over the population with elitism is decreased as it deliberately keeps track of multiple performant individuals,
+making it harder for the macho individual to spread.
+
+The conclusion is that  using elitism is essential for obtaining good painting placement solutions
+as it can keep track of multiple (sub)-optimal solutions simultaneously.
+
 
 \subsection{Initial population division counts}\label{subsec:initial-population-division-counts}
 Hyperparameter \verb|initialPopulationDivisionCounts| configures generation ratios of the initial population (left part of fig.~\ref{fig:population-schema}).
@@ -294,9 +306,10 @@ important and might be left out by setting it to zero to save computation time.
 
     \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_division_counts_random_20}\label{subfig:hyperparameters-population-division-counts-random-20}}
     \caption[Testing population division counts]
-    {Testing population division counts at two random instances.
-    Four variants are displayed. First does not use elitism, second does not inject random individuals, third combines first and second,
-        and the last does not make any change to the population division counts as described in listing~\ref{lst:computation-submission-dataset}.}
+    {Testing population division counts at two random instances. Four variants are displayed.
+    The first does not use elitism.
+    The second does not inject random individuals.
+    The third combines the first and second, and the last does not change the population division counts as described in listing~\ref{lst:computation-submission-dataset}.}
     \label{fig:hyperparameters-population-division-counts}%
 \end{figure}
 
