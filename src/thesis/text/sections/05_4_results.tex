@@ -1,9 +1,11 @@
-\clearpage% Flush earlier floats (otherwise order might not be correct)
+\clearpage
 \newpage
 
 
 \section{Results}\label{sec:results}
 This section presents a painting placement solution to the painting placement instances described in table~\ref{tab:instances}.
+Solutions to the random scenario instances are in subsection~\ref{subsec:random-scenario},
+packing scenarios in subsection~\ref{subsec:packing-scenario}, and clustering scenarios in subsection~\ref{subsec:clustering-scenario}.
 Hyperparameter values used to obtain results in this section are in table~\ref{tab:hyperparameters-values}.
 Statistics for each instance are in table~\ref{tab:statistics}.
 
@@ -20,24 +22,23 @@ It is the midpoint of the recommended interval \numrange{50}{100}.
 Lastly, population division is set to the same values in listing~\ref{lst:computation-submission-dataset}.
 It means keeping an elitism strategy and injecting random individuals into the reproductive plan.
 
-
 \begin{table}[h!]
     \caption{Hyperparameter values used to obtain results}
     \label{tab:hyperparameters-values}
     \begin{threeparttable}
         \begin{tabular}{ll}
             \hline
-            \textbf{Hyperparameter}                           & \textbf{Value}                                         \\ \hline
-            \verb|maxNumberOfIter|                            & 500                                                    \\ \hline
-            \verb|populationSize|                             & 75 times the instance size                             \\ \hline
-            \verb|maximumWildCardCount|                       & 1                                                      \\ \hline
-            \verb|orientationWeights|                         & $\langle 1,1,1 \rangle$                                \\ \hline
-            \verb|populationDivisionCounts|                   & elitism, random                                        \\ \hline
-            \verb|initialPopulationDivisionCounts|            & 0.7 random, 0.3 greedy                                 \\ \hline
-            \verb|overlappingPenalizationConstant|            & \begin{tabular}[c]{@{}l@{}}
-                                                                    4 times the diagonal length\\ of the layout
+            \textbf{Hyperparameter}                           & \textbf{Value}             \\ \hline
+            \verb|maxNumberOfIter|                            & 500                        \\ \hline
+            \verb|populationSize|                             & 75 times the instance size \\ \hline
+            \verb|maximumWildCardCount|                       & 1                          \\ \hline
+            \verb|orientationWeights|                         & $\langle 1,1,1 \rangle$    \\ \hline
+            \verb|populationDivisionCounts|                   & elitism, random            \\ \hline
+            \verb|initialPopulationDivisionCounts|            & 0.7 random, 0.3 greedy     \\ \hline
+            \verb|overlappingPenalizationConstant| & \begin{tabular}[c]{@{}l@{}}
+                                                         4 times the diagonal length\\ of the layout
             \end{tabular} \\ \hline
-            \verb|outsideOfAllocatedAreaPenalizationConstant| & 0                                                      \\ \hline
+            \verb|outsideOfAllocatedAreaPenalizationConstant| & 0                          \\ \hline
         \end{tabular}
         \begin{tablenotes}
             \small
@@ -64,14 +65,14 @@ It means keeping an elitism strategy and injecting random individuals into the r
             \end{tabular}} &
             \textbf{\begin{tabular}[c]{@{}l@{}}
                         Standard\\ deviation
-            \end{tabular}}                    \\ \hline
-            random\_10                    & 1136.11  & 3438.01 & 1640.91 & 460.76 \\ \hline
-            random\_20                   & 5417.8  & 11629.59  & 7209.22 & 1400.13  \\ \hline
-            packing\_10                   & 669.48 & 2369.11 & 1142.96 & 383.22 \\ \hline
-            packing\_20                 & 6219.13 & 12283.41 & 8140.29 & 1450.09 \\ \hline
-            cluster\_3\_6                 & 3921.68 & 11121.96 & 6317.36  & 1844.99 \\ \hline
-            cluster\_4\_5 & 4887.04    & 12088.99     & 7177.9    & 1767.67    \\ \hline
-            biased\_sparse\_cluster\_3\_5         & TODO & TODO & TODO  & TODO \\ \hline
+            \end{tabular}} \\ \hline
+            random\_10                    & 1136.11 & 3438.01  & 1640.91 & 460.76  \\ \hline
+            random\_20                    & 5417.8  & 11629.59 & 7209.22 & 1400.13 \\ \hline
+            packing\_10                   & 669.48  & 2369.11  & 1142.96 & 383.22  \\ \hline
+            packing\_20                   & 6219.13 & 12283.41 & 8140.29 & 1450.09 \\ \hline
+            cluster\_3\_6                 & 3921.68 & 11121.96 & 6317.36 & 1844.99 \\ \hline
+            cluster\_4\_5                 & 4887.04 & 12088.99 & 7177.9  & 1767.67 \\ \hline
+            biased\_sparse\_cluster\_3\_5 & TODO    & TODO     & TODO    & TODO    \\ \hline
             london\_gallery\_wall         & 2759.65 & 15764.31 & 5440.9  & 2633.81 \\ \hline
         \end{tabular}
         \begin{tablenotes}
@@ -80,6 +81,12 @@ It means keeping an elitism strategy and injecting random individuals into the r
         \end{tablenotes}
     \end{threeparttable}
 \end{table}
+
+\subsection{Random scenario}\label{subsec:random-scenario}
+
+\subsection{Packing scenario}\label{subsec:packing-scenario}
+
+\subsection{Clustering scenario}\label{subsec:clustering-scenario}
 
 \begin{figure}[h!]
     \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_random_10}
