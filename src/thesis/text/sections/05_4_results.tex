@@ -82,11 +82,75 @@ It means keeping an elitism strategy and injecting random individuals into the r
     \end{threeparttable}
 \end{table}
 
+\newpage
+
 \subsection{Random scenario}\label{subsec:random-scenario}
 
+Visualization of the painting placement solution to the random\_10 instance
+is in figure~\ref{fig:results:visualization-random-10}
+and for random\_20 instance in figure~\ref{fig:results:visualization-random-20}.
+
+For the random\_10 instance, we can see that there are no overlappings, and only painting 6 is placed outside the layout.
+Also, due to the eval function $\pi$ (eq~\ref{eq:objective}) set to
+$f(x,y) = x+y$, we can see that smaller paintings
+are placed towards the bottom left corner.
+
+For the random\_20 instance, we can see that there are four overlappings.
+Similarly to the random\_10 instance, the eval function forced the placement of the
+smaller paintings to the bottom left corner.
+Only one painting is placed outside the layout.
+However, there are 4 overlapping pairs.
+It might suggest further increasing the penalization constant $\lambda$.
+
 \subsection{Packing scenario}\label{subsec:packing-scenario}
+Visualization of the painting placement solution to the packing\_10 instance
+is in figure~\ref{fig:results:visualization-packing-10}
+and for packing\_20 instance in figure~\ref{fig:results:visualization-packing-20}.
+Packing scenario differs from the random one in layout area ratio (subsec~\ref{subsec:generation-parameters}).
+Packing has this ratio set to one, which means that the area of the layout equals the area of all paintings summed together.
+
+For the packing\_10 instance, we can see no overlappings and paintings 2,3 and 4 placed outside the layout.
+However, this solution might still be packed even more, for example, by moving paintings 1 and 2 down.
+It could be achieved using a post-optimization, suggested in subsection~ ef {subsec:post-optimization}.
+
+For the packing\_20 instance, we can see seven overlappings pairs.
+Similarly to the random\_20 instance, it might suggest increasing the overlapping penalization constant $\lambda$.
 
 \subsection{Clustering scenario}\label{subsec:clustering-scenario}
+
+Two clustering instances are tested, with visualization for cluster\_3\_6 instance
+in figure~\ref{fig:results:visualization-cluster-3-6} and for cluster\_4\_5 instance in figure~\ref{fig:results:visualization-cluster-4-5}.
+The clustering scenario tested the ability to place paintings inside clusters.
+Clusters are defined using a flow between paintings, which is set to 0 between paintings from different
+clusters and nonzero to the paintings from the same clusters.
+Visualization of the flow for cluster\_3\_6 instance is in the appendix on the right of the figure~\ref{fig:instance-flow}.
+
+For the cluster\_3\_6 instance, we can see the successful formation of clusters.
+However, seven overlapping pairs exist, exclusively between paintings in the same cluster.
+It might suggest that the flow is too high or that the overlapping penalization constant $\lambda$ is too low.
+
+
+For the cluster\_4\_5 instance, we can see a partially successful formation of clusters.
+It might be caused by the increased complexity as there are four clusters instead of three for the cluster\_3\_6 instance.
+We can see overlappings between the paintings from the same cluster and even between clusters.
+The same suggestion as for the cluster\_3\_6 instance might be given – the flow is set too high or that the overlapping penalization constant $\lambda$ is set too low.
+
+\subsection{London Gallery Wall}\label{subsec:london-gallery-wall}
+
+The last tested instance is london\_gallery\_wall.
+It represents the painting placement at the London National Gallery from figure~\ref{fig:london-wall}.
+
+Visualization of the result is in figure~\ref{fig:results:visualization-london-gallery-wall}.
+We can see no overlappings, and two paintings are placed outside the wall.
+
+The proposed solution can reconstruct the interactions between paintings using the flow.
+It means that the paintings that are placed close together in the London National Gallery from figure~\ref{fig:london-wall}
+are also placed together in the visualization of the painting placement solution in figure~\ref{fig:results:visualization-london-gallery-wall}.
+Concrete flow values that are used are in the attached medium.
+
+
+\clearpage
+\newpage
 
 \begin{figure}[h!]
     \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_random_10}
