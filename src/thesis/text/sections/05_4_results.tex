@@ -3,12 +3,14 @@
 
 
 \section{Results}\label{sec:results}
-This section presents a painting placement solution to the painting placement instances described in table~\ref{tab:instances}.
-Solutions to the random scenario instances are in subsection~\ref{subsec:random-scenario},
-packing scenarios in subsection~\ref{subsec:packing-scenario}, clustering scenarios in subsection~\ref{subsec:clustering-scenario},
-and London National Gallery instance in subsection~\ref{subsec:london-gallery-wall}.
+This section presents a painting placement solution to the painting placement instances in table~\ref{tab:instances}.
+Obtained solutions are discussed in the following subsections –
+random scenario instances in~\ref{subsec:random-scenario},
+packing scenario instances in~\ref{subsec:packing-scenario},
+clustering scenario instances in~\ref{subsec:clustering-scenario},
+and London National Gallery instance~\ref{subsec:london-gallery-wall}.
 Hyperparameter values used to obtain results in this section are in table~\ref{tab:hyperparameters-values}.
-Statistics for each instance are in table~\ref{tab:statistics}.
+Statistics for the last iteration of the genetic algorithm for each instance are in table~\ref{tab:statistics}.
 
 Hyperparameter values in table~\ref{tab:hyperparameters-values} are set to their recommended values
 from hyperparameter testing in section~\ref{sec:hyper-parameters}.
@@ -17,11 +19,12 @@ It is set to 500 instead of a value from the recommended range \numrange{100}{15
 The reason is to possibly find a better painting placement solution in exchange for more computation time.
 
 The recommendation to remove orientation penalization by setting \verb|orientationWeights| to $\langle 1,1,1\rangle$ is followed.
-As described in hyperparameter testing, it should produce a population with a better on-average objective and a faster-decreasing trend in objective value.
+As described in hyperparameter testing, it should produce a population with a better on-average objective value and a faster-decreasing trend in objective value.
 Also, the population size is set to 75 times the instance size.
 It is the midpoint of the recommended interval \numrange{50}{100}.
 Lastly, population division is set to the same values as in listing~\ref{lst:computation-submission-dataset}.
-It means keeping an elitism strategy and injecting random individuals into the reproductive plan.
+It means keeping an elitism strategy and injecting random individuals.
+
 
 \begin{table}[h!]
     \caption{Hyperparameter values used to obtain results}
@@ -67,13 +70,13 @@ It means keeping an elitism strategy and injecting random individuals into the r
             \textbf{\begin{tabular}[c]{@{}l@{}}
                         Standard\\ deviation
             \end{tabular}} \\ \hline
-            random\_10                    & 1136.11 & 3438.01  & 1640.91 & 460.76  \\ \hline
-            random\_20                    & 5417.8  & 11629.59 & 7209.22 & 1400.13 \\ \hline
-            packing\_10                   & 669.48  & 2369.11  & 1142.96 & 383.22  \\ \hline
-            packing\_20                   & 6219.13 & 12283.41 & 8140.29 & 1450.09 \\ \hline
-            cluster\_3\_6                 & 3921.68 & 11121.96 & 6317.36 & 1844.99 \\ \hline
-            cluster\_4\_5                 & 4887.04 & 12088.99 & 7177.9  & 1767.67 \\ \hline
-            london\_gallery\_wall         & 2759.65 & 15764.31 & 5440.9  & 2633.81 \\ \hline
+            random\_10            & 1136.11 & 3438.01  & 1640.91 & 460.76  \\ \hline
+            random\_20            & 5417.8  & 11629.59 & 7209.22 & 1400.13 \\ \hline
+            packing\_10           & 669.48  & 2369.11  & 1142.96 & 383.22  \\ \hline
+            packing\_20           & 6219.13 & 12283.41 & 8140.29 & 1450.09 \\ \hline
+            cluster\_3\_6         & 3921.68 & 11121.96 & 6317.36 & 1844.99 \\ \hline
+            cluster\_4\_5         & 4887.04 & 12088.99 & 7177.9  & 1767.67 \\ \hline
+            london\_gallery\_wall & 2759.65 & 15764.31 & 5440.9  & 2633.81 \\ \hline
         \end{tabular}
         \begin{tablenotes}
             \small
@@ -90,31 +93,37 @@ Visualization of the painting placement solution to the random\_10 instance
 is in figure~\ref{fig:results:visualization-random-10}
 and for random\_20 instance in figure~\ref{fig:results:visualization-random-20}.
 
-For the random\_10 instance, we can see that there are no overlappings, and only painting 6 is placed outside the layout.
-Also, due to the eval function $\pi$ (eq~\ref{eq:objective}) set to
-$f(x,y) = x+y$, we can see that smaller paintings
+For the random\_10 instance, we can see that there are no overlappings, and only painting~6 is partially outside the layout.
+Also, due to the eval function set to $f(x,y) = x+y$, smaller paintings
 are placed towards the bottom left corner.
+This painting placement solution can be considered successful,
+because it adheres to all penalizations that are applied.
 
 For the random\_20 instance, we can see that there are four overlappings.
 Similarly to the random\_10 instance, the eval function forced the placement of the
-smaller paintings to the bottom left corner.
-Only one painting is placed outside the layout.
-However, there are 4 overlapping pairs.
-It might suggest further increasing the penalization constant $\lambda$.
+smaller paintings to the bottom left corner, and one painting is placed outside the layout.
+Due to the four overlappings, it is only a partially successful painting placement solution.
+On the other hand, the solution adheres to all other penalizations.
+It might suggest further increasing the overlapping penalization constant~$\lambda$.
 
 \subsection{Packing scenario}\label{subsec:packing-scenario}
 Visualization of the painting placement solution to the packing\_10 instance
 is in figure~\ref{fig:results:visualization-packing-10}
 and for packing\_20 instance in figure~\ref{fig:results:visualization-packing-20}.
-Packing scenario differs from the random one in layout area ratio (subsec~\ref{subsec:generation-parameters}).
-Packing has this ratio set to one, which means that the area of the layout equals the area of all paintings summed together.
 
-For the packing\_10 instance, we can see no overlappings and paintings 2,3 and 4 placed outside the layout.
-However, this solution might still be packed even more, for example, by moving paintings 1 and 2 down.
-It could be achieved using a post-optimization, suggested in subsection~ ef {subsec:post-optimization}.
+For the packing\_10 instance, we can see no overlappings, and paintings~2,3, and 4 are partially outside the layout.
+It is considered a success, as the packing scenario tests the ability to form compact solutions by setting the instance generation parameter
+layout area ratio to one, which means that the area of the layout equals the area of all paintings summed together.
+However, an improvement in compactness can still be gained by moving paintings 1 and 2 downwards.
+It could be implemented using a post-optimization, suggested in subsection~\ref{subsec:post-optimization}.
+The eval function is absent in the packing scenario, so there is no preference for any part of the layout.
 
-For the packing\_20 instance, we can see seven overlappings pairs.
-Similarly to the random\_20 instance, it might suggest increasing the overlapping penalization constant $\lambda$.
+For the packing\_20 instance, we can see seven overlapping pairs.
+It is not considered a success as there is no eval function present and overlapping penalization constant~$\lambda$
+should be the main source of improvement if the objective function~\ref{eq:objective}.
+However, the packing complexity for 20 paintings is high, and it might be impossible to fit all paintings to the layout without overlapping or being outside of the allocated area.
+Nevertheless, the suggestion is to increase the overlapping penalization constant~$\lambda$.
+
 
 \subsection{Clustering scenario}\label{subsec:clustering-scenario}
 
@@ -210,5 +219,3 @@ Concrete flow values that are used are in the attached medium.
     There are no overlappings.}
     \label{fig:results:visualization-london-gallery-wall}
 \end{figure}
-
-
