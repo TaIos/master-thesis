@@ -1,12 +1,43 @@
 \chapter{Discussion}\label{ch:discussion}
 
-This chapter discusses the obtained results
+This chapter summarizes the obtained results
 from chapter~\ref{ch:computational-results} in section~\ref{sec:comp-res-discussion}.
 Also, it suggests further improvements, extensions, and future work in section~\ref{sec:improvements}.
 
 
 \section{Computational result discussion}\label{sec:comp-res-discussion}
-TODO
+This section discusses the computational results from chapter~\ref{ch:computational-results}.
+The process of obtaining the results is first to generate four testing scenarios (sec.~\ref{sec:scenarios}).
+They are random, clustering, packing, and London National Gallery.
+Then, for each scenario, painting placement instances are generated.
+Using random scenario instances, reasonable hyperparameter values for the genetic algorithm~\ref{alg:genetic} are determined.
+Lastly, painting placement solutions are computed for all generated instances using reasonable hyperparameter values.
+
+The proposed solution produces good results for the smaller instances, i.e., random\_10 instance
+in figure~\ref{fig:results:visualization-random-10} and packing\_10 instance in figure~\ref{fig:results:visualization-packing-20}.
+\definice{Good result} is a painting placement solution with few overlapping paintings, paintings partially or fully outside the allocated area,
+and respect the flow and eval function.
+It is all achieved in the smaller instances.
+
+Overall, the biggest issue for larger instances, e.g., random\_20 instance in figure~\ref{fig:results:visualization-random-20} and packing\_20 instance in figure~\ref{fig:results:visualization-packing-20}, are overlapping paintings.
+It can be mitigated by setting a higher value for the \verb|overlappingPenalizationConstant|.
+However, by increasing the value, other parts of the objective function (eq.~\ref{eq: objective})
+becomes insignificant and thus ignored by the proposed solution.
+For example, by increasing the overlapping penalization, the eval function
+or the flow between paintings is ignored because the overlapping cost is too high.
+
+Another issue might be the extrapolation of reasonable hyperparameters from random scenarios to other scenarios.
+Indeed, fine-tuning hyperparameters for each instance would produce painting placement solutions with better on-average population objective value.
+However, it is computationally expensive to do so.
+Despite that, testing hyperparameters on random scenarios provides valuable insight into the proposed solution.
+For example, elitism is integral to the reproductive plan (see ~\ref{subsec:initial-population-division-counts}).
+
+Lastly, the hyperparameter \verb|outsideOfAllocatedAreaPenalizationConstant| (see tab.~\ref{tab:hyperparameters-description}) is set to zero.
+It can be removed from the objective function~\ref{eq:objective}.
+The idea behind introducing it is to penalize partially or fully placed paintings outside the layout.
+However, as described in~\ref{subsec:outside-of-allocated-area-penalization-constant}, this hyperparameter cannot do so.
+One solution is to replace \verb|outsideOfAllocatedAreaPenalizationConstant| with a different one,
+which penalizes solutions that place paintings partially or fully outside the layout.
 
 
 \section{Improvements, extensions, future work}\label{sec:improvements}
