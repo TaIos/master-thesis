@@ -111,7 +111,7 @@ Visualization of the painting placement solution to the packing\_10 instance
 is in figure~\ref{fig:results:visualization-packing-10}
 and for packing\_20 instance in figure~\ref{fig:results:visualization-packing-20}.
 
-For the packing\_10 instance, we can see no overlappings, and paintings~2,3, and 4 are partially outside the layout.
+For the packing\_10 instance, we can see no overlappings, and paintings~2,3,4 are partially outside the layout.
 It is considered a success, as the packing scenario tests the ability to form compact solutions by setting the instance generation parameter
 layout area ratio to one, which means that the area of the layout equals the area of all paintings summed together.
 However, an improvement in compactness can still be gained by moving paintings 1 and 2 downwards.
@@ -120,42 +120,43 @@ The eval function is absent in the packing scenario, so there is no preference f
 
 For the packing\_20 instance, we can see seven overlapping pairs.
 It is not considered a success as there is no eval function present and overlapping penalization constant~$\lambda$
-should be the main source of improvement if the objective function~\ref{eq:objective}.
-However, the packing complexity for 20 paintings is high, and it might be impossible to fit all paintings to the layout without overlapping or being outside of the allocated area.
+should be the main source of improvement in the objective function~\ref{eq:objective}.
+However, the packing complexity for 20 paintings is high, and it might be impossible to fit all paintings to the layout without overlapping or being outside the allocated area.
+Also, randomly generated flow between paintings might play a role.
 Nevertheless, the suggestion is to increase the overlapping penalization constant~$\lambda$.
-
 
 \subsection{Clustering scenario}\label{subsec:clustering-scenario}
 
-Two clustering instances are tested, with visualization for cluster\_3\_6 instance
-in figure~\ref{fig:results:visualization-cluster-3-6} and for cluster\_4\_5 instance in figure~\ref{fig:results:visualization-cluster-4-5}.
-The clustering scenario tested the ability to place paintings inside clusters.
-Clusters are defined using a flow between paintings, which is set to 0 between paintings from different
-clusters and nonzero for the paintings from the same clusters.
-Visualization of the flow for cluster\_3\_6 instance is in the appendix on the right of the figure~\ref{fig:instance-flow}.
+Visualization of the painting placement solution to the cluster\_3\_6 instance
+is in figure~\ref{fig:results:visualization-cluster-3-6}
+and for cluster\_4\_5 instance in figure~\ref{fig:results:visualization-cluster-4-5}.
 
-For the cluster\_3\_6 instance, we can see the successful formation of clusters.
-However, seven overlapping pairs exist between paintings in the same cluster.
-It might suggest that the flow is too high or the overlapping penalization constant $\lambda$ is too low.
-
+For cluster\_3\_6 instance, we can see the formation of clusters.
+It is a success as the proposed solution can recognize
+the information encoded in the flow between paintings.
+However, we can see that there are seven overlappings.
+An interesting fact is that these overlappings are only inside the same clusters.
+It suggests that the flow between paintings is set too high,
+so it is advantageous to create overlaps and thus decrease the flow.
 
 For the cluster\_4\_5 instance, we can see a partially successful formation of clusters.
-It might be caused by the increased complexity as there are four clusters instead of three for the cluster\_3\_6 instance.
-We can see overlappings between the paintings from the same cluster and even between clusters.
-The same suggestion as for the cluster\_3\_6 instance might be given – the flow is set too high or that the overlapping penalization constant $\lambda$ is set too low.
+It still suffers from the problems of overlapping paintings in the same cluster.
+However, there are also several overlappings between paintings from different clusters.
+It might suggest that the overlapping penalization and flow are more balanced.
 
 \subsection{London Gallery Wall}\label{subsec:london-gallery-wall}
 
-The last tested instance is london\_gallery\_wall.
-It represents the painting placement at the London National Gallery from figure~\ref{fig:london-wall}.
+Visualization of the painting placement solution to the london\_gallery\_wall instance
+is in figure~\ref{fig:results:visualization-london-gallery-wall}.
+The instance is created from the painting placement at the London National Gallery from figure~\ref{fig:london-wall}.
+Also, the flow between paintings is set to reassemble the relative positions from that figure
+(concrete flow values are in the dataset in the attached medium).
 
-Visualization of the result is in figure~\ref{fig:results:visualization-london-gallery-wall}.
-We can see no overlappings, and two paintings are placed outside the wall.
-
-The proposed solution can reconstruct the interactions between paintings using the flow.
-It means that the paintings that are placed close together in the London National Gallery from figure~\ref{fig:london-wall}
-are also placed together in the visualization of the painting placement solution in figure~\ref{fig:results:visualization-london-gallery-wall}.
-Concrete flow values that are used are in the attached medium.
+We can see that the obtained solution contains no overlappings, and two paintings are partially placed outside the layout.
+Also, most of the relative positions of the paintings are successfully reconstructed using the flow.
+The difference is that the proposed solution placed the largest middle painting to the right of the layout
+instead of in the middle, as seen in the original figure.
+However, the flow can be changed to obtain different results.
 
 
 \clearpage
