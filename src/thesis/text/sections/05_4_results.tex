@@ -8,9 +8,9 @@ Obtained solutions are discussed in the following subsections –
 random scenario instances in~\ref{subsec:random-scenario},
 packing scenario instances in~\ref{subsec:packing-scenario},
 clustering scenario instances in~\ref{subsec:clustering-scenario},
-and London National Gallery instance~\ref{subsec:london-gallery-wall}.
+and London National Gallery instance in~\ref{subsec:london-gallery-wall}.
 Hyperparameter values used to obtain results in this section are in table~\ref{tab:hyperparameters-values}.
-Statistics for the last iteration of the genetic algorithm for each instance are in table~\ref{tab:statistics}.
+Statistics for the last iteration of the genetic algorithm for each instance presented in this section are in table~\ref{tab:statistics}.
 
 Hyperparameter values in table~\ref{tab:hyperparameters-values} are set to their recommended values
 from hyperparameter testing in section~\ref{sec:hyper-parameters}.
@@ -101,8 +101,8 @@ because it adheres to all penalizations that are applied.
 
 For the random\_20 instance, we can see that there are four overlappings.
 Similarly to the random\_10 instance, the eval function forced the placement of the
-smaller paintings to the bottom left corner, and one painting is placed outside the layout.
-Due to the four overlappings, it is only a partially successful painting placement solution.
+smaller paintings to the bottom left corner, and one painting is placed partially outside the layout.
+Due to the four overlappings, it is not a fully successful painting placement solution.
 On the other hand, the solution adheres to all other penalizations.
 It might suggest further increasing the overlapping penalization constant~$\lambda$.
 
@@ -198,7 +198,7 @@ However, the flow can be changed to obtain different results.
     \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_cluster_3_6}
     \caption[Painting placement solution for the cluster\_3\_6 instance]
         { Painting placement solution for the cluster\_3\_6 instance.
-    Three groups of paintings, \numrange{1}{6}, \numrange{7}{12}, and \numrange{13}{18}, are marked using different colors.
+    Three groups of paintings, 1 to 6, 7 to 12, and 13 to 18, are marked using different colors.
     There are seven overlapping pairs.}
     \label{fig:results:visualization-cluster-3-6}
 \end{figure}
@@ -207,7 +207,7 @@ However, the flow can be changed to obtain different results.
     \includegraphics[width=0.8\textwidth, center]{visualizations/visualization_cluster_4_5}
     \caption[Painting placement solution for the cluster\_4\_5 instance]
         { Painting placement solution for the cluster\_4\_5 instance.
-    Four groups of paintings, \numrange{1}{5}, \numrange{6}{10}, \numrange{11}{15}, and \numrange{15}{20}, are marked using different colors.
+    Four groups of paintings, 1 to 5, 6 to 10, 11 to 15, and 15 to 20, are marked using different colors.
     There are seven overlapping pairs.}
     \label{fig:results:visualization-cluster-4-5}
 \end{figure}
