@@ -24,7 +24,7 @@ Lastly, to achieve the statistical significance of the results presented in this
 Presented values are thus an average from five samples.
 
 \footnotetext[1]{
-    Copmutations were run  on a notebook with Fedora 36, 16GB RAM, AMD Ryzen 7 PRO 4750U 8 x 1.7 - 4.1 GHz, Renoir PRO (Zen 2).
+    Copmutations were run on a notebook with Fedora 36, 16GB RAM, AMD Ryzen 7 PRO 4750U 8 x 1.7 - 4.1 GHz, Renoir PRO (Zen 2).
 }
 
 
@@ -63,9 +63,9 @@ Hyperparameter \verb|maxNumberOfIter| determines the number of iterations in the
 
 Results for two random instances are in figure~\ref{fig:hyperparameters-max-number-of-iter}.
 We can see the initial decrease of the average population objective for both random instances.
-Between iterations 100 and 150, decreasing trend and fluctuations stop.
+Above iteration 300, the initial decreasing trend stops for the random\_10 instance, and for the random\_20 instance, the decrease becomes very slow.
 
-The conclusion is that at least 150 iterations are needed before the average population objective
+The conclusion is that at least 300 iterations are needed before the average population objective
 stops decreasing rapidly.
 
 \subsection{Population size}\label{subsec:population-size}
@@ -83,9 +83,9 @@ in the genetic algorithm or that more iterations are needed.
 The conclusion is that using scaling factor between $50$ and $100$ is sufficient, with bias towards $100$
 for obtaining better average objective performance.
 However, increasing the scaling factor leads to slower computation speed as every population contains
-more individuals for which genetic operators and reproductive plan must be computed.
+more individuals for which reproductive plan must be computed.
 
-\subsection{Maximum wild card count}\label{subsec:maximum-wild-card-count}
+\subsection{Maximum wildcard count}\label{subsec:maximum-wild-card-count}
 Hyperparameter \verb|maximumWildCardCount| limits the maximum number of $*$ cut types produced by $OR_{prob}$ decoding (subsec.~\ref{subsec:individual-decoding}).
 Keeping this hyperparameter low or even setting it to zero is recommended.
 The reason is that if it is high, computation time increases as $*$ spreads in the population.
@@ -93,26 +93,27 @@ For example, consider an individual whose orientation vector is solely composed 
 If the size of that vector is $n$, individual decodes to $2^n$ resolved slicing trees as seen in figure~\ref{fig:layout-construction-steps}.
 
 Results for random\_10 instance are in figure~\ref{fig:hyperparameters-maximum-wild-card-count}.
-On the top sub-figure, we can see that the average population objective does not decrease rapidly for any limit on the wildcard cut type.
-However, there is a slight advantage for the maximum wild card count equal to one.
+The top sub-figure shows that the average population objective does not differ significantly for any limit on the wildcard cut type.
+However, there is a slight advantage for the maximum wildcard count equal to one.
 It might be caused by using wildcard penalization $0.5$ (listing~\ref{lst:computation-submission-dataset})
 that does not allow the spread of the wildcard in the population.
 
 On the bottom sub-figure, we can see the computation speed as the limit on the wildcard cut type increases.
-It grows linearly up to the maximum wild card count of eight, and then the increase stops.
+It grows linearly up to the maximum wildcard count of eight, and then the increase stops.
 It might be because the wildcard penalization $0.5$ does not
 allow the wildcard cut type to spread over the maximum wildcard count of eight.
-Another reason might be computational anomalies caused by high-memory consumption as the maximum wild card count increases.
+Another reason might be computational anomalies caused by high-memory consumption as the maximum wildcard count increases.
 
-The conclusion is that (a) the maximum wild card count for wildcard penalization $0.5$
-performs similarly for all values, with a slight performance gain if using a maximum wild card count equal to one,
-and (b) computation time is linear with increasing maximum wild card count and wildcard penalization $0.5$.
+The conclusion tested on random\_10 instance is that (a) the maximum wildcard count for wildcard penalization $0.5$
+performs similarly for all values, with a slight performance gain if using a maximum wildcard count equal to one,
+and (b) computation time is linear with increasing maximum wildcard count and wildcard penalization $0.5$.
 
 \subsection{Orientation weights}\label{subsec:orientation-weights}
-Hyperparameter \verb|orientationWeights| determines the bias towards the type of cut ($H$, $V$, $*$, see~\ref{subsec:individual-decoding}) \textit{during crossover}.
-The orientation penalization vector $P$ from eq.~\ref{eq:crossover-orprob} contains the penalization value for each cut type.
-In this thesis, only penalization for the wildcard cut type $*$ is tested, as there is no need to penalize or have a preference for $H$ or $V$ cut types.
-Recall that the hyperparameter \verb|maximumWildCardCount| is \textit{set to one}, as described at the beginning of the section and showed in listing~\ref{lst:computation-submission-dataset}.
+Hyperparameter \verb|orientationWeights| is the orientation penalization vector $P$ from crossover eq.~\ref{eq:crossover-orprob}.
+It determines the bias towards the type of cut ($H$, $V$, $*$, see~\ref{subsec:individual-decoding}).
+
+Only penalization for the wildcard cut type $*$ is tested, as there is no need to penalize or have a preference for $H$ or $V$ cut types.
+Also, recall that the hyperparameter \verb|maximumWildCardCount| is set to one during testing, as described at the beginning of the section and showed in listing~\ref{lst:computation-submission-dataset}.
 
 Performance results for two random instances are in figure~\ref{fig:hyperparameters-orientation-weights}.
 We can see that for random\_10 instance,
@@ -121,42 +122,39 @@ However, for random\_20 instance,
 weight one (no penalization) has a faster-decreasing trend and produces a population with a better average population objective.
 
 The reason for better average performance at larger instance with weight one (no penalization) might
-be that search space increases exponentially (there are at least $2^{N-1}$ different unresolved slicing trees for instance of size $N$) and the introduction of wildcard cut type $*$ starts to manifest itself
+be that search space increases exponentially (there are at least $2^{N-1}$ different unresolved slicing trees, for instance of size $N$) and the introduction of wildcard cut type $*$ starts to manifest itself
 at larger instances.
 
-Results for the number of wildcard cut types $*$ at the best individual at each iteration are in
+Results for the average number of wildcard cut types $*$ at the best individual before decoding at each iteration are in
 figure~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}.
-We can see that for the random\_10 instance, weights below one have less than one wildcard on average.
-However, on average, there are between three and four wildcards for a weight equal to one (no penalization).
+We can see that for the random\_10 instance, weights below one have less than one wildcard.
+However, there are between three and four wildcards for a weight equal to one (no penalization).
 Similar can be seen for random\_20 instance.
 
-The reason why there are wildcards present in the figure~~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}
-even for weight equal to zero (maximal penalization) is that wildcard can be introduced to a chromosome by mutation
-or injection random individuals (see reproductive plan~\ref{subsec:reproductive-plan}).
-Penalization described only applies to the crossover.
+The reason why there are wildcards present in the figure~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}
+even for weight equal to zero (maximal penalization) is that wildcard can be introduced to a chromosome by mutation or injection of random individuals (see reproductive plan~\ref{subsec:reproductive-plan}).
+Described penalization only applies to the crossover.
 
-First conclusion it that (a) smaller instances, such as random\_10, do not benefit from the introduction of wildcard cut type $*$,
-and (b) bigger instances, such as random\_20, benefit from no penalization by having a faster-decreasing trend and producing a better average population.
+The conclusion from figure~\ref{fig:hyperparameters-orientation-weights} is that (a) smaller instances, such as random\_10, do not benefit from the introduction of wildcard cut type $*$, and (b) bigger instances, such as random\_20, benefit from no wildcard penalization by having a faster-decreasing trend and producing a better average population.
 
-Second conclusion is that if we want to be certain that wildcard cut type $*$ is contained in the best individual at each iteration,
-wild card orientation weight must be set close to one.
+The conclusion from figure~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread} is that if we want to be certain that wildcard cut type $*$ is contained in the best individual at each iteration,
+wildcard orientation weight must be set close to one.
 
 \subsection{Population division counts}\label{subsec:population-division-counts}
 Hyperparameter \verb|populationDivisionCounts| configures ratios in the reproductive plan (subsec.~\ref{subsec:reproductive-plan}).
 It influences how the next generation is created in the genetic algorithm~\ref{alg:genetic}
 by setting (a) how many elite individuals are copied, (b) how many children are created using a crossover operator,
-(c) how many mutants are created using a mutation operator, (d) how many tournament winners are included,
-and (e) how many random individuals are injected.
+(c) how many mutants are created using a mutation operator, (d) how many tournament winners are included, and (e) how many random individuals are injected.
 
 Performance results for two random instances are in figure~\ref{fig:hyperparameters-population-division-counts}.
 We can see that results do not differ for the smaller or larger instance.
 The best reproductive plan strategy is achieved without changing population division hyperparameters from listing~\ref{lst:computation-submission-dataset}.
 That means elitism and randomly injected individuals are present.
-Additionally, we can see that the cause of good performance is the elitism strategy,
+Additionally, the elitism strategy is the root cause of good performance,
 as removing randomly generated individuals does not significantly improve performance.
 
 The reason why the use of elitism is important to obtain good results might be the implementation of the crossover operator (subsec.~\ref{subsec:crossover}).
-Crossover adds weights $w_A$ and $w_B$ to each parent based on their objective value.
+Crossover adds weights $w_A$ and $w_B$ to each parent based on their objective value (lower objective value achieves bigger weight).
 It means that if $w_A \gg w_B$, the offspring is a sample from the search space close to the parent $A$ or nearly identical to $A$.
 On the other hand, if the weights are similar and each parent represents a different (sub)-optimal solution,
 the transfer of information does not happen, and the offspring is no better than a randomly generated individual.
@@ -174,7 +172,7 @@ Additionally, as mentioned in the previous paragraph, similar weights for two di
 It means that most offspring do not perform well.
 On the other hand, as soon as the macho individual appears as the parent in the crossover, the offspring is effectively a copy of a macho individual.
 Then, if the macho individual is randomly chosen more than once as a parent in a crossover, it rapidly spreads and takes over the whole population.
-The chance of macho-individual taking over the population with elitism is decreased as it deliberately keeps track of multiple performant individuals,
+The chance of macho-individual taking over the population with elitism is decreased as it deliberately keeps track of multiple competing performant individuals,
 making it harder for the macho individual to spread.
 
 The conclusion is that using elitism is essential for obtaining good painting placement solutions
@@ -185,46 +183,47 @@ Hyperparameter \verb|initialPopulationDivisionCounts| configures generation rati
 It consists of randomly generated and greedily generated individuals.
 
 Performance results for two random instances are in figure~\ref{fig:hyperparameters-initial-population-division-counts}.
-The different ratios' results do not significantly differ.
+The different ratios' results do not greatly differ.
 
 The conclusion is that hyperparameter \verb|initialPopulationDivisionCounts| does not significantly affect the obtained results.
 
 \subsection{Overlapping penalization constant}\label{subsec:overlapping-penalization-constant}
 
-Hyperparameter \verb|overlappingPenalizationConstant| is the penalization constant $\lambda$ from eq.~\ref{eq:objective}.
-It penalizes individuals that represent solutions with paintings that overlap.
+Hyperparameter \verb|overlappingPenalizationConstant| is the penalization constant $\lambda$ from eq.~\ref{eq:objective} used to penalize individuals representing solutions with overlapping paintings.
 It is calculated as $kD$, where $k$ is a diagonal multiple and $D$ is the length of a diagonal in a layout.
 Diagonal length $D$ for a layout with width $W$ and height  $H$ is $\sqrt{W^2 + H^2}$.
 
-Results of the average overlapping count for the best individual at each iteration are in figure~\ref{fig:hyperparameters-overlapping-penalization-constant}.
-We can see that the diagonal multiple $k$ with values $0.5$ and $1.0$ is not high enough to remove overlapping paintings from the population.
-However, values $0.2$ and higher perform similarly in reducing the overlapping paintings.
+Results of the average overlapping paintings count for the best individual at each iteration are in figure~\ref{fig:hyperparameters-overlapping-penalization-constant}.
+We can see that the two lowest diagonal multiples with values $0.5$ and $1.0$ fail to remove most overlapping paintings from the best individuals.
+On the other hand, values $2$ and higher can remove overlapping paintings at the smaller instance.
+However, in the larger instance, there are still several overlappings present.
 
 The conclusion is that hyperparameter \verb|overlappingPenalizationConstant| should be set at least to
-two times the diagonal length of the layout to sufficiently penalize individuals that represent solutions with overlapping paintings.
+two times the diagonal length of the layout to start penalizing individuals that represent solutions with overlapping paintings.
 
 \subsection{Outside of allocated area penalization constant}\label{subsec:outside-of-allocated-area-penalization-constant}
-Hyperparameter \verb|outsideOfAllocatedAreaPenalizationConstant| is the penalization constant $\gamma$ from eq.~\ref{eq:objective}.
-It penalizes paintings that are placed outside their allocated area (see fig.~\ref{fig:allocated-area} and subsec.~\ref{subsec:placement-heuristic}).
-It is calculated identically as \verb|overlappingPenalizationConstant|.
-That is, as $kD$, where $k$ is a diagonal multiple and $D$ is the length of a diagonal in a layout.
+Hyperparameter~\verb|outsideOfAllocatedAreaPenalizationConstant| is the penalization constant $\gamma$ from eq.~\ref{eq:objective} used to penalize
+individuals representing solutions with paintings that are placed outside of their allocated area (see fig.~\ref{fig:allocated-area} and subsec.~\ref{subsec:placement-heuristic}).
+It is calculated identically as the overlapping penalization constant (subsec.~\ref{subsec:overlapping-penalization-constant}).
+That is, as $kD$, where $k$ is a diagonal multiple, and $D$ is the length of a diagonal in a layout.
 
-Results of the average number of paintings outside their allocated area
-for the best individual at each iteration are in table~\ref{tab:hyperparameters-outside-of-allocated-area-penalization-constant}.
-We can see that diagonal multiple cannot force the creation of the allocated space that would fit most paintings.
-In addition, there are a few percentage points drops in favor of the larger instance.
-The reason might be that it has more degrees of freedom, i.e., a number of cuts,
-and can create more fitting slicing layouts.
+Results of the percentage of paintings placed outside the allocated area for two random instances are in table~\ref{tab:hyperparameters-outside-of-allocated-area-penalization-constant}
+(it is presented using a table because the values do not significantly change throughout the iterations).
+We can see that the outside of allocated area penalization constant cannot force the creation of the allocated space that would fit the vast majority of the paintings.
+Interestingly, there are a few percentage points drops in favor of the larger instance.
+The reason might be that it has more degrees of freedom, i.e.,  more possibilities to create a cut.
+It can thus create more fitting slicing layouts.
 
-However, the failure of \verb|outsideOfAllocatedAreaPenalizationConstant| hyperparameter to force
+However, the failure of the outside of allocated area penalization constant to force
 the creation of sufficient allocated space in most cases is not that important.
-The reason is the placing heuristic (subsec.~\ref{subsec:placement-heuristic})
+The reason is that the placing heuristic (subsec.~\ref{subsec:placement-heuristic})
 tries to place the painting at several placement points in the allocated area (see fig.~\ref{fig:allocated-area}).
-It can thus balance the few paintings that have been allocated sufficient area to avoid overlapping with other paintings
-and account for other parts of the objective function.
+It can thus balance the few paintings that have been allocated sufficient area to avoid
+and account for other parts of the objective function, e.g., overlapping paintings.
 
-The conclusion is that hyperparameter \verb|outsideOfAllocatedAreaPenalizationConstant| is the least
+The conclusion is that the hyperparameter \verb|outsideOfAllocatedAreaPenalizationConstant| is the least
 important and might be left out by setting it to zero to save computation time.
+
 
 \begin{table}[h!]
     \caption{Percentage of paintings placed outside allocated area}
@@ -280,8 +279,8 @@ important and might be left out by setting it to zero to save computation time.
     \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-performance}}
 
     \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_computation_time_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-computation-speed}}
-    \caption[Testing maximum wild card count]
-    {Testing increasing maximum wild card count. Performance (top) and computation speed (bottom).}
+    \caption[Testing maximum wildcard count]
+    {Testing increasing maximum wildcard count. Performance (top) and computation speed (bottom) are showed.}
     \label{fig:hyperparameters-maximum-wild-card-count}%
 \end{figure}
 
@@ -303,8 +302,8 @@ important and might be left out by setting it to zero to save computation time.
 
     \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_20}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-20}}
     \cprotect\caption[Testing wildcard spread]
-    {Testing wildcard spread at two random instances.
-    Each iteration shows average count of wildcard cut type $*$ at best individual for different values of wild card orientation weights.
+    {Testing wildcard cut type $*$ spread at two random instances.
+    Each iteration shows an average count of wildcard cut type $*$ at best individual before decoding for different values of wildcard orientation weights.
     Hyperparameter \verb|maximumWildCardCount| is 1.}
     \label{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}%
 \end{figure}
@@ -329,7 +328,7 @@ important and might be left out by setting it to zero to save computation time.
     \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_20}\label{subfig:hyperparameters-initial-population-division-counts-random-20}}
     \caption[Testing initial population division counts]
     {Testing initial population division counts at two random instances.
-    Initial population consists of randomly generated and greedily generated individuals (left part of fig.~\ref{fig:population-schema}).}
+    The initial population consists of randomly and greedily generated individuals (left part of fig.~\ref{fig:population-schema}).}
     \label{fig:hyperparameters-initial-population-division-counts}%
 \end{figure}
 
@@ -340,8 +339,8 @@ important and might be left out by setting it to zero to save computation time.
     \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_20}\label{subfig:hyperparameters-overlapping-penalization-constant-random-20}}
     \caption[Testing overlapping penalization constant]
     {Testing overlapping penalization constant $\lambda$ (eq.~\ref{eq:objective}) at two random instances.
-    It is determined as $kD$, where $k$ is a diagonal multiple and $D$ is the length of a diagonal in a layout.
-    Graphs show the average overlapping count for the best individual at each iteration.}
+    It is calculated as $kD$, where $k$ is a diagonal multiple, and $D$ is the length of a diagonal in a layout.
+    Graphs show the average overlapping paintings count for the best individual at each iteration.}
     \label{fig:hyperparameters-overlapping-penalization-constant}%
 \end{figure}
 
