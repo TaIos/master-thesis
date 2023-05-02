@@ -26,7 +26,7 @@ Then, run the following command in that directory (Java~11, SBT\footnotemark[3],
 \end{listing}
 
 Command in listing~\ref{lst:sbt-run} uses \verb|sbt|\footnotemark[3] with \verb|run| argument to start the computation server.
-By default, the computation server accept requests on \verb|localhost:9000|.
+By default, the computation server accepts requests on \verb|localhost:9000|.
 An example of submitting a computation with a predefined instance name to the computation server is in listing~\ref{lst:computation-submission-dataset}.
 An example of a successful computation submission response is in listing~\ref{lst:computation-response-success}.
 
@@ -58,8 +58,7 @@ For example, if misspelling the instance name, the response by the computation s
     \label{lst:computation-response-fail}
 \end{listing}
 
-Lastly, there is also an option not to specify the instance name in the submission, as seen
-in listing~\ref{lst:computation-submission-dataset} where the instance name is random\_10.
+Lastly, there is also an option not to specify the instance name in the computation submission.
 In that case, a user has to specify the instance manually in the request – layout width and height,
 paintings together with their flow and evaluation function $\pi$ (eq.~\ref{eq:objective}), in the format that is accepted by
 mXparser\footnotemark[4].
