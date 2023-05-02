@@ -7,11 +7,11 @@ Also, further improvements, extensions, and future work is discussed in section~
 
 \section{Computational result discussion}\label{sec:comp-res-discussion}
 This section summarizes and discusses the computational results from chapter~\ref{ch:computational-results}.
-As mentioned in the previous chapters, the process of obtaining the results is first to generate four testing scenarios (sec.~\ref{sec:scenarios}).
+As mentioned in the previous chapters, the process of obtaining the results is first to define four testing scenarios.
 They are random, clustering, packing, and London National Gallery.
-Then, for each scenario, painting placement instances are generated.
+Then, for each scenario, painting placement instances are created.
 Using random scenario instances, reasonable hyperparameter values for the genetic algorithm~\ref{alg:genetic} are determined.
-Lastly, painting placement solutions are computed for all generated instances using reasonable hyperparameter values.
+Lastly, painting placement solutions are computed for all generated instances using these hyperparameters.
 
 The proposed solution produces good results for the smaller instances, i.e., random\_10 instance
 in figure~\ref{fig:results:visualization-random-10} and packing\_10 instance in figure~\ref{fig:results:visualization-packing-10}.
@@ -20,7 +20,7 @@ and has few overlapping paintings and paintings partially or fully outside the a
 It is all achieved in the smaller instances.
 
 Overall, the biggest issue for larger instances, e.g., random\_20 instance in figure~\ref{fig:results:visualization-random-20} and packing\_20 instance in figure~\ref{fig:results:visualization-packing-20}, are overlapping paintings.
-It can be mitigated by setting a higher value for the \verb|overlappingPenalizationConstant|.
+It can be mitigated by setting a higher value for the overlapping penalization constant $\lambda$.
 However, by increasing the value, other parts of the objective function~\ref{eq:objective}
 become insignificant and thus ignored by the proposed solution.
 For example, by overly increasing the overlapping penalization constant, the evaluation function
@@ -30,9 +30,9 @@ Another issue is the extrapolation or generalization of hyperparameters from ran
 Indeed, fine-tuning hyperparameters for each instance would produce painting placement solutions with better on-average population objective value.
 However, it is computationally expensive to do so.
 Despite that, testing hyperparameters on random scenarios provides valuable insight into the proposed solution.
-For example, one insight is that elitism is integral to the reproductive plan (see ~\ref{subsec:initial-population-division-counts}).
+For example, one insight is that elitism is integral to the reproductive plan (see ~\ref{subsec:population-division-counts}).
 
-Lastly, the outsize of allocated area penalization constant $\gamma$ is set to zero at all presented painting placement solutions.
+Lastly, the outside of allocated area penalization constant $\gamma$ is set to zero at all presented painting placement solutions.
 It can be thus removed from the objective function~\ref{eq:objective} entirely.
 The idea behind introducing it is to penalize partially or fully placed paintings outside the layout.
 However, as described in~\ref{subsec:outside-of-allocated-area-penalization-constant}, this hyperparameter fails to do so.
