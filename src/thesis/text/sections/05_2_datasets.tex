@@ -1,7 +1,7 @@
 \section{Dataset}\label{sec:dataset}
 
-This section describes the parameters used to create datasets for each testing scenario in subsection~\ref{subsec:generation-parameters}.
-Generated instances are described in subsection~\ref{subsec:instances}.
+This section describes the parameters for creating datasets for random, clustering, and packing testing scenarios.
+Generated painting placement instances are described in subsection~\ref{subsec:instances}.
 
 Additionally, as mentioned in chapter~\ref{ch:literature-review}, no datasets in the
 literature would satisfy the definition~\ref{eq:painting-placement-instance} of painting placement instance.
@@ -13,9 +13,7 @@ Both the datasets and Notebooks are in the attached medium.
 
 \subsection{Generation parameters}\label{subsec:generation-parameters}
 
-Seven parameters are used for dataset generation.
-They are layout area ratio, max painting ratio, eval function, max painting width, max painting height, flow min, and flow max.
-Their values for generating instances for testing scenarios are in table~\ref{tab:generation-parameters}.
+Generation parameters used to create testing instances are presented in table~\ref{tab:generation-parameters}.
 A description of each of them follows in the rest of this subsection.
 
 \begin{table}[h!]
@@ -23,7 +21,7 @@ A description of each of them follows in the rest of this subsection.
     \begin{threeparttable}
         \begin{tabular}{llllllll}
             \hline
-            \textbf{Scenario} &
+            \textbf{} &
             \textbf{\begin{tabular}[c]{@{}l@{}}Layout\\ area ratio\end{tabular}} &
             \textbf{\begin{tabular}[c]{@{}l@{}}Max paint.\\ width\end{tabular}} &
             \textbf{\begin{tabular}[c]{@{}l@{}}Max paint.\\ height\end{tabular}} &
@@ -31,9 +29,9 @@ A description of each of them follows in the rest of this subsection.
             \textbf{\begin{tabular}[c]{@{}l@{}}Flow\\ min\end{tabular}} &
             \textbf{\begin{tabular}[c]{@{}l@{}}Flow\\ max\end{tabular}} &
             \textbf{\begin{tabular}[c]{@{}l@{}}Eval\\ func.\end{tabular}} \\ \hline
-            random  & 1.2 & 10 & 10 & 3 & 0 & 4 & $x+y$ \\ \hline
-            cluster & 1.2 & 10 & 10 & 3 & - & - & $0$   \\ \hline
-            packing & 1   & 10 & 10 & 3 & 0 & 4 & $0$   \\ \hline
+            random     & 1.2 & 10 & 10 & 3 & 0 & 4 & $x+y$ \\ \hline
+            clustering & 1.2 & 10 & 10 & 3 & - & - & $0$   \\ \hline
+            packing    & 1   & 10 & 10 & 3 & 0 & 4 & $0$   \\ \hline
         \end{tabular}
         \begin{tablenotes}
             \small
@@ -67,27 +65,26 @@ that are very thin, i.e., $w \ll h$ or $h \ll w$.
 On the other hand, setting the value to 1
 implies that every generated painting is square.
 
-\definice{Eval function} is function $\pi$ from eq.~\ref{eq:objective}.
-In the random scenario, the eval function is set to $f(x,y) = x+y$ because of its simplicity, linearity, and interpretability.
-Also, it implies that it is advantageous to place small paintings close to the bottom left corner as the function value is the lowest there and
+\definice{Evaluation function} is function $\pi$ from objective function~\ref{eq:objective}.
+In the random scenario, the evaluation function is set to $x+y$ because of its simplicity, linearity, and interpretability.
+Also, it implies that placing small paintings close to the bottom left corner is advantageous as the function value is the lowest there and
 big paintings to the top right corner.
-On the other hand, for clustering and packing scenarios, the eval function is set to a constant value $f(x,y) = 0$.
+On the other hand, for clustering and packing scenarios, the evaluation function is set to a constant value $0$.
 The reason is that different capabilities are tested (clustering and packing).
-Furthermore, using a non-constant eval function makes it harder to interpret the results.
+Furthermore, using a non-constant evaluation function makes it harder to interpret the results.
 
 Rest of the parameters, \definice{max painting width}, \definice{max painting height}, \definice{flow min}, \definice{flow max}
 are self-explanatory and were set as low numeric values to increase computation speed and avoid overflow.
 
 \subsection{Instances}\label{subsec:instances}
 
-Six painting placement instances are generated using table~\ref{tab:generation-parameters} parameters
-and one is created from the London National Gallery in figure~\ref{fig:london-wall}.
+Six painting placement instances are generated using table~\ref{tab:generation-parameters} parameters, and one is created from the London National Gallery in figure~\ref{fig:london-wall}.
 They are described in table~\ref{tab:instances}.
 For random and packing scenarios, values for max painting width/height, flow min/max, and max painting ratio are randomly generated from the parameter range described in table~\ref{tab:generation-parameters}.
 The clustering parameters are also generated randomly.
 The only exception is the flow, which is set in a way to form clusters.
 
-Visualization of the flow for two painting placement instances is in appendix in figure~\ref{fig:instance-flow}.
+Visualization of the flow for two painting placement instances is in the appendix in figure~\ref{fig:instance-flow}.
 On the left is the randomly generated flow for random\_10 instance, and on the right is the flow for cluster\_3\_6 instance that forms clusters.
 
 \begin{table}[h!]
@@ -113,5 +110,3 @@ On the left is the randomly generated flow for random\_10 instance, and on the r
         \begin{tabular}[c]{@{}l@{}}created from\\ figure~\ref{fig:london-wall}\end{tabular} \\ \hline
     \end{tabular}
 \end{table}
-
-

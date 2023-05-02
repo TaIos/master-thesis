@@ -15,7 +15,7 @@ Lastly, painting placement solutions are computed for all generated instances us
 
 The proposed solution produces good results for the smaller instances, i.e., random\_10 instance
 in figure~\ref{fig:results:visualization-random-10} and packing\_10 instance in figure~\ref{fig:results:visualization-packing-10}.
-\definice{Good result} is a painting placement solution that respects the flow and eval function
+\definice{Good result} is a painting placement solution that respects the flow and evaluation function
 and has few overlapping paintings and paintings partially or fully outside the allocated area.
 It is all achieved in the smaller instances.
 
@@ -23,7 +23,7 @@ Overall, the biggest issue for larger instances, e.g., random\_20 instance in fi
 It can be mitigated by setting a higher value for the \verb|overlappingPenalizationConstant|.
 However, by increasing the value, other parts of the objective function~\ref{eq:objective}
 become insignificant and thus ignored by the proposed solution.
-For example, by overly increasing the overlapping penalization constant, the eval function
+For example, by overly increasing the overlapping penalization constant, the evaluation function
 or the flow between paintings is ignored because the overlapping cost is too high.
 
 Another issue is the extrapolation or generalization of hyperparameters from random scenarios to other scenarios.

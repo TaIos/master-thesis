@@ -72,12 +72,12 @@ which can also be called an objective function, as
 
 where $f_{i,j}$ is flow between painting $i$ and $j$, $d(i,j)$ is their distance,
 $\pi(i)$ is the evaluation function applied to the bottom left corner of the painting's $i$  placement point,
-$m$ calculates number of overlapping paintings with penalization parameter $\lambda \in \real^+$
-and $\gamma$ calculates the number of paintings placed outside their allocated area (see~\ref{subsec:placement-heuristic})
-with penalization parameter $\gamma \in \real^+$.
+$m$ calculates number of overlapping paintings with penalization constant $\lambda \in \real^+$
+and $n$ calculates the number of paintings placed outside their allocated area (see~\ref{subsec:placement-heuristic})
+with penalization constant $\gamma \in \real^+$.
 
 The problem defined as such is NP-hard.
-The reason is that by setting penalization parameters $\lambda$, $\gamma$ to zero and $\pi$ to $f(x,y) = 0$,
+The reason is that by setting penalization constants $\lambda$, $\gamma$ to zero and $\pi$ to $f(x,y) = 0$,
 the objective function of a painting placement problem becomes similar to the FLP objective as defined in equation~\ref{eq:flp-objective}.
 The only difference is the price for a unit of distance in the FLP objective, but it can be added to the flow making the objective functions identical.
 Also, at FLP, placed facilities are defined in terms of their area and maximum aspect ratio as opposed to width and height pair in the painting placement problem.

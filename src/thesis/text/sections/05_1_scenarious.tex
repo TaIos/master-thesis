@@ -4,18 +4,20 @@ Four testing scenarios evaluate different aspects of the proposed solution.
 They are random, clustering, and packing.
 Additionally, one scenario describes the painting placement at the London National Gallery in figure~\ref{fig:london-wall}. \\
 
-\navesti{Random} scenario contains randomly generated painting placement instances.
+\navesti{Random scenario} contains randomly generated painting placement instances.
 It is mainly used for performance testing.
 \\
 
-\navesti{Clustering} scenario tests the ability to form clusters.
+\navesti{Clustering scenario} tests the ability to form clusters.
 It is achieved by dividing the paintings into groups.
 Paintings belonging to the same group have increased flow between them.
 Paintings from the distinct group have flow between them set to 0.
 \\
 
-\navesti{Packing} scenario is the same as the random scenario, with the only difference being that the layout area is equal to the area of all paintings summed together.
+\navesti{Packing scenario} is the same as the random scenario, with the only difference being that the layout area is equal to the area of all paintings summed together.
 It tests the ability to create compact solutions.
 \\
 
-
+\navesti{London National Gallery scenario} contains one painting placement instance created from the London National Gallery in figure~\ref{fig:london-wall}.
+It tests the ability to work with actual painting placement used at a gallery.
+\\
