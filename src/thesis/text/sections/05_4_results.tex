@@ -3,19 +3,19 @@
 
 
 \section{Results}\label{sec:results}
-This section presents a painting placement solutions to the painting placement instances in table~\ref{tab:instances}.
+This section presents painting placement solutions to the painting placement instances.
 Obtained solutions are discussed in the following subsections –
 random scenario instances in~\ref{subsec:random-scenario},
 packing scenario instances in~\ref{subsec:packing-scenario},
 clustering scenario instances in~\ref{subsec:clustering-scenario},
 and London National Gallery instance in~\ref{subsec:london-gallery-wall}.
 Hyperparameter values used to obtain results in this section are in table~\ref{tab:hyperparameters-values}.
-Statistics for the last iteration of the genetic algorithm for each instance presented in this section are in table~\ref{tab:statistics}.
+Statistics for the last iteration of the obtained results are in table~\ref{tab:statistics}.
 
 Hyperparameter values in table~\ref{tab:hyperparameters-values} are set to their recommended values
 from hyperparameter testing in section~\ref{sec:hyper-parameters}.
-The hyperparameter not set to the recommended values is \verb|maxNumberOfIter|.
-It is set to 500 instead of a value from the recommended range \numrange{100}{150}.
+The hyperparameter not set to the recommended value is \verb|maxNumberOfIter|.
+It is set to 500 instead of the recommended value of 300.
 The reason is to possibly find a better painting placement solution in exchange for more computation time.
 
 The recommendation to remove orientation penalization by setting \verb|orientationWeights| to $\langle 1,1,1\rangle$ is followed.
@@ -24,7 +24,6 @@ Also, the population size is set to 75 times the instance size.
 It is the midpoint of the recommended interval \numrange{50}{100}.
 Lastly, population division is set to the same values as in listing~\ref{lst:computation-submission-dataset}.
 It means keeping an elitism strategy and injecting random individuals.
-
 
 \begin{table}[h!]
     \caption{Hyperparameter values used to obtain results}
@@ -115,7 +114,7 @@ For the packing\_10 instance, we can see no overlappings, and paintings~2,3,4 ar
 It is considered a success, as the packing scenario tests the ability to form compact solutions by setting the instance generation parameter
 layout area ratio to one, which means that the area of the layout equals the area of all paintings summed together.
 However, an improvement in compactness can still be gained by moving paintings 1 and 2 downwards.
-It could be implemented using a post-optimization, suggested in subsection~\ref{subsec:post-optimization}.
+It could be implemented using a post-optimization, as suggested in subsection~\ref{subsec:post-optimization}.
 The evaluation function is absent in the packing scenario, so there is no preference for any part of the layout.
 
 For the packing\_20 instance, we can see seven overlapping pairs.
