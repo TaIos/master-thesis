@@ -1,6 +1,6 @@
 \section{Genetics}\label{sec:genetics}
 
-This section describes critical genetic terms that are used throughout the thesis.
+This section describes important genetic terms that are used throughout the thesis.
 They are allele, gene, chromosome, individual, population, crossover, mutation, and reproductive plan.
 Also, in subsection~\ref{subsec:schema-theorem}, the integral part of genetics called the Schema Theorem is described.
 
@@ -105,15 +105,16 @@ First, an important term to describe is schema.\\
 \navesti{Schema} is an extended representation of chromosome,
 where each gene can contain a “don’t care” symbol marked as underscore $\_$.
 This symbol can take up any value that an allele can in the given context.
-We can then say that chromosome belongs to a schema
-and that schema contains a chromosome.\\
+We can then say that a chromosome belongs to a schema
+and that a schema contains a chromosome.\\
 
 Schema can be illustrated on a chromosome with one gene represented as a vector that contains a permutation of numbers $1$ to $7$.
 Then, example of a schema is $H_1 = \langle 5, \_, \_, 2, \_, 3, \_ \rangle$.
 It contains $24$ chromosomes, with one example being $\langle 5, 4, 1, 2, 6, 3, 7 \rangle$.
 On the other hand, schema $H_2 = \langle 1, 2, 3, 4, 5, 6, \_ \rangle$ contains only one chromosome.
 
-There are two other properties that a schema has. They are length and order and are defined as follows.\\
+There are two other properties that a schema has.
+They are length and order and are defined as follows.\\
 
 \definice{Length} of a schema is the distance from the first “non-don’t care” symbol to the last.\\
 
@@ -125,8 +126,8 @@ On the other hand, schema $H_2$ has the same length, $6$, but higher order, whic
 
 With schema being defined, we can interpret any population of individuals as a pool of schemata.
 It can then be reformulated that a genetic approach, which has a reproductive plan and
-genetic operators, (1) creates new schemata by recombination of the one already present in the population,
-(2) creates schemata that are absent in the population, and (3) keeps a history of the best schemata found.
+genetic operators, (a) creates new schemata by recombination of the one already present in the population,
+(b) creates schemata that are absent in the population, and (c) keeps a history of the best schemata found.
 The Schema Theorem can then be written as
 
 \begin{equation}
