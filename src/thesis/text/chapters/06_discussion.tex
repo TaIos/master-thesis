@@ -53,6 +53,8 @@ However, each improvement or extension might become a new idea and thus produce 
 The extension of the proposed solution is to take a different approach to
 \definice{free space}, which is part of the painting placement solution where the paintings are not placed.
 
+Free space is used to separate paintings on the wall.
+It is also used for other related problems.
 For example, free space is important in the FLP problem (sec.~\ref{sec:facility-layout-problem})
 as there is a need for an aisle between the facilities
 through which the material transportation takes place~\cite{scholzExtensionsSTaTSPractical2010}.
@@ -66,6 +68,7 @@ Thus, it does not guarantee that the painting placement solution creates a solut
 One possible approach to guarantee free space is the introduction of \definice{dummy paintings}.
 These dummy paintings can be injected during the slicing tree construction.
 The resulting painting placement solution will thus, among the paintings, contain free space occupied by dummy paintings.
+They are then removed, which creates the free space.
 
 An example of dummy painting injection can be seen in figure~\ref{fig:dummy-painting}.
 The free space is created between paintings 1,2 and 3 by adding a vertical cut $V$ to the tree.
@@ -145,7 +148,7 @@ The solution proposed in this thesis can solve the 2D-KP problem with rectangula
 using unchanged individual representation (sec.~\ref{sec:coding}), unchanged decoding procedure (subsec.~\ref{subsec:individual-decoding}),
 and unchanged slicing layout construction (subsec.~\ref{subsec:slicing-tree-construction}).
 Then, the problem-specific placement heuristic places the rectangles,
-followed by BL heuristic~\cite{chazelleBottomnLeftBinPackingHeuristic1983} that minimized unused space.
+followed by BL (Bottom Left) heuristic~\cite{chazelleBottomnLeftBinPackingHeuristic1983} that minimized unused space.
 
 \subsection{Deciding which painting to place}\label{subsec:deciding-which-painting-to-place}
 Deciding which painting to place can happen when the wall area is insufficient to place all paintings.
