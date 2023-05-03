@@ -68,7 +68,7 @@ and that length of a schema does not matter.
 Preference for schemata with a short length in one-point-crossover~\cite{hollandAdaptationNaturalArtificial1975}
 stems from the fact that a chromosome is split at a particular position.
 This idea of splitting a chromosome is absent in the proposed approach.
-For example, consider slicing order random key vector $A_{rk} = \langle 0, 0.2, 0.7, 0.1 \rangle$.
+For example, consider slicing order random key vector \mbox{$A_{rk} = \langle 0, 0.2, 0.7, 0.1 \rangle$}.
 Using the decoding procedure described in~\ref{subsec:individual-decoding},
 $A_{rk}$ decodes to $A = \langle 1, 4, 2, 3 \rangle$.
 Then, $A$ belongs to the schema $S_1 = \langle 1, \_, \_, \_\rangle$ and also to schema $S_2 = \langle 1, \_, \_, 3 \rangle$.
@@ -96,7 +96,7 @@ has more influence on what genes are being transferred to the offspring.
 
 Adding $w_A$ and $w_B$ lowers the chance of creating offspring that do not share the advantageous schemata.
 For example, considering only one stochastic vector of length three as a chromosome,
-it might be advantageous to have a high value for the first value in the chromosome, e.g., $A=\langle 0.7, 0.1, 0.2 \rangle$.
+it might be advantageous to have a high value for the first value in the chromosome, e.g., \mbox{$A=\langle 0.7, 0.1, 0.2 \rangle$}.
 On the other hand, a poorly performing individual might be $B=\langle 0.1, 0.3, 0.6 \rangle$.
 Without weights, $\| A+B\| = \langle 0.4, 0.2 , 0.4 \rangle$.
 Adding weights according to the eq.~\ref{eq:weights} penalizes the transfer of poorly performing schemata.

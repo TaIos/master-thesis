@@ -58,6 +58,7 @@ Presented values are thus an average from five samples.
     \end{tabular}
 \end{table}
 
+\newpage
 \subsection{Max number of iter}\label{subsec:max-number-of-iter}
 Hyperparameter \verb|maxNumberOfIter| determines the number of iterations in the genetic algorithm~\ref{alg:genetic}.
 
@@ -108,6 +109,7 @@ The conclusion tested on random\_10 instance is that (a) the maximum wildcard co
 performs similarly for all values, with a slight performance gain if using a maximum wildcard count equal to one,
 and (b) computation time is linear with increasing maximum wildcard count and wildcard penalization $0.5$.
 
+\newpage
 \subsection{Orientation weights}\label{subsec:orientation-weights}
 Hyperparameter \verb|orientationWeights| is the orientation penalization vector $P$ from crossover eq.~\ref{eq:crossover-orprob}.
 It determines the bias towards the type of cut ($H$, $V$, $*$, see~\ref{subsec:individual-decoding}).
@@ -265,9 +267,9 @@ important and might be left out by setting it to zero to save computation time.
 
 \begin{figure}[h!]
     \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparameters-population-size-random-10}}
+    \subfloat{\includegraphics[width=0.9\textwidth]{hyperparameters/population_size_random_10}\label{subfig:hyperparameters-population-size-random-10}}
 
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_size_random_20}\label{subfig:hyperparameters-population-size-random-20}}
+    \subfloat{\includegraphics[width=0.9\textwidth]{hyperparameters/population_size_random_20}\label{subfig:hyperparameters-population-size-random-20}}
     \caption[Testing population scaling factor]
     {Testing population scaling factor at two random instances.
     The population size is $kN$ for population scaling factor $k$ and instance of size $N$. }
@@ -276,7 +278,7 @@ important and might be left out by setting it to zero to save computation time.
 
 \begin{figure}[h!]
     \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-performance}}
+    \subfloat{\includegraphics[width=1.1\textwidth]{hyperparameters/maximum_wild_card_count_performance_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-performance}}
 
     \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/maximum_wild_card_count_computation_time_random_10}\label{subfig:hyperparameters-maximum-wild-card-count-computation-speed}}
     \caption[Testing maximum wildcard count]
@@ -287,9 +289,9 @@ important and might be left out by setting it to zero to save computation time.
 
 \begin{figure}[h!]
     \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_random_10}\label{subfig:hyperparameters-orientation-weights-random-10}}
+    \subfloat{\includegraphics[width=1\textwidth]{hyperparameters/orientation_weights_random_10}\label{subfig:hyperparameters-orientation-weights-random-10}}
 
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_random_20}\label{subfig:hyperparameters-orientation-weights-random-20}}
+    \subfloat{\includegraphics[width=1\textwidth]{hyperparameters/orientation_weights_random_20}\label{subfig:hyperparameters-orientation-weights-random-20}}
     \cprotect\caption[Testing orientation weights performance]
     {Testing performance of orientation weight for a wildcard cut type $*$ at two random instances.
     Hyperparameter \verb|maximumWildCardCount| is 1.}
@@ -298,9 +300,9 @@ important and might be left out by setting it to zero to save computation time.
 
 \begin{figure}[h!]
     \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_10}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-10}}
+    \subfloat{\includegraphics[width=0.9\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_10}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-10}}
 
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_20}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-20}}
+    \subfloat{\includegraphics[width=0.9\textwidth]{hyperparameters/orientation_weights_wildcard_cut_type_spread_random_20}\label{subfig:hyperparameters-orientation-weights-wildcard-cut-type-spread-random-20}}
     \cprotect\caption[Testing wildcard spread]
     {Testing wildcard cut type $*$ spread at two random instances.
     Each iteration shows an average count of wildcard cut type $*$ at best individual before decoding for different values of wildcard orientation weights.
@@ -310,9 +312,9 @@ important and might be left out by setting it to zero to save computation time.
 
 \begin{figure}[h!]
     \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_division_counts_random_10}\label{subfig:hyperparameters-population-division-counts-random-10}}
+    \subfloat{\includegraphics[width=1.05\textwidth]{hyperparameters/population_division_counts_random_10}\label{subfig:hyperparameters-population-division-counts-random-10}}
 
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/population_division_counts_random_20}\label{subfig:hyperparameters-population-division-counts-random-20}}
+    \subfloat{\includegraphics[width=1.05\textwidth]{hyperparameters/population_division_counts_random_20}\label{subfig:hyperparameters-population-division-counts-random-20}}
     \caption[Testing population division counts]
     {Testing population division counts at two random instances. Four variants are displayed.
     The first does not use elitism.
@@ -323,9 +325,9 @@ important and might be left out by setting it to zero to save computation time.
 
 \begin{figure}[h!]
     \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_10}\label{subfig:hyperparameters-initial-population-division-counts-random-10}}
+    \subfloat{\includegraphics[width=0.95\textwidth]{hyperparameters/initial_population_division_counts_random_10}\label{subfig:hyperparameters-initial-population-division-counts-random-10}}
 
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/initial_population_division_counts_random_20}\label{subfig:hyperparameters-initial-population-division-counts-random-20}}
+    \subfloat{\includegraphics[width=0.95\textwidth]{hyperparameters/initial_population_division_counts_random_20}\label{subfig:hyperparameters-initial-population-division-counts-random-20}}
     \caption[Testing initial population division counts]
     {Testing initial population division counts at two random instances.
     The initial population consists of randomly and greedily generated individuals (left part of fig.~\ref{fig:population-schema}).}
@@ -334,9 +336,9 @@ important and might be left out by setting it to zero to save computation time.
 
 \begin{figure}[h!]
     \centering
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_10}\label{subfig:hyperparameters-overlapping-penalization-constant-random-10}}
+    \subfloat{\includegraphics[width=0.95\textwidth]{hyperparameters/overlapping_penalization_constant_random_10}\label{subfig:hyperparameters-overlapping-penalization-constant-random-10}}
 
-    \subfloat{\includegraphics[width=0.8\textwidth]{hyperparameters/overlapping_penalization_constant_random_20}\label{subfig:hyperparameters-overlapping-penalization-constant-random-20}}
+    \subfloat{\includegraphics[width=0.95\textwidth]{hyperparameters/overlapping_penalization_constant_random_20}\label{subfig:hyperparameters-overlapping-penalization-constant-random-20}}
     \caption[Testing overlapping penalization constant]
     {Testing overlapping penalization constant $\lambda$ (eq.~\ref{eq:objective}) at two random instances.
     It is calculated as $kD$, where $k$ is a diagonal multiple, and $D$ is the length of a diagonal in a layout.
