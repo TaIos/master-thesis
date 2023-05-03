@@ -19,10 +19,10 @@ the smallest rectangle that can contain all placed parts, and $f_2$ the distance
 needed by the path-cutting tool to cut all the placed parts.
 Weights $w_1 \in \realpos, w_2 \in \realpos$ balance the bias towards pattern efficiency or path-cutting tool distance.
 
-Some variants of the sheet metal cutting problem neglect the pattern efficiency and try to only find the shortest
+Some variants of the sheet metal cutting problem neglect the pattern efficiency and try only to find the shortest
 path of a given placed parts~\cite{kandasamyEffectiveLocationMicro2020}.
-Then, the sheet metal cutting problem can be reformulated as the Generalized Traveling Salesman Problem (GTSP)~\cite{hajadLaserCuttingPath2019}.
-The sheet metal cutting problem is thus considered to be NP-hard problem~\cite{vijayanandHeuristicGeneticApproach2015}.
+Then, the sheet metal cutting problem can be reformulated as the GTSP (Generalized Traveling Salesman Problem)~\cite{hajadLaserCuttingPath2019}.
+The sheet metal cutting problem is thus considered an NP-hard problem~\cite{vijayanandHeuristicGeneticApproach2015}.
 
 Authors in~\cite{vijayanandHeuristicGeneticApproach2015} solve sheet metal cutting problem using a genetic algorithm
 where an individual is represented as a 3D chromosome.
@@ -31,6 +31,6 @@ This 3D chromosome is then input to the placing heuristic, which places the part
 
 The solution proposed in~\cite{kandasamyEffectiveLocationMicro2020} considers only path-cutting tool distance.
 However, they partition each placed part into multiple segments using micro joints, i.e., points at the edges of the part.
-The path-cutting tool then proceeds by cutting these segments instead of the whole part at once.
+The path-cutting tool then cuts these segments instead of the whole part at once.
 They propose a genetic algorithm with the 2D chromosome – containing angles that determine the placement of the micro joints and cutting sequence of these segments.
 The chromosome is then directly used by the path-cutting tool that starts cutting segments according to the cutting sequence defined in the second part of the chromosome.
