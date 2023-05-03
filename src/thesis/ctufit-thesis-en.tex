@@ -156,6 +156,8 @@
 
 \usepackage{rotating}
 
+\usepackage{url}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ALGORITHM
@@ -344,7 +346,13 @@
 
     \include{text/text} % include `text.tex' from `text/' subdirectory
 
+    % hack pro ozerani bibliografie, SRC: https://tex.stackexchange.com/questions/134191/line-breaks-of-long-urls-in-biblatex-bibliography
+%%% --- The following two lines are what needs to be added --- %%%
+    \setcounter{biburllcpenalty}{7000}
+    \setcounter{biburlucpenalty}{8000}
+    \raggedright{
     \printbibliography[heading=bibintoc] % print out the BibLaTeX-generated bibliography list
+}
 
     \appendix\appendixinit % do not remove these two commands
 
