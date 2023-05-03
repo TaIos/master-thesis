@@ -266,7 +266,7 @@ The pseudocode of the proposed placing heuristic is in algorithm~\ref{alg:placem
         \For{$point$ \In \PossiblePlacementPoints{painting, \PlacedPaintings, \SlicingLayout}} {
             \PlacedPainting $\leftarrow$ \Place{painting, point}\\
             \If{\Best == \Nil\\
-            \Or \Objective{\PlacedPaintings$+$\PlacedPainting, \SlicingLayout}\\
+            \Or \Objective{\PlacedPaintings $+$ \PlacedPainting, \SlicingLayout}\\
                 $<$  \Objective{\PlacedPaintings $+$ \Best, \SlicingLayout}}{
                 \Best $\leftarrow$ \PlacedPainting
             }
