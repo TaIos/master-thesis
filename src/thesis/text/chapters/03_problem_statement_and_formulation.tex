@@ -10,7 +10,7 @@ First, let us define what a painting placement instance is.\\
     \label{eq:painting-placement-instance}
 \end{equation}
 
-where $P \subseteq (\nat, \nat)^N$ are painting dimensions (width$, $height pairs),
+where $P \subseteq (\nat, \nat)^N$ are painting dimensions (width, height pairs),
 $N$ is the number of paintings,
 $F \subseteq \real^{N, N}$ is matrix defining flow between paintings,
 $L \in (\nat, \nat)$ is layout dimension (width, height pair)
@@ -31,7 +31,7 @@ An example of a painting placement instance is
 Instance $I_1$ contains two paintings, the first with dimensions $5\times4$, the second with $8\times5$.
 The flow between them is $5.8$.
 The layout to which paintings are placed has a width $15$ and a height $7$.
-The evaluation function is $f(x,y) = x+y$.
+The evaluation function is $x+y$.
 
 Next, each painting placement instance can have multiple solutions.\\
 
@@ -47,7 +47,7 @@ For example, one solution $S_1$ for the instance $I_1$ is
     S_1 = \langle (0,0), (6,1) \rangle \,.
 \]
 
-This means that the first painting's lower left corner has coordinates $(0,0)$
+It means that the first painting's lower left corner has coordinates $(0,0)$
 and similarly $(6,1)$ for the second painting.
 Illustration of both $I_1$ and $S_1$ can be seen in figure~\ref{fig:painting-placement-solution}.
 
