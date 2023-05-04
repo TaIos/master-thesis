@@ -144,10 +144,10 @@ where the unresolved tree contains one wildcard symbol $*$ as a root.
 By resolving this tree, $*$ is first replaced by $H$ and then by $V$.
 In this case, resolving the unresolved slicing tree produces two resolved slicing trees,
 which differ in root node value.
-In the general case, an unresolved slicing tree can at most resolve to $2^k$ resolved slicing trees,
-where $k$ is the number of internal nodes, i.e., the nodes that can contain wildcard $*$.
+In the general case, an unresolved slicing tree can at most resolve to $2^p$ resolved slicing trees,
+where $p$ is the number of internal nodes, i.e., the nodes that can contain wildcard $*$.
 Reformulation for a decoded individual is that decoded individual can, at most, represent
-$2^k$ resolved slicing trees, where $k$ is the number of orientations.
+$2^{|OR|}$ resolved slicing trees, where $OR$ are orientations from section~\ref{subsec:individual-decoding}.
 
 
 

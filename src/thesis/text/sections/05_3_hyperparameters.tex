@@ -71,7 +71,7 @@ stops decreasing rapidly.
 
 \subsection{Population size}\label{subsec:population-size}
 
-Hyperparameter \verb|populationSize| is calculated as $kN$, where $k$ is \definice{population scaling factor}
+Hyperparameter \verb|populationSize| is calculated as $\kappa N$, where $\kappa$ is \definice{population scaling factor}
 and $N$ is instance size.
 It determines the population size that is linear to the instance size.
 
@@ -90,8 +90,8 @@ more individuals for which reproductive plan must be computed.
 Hyperparameter \verb|maximumWildCardCount| limits the maximum number of $*$ cut types produced by $OR_{prob}$ decoding (subsec.~\ref{subsec:individual-decoding}).
 Keeping this hyperparameter low or even setting it to zero is recommended.
 The reason is that if it is high, computation time increases as $*$ spreads in the population.
-For example, consider an individual whose orientation vector is solely composed of $*$ cut types.
-If the size of that vector is $n$, individual decodes to $2^n$ resolved slicing trees as seen in figure~\ref{fig:layout-construction-steps}.
+For example, consider a decoded individual whose orientations $OR$ are solely composed of~$*$ cut types.
+Then, the  individual decodes to $2^{|OR|}$ resolved slicing trees as seen in figure~\ref{fig:layout-construction-steps}.
 
 Results for random\_10 instance are in figure~\ref{fig:hyperparameters-maximum-wild-card-count}.
 The top sub-figure shows that the average population objective does not differ significantly for any limit on the wildcard cut type.
@@ -124,8 +124,8 @@ However, for random\_20 instance,
 weight one (no penalization) has a faster-decreasing trend and produces a population with a better average population objective.
 
 The reason for better average performance at larger instance with weight one (no penalization) might
-be that search space increases exponentially (there are at least $2^{N-1}$ different unresolved slicing trees, for instance of size $N$) and the introduction of wildcard cut type $*$ starts to manifest itself
-at larger instances.
+be that search space increases exponentially (there exists at least $2^{N-1}$ different unresolved slicing trees, for instance of size $N$),
+and the introduction of wildcard cut type $*$ starts to manifest itself at larger instances.
 
 Results for the average number of wildcard cut types $*$ at the best individual before decoding at each iteration are in
 figure~\ref{fig:hyperparameters-orientation-weights-wildcard-cut-type-spread}.
@@ -191,9 +191,10 @@ The conclusion is that hyperparameter \verb|initialPopulationDivisionCounts| doe
 
 \subsection{Overlapping penalization constant}\label{subsec:overlapping-penalization-constant}
 
-Hyperparameter \verb|overlappingPenalizationConstant| is the penalization constant $\lambda$ from eq.~\ref{eq:objective} used to penalize individuals representing solutions with overlapping paintings.
-It is calculated as $kD$, where $k$ is a diagonal multiple and $D$ is the length of a diagonal in a layout.
-Diagonal length $D$ for a layout with width $W$ and height  $H$ is $\sqrt{W^2 + H^2}$.
+Hyperparameter \verb|overlappingPenalizationConstant| is the penalization constant $\lambda$ from eq.~\ref{eq:objective}
+used to penalize individuals representing solutions with overlapping paintings.
+It is calculated as $\rho D$, where $\rho$ is a diagonal multiple and $D$ is the length of a diagonal in a layout.
+Diagonal length $D$ for a layout with width $W$ and height $H$ is $\sqrt{W^2 + H^2}$.
 
 Results of the average overlapping paintings count for the best individual at each iteration are in figure~\ref{fig:hyperparameters-overlapping-penalization-constant}.
 We can see that the two lowest diagonal multiples with values $0.5$ and $1.0$ fail to remove most overlapping paintings from the best individuals.
@@ -207,7 +208,7 @@ two times the diagonal length of the layout to start penalizing individuals that
 Hyperparameter~\verb|outsideOfAllocatedAreaPenalizationConstant| is the penalization constant $\gamma$ from eq.~\ref{eq:objective} used to penalize
 individuals representing solutions with paintings that are placed outside of their allocated area (see fig.~\ref{fig:allocated-area} and subsec.~\ref{subsec:placement-heuristic}).
 It is calculated identically as the overlapping penalization constant (subsec.~\ref{subsec:overlapping-penalization-constant}).
-That is, as $kD$, where $k$ is a diagonal multiple, and $D$ is the length of a diagonal in a layout.
+That is, as $\rho D$, where $\rho$ is a diagonal multiple, and $D$ is the length of a diagonal in a layout.
 
 Results of the percentage of paintings placed outside the allocated area for two random instances are in table~\ref{tab:hyperparameters-outside-of-allocated-area-penalization-constant}
 (it is presented using a table because the values do not significantly change throughout the iterations).
@@ -272,7 +273,7 @@ important and might be left out by setting it to zero to save computation time.
     \subfloat{\includegraphics[width=0.9\textwidth]{hyperparameters/population_size_random_20}\label{subfig:hyperparameters-population-size-random-20}}
     \caption[Testing population scaling factor]
     {Testing population scaling factor at two random instances.
-    The population size is $kN$ for population scaling factor $k$ and instance of size $N$. }
+    The population size is $\kappa N$ for population scaling factor $\kappa$ and instance of size $N$. }
     \label{fig:hyperparameters-population-size}%
 \end{figure}
 
@@ -341,7 +342,7 @@ important and might be left out by setting it to zero to save computation time.
     \subfloat{\includegraphics[width=0.95\textwidth]{hyperparameters/overlapping_penalization_constant_random_20}\label{subfig:hyperparameters-overlapping-penalization-constant-random-20}}
     \caption[Testing overlapping penalization constant]
     {Testing overlapping penalization constant $\lambda$ (eq.~\ref{eq:objective}) at two random instances.
-    It is calculated as $kD$, where $k$ is a diagonal multiple, and $D$ is the length of a diagonal in a layout.
+    It is calculated as $\rho D$, where $\rho$ is a diagonal multiple, and $D$ is the length of a diagonal in a layout.
     Graphs show the average overlapping paintings count for the best individual at each iteration.}
     \label{fig:hyperparameters-overlapping-penalization-constant}%
 \end{figure}
