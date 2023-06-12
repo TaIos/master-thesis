@@ -20,10 +20,10 @@
 \usepackage{tikz}
 \usetikzlibrary{fadings}
 \newcommand{\gradient}{\noindent%
-	\begin{tikzpicture}
-		\fill[black,path fading=west] (-0.5\linewidth,0) rectangle (0,1ex);
-		\fill[black,path fading=east] (0,0) rectangle (0.5\linewidth,1ex);
-	\end{tikzpicture}%
+    \begin{tikzpicture}
+        \fill[black,path fading=west] (-0.5\linewidth,0) rectangle (0,1ex);
+        \fill[black,path fading=east] (0,0) rectangle (0.5\linewidth,1ex);
+    \end{tikzpicture}%
 }
 
 % for setting different borders
@@ -152,7 +152,7 @@
 		\end{column}
 
 		\begin{column}{.5\textwidth}
-			\includegraphics[width=0.75\textheight]{corner_placing_heuristic}
+			\includegraphics[width=0.85\textheight]{painting_placement_solution}
 		\end{column}
 	\end{columns}
 
@@ -170,38 +170,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{Genetický algoritmus – princip fungování}
-	\begin{columns}[T]
-		\begin{column}{.5\textwidth}
-			\centering
-			\begin{itemize}
-				\item inspirován přirozeným výběrem v přírodě
-				\item randomizovaný iterativní algoritmus
-				\item stěžejí části \begin{itemize}
-					      \item kódování jedince
-					      \item fitness
-					      \item genetické operátory
-					            \begin{itemize}
-						            \item křížení, mutace, ...
-					            \end{itemize}
-					      \item reprodukční schéma
-				      \end{itemize}
-			\end{itemize}
-		\end{column}
-
-		\begin{column}{.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{reproductive_plan}
-		\end{column}
-
-	\end{columns}
-
-\end{frame}
+%\begin{frame}{Genetický algoritmus – princip fungování}
+%	\begin{columns}[T]
+%		\begin{column}{.5\textwidth}
+%			\centering
+%			\begin{itemize}
+%				\item inspirován přirozeným výběrem v přírodě
+%				\item randomizovaný iterativní algoritmus
+%				\item stěžejí části \begin{itemize}
+%					      \item kódování jedince
+%					      \item fitness
+%					      \item genetické operátory
+%					            \begin{itemize}
+%						            \item křížení, mutace, ...
+%					            \end{itemize}
+%					      \item reprodukční schéma
+%				      \end{itemize}
+%			\end{itemize}
+%		\end{column}
+%
+%		\begin{column}{.5\textwidth}
+%			\includegraphics[width=0.8\textwidth]{reproductive_plan}
+%		\end{column}
+%
+%	\end{columns}
+%
+%\end{frame}
 
 \begin{frame}{Genetický algoritmus – kódování jedince}
 	\begin{columns}[T]
 		\begin{column}{.5\textwidth}
 			\centering
 			\begin{itemize}
+				\item nový způsob kódování
 				\item dva stochastické vektory, jedna stochastická matice
 				\item jedinec reprezentuje alespoň jedno rozmístění obrazů
 			\end{itemize}
@@ -219,7 +220,7 @@
 		\begin{column}{.3\textwidth}
 			\centering
 			\begin{itemize}
-				\item unikátní řešení
+				\item unikátní řešení pomocí sčítaní
 				\item aproximace rozdělení, které poskytuje dobré výsledky
 				\item vždy vytvoří validního jedince
 			\end{itemize}
@@ -232,71 +233,52 @@
 \end{frame}
 
 \begin{frame}{Genetický algoritmus – dekódování jedince}
-	\begin{columns}[T]
-		\begin{column}{1.0\textwidth}
-			\begin{itemize}
-				\item náhodné klíče
-				\item typ řezu s nejvyšší pravděpodobností – H, V nebo \textit{*}
-				\item dekódovaný jedinec reprezentuje jeden řezový strom (slicing tree)
-			\end{itemize}
-		\end{column}
+	%	\begin{columns}[T]
+	%		\begin{column}{1.0\textwidth}
+	%			\begin{itemize}
+	%				\item náhodné klíče
+	%				\item typ řezu s nejvyšší pravděpodobností – H, V nebo \textit{*}
+	%				\item dekódovaný jedinec reprezentuje jeden řezový strom (slicing tree)
+	%			\end{itemize}
+	%		\end{column}
 
-	\end{columns}
+	%	\end{columns}
 	\vfill \begin{figure}
 		\centering
-		\includegraphics[width=0.7\textwidth]{./img/decoding-step}
+		\includegraphics[width=0.8\textwidth]{./img/decoding-step}
 	\end{figure}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Konstrukce řešení}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Konstrukce řešení 1/2 – slicing layout}
-	\begin{columns}[T]
-		\begin{column}{1.0\textwidth}
-			\centering
-			\begin{itemize}
-				\item rozdělení stěny na části
-				\item přiřazení každému obrazu jeho alokovaný prostor na stěne
-				\item unikátní rozšíření typu řezu o symbol \textit{*}
-			\end{itemize}
-		\end{column}
-
-		%		\begin{column}{.5\textwidth}
-		%			\includegraphics[width=0.75\textwidth]{./img/slicing-layout-101}
-		%		\end{column}
-	\end{columns}
-
-	\vfill \begin{figure}
-		\centering
-		\includegraphics[width=0.65\textwidth]{./img/slicing-layout-101}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{Konstrukce řešení 2/2}
-	\begin{columns}[T]
-		\begin{column}{.5\textwidth}
-			\centering
-			\begin{itemize}
-				\item iterativní greedy heuristika
-				\item v každém kroku se snaží umístit jeden obraz tak, aby minimalizovala objektivní funkci
-				\item pořadí umísťování je dáno pořadím po dekódování jedince
-			\end{itemize}
-		\end{column}
-
-		\begin{column}{.5\textwidth}
-			\includegraphics[width=0.95\textwidth]{corner_placing_heuristic}
-		\end{column}
-	\end{columns}
-\end{frame}
+%\begin{frame}{Rozmístění obrazů}
+%	\begin{columns}[T]
+%		\begin{column}{.5\textwidth}
+%			\centering
+%			\begin{itemize}
+%				\item iterativní greedy heuristika
+%				\item v každém kroku se snaží umístit jeden obraz tak, aby minimalizovala objektivní funkci
+%				\item pořadí umísťování je dáno pořadím po dekódování jedince
+%			\end{itemize}
+%		\end{column}
+%
+%		\begin{column}{.5\textwidth}
+%			\includegraphics[width=0.95\textwidth]{corner_placing_heuristic}
+%		\end{column}
+%	\end{columns}
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Výsledky}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Výsledky 1/2}
+\begin{frame}{Měření}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.75\textwidth]{hyperparameters/population_division_counts_random_20}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Vizualizace 1/2}
 	\includegraphics[width=0.49\textwidth]{visualizations/visualization_random_10}
 	\includegraphics[width=0.49\textwidth]{visualizations/visualization_cluster_3_6}
 \end{frame}
@@ -306,31 +288,31 @@
 	\includegraphics[width=0.49\textwidth]{visualizations/visualization_london_gallery_wall}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Rozříšení, zlepšení, aplikace}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Rozříšení, zlepšení, aplikace v jiných doménách}
-	\begin{columns}[T]
-		\begin{column}{1.0\textwidth}
-			\centering
-			\begin{itemize}
-
-				\item post-optimalizace
-				      \begin{itemize}
-					      \item přeuspořádání obrazů pro více volného místa, nepřekrývání, ...
-				      \end{itemize}
-
-				\item použití kódování pro jiné problémy
-				      \begin{itemize}
-					      \item knapsack, facility layout planning, ...
-				      \end{itemize}
-
-			\end{itemize}
-		\end{column}
-
-	\end{columns}
-\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Rozříšení, zlepšení, aplikace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Rozříšení, zlepšení, aplikace v jiných doménách}
+%	\begin{columns}[T]
+%		\begin{column}{1.0\textwidth}
+%			\centering
+%			\begin{itemize}
+%
+%				\item post-optimalizace
+%				      \begin{itemize}
+%					      \item přeuspořádání obrazů pro více volného místa, nepřekrývání, ...
+%				      \end{itemize}
+%
+%				\item použití kódování pro jiné problémy
+%				      \begin{itemize}
+%					      \item knapsack, facility layout planning, ...
+%				      \end{itemize}
+%
+%			\end{itemize}
+%		\end{column}
+%
+%	\end{columns}
+%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Závěr}
@@ -351,9 +333,9 @@
 		\item výstup
 		      \begin{itemize}
 			      \item představení unikátního kódování jedince a operátoru křížení
-			      \item rozšíření literatury o typ řezu \textit{*}
+			            %			      \item rozšíření literatury o typ řezu \textit{*}
 			      \item implementace řešení, vyhodnocení výsledků
-			      \item navržení rozšíření, zlepšení a aplikace v jiných doménách
+			      \item navržení rozšíření, zlepšení a aplikace v jiných doménách (knapsact, floorplanning, ...)
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
